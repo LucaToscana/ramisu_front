@@ -24,13 +24,13 @@ const contextClass = {
  */
 const RoutesWithNavigation = () => {
     
-    const isLogged = useSelector(selectIsLogged)
+    // const isLogged = useSelector(selectIsLogged)
 
     return (
         <BrowserRouter>
             <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default">
-                { isLogged && <IdleTimerCustom />}
-                <Navbar/>
+                {/* { isLogged && <IdleTimerCustom />} */}
+                {/* <Navbar/> */}
                 <main>
                     <Routes/>
                 </main>
