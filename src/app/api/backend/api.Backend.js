@@ -17,10 +17,10 @@ export default apiBackEnd;
  * 
  * @author Peter Mollet
  */
-apiBackEnd.interceptors.request.use( request => {
-    request.headers['Authorization'] = `Bearer ${ getToken() }`;
-    return request;
-})
+// apiBackEnd.interceptors.request.use( request => {
+//     request.headers['Authorization'] = `Bearer ${ getToken() }`;
+//     return request;
+// })
 
 /**
  * Interceptor of response, to see status code in the console and to handle the error

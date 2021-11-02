@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.productCard {
+    background-color: #EEEEEE;
+}
 
 @layer components {
     /* LINKS */
