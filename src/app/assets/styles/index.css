@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    overflow-x: hidden;
+    background-color: white;
+}
+
+.productCard {
+    background-color: #EEEEEE;
+}
+
+.active {
+    background-color: white; 
+    border-radius: 9999px; 
+    color: #63b3ed;
+}
+
+.clip-path {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
+}
 
 @layer components {
     /* LINKS */

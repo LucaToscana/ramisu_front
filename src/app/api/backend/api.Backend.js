@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken } from "../../shared/services/tokenServices";
+// import { getToken } from "../../shared/services/tokenServices";
 import handleHttpError from './../../shared/components/form-and-error-components/HandleHttpError';
 
 /**
@@ -12,11 +12,11 @@ const apiBackEnd = axios.create({
 })
 export default apiBackEnd;
 
-// /**
-//  * Interceptor of request to automatically put the JWTToken in the header
-//  *
-//  * @author Peter Mollet
-//  */
+/**
+ * Interceptor of request to automatically put the JWTToken in the header
+ * 
+ * @author Peter Mollet
+ */
 // apiBackEnd.interceptors.request.use( request => {
 //     request.headers['Authorization'] = `Bearer ${ getToken() }`;
 //     return request;
