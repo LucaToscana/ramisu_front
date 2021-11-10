@@ -31,7 +31,7 @@ const RoutesWithNavigation = () => {
             <div className="">
                 {/*{ isLogged && <IdleTimerCustom />}*/}
                 {/*<Navbar/>*/}
-                <main>
+                <main className="">
                     <Routes/>
                 </main>
                 <ToastContainer 

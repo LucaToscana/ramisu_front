@@ -67,7 +67,7 @@ const FormLogin = ({ submit, errorLog }) => (
  */
 const Login = (props) => {
     return (
-        <div className='mt-10'>
+        <div className='mt-10 md:w-1/2 md:border-2 md:shadow-2xl'>
             <div>
                 <h2 className="text-center font-bold uppercase">
                     Connexion

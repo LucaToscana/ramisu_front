@@ -27,7 +27,7 @@ import Login from './../components/account/Login';
     }
 
     return (
-        <div className="">
+        <div className="md:flex md:justify-center">
             <Login submit={handleLogin} errorLog={errorLog} />
         </div>
     );
