@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { URL_PRODUCTS_DETAILS, URL_PRODUCT } from '../shared/constants/urls/urlConstants';
+import {URL_PRODUCTS_DETAILS, URL_PRODUCT, URL_CART} from '../shared/constants/urls/urlConstants';
 // import { URL_HOME, URL_LOGIN, URL_ADMIN_HOME } from '../shared/constants/urls/urlConstants';
 // import HomeView from '../views/HomeView';
 // import LoginView from '../views/LoginView';
@@ -10,6 +10,7 @@ import { customHistory } from '../shared/services/historyServices';
 // import { PrivateRoute } from '../shared/components/utils-components/PrivateRoute';
 import ProductDetailView from "../views/ProductDetailView";
 import  ProductView  from '../views/ProductView';
+import CartsView from "../views/CartsView";
 
 /**
  * Routes of the application
@@ -25,6 +26,7 @@ const Routes = () => {
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             {/*<Route path={URL_LOGIN} component={LoginView} />*/}
             <Route exact path={URL_PRODUCT} component={ProductView} />
+            <Route path={URL_CART} component={CartsView}/>
         </Switch>
     );
 };
