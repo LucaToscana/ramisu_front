@@ -12,10 +12,10 @@ const ProductDetailView = () => {
     const [product, setProduct] = useState([])
 
     useEffect(()=>{
-        productDetail().then(res=>{
+        productDetail(product.id).then(res=>{
             setProduct(res.data)
         })
-    },[])
+    },[product.id])
     return (
         <div className="flex flex-col md:flex-row flex items-center">
                 <img

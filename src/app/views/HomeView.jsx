@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { productDetail } from "../api/backend/product";
+import { productDetail, getNumberOfProductsByField } from "../api/backend/product";
 import ProductDetails from '../components/product/ProductDetails';
 import ProductHomePageCard from '../components/product/ProductHomePageCard';
 import { hasRole } from './../shared/services/accountServices';
 import { ROLE_ADMIN } from './../shared/constants/rolesConstant';
 import { URL_ADMIN_HOME } from './../shared/constants/urls/urlConstants';
+import Loader from './../shared/components/utils-components/Loader';
+import handleHttpError from './../shared/components/form-and-error-components/HandleHttpError';
+
 
 /**
  * The view file for the home page of the website
@@ -16,28 +19,112 @@ import { URL_ADMIN_HOME } from './../shared/constants/urls/urlConstants';
  */
 const HomeView = ({ history }) => {
 
-    const [product, setProduct] = useState([])
+    const [productsRandom, setProductsRandom] = useState([]);
+    const [productsPromotion, setProductsPromotion] = useState([]);
+    const [productsTopSale, setProductsTopSale] = useState([]);
+    const [loadingRandom, setLoadingRandom] = useState(true);
+    const [loadingPromotion, setLoadingPromotion] = useState(true);
+    const [loadingTopSale, setLoadingTopSale] = useState(true);
 
     useEffect(() => {
+        getNumberOfProductsByField('random', 3)
+            .then(response => {
+                response.status === 200 && setProductsRandom(response.data);
+                setLoadingRandom(false);
+            })
+            .catch((error, response) => {
+                handleHttpError(error)
+            })
 
-        (async function getProduct() {
+        getNumberOfProductsByField('promotion', 3)
+            .then(response => {
+                response.status === 200 && setProductsPromotion(response.data);
+                setLoadingPromotion(false);
+            })
+            .catch((error, response) => {
+                handleHttpError(error)
+            })
 
-            await productDetail().then(response => {
-                setProduct(response.data);
-            });
-        })();
-    }, []);
-
+        getNumberOfProductsByField('topsale', 3)
+            .then(response => {
+                response.status === 200 && setProductsTopSale(response.data);
+                setLoadingTopSale(false);
+            })
+            .catch((error, response) => {
+                handleHttpError(error)
+            })
+    }, [])
 
     return (
+
         <div>
             <p className='text-primary-500 font-extrabold'>
-                HOME<br />
-                WTF<br />
-                sqdqsdqs<br />
-                dqsdsq<br />
+                {loadingRandom ? < Loader /> :
+                    <>
+                        <div class="text-center pb-2">
+                            <h class="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
+                                Notre boutique
+                            </h>
+                        </div>
+                        <div class="w-full bg-custom-lightbrown">
+                            <section class="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-                {/*<ProductHomePageCard product={product} />*/}
+                                    {(productsRandom.map((product) =>
+                                        <ProductHomePageCard product={product} />
+                                    ))
+                                    }
+
+                                </div>
+                            </section>
+                        </div>
+                    </>
+                }
+                <br />
+
+                {loadingPromotion ? < Loader /> :
+                    <>
+                        <div class="text-center pb-2">
+                            <h class="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
+                                Nos promotions
+                            </h>
+                        </div>
+                        <div class="w-full bg-custom-orange">
+                            <section class="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                                    {(productsPromotion.map((product) =>
+                                        <ProductHomePageCard product={product} />
+                                    ))
+                                    }
+
+                                </div>
+                            </section>
+                        </div>
+                    </>
+                }
+                <br />
+                {loadingTopSale ? < Loader /> :
+                    <>
+                        <div class="text-center pb-2">
+                            <h class="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
+                                Les tops ventes
+                            </h>
+                        </div>
+                        <div class="w-full bg-custom-green">
+                            <section class="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                                    {(productsTopSale.map((product) =>
+                                        <ProductHomePageCard product={product} />
+                                    ))
+                                    }
+
+                                </div>
+                            </section>
+                        </div>
+                    </>
+                }
             </p>
 
 

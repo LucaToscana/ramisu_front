@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-//import { MDBBtn, MDBCard, MDBCardTitle, MDBCardBody, MDBCardGroup, MDBCardImage, MDBCol, MDBCardText } from 'mdbreact';
-import { URL_PRODUCTS_DETAILS } from '../../shared/constants/urls/urlConstants';
 import figurine from './../../assets/images/figurine.jpg';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { URL_PRODUCTS_DETAILS } from '../../shared/constants/urls/urlConstants';
 
 /**
  * Contains the code to generate a card displaying the informations of a product.
@@ -19,21 +18,25 @@ const ProductHomePageCard = ({ product, color }) => {
     return (
 
         <div class="w-full">
-            <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                    <div class="w-full bg-white rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
-                        <div class="mb-8">
-                            <img class="object-center object-cover " src={figurine} alt="product" />
-                        </div>
-                        <div class="text-center">
-                            <p class="text-xl text-gray-400 font-normal mb-2">{product.universe.label}</p>
-                            <p class="text-base text-black font-bold">{product.label}</p>
-                            <p class="text-base text-white font-bold bg-black">{product.price} H.T.</p>
-                        </div>
+            {/*<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">*/}
+            <div class="grid gap-2">
+                <div class="w-full bg-gray-100 bg-opacity-50 rounded-lg sahdow-lg p-2 flex flex-col justify-center items-center">
+                    <div class="mb-2">
+                        <img class="object-center pb-2/3 " src={figurine} alt="product" />
                     </div>
+                    <div class="text-center">
+                        <p class="text-xl text-gray-700 font-normal mb-2">{product.universe.label}</p>
+                        <p class="text-base text-black font-bold">{product.label}</p>
+                    </div>
+                    <br />
+                    <p class="text-base text-white font-bold bg-black pl-2 pr-2">{product.price} € H.T.</p>
+                    <br />
+                    <p class="btn btn-light cursor-pointer" onClick={() => {
+                        history.push({ pathname: URL_PRODUCTS_DETAILS, state: { product: product } })
+                    }}>Voir plus</p>
                 </div>
-            </section>
+            </div>
+            {/*</section>*/}
         </div>
     )
 
