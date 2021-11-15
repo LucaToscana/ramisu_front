@@ -34,7 +34,7 @@ const FormLogin = ({ submit, errorLog }) => (
                     <label htmlFor="rememberMe" className="m-0 text-gray-400">Se souvenir de moi</label>
                 </div>
 
-                <div className="text-center  mb-4 mt-4">
+                <div className="text-center  mb-8 mt-4">
                     <Link to="/forgot-password" >
                         <span className=' font-medium underline' >
                             Mot de passe oublié ?
@@ -69,7 +69,7 @@ const Login = (props) => {
     return (
         <div className='mt-10 md:w-1/2 md:border-2 md:shadow-2xl'>
             <div>
-                <h2 className="text-center font-bold uppercase">
+                <h2 className="text-center font-bold uppercase md:mt-8">
                     Connexion
                 </h2>
             </div>

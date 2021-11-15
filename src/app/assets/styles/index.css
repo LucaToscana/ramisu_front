@@ -16,8 +16,17 @@ h1, h2, h3, h4, h5, h6, p {
     padding: 0.5rem;
 }
 
+.price {
+    background-color: #21212D;
+}
+
 .productCard {
-    background-color: #EEEEEE;
+    background-color: rgb(196, 196, 196);
+}
+
+.Cardproduct {
+    border: solid 2px #C3A758;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 .active {

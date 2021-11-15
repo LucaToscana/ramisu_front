@@ -10,16 +10,26 @@ import React from 'react'
  */
 export const Product = ({ label, price }) => {
     return (
-        <div className="m-4 flex flex-col-6 flex-wrap shadow-inner">
-            <img src={figurine} alt="" className="w-full border-2 border-gray-500 " />
-            <div className="productCard p-2 w-full flex flex-col flex-wrap justify-center items-center shadow-lg">
-                <div>
-                    <h2 className="m-2 flex text-center">{label}</h2>
-                </div>
-                <div className="w-full flex justify-around">
-                    <img src={heart} alt="" className="w-7" />
-                    <p className="m-2">{price}€</p>
-                    <img src={cart} alt="" className="w-7" />
+        <div className="m-4 p-4 Cardproduct ">
+            <div className="flex flex-wrap">
+                <img src={figurine} alt="" className="w-full" />
+                <div className="mt-4 p-2 flex flex-column justify-center w-100 clip-path productCard">
+                    <div>
+                        <h2 className="m-2 text-center font-bold">{label}</h2>
+                    </div>
+                    <div className="flex justify-evenly items-center w-100 mb-2">
+                        <div className="price justify-start rounded-2xl p-3">
+                            <p className="font-bold text-white">{price} € H.T</p>
+                        </div>
+                        <div className="flex">
+                            <div className="login rounded-2xl m-1 p-3">
+                                <img src={heart} alt="add to favorite" className="w-7" />
+                            </div>
+                            <div className="login rounded-2xl m-1 p-3">
+                                <img src={cart} alt="add to cart" className="w-7" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,16 +38,24 @@ export const Product = ({ label, price }) => {
 
 export const ProductList = ({ label, price }) => {
     return (
-        <div className="flex m-4 clip-path shadow-inner">
-            <img src={figurine} alt="" className="w-1/3 border-2 border-gray-500 " />
-            <div className="productCard p-2 w-full flex flex-column justify-evenly shadow-lg">
-                <div>
-                    <h2 className="m-2 text-center">{label}</h2>
-                </div>
-                <div className="flex justify-evenly">
-                    <img src={heart} alt="" className="w-7" />
-                    <p className="m-2">{price}€</p>
-                    <img src={cart} alt="" className="w-7" />
+        <div className="flex m-4 p-4 shadow-inner Cardproduct">
+            <div className="flex">
+                <img src={figurine} alt="" className="w-1/3 mr-1" />
+                <div className="p-2 flex flex-column justify-evenly w-100 clip-path productCard">
+                    <div>
+                        <h2 className="m-2 text-center font-bold">{label}</h2>
+                    </div>
+                    <div className="price align-self-center rounded-2xl p-2">
+                        <p className="font-bold text-white">{price} € H.T</p>
+                    </div>
+                    <div className="flex justify-around items-center w-100 mb-2">
+                        <div className="login rounded-2xl m-1">
+                            <img src={heart} alt="add to favorite" className="w-5" />
+                        </div>
+                        <div className="login rounded-2xl m-1">
+                            <img src={cart} alt="add to cart" className="w-5" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

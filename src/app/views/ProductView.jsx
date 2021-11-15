@@ -119,11 +119,16 @@ const ProductView = () => {
                     </button>
                 </div>
             </div>
-            {show ? <div className="grid grid-cols-2 w-screen">
+            <div className="lg:flex">
+                <div className="hidden lg:grid lg:grid-cols-1 w-100 lg:bg-gray-500">
+                    <h2>Filtre</h2>
+                </div>
+            {show ? <div className="md:grid md:grid-cols-2 lg:grid-cols-3  sm:w-100">
                 {listProductsColumn}
-            </div> : <div className="w-screen">
+            </div> : <div className="md:grid md:grid-cols-2 lg:grid-cols-3  sm:w-100">
                 {listListingProducts}
             </div>}
+            </div>
             <ul className=" flex justify-center m-5 text-white text-center">
                 <li className="inline-block rounded-full w-24 h-10 bg-gray-500 hover:bg-blue-500">
                     <button
