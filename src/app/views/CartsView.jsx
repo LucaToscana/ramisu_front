@@ -2,7 +2,6 @@ import React from 'react';
 import {init, remove, setQuantity, selectCart} from "../shared/redux-store/cartSlice";
 import {useSelector} from "react-redux";
 import trash from "../assets/images/icones/trash.png";
-import detail from "../assets/images/icones/detail.png";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import figurine from "../assets/images/figurine.jpg";
