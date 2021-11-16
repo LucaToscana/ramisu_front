@@ -1,9 +1,15 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { URL_PRODUCTS_DETAILS, URL_PRODUCT } from '../shared/constants/urls/urlConstants';
-// import { URL_HOME, URL_LOGIN, URL_ADMIN_HOME } from '../shared/constants/urls/urlConstants';
-// import HomeView from '../views/HomeView';
-// import LoginView from '../views/LoginView';
+import {
+    URL_HOME,
+    URL_LOGIN,
+    URL_ADMIN_HOME,
+    URL_PRODUCTS_DETAILS,
+    URL_PRODUCT,
+    URL_CART
+} from '../shared/constants/urls/urlConstants';
+import HomeView from '../views/HomeView';
+import LoginView from '../views/LoginView';
 import { customHistory } from '../shared/services/historyServices';
 import AdminHomeView from '../views/AdminHomeView';
 import { ROLE_ADMIN } from '../shared/constants/rolesConstant';

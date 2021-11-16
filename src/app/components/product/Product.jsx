@@ -11,7 +11,9 @@ import { add } from "../../shared/redux-store/cartSlice";
  * 
  * @author Jeremy Dejonghe
  */
-export const Product = ({ label, price }) => {
+export const Product = ({ label, price,stock, id }) => {
+    const product = {"id":id, "label":label, "price":price,"stock":stock,"quantite":1}
+    const dispatch = useDispatch()
     return (
         <div className="m-4 p-4 Cardproduct ">
             <div className="flex flex-wrap">
