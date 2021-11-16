@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Product, ProductList } from '../components/product/Product';
 import { getProducts, getTotalProducts } from './../api/backend/product';
 import Filter from '../components/layouts/Filter';
+import {useHistory} from 'react-router-dom'
+import {URL_CART} from '../shared/constants/urls/urlConstants'
 /**
  * Creation of productView for the listing of products
  * 
@@ -9,6 +11,7 @@ import Filter from '../components/layouts/Filter';
  */
 const ProductView = () => {
 
+    const history = useHistory();
     // Creation of a state for products
     const [products, setProducts] = useState([]);
     const [TotalProducts, setTotalProducts] = useState(0);
@@ -91,8 +94,9 @@ const ProductView = () => {
             <Product
                 key={product.id}
                 label={product.label}
-                description={product.description}
                 price={product.price}
+                id={product.id}
+                stock={product.stock}
             />
         );
     });
@@ -152,6 +156,7 @@ const ProductView = () => {
                     </button>
                 </li>
             </ul>
+            <button className="btn btn-primary" onClick={()=>history.push(URL_CART)}>Panier</button>
         </div>
     );
 };

@@ -6,8 +6,8 @@ import {URL_BACK_PRODUCT_DETAIL, URL_BACK_PRODUCTS, URL_BACK_TOTAL_PRODUCTS} fro
  *
  *@author Brahim TALLA
  */
-export function productDetail() {
-    return apiBackEnd.get(URL_BACK_PRODUCT_DETAIL)
+export function productDetail(id) {
+    return apiBackEnd.get(URL_BACK_PRODUCT_DETAIL+`${id}`)
 }
 
 /**
