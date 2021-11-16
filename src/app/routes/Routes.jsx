@@ -9,6 +9,8 @@ import LoginView from '../views/LoginView';
 import AdminHomeView from '../views/AdminHomeView';
 import ProductView from '../views/ProductView';
 import ProductDetailView from "../views/ProductDetailView";
+import  ProductView  from '../views/ProductView';
+import CartsView from "../views/CartsView";
 
 
 /**
@@ -27,6 +29,9 @@ const Routes = () => {
             {/*<PrivateRoute path={URL_ADMIN_HOME} component={AdminHomeView} roles={[ROLE_ADMIN]} />*/}
             <Route exact path={URL_PRODUCT} component={ProductView} />
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
+            <Route path={URL_LOGIN} component={LoginView} />
+            <Route exact path={URL_PRODUCT} component={ProductView} />
+            <Route path={URL_CART} component={CartsView}/>
         </Switch>
     );
 };

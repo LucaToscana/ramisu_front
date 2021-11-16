@@ -3,6 +3,9 @@ import heart from '../../assets/images/icones/heart-regular.svg'
 // import heartSolid from '../../assets/images/icones/heart-solid.svg'
 import cart from '../../assets/images/icones/shopping-cart-solid.svg'
 import React from 'react'
+import {useDispatch} from "react-redux";
+import { add } from "../../shared/redux-store/cartSlice";
+
 /**
  * Creation of a component Product.jsx to display the products
  * 
@@ -12,7 +15,7 @@ export const Product = ({ label, price }) => {
     return (
         <div className="m-4 p-4 Cardproduct ">
             <div className="flex flex-wrap">
-                <img src={figurine} alt="" className="w-full" />
+                <img src={figurine} alt="" className="w-full" onClick={() => dispatch(add(product))}/>
                 <div className="mt-4 p-2 flex flex-column justify-center w-100 clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold">{label}</h2>
