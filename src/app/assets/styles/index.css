@@ -39,6 +39,15 @@ h1, h2, h3, h4, h5, h6, p {
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
 }
 
+.filter {
+    border: solid 2px #C3A758;
+    background-color: #EEEEEE;
+}
+
+.borderFilter {
+    border: solid 2px #C3A758;
+}
+
 @layer components {
     /* LINKS */
     .link {

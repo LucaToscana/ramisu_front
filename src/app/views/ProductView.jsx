@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Product, ProductList } from '../components/product/Product';
 import { getProducts, getTotalProducts } from './../api/backend/product';
+import Filter from '../components/layouts/Filter';
 /**
  * Creation of productView for the listing of products
  * 
@@ -120,9 +121,7 @@ const ProductView = () => {
                 </div>
             </div>
             <div className="lg:flex">
-                <div className="hidden lg:grid lg:grid-cols-1 w-100 lg:bg-gray-500">
-                    <h2>Filtre</h2>
-                </div>
+                <Filter />
             {show ? <div className="md:grid md:grid-cols-2 lg:grid-cols-3  sm:w-100">
                 {listProductsColumn}
             </div> : <div className="md:grid md:grid-cols-2 lg:grid-cols-3  sm:w-100">
