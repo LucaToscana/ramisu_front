@@ -11,7 +11,7 @@ import React from "react";
 const ProductDetails = ({label, price, description}) => {
     return(
         <>
-            <div className="flex flex-col flex items-center bg-gray-200 mb-2">
+            <div className="flex flex-col items-center bg-gray-200 mb-2">
                 <div className="font-bold">{label}</div>
                 <div className="pr-2"><span>Prix: </span>{price}€ </div>
             </div>

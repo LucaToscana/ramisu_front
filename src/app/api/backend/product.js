@@ -1,4 +1,5 @@
 import apiBackEnd from "./api.Backend";
+import {URL_BACK_PRODUCT_DETAIL, URL_BACK_PRODUCTS, URL_BACK_TOTAL_PRODUCTS} from "../../shared/constants/urls/urlBackEnd";
 import {URL_BACK_PRODUCT_DETAIL, URL_BACK_GET_NUMBER_OF_PRODUCTS_BY_FIELD} from "../../shared/constants/urls/urlBackEnd";
 
 /**
@@ -9,6 +10,24 @@ import {URL_BACK_PRODUCT_DETAIL, URL_BACK_GET_NUMBER_OF_PRODUCTS_BY_FIELD} from 
 export function productDetail(id) {
     return apiBackEnd.get(`${URL_BACK_PRODUCT_DETAIL}${id}`)
 }
+
+/**
+ * Instance axios to get the list of products
+ * 
+ * @author Jeremy Dejonghe
+ */
+export const getProducts = (page) => {
+
+    return apiBackEnd.get(URL_BACK_PRODUCTS + "?page=" + page + "&size=10");
+};
+
+export const getTotalProducts = () => {
+
+    return apiBackEnd.get(URL_BACK_TOTAL_PRODUCTS);
+};
+
+
+
 
 /**
  * Get X products depending on a field (random, promotion, top sale)
