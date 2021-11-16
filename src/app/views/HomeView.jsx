@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { productDetail, getNumberOfProductsByField } from "../api/backend/product";
-import ProductDetails from '../components/product/ProductDetails';
+import { getNumberOfProductsByField } from "../api/backend/product";
 import ProductHomePageCard from '../components/product/ProductHomePageCard';
 import { hasRole } from './../shared/services/accountServices';
 import { ROLE_ADMIN } from './../shared/constants/rolesConstant';

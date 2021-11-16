@@ -25,7 +25,7 @@ const ProductHomePageCard = ({ product, color }) => {
                         <img class="object-center pb-2/3 " src={figurine} alt="product" />
                     </div>
                     <div class="text-center">
-                        <p class="text-xl text-gray-700 font-normal mb-1">{product.universe.label}</p>
+                        <p class="text-xl text-gray-700 font-normal mb-1">{product.universeDAO.label}</p>
                         <p class="text-base text-black font-bold mb-1">{product.label}</p>
                     </div>
                     <br />

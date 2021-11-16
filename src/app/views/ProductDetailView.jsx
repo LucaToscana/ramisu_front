@@ -12,7 +12,7 @@ const ProductDetailView = () => {
     const [product, setProduct] = useState([])
 
     useEffect(()=>{
-        productDetail(product.id).then(res=>{
+        productDetail().then(res=>{
             setProduct(res.data)
         })
     },[])

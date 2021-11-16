@@ -1,6 +1,5 @@
 import apiBackEnd from "./api.Backend";
-import {URL_BACK_PRODUCT_DETAIL, URL_BACK_PRODUCTS, URL_BACK_TOTAL_PRODUCTS} from "../../shared/constants/urls/urlBackEnd";
-import {URL_BACK_PRODUCT_DETAIL, URL_BACK_GET_NUMBER_OF_PRODUCTS_BY_FIELD} from "../../shared/constants/urls/urlBackEnd";
+import {URL_BACK_PRODUCT_DETAIL, URL_BACK_PRODUCTS, URL_BACK_TOTAL_PRODUCTS, URL_BACK_GET_NUMBER_OF_PRODUCTS_BY_FIELD} from "../../shared/constants/urls/urlBackEnd";
 
 /**
  * Instance axios to the BACKEND
