@@ -1,10 +1,13 @@
 import React from "react";
-import { slide as Menu } from 'react-burger-menu';
+//import { slide as Menu } from 'react-burger-menu';
 
 
 const HamburgerMenu = () => {
 
     return (
+        <>
+        </>
+        /*
         <Menu>
             <a className="menu-item" href="/shop">
                 Boutique
@@ -19,6 +22,7 @@ const HamburgerMenu = () => {
                 Notifications
             </a>
         </Menu>
+        */
     );
 
 }

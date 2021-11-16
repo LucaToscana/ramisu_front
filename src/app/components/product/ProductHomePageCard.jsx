@@ -25,11 +25,11 @@ const ProductHomePageCard = ({ product, color }) => {
                         <img class="object-center pb-2/3 " src={figurine} alt="product" />
                     </div>
                     <div class="text-center">
-                        <p class="text-xl text-gray-700 font-normal mb-2">{product.universe.label}</p>
-                        <p class="text-base text-black font-bold">{product.label}</p>
+                        <p class="text-xl text-gray-700 font-normal mb-1">{product.universe.label}</p>
+                        <p class="text-base text-black font-bold mb-1">{product.label}</p>
                     </div>
                     <br />
-                    <p class="text-base text-white font-bold bg-black pl-2 pr-2">{product.price} € H.T.</p>
+                    <p class="text-base text-white rounded font-bold bg-black pl-2 pr-2 m-1">{product.price} € H.T.</p>
                     <br />
                     <p class="btn btn-light cursor-pointer" onClick={() => {
                         history.push({ pathname: URL_PRODUCTS_DETAILS, state: { product: product } })
