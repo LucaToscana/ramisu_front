@@ -26,7 +26,12 @@ module.exports = {
           '700': '#bf5d0d',
           '800': '#a7510c',
           '900': '#8f460a',
-        }
+        },
+        custom:{
+          'lightbrown': '#C3A758',
+          'orange': '#C28F2C',
+          'green': '#AEA70A',
+        },
       }
     }
   },

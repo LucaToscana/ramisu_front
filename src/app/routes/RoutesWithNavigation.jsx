@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify'
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Routes from './Routes';
-// import { selectIsLogged } from './../shared/redux-store/authenticationSlice';
-// import Navbar from './../components/layouts/Navbar';
-// import IdleTimerCustom from './../components/account/IdleTimerCustom';
+import { selectIsLogged } from './../shared/redux-store/authenticationSlice';
+import Navbar from './../components/layouts/Navbar';
+import IdleTimerCustom from './../components/account/IdleTimerCustom';
 
 const contextClass = {
     success: "bg-green-600",
@@ -24,14 +24,14 @@ const contextClass = {
  */
 const RoutesWithNavigation = () => {
     
-    // const isLogged = useSelector(selectIsLogged)
+    const isLogged = useSelector(selectIsLogged)
 
     return (
         <BrowserRouter>
-            <div className="">
-                {/*{ isLogged && <IdleTimerCustom />}*/}
-                {/*<Navbar/>*/}
-                <main className="">
+            <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default">
+                { isLogged && <IdleTimerCustom /> }
+                <Navbar/>
+                <main>
                     <Routes/>
                 </main>
                 <ToastContainer 

@@ -8,15 +8,16 @@ import {
     URL_PRODUCT,
     URL_CART
 } from '../shared/constants/urls/urlConstants';
-import HomeView from '../views/HomeView';
-import LoginView from '../views/LoginView';
 import { customHistory } from '../shared/services/historyServices';
-import AdminHomeView from '../views/AdminHomeView';
 import { ROLE_ADMIN } from '../shared/constants/rolesConstant';
 import { PrivateRoute } from '../shared/components/utils-components/PrivateRoute';
+import HomeView from '../views/HomeView';
+import LoginView from '../views/LoginView';
+import AdminHomeView from '../views/AdminHomeView';
+import ProductView from '../views/ProductView';
 import ProductDetailView from "../views/ProductDetailView";
-import  ProductView  from '../views/ProductView';
 import CartsView from "../views/CartsView";
+
 
 /**
  * Routes of the application
@@ -27,11 +28,12 @@ import CartsView from "../views/CartsView";
 const Routes = () => {
     return (
         <Switch history={customHistory}>
-            <PrivateRoute exact path={URL_HOME} component={HomeView} />
-            <PrivateRoute path={URL_ADMIN_HOME} component={AdminHomeView} roles={[ROLE_ADMIN]} />
-            <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
+            <Route exact path={URL_HOME} component={HomeView} />
             <Route path={URL_LOGIN} component={LoginView} />
+            <PrivateRoute path={URL_ADMIN_HOME} component={AdminHomeView} roles={[ROLE_ADMIN]} />
+
             <Route exact path={URL_PRODUCT} component={ProductView} />
+            <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             <Route path={URL_CART} component={CartsView}/>
         </Switch>
     );
