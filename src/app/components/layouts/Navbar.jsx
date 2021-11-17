@@ -1,10 +1,12 @@
 import React, { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import { Link, useHistory } from 'react-router-dom';
-import { URL_HOME, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
+import { Link } from 'react-router-dom';
+// import { Link, useHistory } from 'react-router-dom';
+// import { URL_HOME, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { URL_HOME } from './../../shared/constants/urls/urlConstants';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
 import joey from "../../assets/images/joey.jpg";
 
 
@@ -32,19 +34,19 @@ function classNames(...classes) {
  */
 const Navbar = () => {
 
-    const history = useHistory()
+    // const history = useHistory()
 
     return (
         <Disclosure as="nav" className="top-0 sticky relative z-50 w-full navbar-color">
             {({ open }) => (
                 <>
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-2">
 
                         {/* Search bar */}
-                        <form action="/search" class="flex flex-wrap md:flex-row" >
+                        <form action="/search" className="flex flex-wrap md:flex-row" >
                             <input type="search" name="query" placeholder="Rechercher" required="required"
-                                class="items-center w-full max-w-md mx-auto h-12 px-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-20 xl:transition-all 
-                            xl:duration-300 xl:w-36 xl:focus:w-44 lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
+                                className="items-center w-full max-w-md mx-auto h-12 px-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/2 xl:transition-all 
+                            xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
                             dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"
                             />
                         </form>
@@ -197,27 +199,27 @@ const Navbar = () => {
 export default Navbar
 
 
-const ConnectionBtn = () => {
-    const isLogged = useSelector(selectIsLogged)
-    const dispatch = useDispatch()
-    if (isLogged)
-        return (
-            <button className="ml-8 btn btn-green" onClick={() => dispatch(signOut())}>
-                Sign out
-            </button>
-        )
-    else return (
-        <>
-            <Link to={URL_LOGIN}>
-                <div className='ml-8 btn btn-primary'>
-                    S'identifier
-                </div>
-            </Link>
-            <Link to="/register">
-                <button className="ml-8 btn btn-green">
-                    S'inscrire
-                </button>
-            </Link>
-        </>
-    )
-}
+// const ConnectionBtn = () => {
+//     const isLogged = useSelector(selectIsLogged)
+//     const dispatch = useDispatch()
+//     if (isLogged)
+//         return (
+//             <button className="ml-8 btn btn-green" onClick={() => dispatch(signOut())}>
+//                 Sign out
+//             </button>
+//         )
+//     else return (
+//         <>
+//             <Link to={URL_LOGIN}>
+//                 <div className='ml-8 btn btn-primary'>
+//                     S'identifier
+//                 </div>
+//             </Link>
+//             <Link to="/register">
+//                 <button className="ml-8 btn btn-green">
+//                     S'inscrire
+//                 </button>
+//             </Link>
+//         </>
+//     )
+// }

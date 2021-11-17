@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getNumberOfProductsByField } from "../api/backend/product";
 import ProductHomePageCard from '../components/product/ProductHomePageCard';
-import { hasRole } from './../shared/services/accountServices';
-import { ROLE_ADMIN } from './../shared/constants/rolesConstant';
-import { URL_ADMIN_HOME } from './../shared/constants/urls/urlConstants';
+// import { hasRole } from './../shared/services/accountServices';
+// import { ROLE_ADMIN } from './../shared/constants/rolesConstant';
+// import { URL_ADMIN_HOME } from './../shared/constants/urls/urlConstants';
 import Loader from './../shared/components/utils-components/Loader';
 import handleHttpError from './../shared/components/form-and-error-components/HandleHttpError';
 
@@ -56,21 +56,23 @@ const HomeView = ({ history }) => {
 
     return (
 
-        <div>
-            <p className='text-primary-500 font-extrabold'>
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default">
+            <div className='text-primary-500 font-extrabold'>
                 {loadingRandom ? < Loader /> :
                     <>
-                        <div class="text-center pb-2">
-                            <h class="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
+                        <div className="text-center pb-2">
+                            <h2 className="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
                                 Notre boutique
-                            </h>
+                            </h2>
                         </div>
-                        <div class="w-full bg-custom-lightbrown">
-                            <section class="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="w-full bg-custom-lightbrown">
+                            <section className="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                     {(productsRandom.map((product) =>
-                                        <ProductHomePageCard product={product} />
+                                        <ProductHomePageCard 
+                                        key={product.id}
+                                        product={product} />
                                     ))
                                     }
 
@@ -83,17 +85,19 @@ const HomeView = ({ history }) => {
 
                 {loadingPromotion ? < Loader /> :
                     <>
-                        <div class="text-center pb-2">
-                            <h class="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
+                        <div className="text-center pb-2">
+                            <h2 className="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
                                 Nos promotions
-                            </h>
+                            </h2>
                         </div>
-                        <div class="w-full bg-custom-orange">
-                            <section class="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="w-full bg-custom-orange">
+                            <section className="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                     {(productsPromotion.map((product) =>
-                                        <ProductHomePageCard product={product} />
+                                        <ProductHomePageCard 
+                                        key={product.id}
+                                        product={product} />
                                     ))
                                     }
 
@@ -105,17 +109,19 @@ const HomeView = ({ history }) => {
                 <br />
                 {loadingTopSale ? < Loader /> :
                     <>
-                        <div class="text-center pb-2">
-                            <h class="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
+                        <div className="text-center pb-2">
+                            <h2 className="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
                                 Les tops ventes
-                            </h>
+                            </h2>
                         </div>
-                        <div class="w-full bg-custom-green">
-                            <section class="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="w-full bg-custom-green">
+                            <section className="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                     {(productsTopSale.map((product) =>
-                                        <ProductHomePageCard product={product} />
+                                        <ProductHomePageCard 
+                                        key={product.id}
+                                        product={product} />
                                     ))
                                     }
 
@@ -124,7 +130,7 @@ const HomeView = ({ history }) => {
                         </div>
                     </>
                 }
-            </p>
+            </div>
 
 
 
