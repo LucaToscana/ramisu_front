@@ -5,8 +5,10 @@ import { Link, useHistory } from 'react-router-dom';
 import { URL_HOME, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
+import joey from "../../assets/images/joey.jpg";
 
 
+// Constants used for navigating with the navbar
 const navigation = [
     { name: 'Accueil', href: '/', current: true },
     { name: 'Boutique', href: '/products', current: false },
@@ -20,6 +22,14 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
 
+
+/**
+ * Website navbar made with Tailwind
+ * 
+ * @returns the navbar object
+ * 
+ * @author Cecile
+ */
 const Navbar = () => {
 
     const history = useHistory()
@@ -29,6 +39,16 @@ const Navbar = () => {
             {({ open }) => (
                 <>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6">
+
+                        {/* Search bar */}
+                        <form action="/search" class="flex flex-wrap md:flex-row" >
+                            <input type="search" name="query" placeholder="Rechercher" required="required"
+                                class="items-center w-full max-w-md mx-auto h-12 px-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-20 xl:transition-all 
+                            xl:duration-300 xl:w-36 xl:focus:w-44 lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
+                            dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"
+                            />
+                        </form>
+
                         <div className="relative flex items-center justify-between h-16">
                             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
 
@@ -43,7 +63,10 @@ const Navbar = () => {
                                 </Disclosure.Button>
 
                             </div>
+
                             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+
+                                {/* Website logo */}
                                 <div className="flex-shrink-0 flex items-center">
                                     <img
                                         className="block lg:hidden h-8 w-auto"
@@ -75,7 +98,10 @@ const Navbar = () => {
                                         ))}
                                     </div>
                                 </div>
+
                             </div>
+
+                            {/* Right part of navbar - widgets */}
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                                 <button
                                     type="button"
@@ -89,10 +115,10 @@ const Navbar = () => {
                                 <Menu as="div" className="ml-3 relative">
                                     <div>
                                         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                                            <span className="sr-only">Open user menu</span>
+                                            <span className="sr-only">Ouvrir le menu utilisateur</span>
                                             <img
                                                 className="h-8 w-8 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                src={joey}
                                                 alt=""
                                             />
                                         </Menu.Button>
@@ -123,7 +149,7 @@ const Navbar = () => {
                                                         href="#"
                                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                                     >
-                                                        Changer les informations de compte
+                                                        Changer les informations du compte
                                                     </Link>
                                                 )}
                                             </Menu.Item>
@@ -166,40 +192,6 @@ const Navbar = () => {
             )}
         </Disclosure>
     )
-
-
-
-    /*
-       return (
-           <nav className="top-0 fixed z-50 w-full navbar-color shadow-md">
-               <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                   <div className="flex justify-between items-center py-6 md:justify-start md:space-x-10">
-       
-                       <div className="bm-burger-button">
-                           <HamburgerMenu/>
-                       </div>
-       
-                       <div>
-                           <Link to={URL_HOME}>
-                               <img
-                                   className="h-8 w-auto sm:h-10 cursor-pointer"
-                                   src='/warhammer-shop-logo.png'
-                                   alt="Warhammer Market Logo"
-                                   width={200}
-                                   height={60}
-                               />
-                           </Link>
-                       </div>
-   
-                       <div className="flex items-center justify-end flex-1 lg:w-0">
-                           <ConnectionBtn/>
-                       </div>
-   
-                   </div>
-   
-               </div>
-           </nav>
-       ) */
 }
 
 export default Navbar
