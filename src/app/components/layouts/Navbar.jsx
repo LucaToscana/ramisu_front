@@ -3,10 +3,9 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
-// import { URL_HOME, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
-import { URL_HOME } from './../../shared/constants/urls/urlConstants';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
+import { URL_HOME, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
 import joey from "../../assets/images/joey.jpg";
 
 
@@ -37,7 +36,7 @@ const Navbar = () => {
     // const history = useHistory()
 
     return (
-        <Disclosure as="nav" className="top-0 sticky relative z-50 w-full navbar-color">
+        <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
             {({ open }) => (
                 <>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-2">
@@ -105,69 +104,12 @@ const Navbar = () => {
 
                             {/* Right part of navbar - widgets */}
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                                <button
-                                    type="button"
-                                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                                >
-                                    <span className="sr-only">Voir les notifications</span>
-                                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                                </button>
 
-                                {/* Profile dropdown */}
-                                <Menu as="div" className="ml-3 relative">
-                                    <div>
-                                        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                                            <span className="sr-only">Ouvrir le menu utilisateur</span>
-                                            <img
-                                                className="h-8 w-8 rounded-full"
-                                                src={joey}
-                                                alt=""
-                                            />
-                                        </Menu.Button>
-                                    </div>
-                                    <Transition
-                                        as={Fragment}
-                                        enter="transition ease-out duration-100"
-                                        enterFrom="transform opacity-0 scale-95"
-                                        enterTo="transform opacity-100 scale-100"
-                                        leave="transition ease-in duration-75"
-                                        leaveFrom="transform opacity-100 scale-100"
-                                        leaveTo="transform opacity-0 scale-95"
-                                    >
-                                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                            <Menu.Item>
-                                                {({ active }) => (
-                                                    <Link to={URL_HOME}
-                                                        href=""
-                                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                    >
-                                                        Profil
-                                                    </Link>
-                                                )}
-                                            </Menu.Item>
-                                            <Menu.Item>
-                                                {({ active }) => (
-                                                    <Link
-                                                        href="#"
-                                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                    >
-                                                        Changer les informations du compte
-                                                    </Link>
-                                                )}
-                                            </Menu.Item>
-                                            <Menu.Item>
-                                                {({ active }) => (
-                                                    <Link
-                                                        href="#"
-                                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                                                    >
-                                                        Se déconnecter
-                                                    </Link>
-                                                )}
-                                            </Menu.Item>
-                                        </Menu.Items>
-                                    </Transition>
-                                </Menu>
+                                {/* Display depending if the user is connected or not :
+                                    notifications, connection / registration link, profile menu burger 
+                                */}
+                                <ConnectionStatus />
+
                             </div>
                         </div>
                     </div>
@@ -199,27 +141,127 @@ const Navbar = () => {
 export default Navbar
 
 
-// const ConnectionBtn = () => {
-//     const isLogged = useSelector(selectIsLogged)
-//     const dispatch = useDispatch()
-//     if (isLogged)
-//         return (
-//             <button className="ml-8 btn btn-green" onClick={() => dispatch(signOut())}>
-//                 Sign out
-//             </button>
-//         )
-//     else return (
-//         <>
-//             <Link to={URL_LOGIN}>
-//                 <div className='ml-8 btn btn-primary'>
-//                     S'identifier
-//                 </div>
-//             </Link>
-//             <Link to="/register">
-//                 <button className="ml-8 btn btn-green">
-//                     S'inscrire
-//                 </button>
-//             </Link>
-//         </>
-//     )
-// }
+const ConnectionStatus = () => {
+
+    const isLogged = useSelector(selectIsLogged);
+    const dispatch = useDispatch();
+
+    if (isLogged) {
+
+        return (
+
+            <>
+                <button
+                    type="button"
+                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                >
+                    <span className="sr-only">Voir les notifications</span>
+                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                </button>
+
+                <Menu as="div" className="ml-3 relative">
+                    <div>
+                        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                            <span className="sr-only">Ouvrir le menu utilisateur</span>
+                            <img
+                                className="h-8 w-8 rounded-full"
+                                src={joey}
+                                alt=""
+                            />
+                        </Menu.Button>
+                    </div>
+                    <Transition
+                        as={Fragment}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                    >
+                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <Link to={URL_HOME}
+                                        href=""
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                    >
+                                        Profil
+                                    </Link>
+                                )}
+                            </Menu.Item>
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <Link
+                                        href="#"
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                    >
+                                        Changer les informations du compte
+                                    </Link>
+                                )}
+                            </Menu.Item>
+                            <Menu.Item>
+                                {({ active }) => (
+                                    <Link
+                                        href="#"
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                        onClick={() => dispatch(signOut())}
+                                    >
+                                        Se déconnecter
+                                    </Link>
+                                )}
+                            </Menu.Item>
+                        </Menu.Items>
+
+                    </Transition>
+                </Menu>
+            </>
+        )
+    } else {
+        return (
+            <div className="hidden sm:block sm:ml-6">
+                <div className="flex space-x-4">
+                    <a
+                        href={"/register"}
+                        className='text-gray-300 hover:bg-gray-700 hover:text-white
+                        px-3 py-2 rounded-md text-sm font-medium'>
+                        S'inscrire
+                    </a>
+                    <a
+                        href={URL_LOGIN}
+                        className='text-gray-300 hover:bg-gray-700 hover:text-white
+                        px-3 py-2 rounded-md text-sm font-medium'>
+                        Se connecter
+                    </a>
+                </div>
+            </div>
+        )
+    }
+}
+
+/*
+const ConnectionBtn = () => {
+    const isLogged = useSelector(selectIsLogged)
+    const dispatch = useDispatch()
+    if (isLogged)
+        return (
+            <button className="ml-8 btn btn-green" onClick={() => dispatch(signOut())}>
+                Sign out
+            </button>
+        )
+    else return (
+        <>
+            <Link to={URL_LOGIN}>
+                <div className='ml-8 btn btn-primary'>
+                    S'identifier
+                </div>
+            </Link>
+            <Link to="/register">
+                <button className="ml-8 btn btn-green">
+                    S'inscrire
+                </button>
+            </Link>
+        </>
+    )
+}
+*/
