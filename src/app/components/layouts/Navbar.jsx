@@ -108,7 +108,7 @@ const Navbar = () => {
                                 {/* Display depending if the user is connected or not :
                                     notifications, connection / registration link, profile menu burger 
                                 */}
-                                <ConnectionStatus />
+                                <ConnectionStatusButtons />
 
                             </div>
                         </div>
@@ -141,16 +141,24 @@ const Navbar = () => {
 export default Navbar
 
 
-const ConnectionStatus = () => {
+/**
+ * Display buttons depending if the user is connected or not.
+ * 
+ * @returns the buttons depending of the user connection status
+ * 
+ * @author Cecile
+ */
+const ConnectionStatusButtons = () => {
 
     const isLogged = useSelector(selectIsLogged);
     const dispatch = useDispatch();
 
     if (isLogged) {
 
+        /* Connected user buttons and menu */
         return (
-
             <>
+                {/* Notification bell icon */}
                 <button
                     type="button"
                     className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
@@ -159,6 +167,7 @@ const ConnectionStatus = () => {
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
+                {/* User burger menu */}
                 <Menu as="div" className="ml-3 relative">
                     <div>
                         <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -212,12 +221,14 @@ const ConnectionStatus = () => {
                                 )}
                             </Menu.Item>
                         </Menu.Items>
-
                     </Transition>
                 </Menu>
             </>
         )
+
     } else {
+
+        /* Displayed buttons if the user is not connected */
         return (
             <div className="hidden sm:block sm:ml-6">
                 <div className="flex space-x-4">
@@ -238,30 +249,3 @@ const ConnectionStatus = () => {
         )
     }
 }
-
-/*
-const ConnectionBtn = () => {
-    const isLogged = useSelector(selectIsLogged)
-    const dispatch = useDispatch()
-    if (isLogged)
-        return (
-            <button className="ml-8 btn btn-green" onClick={() => dispatch(signOut())}>
-                Sign out
-            </button>
-        )
-    else return (
-        <>
-            <Link to={URL_LOGIN}>
-                <div className='ml-8 btn btn-primary'>
-                    S'identifier
-                </div>
-            </Link>
-            <Link to="/register">
-                <button className="ml-8 btn btn-green">
-                    S'inscrire
-                </button>
-            </Link>
-        </>
-    )
-}
-*/
