@@ -52,14 +52,14 @@ export const ProductList = ({ label, price }) => {
         <div className="flex m-4 p-4 shadow-inner Cardproduct">
             <div className="flex">
                 <img src={figurine} alt="" className="w-1/3 mr-1" />
-                <div className="p-2 flex flex-column justify-evenly w-full clip-path productCard">
+                <div className="flex flex-col p-2 justify-evenly w-full clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold">{label}</h2>
                     </div>
-                    <div className="price align-self-center rounded-2xl p-2">
+                    <div className="price flex justify-center self-center rounded-2xl p-2 w-1/2">
                         <p className="font-bold text-white">{price} € H.T</p>
                     </div>
-                    <div className="flex justify-around items-center w-100 mb-2">
+                    <div className="flex justify-around items-center mb-2">
                         <div className="login rounded-2xl m-1">
                             <HeartIcon
                                 width={32}
