@@ -54,7 +54,7 @@ const AccountView = () => {
                             <div className='text-black hover:bg-gray-400 hover:text-black px-2 rounded-md object-center'>
 
                                 {/* Grid system for the image and link */}
-                                <div className="grid grid-cols-3 w-40 align-middle">
+                                <div className="grid grid-cols-3 w-40 pt-3 align-middle">
 
                                     {/* Image takes up 1 column */}
                                     <img className="h-50 col-span-1" src={item.image} alt='' />
@@ -96,7 +96,7 @@ const DisconnectionLink = () => {
             <div className='text-black hover:bg-gray-400 hover:text-black px-2 rounded-md'>
 
                 {/* Grid system for the image and link */}
-                <div className="grid grid-cols-3 w-40 align-middle">
+                <div className="grid grid-cols-3 w-40 pt-3 align-middle">
 
                     {/* Image takes up 1 column */}
                     <img className="h-50 col-span-1" src={powerButton} alt='' />
