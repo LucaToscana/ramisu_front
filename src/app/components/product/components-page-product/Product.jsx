@@ -18,7 +18,7 @@ export const Product = ({ label, price, stock, id }) => {
         <div className="m-4 p-4 Cardproduct ">
             <div className="flex flex-wrap">
                 <img src={figurine} alt="" className="w-full" onClick={() => dispatch(add(product))} />
-                <div className="mt-4 p-2 flex flex-column justify-center w-full clip-path productCard">
+                <div className="mt-4 p-2 flex flex-col justify-center w-full clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold">{label}</h2>
                     </div>
