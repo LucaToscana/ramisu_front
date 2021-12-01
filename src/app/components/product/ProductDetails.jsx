@@ -8,8 +8,8 @@ import React from "react";
  * @returns show details product
 
  */
-const ProductDetails = ({label, price, description}) => {
-    return(
+const ProductDetails = ({ label, price, description }) => {
+    return (
         <>
             <div className="flex flex-col items-center bg-gray-200 mb-2">
                 <div className="font-bold">{label}</div>

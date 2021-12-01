@@ -8,6 +8,7 @@ import { URL_HOME } from './../../shared/constants/urls/urlConstants';
 // import { useSelector, useDispatch } from 'react-redux';
 // import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
 import joey from "../../assets/images/joey.jpg";
+import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
 
 
 // Constants used for navigating with the navbar
@@ -37,7 +38,7 @@ const Navbar = () => {
     // const history = useHistory()
 
     return (
-        <Disclosure as="nav" className="top-0 sticky relative z-50 w-full navbar-color">
+        <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
             {({ open }) => (
                 <>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-2">
@@ -72,12 +73,12 @@ const Navbar = () => {
                                 <div className="flex-shrink-0 flex items-center">
                                     <img
                                         className="block lg:hidden h-8 w-auto"
-                                        src='/warhammer-shop-logo.png'
+                                        src={logo}
                                         alt="Warhammer shop logo"
                                     />
                                     <img
                                         className="hidden lg:block h-8 w-auto"
-                                        src='/warhammer-shop-logo.png'
+                                        src={logo}
                                         alt="Warhammer shop logo"
                                     />
                                 </div>

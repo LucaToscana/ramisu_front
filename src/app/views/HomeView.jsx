@@ -70,9 +70,9 @@ const HomeView = ({ history }) => {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                     {(productsRandom.map((product) =>
-                                        <ProductHomePageCard 
-                                        key={product.id}
-                                        product={product} />
+                                        <ProductHomePageCard
+                                            key={product.id}
+                                            product={product} />
                                     ))
                                     }
 
@@ -95,9 +95,9 @@ const HomeView = ({ history }) => {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                     {(productsPromotion.map((product) =>
-                                        <ProductHomePageCard 
-                                        key={product.id}
-                                        product={product} />
+                                        <ProductHomePageCard
+                                            key={product.id}
+                                            product={product} />
                                     ))
                                     }
 
@@ -119,9 +119,9 @@ const HomeView = ({ history }) => {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                     {(productsTopSale.map((product) =>
-                                        <ProductHomePageCard 
-                                        key={product.id}
-                                        product={product} />
+                                        <ProductHomePageCard
+                                            key={product.id}
+                                            product={product} />
                                     ))
                                     }
 

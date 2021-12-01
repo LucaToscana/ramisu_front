@@ -34,7 +34,7 @@ const FormLogin = ({ submit, errorLog }) => (
                     <label htmlFor="rememberMe" className="m-0 text-gray-400">Se souvenir de moi</label>
                 </div>
 
-                <div className="text-center  mb-8 mt-4">
+                <div className="text-center mb-8 mt-4">
                     <Link to="/forgot-password" >
                         <span className=' font-medium underline' >
                             Mot de passe oublié ?

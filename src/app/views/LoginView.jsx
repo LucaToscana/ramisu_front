@@ -12,16 +12,16 @@ import Login from './../components/account/Login';
  * @param {object} history 
  * @author Peter Mollet
  */
- const LoginView = ({ history }) => {
+const LoginView = ({ history }) => {
 
     const [errorLog, setErrorLog] = useState(false)
     const dispatch = useDispatch()
 
     const handleLogin = (values) => {
         authenticate(values).then(res => {
-            if(res.status === 200 && res.data.token) {
+            if (res.status === 200 && res.data.token) {
                 dispatch(signIn(res.data.token))
-                if(isAuthenticated) history.push(URL_HOME)
+                if (isAuthenticated) history.push(URL_HOME)
             }
         }).catch(() => setErrorLog(true))
     }

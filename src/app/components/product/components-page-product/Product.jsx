@@ -1,10 +1,9 @@
-import figurine from '../../assets/images/figurine.jpg'
-import heart from '../../assets/images/icones/heart-regular.svg'
-// import heartSolid from '../../assets/images/icones/heart-solid.svg'
-import cart from '../../assets/images/icones/shopping-cart-solid.svg'
-import React from 'react'
+import React from 'react';
+import figurine from '../../../assets/images/figurine.jpg';
 import { useDispatch } from "react-redux";
-import { add } from "../../shared/redux-store/cartSlice";
+import { add } from '../../../shared/redux-store/cartSlice';
+import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline';
+
 
 /**
  * Creation of a component Product.jsx to display the products
@@ -19,7 +18,7 @@ export const Product = ({ label, price, stock, id }) => {
         <div className="m-4 p-4 Cardproduct ">
             <div className="flex flex-wrap">
                 <img src={figurine} alt="" className="w-full" onClick={() => dispatch(add(product))} />
-                <div className="mt-4 p-2 flex flex-column justify-center w-100 clip-path productCard">
+                <div className="mt-4 p-2 flex flex-column justify-center w-full clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold">{label}</h2>
                     </div>
@@ -29,10 +28,16 @@ export const Product = ({ label, price, stock, id }) => {
                         </div>
                         <div className="flex">
                             <div className="login rounded-2xl m-1 p-3">
-                                <img src={heart} alt="add to favorite" className="w-7" />
+                                <HeartIcon
+                                    width={32}
+                                    height={32}
+                                />
                             </div>
                             <div className="login rounded-2xl m-1 p-3">
-                                <img src={cart} alt="add to cart" className="w-7" />
+                                <ShoppingCartIcon
+                                    width={32}
+                                    height={32}
+                                />
                             </div>
                         </div>
                     </div>
@@ -47,7 +52,7 @@ export const ProductList = ({ label, price }) => {
         <div className="flex m-4 p-4 shadow-inner Cardproduct">
             <div className="flex">
                 <img src={figurine} alt="" className="w-1/3 mr-1" />
-                <div className="p-2 flex flex-column justify-evenly w-100 clip-path productCard">
+                <div className="p-2 flex flex-column justify-evenly w-full clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold">{label}</h2>
                     </div>
@@ -56,10 +61,16 @@ export const ProductList = ({ label, price }) => {
                     </div>
                     <div className="flex justify-around items-center w-100 mb-2">
                         <div className="login rounded-2xl m-1">
-                            <img src={heart} alt="add to favorite" className="w-5" />
+                            <HeartIcon
+                                width={32}
+                                height={32}
+                            />
                         </div>
                         <div className="login rounded-2xl m-1">
-                            <img src={cart} alt="add to cart" className="w-5" />
+                            <ShoppingCartIcon
+                                width={32}
+                                height={32}
+                            />
                         </div>
                     </div>
                 </div>

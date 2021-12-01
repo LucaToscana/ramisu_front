@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import figurine from '../assets/images/figurine.jpg'
-import {productDetail} from "../api/backend/product";
+import { productDetail } from "../api/backend/product";
 import ProductDetails from "../components/product/ProductDetails"
 import { useParams } from "react-router-dom";
 
@@ -12,21 +12,21 @@ import { useParams } from "react-router-dom";
 const ProductDetailView = () => {
     const [product, setProduct] = useState([])
     const id = useParams().id
-    useEffect(()=>{
-        productDetail(id).then(res=>{
+    useEffect(() => {
+        productDetail(id).then(res => {
             setProduct(res.data)
         })
-    },[id])
+    }, [id])
     return (
-        <div className="flex flex-col md:flex-row flex items-center">
-                <img
-                    className="w-36 md:w-auto mb-4"
-                    src={figurine}
-                    alt=""
-                />
-                <ProductDetails label={product.label}
-                                price={product.price}
-                                description={product.description}/>
+        <div className="flex flex-col md:flex-row items-center">
+            <img
+                className="w-36 md:w-auto mb-4"
+                src={figurine}
+                alt=""
+            />
+            <ProductDetails label={product.label}
+                price={product.price}
+                description={product.description} />
         </div>
     );
 };
