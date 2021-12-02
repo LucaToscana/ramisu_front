@@ -32,12 +32,12 @@ const Routes = () => {
         <Switch history={customHistory}>
             <Route exact path={URL_HOME} component={HomeView} />
             <Route path={URL_LOGIN} component={LoginView} />
-            <PrivateRoute exact path={URL_ACCOUNT} component={AccountView} roles={[ROLE_USER]} />
+            <PrivateRoute path={URL_ACCOUNT} component={AccountView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_ADMIN_HOME} component={AdminHomeView} roles={[ROLE_ADMIN]} />
 
             <Route exact path={URL_PRODUCT} component={ProductView} />
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
-            <Route path={URL_CART} component={CartsView}/>
+            <Route path={URL_CART} component={CartsView} />
         </Switch>
     );
 };

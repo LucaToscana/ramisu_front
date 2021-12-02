@@ -92,7 +92,7 @@ const DisconnectionLink = () => {
             )}
             onClick={() => dispatch(signOut())}
         >
-             {/* Hovering effect */}
+            {/* Hovering effect */}
             <div className='text-black hover:bg-gray-400 hover:text-black px-2 rounded-md'>
 
                 {/* Grid system for the image and link */}
