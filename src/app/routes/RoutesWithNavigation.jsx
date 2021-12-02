@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify'
+import { ToastContainer } from 'react-toastify';
 import { useSelector } from 'react-redux';
 import Routes from './Routes';
 import { selectIsLogged } from './../shared/redux-store/authenticationSlice';
