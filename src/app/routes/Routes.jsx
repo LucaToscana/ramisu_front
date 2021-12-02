@@ -1,13 +1,13 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import {
-  URL_HOME,
-  URL_ACCOUNT,
-  URL_LOGIN,
-  URL_ADMIN_HOME,
-  URL_PRODUCTS_DETAILS,
-  URL_PRODUCT,
-  URL_CART,
+    URL_HOME,
+    URL_ACCOUNT,
+    URL_LOGIN,
+    URL_ADMIN_HOME,
+    URL_PRODUCTS_DETAILS,
+    URL_PRODUCT,
+    URL_CART,
 } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_USER } from "../shared/constants/rolesConstant";
@@ -27,22 +27,22 @@ import CartsView from "../views/CartsView";
  * @author Peter Mollet
  */
 const Routes = () => {
-  return (
-    <Switch history={customHistory}>
-      <Route exact path={URL_HOME} component={HomeView} />
-      <Route path={URL_LOGIN} component={LoginView} />
-      <Route path={URL_ACCOUNT} component={AccountView} />
-      <PrivateRoute
-        path={URL_ADMIN_HOME}
-        component={AdminHomeView}
-        roles={[ROLE_ADMIN]}
-      />
+    return (
+        <Switch history={customHistory}>
+            <Route exact path={URL_HOME} component={HomeView} />
+            <Route path={URL_LOGIN} component={LoginView} />
+            <PrivateRoute path={URL_ACCOUNT} component={AccountView} roles={[ROLE_USER]} />
+            <PrivateRoute
+                path={URL_ADMIN_HOME}
+                component={AdminHomeView}
+                roles={[ROLE_ADMIN]}
+            />
 
-      <Route exact path={URL_PRODUCT} component={ProductView} />
-      <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
-      <Route path={URL_CART} component={CartsView} />
-    </Switch>
-  );
+            <Route exact path={URL_PRODUCT} component={ProductView} />
+            <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
+            <Route path={URL_CART} component={CartsView} />
+        </Switch>
+    );
 };
 
 export default Routes;
