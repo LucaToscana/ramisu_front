@@ -33,23 +33,12 @@ export function removeToken() {
 }
 
 /**
- * Get the payload of the JWT Token (with experition date, login and roles)
- * 
- * @return {object} payload of the token
- * @author Peter Mollet
- */
-export function getPayloadToken(){
-    const decoded = decodeToken();
-    return decoded.payload
-}
-
-/**
  * Decode the jwt token to get all the visible part (header and payload)
  * 
  * @returns {object} the decoded token
  * @author Peter Mollet
  */
-function decodeToken() {
+export function decodeToken() {
     const token = getToken()
     return jwt_decode(token);
 }

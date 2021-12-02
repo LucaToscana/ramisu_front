@@ -12,12 +12,12 @@ import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
 
 // Constants used for navigating with the navbar
 const navigation = [
-    { name: 'Accueil', href: '/', current: true },
-    { name: 'Boutique', href: '/products', current: false },
-    { name: 'Figurines', href: '#', current: false },
-    { name: 'Peinture', href: '#', current: false },
-    { name: 'Librairie', href: '#', current: false },
-    { name: 'Contact', href: '#', current: false },
+    { name: 'Accueil', to: '/', current: true },
+    { name: 'Boutique', to: '/products', current: false },
+    { name: 'Figurines', to: '#', current: false },
+    { name: 'Peinture', to: '#', current: false },
+    { name: 'Librairie', to: '#', current: false },
+    { name: 'Contact', to: '#', current: false },
 ]
 
 function classNames(...classes) {
@@ -86,9 +86,9 @@ const Navbar = () => {
                                 <div className="hidden sm:block sm:ml-6">
                                     <div className="flex space-x-4">
                                         {navigation.map((item) => (
-                                            <a
+                                            <Link
                                                 key={item.name}
-                                                href={item.href}
+                                                to={item.to}
                                                 className={classNames(
                                                     item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                                     'px-3 py-2 rounded-md text-sm font-medium'
@@ -96,7 +96,7 @@ const Navbar = () => {
                                                 aria-current={item.current ? 'page' : undefined}
                                             >
                                                 {item.name}
-                                            </a>
+                                            </Link>
                                         ))}
                                     </div>
                                 </div>
@@ -120,8 +120,8 @@ const Navbar = () => {
                             {navigation.map((item) => (
                                 <Disclosure.Button
                                     key={item.name}
-                                    as="a"
-                                    href={item.href}
+                                    as="Link"
+                                    to={item.to}
                                     className={classNames(
                                         item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                         'block px-3 py-2 rounded-md text-base font-medium'
@@ -193,7 +193,6 @@ const ConnectionStatusButtons = () => {
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link to={URL_ACCOUNT}
-                                        href=""
                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                     >
                                         Profil
@@ -203,7 +202,7 @@ const ConnectionStatusButtons = () => {
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link
-                                        href="#"
+                                        to="#"
                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                     >
                                         Changer les informations du compte
@@ -213,7 +212,7 @@ const ConnectionStatusButtons = () => {
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link
-                                        href="#"
+                                        to="#"
                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                                         onClick={() => dispatch(signOut())}
                                     >
@@ -233,18 +232,18 @@ const ConnectionStatusButtons = () => {
         return (
             <div className="hidden sm:block sm:ml-6">
                 <div className="flex space-x-4">
-                    <a
-                        href={"/register"}
+                    <Link
+                        to={"/register"}
                         className='text-gray-300 hover:bg-gray-700 hover:text-white
                         px-3 py-2 rounded-md text-sm font-medium'>
                         S'inscrire
-                    </a>
-                    <a
-                        href={URL_LOGIN}
+                    </Link>
+                    <Link
+                        to={URL_LOGIN}
                         className='text-gray-300 hover:bg-gray-700 hover:text-white
                         px-3 py-2 rounded-md text-sm font-medium'>
                         Se connecter
-                    </a>
+                    </Link>
                 </div>
             </div>
         )

@@ -1,4 +1,4 @@
-import { getToken, getPayloadToken } from './tokenServices';
+import { getToken, decodeToken } from './tokenServices';
 
 /**
  * To get all the roles of the current user
@@ -7,7 +7,7 @@ import { getToken, getPayloadToken } from './tokenServices';
  * @author Peter Mollet
  */
 export function accountRoles() {
-    const payload = getPayloadToken()
+    const payload = decodeToken()
     return payload.auth.split(",")
 }
 
@@ -18,7 +18,7 @@ export function accountRoles() {
  * @author Peter Mollet
  */
 export function accountLogin(){
-    const payload = getPayloadToken()
+    const payload = decodeToken()
     return payload.sub
 }
 
@@ -36,7 +36,7 @@ export function hasRole(role) {
 export function isAuthenticated() {
     try{
         const token = getToken()
-        const payload = getPayloadToken()
+        const payload = decodeToken()
         const roles = payload.auth.split(",")
         const expirationDate = payload.exp
         const login = payload.sub

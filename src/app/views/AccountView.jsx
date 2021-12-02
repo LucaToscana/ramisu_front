@@ -46,12 +46,9 @@ const AccountView = () => {
                         <a
                             key={item.name}
                             href={item.href}
-                            className={classNames(
-                                'flex flex-col justify-center items-center text-sm font-medium object-contain'
-                            )}
                         >
                             {/* Hovering effect */}
-                            <div className='text-black hover:bg-gray-400 hover:text-black px-2 rounded-md object-center'>
+                            <div className='flex justify-center items-center text-sm font-medium object-contain text-black hover:bg-gray-400 hover:text-black px-2 rounded-md object-center'>
 
                                 {/* Grid system for the image and link */}
                                 <div className="grid grid-cols-3 w-40 align-middle">
