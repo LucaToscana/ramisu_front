@@ -8,7 +8,7 @@ import handleHttpError from './../../shared/components/form-and-error-components
  * @author Peter Mollet
  */
 const apiBackEnd = axios.create({
-    baseURL: process.env.REACT_APP_BACKEND_URL
+    baseURL: import.meta.env.VITE_BACKEND_URL
 })
 export default apiBackEnd;
 

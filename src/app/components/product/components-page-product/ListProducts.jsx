@@ -37,8 +37,9 @@ const ListProducts = ({ show }) => {
                         <ProductList
                             key={product.id}
                             label={product.label}
-                            description={product.description}
                             price={product.price}
+                            id={product.id}
+                            stock={product.stock}
                         />
                     );
                 })}

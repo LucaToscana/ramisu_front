@@ -37,8 +37,8 @@ export const Product = ({ label, price, stock, id }) => {
                                 <ShoppingCartIcon
                                     width={32}
                                     height={32}
+                                    onClick={() => dispatch(add(product))}
                                 />
-                                <img src={cart} alt="add to cart" className="w-7"  onClick={() => dispatch(add(product))} />
                             </div>
                         </div>
                     </div>
