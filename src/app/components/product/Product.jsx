@@ -18,7 +18,7 @@ export const Product = ({ label, price, stock, id }) => {
     return (
         <div className="m-4 p-4 Cardproduct ">
             <div className="flex flex-wrap">
-                <img src={figurine} alt="" className="w-full" onClick={() => dispatch(add(product))} />
+                <img src={figurine} alt="" className="w-full"/>
                 <div className="mt-4 p-2 flex flex-column justify-center w-100 clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold">{label}</h2>
@@ -32,7 +32,7 @@ export const Product = ({ label, price, stock, id }) => {
                                 <img src={heart} alt="add to favorite" className="w-7" />
                             </div>
                             <div className="login rounded-2xl m-1 p-3">
-                                <img src={cart} alt="add to cart" className="w-7" />
+                                <img src={cart} alt="add to cart" className="w-7"  onClick={() => dispatch(add(product))} />
                             </div>
                         </div>
                     </div>
@@ -42,11 +42,14 @@ export const Product = ({ label, price, stock, id }) => {
     )
 }
 
-export const ProductList = ({ label, price }) => {
+export const ProductList = ({ label, price, stock, id }) => {
+    const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": 1 }
+    const dispatch = useDispatch()
     return (
+
         <div className="flex m-4 p-4 shadow-inner Cardproduct">
             <div className="flex">
-                <img src={figurine} alt="" className="w-1/3 mr-1" />
+                <img src={figurine} alt="" className="w-1/3 mr-1"/>
                 <div className="p-2 flex flex-column justify-evenly w-100 clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold">{label}</h2>
@@ -59,7 +62,7 @@ export const ProductList = ({ label, price }) => {
                             <img src={heart} alt="add to favorite" className="w-5" />
                         </div>
                         <div className="login rounded-2xl m-1">
-                            <img src={cart} alt="add to cart" className="w-5" />
+                            <img src={cart} alt="add to cart" className="w-5" onClick={() => dispatch(add(product))}/>
                         </div>
                     </div>
                 </div>
