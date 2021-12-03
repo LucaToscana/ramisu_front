@@ -18,7 +18,7 @@ export const Product = ({ label, price, stock, id }) => {
         <div className="m-4 p-4 Cardproduct ">
             <div className="flex flex-wrap">
                 <img src={figurine} alt="" className="w-full" onClick={() => dispatch(add(product))} />
-                <div className="mt-4 p-2 flex flex-col justify-center w-full clip-path productCard">
+                <div className="mt-4 p-2 flex flex-column justify-center w-100 clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold">{label}</h2>
                     </div>
@@ -38,6 +38,7 @@ export const Product = ({ label, price, stock, id }) => {
                                     width={32}
                                     height={32}
                                 />
+                                <img src={cart} alt="add to cart" className="w-7"  onClick={() => dispatch(add(product))} />
                             </div>
                         </div>
                     </div>
@@ -47,7 +48,9 @@ export const Product = ({ label, price, stock, id }) => {
     )
 }
 
-export const ProductList = ({ label, price }) => {
+export const ProductList = ({ label, price, stock, id }) => {
+    const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": 1 }
+    const dispatch = useDispatch()
     return (
         <div className="flex m-4 p-4 shadow-inner Cardproduct">
             <div className="flex">
@@ -70,6 +73,7 @@ export const ProductList = ({ label, price }) => {
                             <ShoppingCartIcon
                                 width={32}
                                 height={32}
+                                onClick={() => dispatch(add(product))}
                             />
                         </div>
                     </div>
