@@ -36,7 +36,7 @@ const ProductHomePageCard = ({ product, color }) => {
 
                     <p className="text-base text-white rounded font-bold bg-black pl-2 pr-2 m-1">{product.price} € H.T.</p>
                     <br />
-                    <p className="btn btn-light cursor-pointer" onClick={() => {
+                    <p className="btn bg-white text-black cursor-pointer" onClick={() => {
                         history.push(`/produits/detail/${product.id}`)
                     }}>Voir plus</p>
                 </div>

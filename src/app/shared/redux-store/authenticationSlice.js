@@ -19,7 +19,7 @@ export const authenticationSlice = createSlice({
             state.isLogged = true
         },
         signOut: (state) => {
-            localStorage.clear()
+            localStorage.setItem("token","")
             sessionStorage.clear()
             state.isLogged = false
         }
