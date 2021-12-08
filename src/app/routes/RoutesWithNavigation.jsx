@@ -6,6 +6,7 @@ import Routes from './Routes';
 import { selectIsLogged } from './../shared/redux-store/authenticationSlice';
 import Navbar from './../components/layouts/Navbar';
 import IdleTimerCustom from './../components/account/IdleTimerCustom';
+import Footer from './../components/layouts/Footer';
 
 const contextClass = {
     success: "bg-green-600",
@@ -34,6 +35,7 @@ const RoutesWithNavigation = () => {
                 <main className="md:mt-1/5">
                     <Routes />
                 </main>
+                <Footer />
                 <ToastContainer
                     toastClassName={({ type }) => contextClass[type || "default"] +
                         " relative flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"

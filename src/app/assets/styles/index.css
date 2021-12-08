@@ -4,7 +4,7 @@
 
 html {
     overflow-x: hidden;
-    background-color: white;
+    background-color: whitesmoke;
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -72,6 +72,31 @@ h1, h2, h3, h4, h5, h6, p {
 
 .deleteFilter {
     border-left: solid 2px #EAB727;
+}
+
+.footer {
+    background-color: #383B43;
+    color: whitesmoke;
+}
+
+.footer2 {
+    background-color: #282C34;
+    color: whitesmoke;
+}
+
+.newsletter {
+    background-color: #EAB727;
+    padding: 0.5rem;
+    border-radius: 3px;
+}
+
+.inputNewsletter {
+    border-radius: 3px;
+    color: whitesmoke;
+    background-color: #282C34;
+}
+.inputNewsletter:focus {
+    border: solid 2px whitesmoke;
 }
 
 @layer components {
