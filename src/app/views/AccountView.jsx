@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { signOut } from "../shared/redux-store/authenticationSlice";
-import { URL_CART, URL_HOME } from "./../shared/constants/urls/urlConstants";
+import { URL_CART, URL_HOME, URL_PROFILE } from "../shared/constants/urls/urlConstants";
 import boxes from "../assets/images/icones/box.svg";
 import userProfile from "../assets/images/icones/user.svg";
 import shoppingCart from "../assets/images/icones/cart.svg";
@@ -21,7 +21,7 @@ import { Link, useHistory } from "react-router-dom";
 const AccountView = () => {
   const navigation = [
     { name: "Commandes", href: "#", image: boxes },
-    { name: "Données du compte", href: "#", image: userProfile },
+    { name: "Données du compte", href: URL_PROFILE, image: userProfile },
     { name: "Panier", href: URL_CART, image: shoppingCart },
     { name: "Favoris", href: "#", image: heart },
     { name: "Moyens de paiement", href: "#", image: creditCard },

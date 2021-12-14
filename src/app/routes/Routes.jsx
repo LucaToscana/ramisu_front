@@ -8,6 +8,7 @@ import {
     URL_PRODUCTS_DETAILS,
     URL_PRODUCT,
     URL_CART,
+    URL_PROFILE,
 } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_USER } from "../shared/constants/rolesConstant";
@@ -19,6 +20,7 @@ import AdminHomeView from "../views/AdminHomeView";
 import ProductView from "../views/ProductView";
 import ProductDetailView from "../views/ProductDetailView";
 import CartsView from "../views/CartsView";
+import ProfileView from "../views/ProfileView";
 
 /**
  * Routes of the application
@@ -32,6 +34,7 @@ const Routes = () => {
             <Route exact path={URL_HOME} component={HomeView} />
             <Route path={URL_LOGIN} component={LoginView} />
             <PrivateRoute path={URL_ACCOUNT} component={AccountView} roles={[ROLE_USER]} />
+            <PrivateRoute path={URL_PROFILE} component={ProfileView} roles={[ROLE_USER]} />
             <PrivateRoute
                 path={URL_ADMIN_HOME}
                 component={AdminHomeView}
