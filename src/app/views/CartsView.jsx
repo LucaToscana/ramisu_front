@@ -37,7 +37,7 @@ const CartsView = () => {
     }
 
     return (
-        <>
+        <div className='h-screen'>
             <h1 className="mb-3 text-4xl text-center">{(carts.length === 0) ? "aucun article" : "Nombre d'article : " + carts.length}</h1>
 
             {carts.map(cart =>
@@ -90,7 +90,7 @@ const CartsView = () => {
             }
 
 
-        </>
+        </div>
     );
 };
 
