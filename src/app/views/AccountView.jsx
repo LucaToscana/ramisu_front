@@ -20,7 +20,7 @@ import { Link, useHistory } from "react-router-dom";
 
 const AccountView = () => {
   const navigation = [
-    { name: "Commandes", href: "#", image: boxes },
+    { name: "Commandes", href: `/orders`, image: boxes },
     { name: "Données du compte", href: "#", image: userProfile },
     { name: "Panier", href: URL_CART, image: shoppingCart },
     { name: "Favoris", href: "#", image: heart },

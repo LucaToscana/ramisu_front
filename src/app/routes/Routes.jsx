@@ -8,6 +8,7 @@ import {
     URL_PRODUCTS_DETAILS,
     URL_PRODUCT,
     URL_CART,
+    URL_ORDERS
 } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_USER } from "../shared/constants/rolesConstant";
@@ -19,6 +20,7 @@ import AdminHomeView from "../views/AdminHomeView";
 import ProductView from "../views/ProductView";
 import ProductDetailView from "../views/ProductDetailView";
 import CartsView from "../views/CartsView";
+import OrdersView from "../views/OrdersView";
 
 /**
  * Routes of the application
@@ -37,7 +39,7 @@ const Routes = () => {
                 component={AdminHomeView}
                 roles={[ROLE_ADMIN]}
             />
-
+            <PrivateRoute path={URL_ORDERS} component={OrdersView} roles={[ROLE_USER]} />
             <Route exact path={URL_PRODUCT} component={ProductView} />
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             <Route path={URL_CART} component={CartsView} />

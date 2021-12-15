@@ -5,9 +5,9 @@ import trash from "../assets/images/icones/trash.png";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import figurine from "../assets/images/figurine.jpg";
-import {addOrder} from "../api/backend/order";
+import { addOrder } from "../api/backend/order";
 import { isAuthenticated } from '../shared/services/accountServices';
-import {URL_LOGIN} from '../shared/constants/urls/urlConstants'
+import { URL_LOGIN } from '../shared/constants/urls/urlConstants'
 
 const CartsView = () => {
     const carts = useSelector(selectCart)
@@ -24,16 +24,14 @@ const CartsView = () => {
         return result.toLocaleDateString();
     }
 
-    function validate(carts){
-        if(isAuthenticated()){
-            addOrder(carts.filter(c => !(c.quantite === ""))).then(res =>
-                {
-                    // if(res.data)
-                    //     dispatch(init())
-
-                }
+    function validate(carts) {
+        if (isAuthenticated()) {
+            addOrder(carts.filter(c => !(c.quantite === ""))).then(res => {
+                if (res.data)
+                    dispatch(init())
+            }
             )
-        }else{
+        } else {
             history.push(URL_LOGIN)
         }
     }
@@ -42,22 +40,22 @@ const CartsView = () => {
         <>
             <h1 className="mb-3 text-4xl text-center">{(carts.length === 0) ? "aucun article" : "Nombre d'article : " + carts.length}</h1>
 
-                {carts.map(cart =>
-                    <div key={cart.id} className="flex flex-row pb-2">
-                        <div className="pr-5">
-                            <img src={figurine} alt="" className="w-20"
-                                 onClick={() => history.push(`/produits/detail/${cart.id}`)}/>
+            {carts.map(cart =>
+                <div key={cart.id} className="flex flex-row pb-2">
+                    <div className="pr-5">
+                        <img src={figurine} alt="" className="w-20"
+                            onClick={() => history.push(`/produits/detail/${cart.id}`)} />
+                    </div>
+                    <div className="flex flex-col">
+                        <div className="font-semibold">{cart.label}</div>
+                        <div className="text-center pl-1 mb-2 bg-black text-white rounded-full">{cart.price} € H.T</div>
+                        <div className="flex flex-row pb-2">
+                            <input type="number"
+                                value={cart.quantite}
+                                className="w-14 mr-5 md:w-20"
+                                onChange={(e) => dispatch(setQuantity([cart, e.target.value]))} />
+                            <img src={trash} alt="" className="w-10" onClick={() => dispatch(remove(cart))} />
                         </div>
-                        <div className="flex flex-col">
-                            <div className="font-semibold">{cart.label}</div>
-                            <div className="text-center pl-1 mb-2 bg-black text-white rounded-full">{cart.price} € H.T</div>
-                            <div className="flex flex-row pb-2">
-                                <input type="number"
-                                       value={cart.quantite}
-                                       className="w-14 mr-5 md:w-20"
-                                       onChange={(e) => dispatch(setQuantity([cart, e.target.value]))}/>
-                                <img src={trash} alt="" className="w-10" onClick={() => dispatch(remove(cart))}/>
-                            </div>
 
                     </div>
 
