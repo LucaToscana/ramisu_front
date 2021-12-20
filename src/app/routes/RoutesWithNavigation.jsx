@@ -29,10 +29,10 @@ const RoutesWithNavigation = () => {
 
     return (
         <BrowserRouter>
-            <div className="">
+            <div className="h-full flex flex-col">
                 {isLogged && <IdleTimerCustom />}
                 <Navbar />
-                <main className="md:mt-1/5">
+                <main className="md:mt-1/5 flex-grow">
                     <Routes />
                 </main>
                 <Footer />

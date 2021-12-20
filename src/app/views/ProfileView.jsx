@@ -13,7 +13,7 @@ const ProfileView = () => {
         })
     }, [])
     return (
-        <div className='h-screen'>
+        <div className=''>
             <h1 className="font-semibold text-center text-2xl ">
                 <img className="w-6 inline " src={person} alt='' />Données du compte</h1>
             <div className="flex flex-col justify-center items-center m-5 ">

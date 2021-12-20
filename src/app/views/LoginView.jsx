@@ -27,7 +27,7 @@ const LoginView = ({ history }) => {
     }
 
     return (
-        <div className='h-screen'>
+        <div className=''>
             <div className="md:flex md:justify-center">
                 <Login submit={handleLogin} errorLog={errorLog} />
             </div>

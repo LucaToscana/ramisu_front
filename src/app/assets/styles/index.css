@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    html {
+        @apply h-full
+    }
+    body {
+        @apply h-full
+    }
+}
+
 html {
     overflow-x: hidden;
     background-color: whitesmoke;
@@ -99,8 +108,28 @@ h1, h2, h3, h4, h5, h6, p {
     border: solid 2px whitesmoke;
 }
 
-@layer components {
+.headerTable {
+    background-color: #383B43;
+    color: whitesmoke;
+    font-weight: bold;
+    text-transform: uppercase;
+}
 
+.bodyTable {
+    border: solid 2px #383B43;
+    background-color: #EFEFEF;
+}
+
+.detailOrder {
+    background-color: #C28F2C;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+@layer components {
+    #root {
+        @apply h-full
+    }
     /* NAVBAR */
     .navbar-color {
         background-color: #282C34;
