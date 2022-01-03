@@ -10,14 +10,14 @@ import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline';
  * 
  * @author Jeremy Dejonghe
  */
-export const Product = ({ label, price, stock, id }) => {
-    const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": 1 }
+export const Product = ({ label, price, stock, id, picture }) => {
+    const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": 1, "picture": picture }
     const dispatch = useDispatch()
 
     return (
         <div className="m-4 p-4 Cardproduct ">
             <div className="flex flex-wrap">
-                <img src={figurine} alt="" className="w-full" onClick={() => dispatch(add(product))} />
+                <img src={picture} alt="" className="w-full" onClick={() => dispatch(add(product))} />
                 <div className="mt-4 p-2 flex flex-column justify-center w-100 clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold">{label}</h2>
@@ -48,13 +48,13 @@ export const Product = ({ label, price, stock, id }) => {
     )
 }
 
-export const ProductList = ({ label, price, stock, id }) => {
-    const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": 1 }
+export const ProductList = ({ label, price, stock, id, picture }) => {
+    const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": 1, "picture": picture }
     const dispatch = useDispatch()
     return (
         <div className="flex m-4 p-4 shadow-inner Cardproduct">
             <div className="flex">
-                <img src={figurine} alt="" className="w-1/3 mr-1" />
+                <img src={picture} alt="" className="w-1/3 mr-1" />
                 <div className="flex flex-col p-2 justify-evenly w-full clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold">{label}</h2>

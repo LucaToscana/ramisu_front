@@ -43,7 +43,7 @@ const CartsView = () => {
             {carts.map(cart =>
                 <div key={cart.id} className="flex flex-row pb-2">
                     <div className="pr-5">
-                        <img src={figurine} alt="" className="w-20"
+                        <img src={cart.picture} alt="" className="w-20"
                             onClick={() => history.push(`/produits/detail/${cart.id}`)} />
                     </div>
                     <div className="flex flex-col">

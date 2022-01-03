@@ -58,15 +58,3 @@ function ListOrder() {
 }
 
 export default ListOrder;
-
-
-{/* <div className='text-center bodyTable m-8'>
-<div className='grid grid-cols-5 headerTable p-8'>
-    <div>Numéro de commande</div>
-    <div>Date</div>
-    <div>Status</div>
-    <div>Prix</div>
-    <div>Détails</div>
-</div>
-{ordersList}
-</div> */}

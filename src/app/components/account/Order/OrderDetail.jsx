@@ -49,7 +49,7 @@ function OrderDetail({ orderId, modalIsOpen, setModalIsOpen }) {
                                 <React.Fragment key={order.id}>
                                     <div className="max-w-sm rounded overflow-hidden shadow-lg">
                                         <div className='flex justify-center'>
-                                            <img className="w-2/5 mt-8" src={Figurine} alt="Mountain" />
+                                            <img className="w-2/5 mt-8" src={order.picture} alt="Mountain" />
                                         </div>
                                         <div className="px-6 py-4">
                                             <div className="font-bold text-xl mb-2">{order.label}</div>

@@ -28,6 +28,7 @@ const ListProducts = ({ show }) => {
                             price={product.price}
                             id={product.id}
                             stock={product.stock}
+                            picture={product.picture}
                         />
                     );
                 })}
@@ -40,6 +41,7 @@ const ListProducts = ({ show }) => {
                             price={product.price}
                             id={product.id}
                             stock={product.stock}
+                            picture={product.picture}
                         />
                     );
                 })}

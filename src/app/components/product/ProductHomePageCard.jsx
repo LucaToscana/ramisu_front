@@ -24,7 +24,7 @@ const ProductHomePageCard = ({ product, color }) => {
                     {/* Product image */}
                     <div className="mb-2">
                         <img className="object-center pb-1/3 "
-                            src={figurine}
+                            src={product.picture}
                             alt="product"
                         />
                     </div>
