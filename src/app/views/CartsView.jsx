@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import trash from "../assets/images/icones/trash.png";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import figurine from "../assets/images/figurine.jpg";
 import { addOrder } from "../api/backend/order";
 import { isAuthenticated } from '../shared/services/accountServices';
 import { URL_LOGIN } from '../shared/constants/urls/urlConstants'

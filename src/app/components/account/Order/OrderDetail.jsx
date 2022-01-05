@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getOrdersDetails } from './../../../api/backend/order';
 import Modal from 'react-modal';
-import Figurine from '../../../assets/images/figurine.jpg';
+
 
 const customStyles = {
     content: {
