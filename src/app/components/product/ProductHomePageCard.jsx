@@ -29,7 +29,7 @@ const ProductHomePageCard = ({ product, color }) => {
                     </div>
 
                     <div className="text-center w-1/2">
-                        <p className="text-xl text-gray-700 font-normal mb-1 truncate">{product.universeDAO.label}</p>
+                        <p className="text-xl text-gray-700 font-normal mb-1 truncate">{product.universe.label}</p>
                         <p className="text-base text-black font-bold mb-1 truncate">{product.label}</p>
                     </div>
 
