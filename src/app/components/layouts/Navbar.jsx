@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
+import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
 import { URL_ACCOUNT, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
@@ -40,22 +40,22 @@ const Navbar = () => {
         <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
             {({ open }) => (
                 <>
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-2">
+                    <div className="max-w-7xl mx-auto px-4 lg:px-6 pt-2">
 
                         {/* Search bar */}
-                        <form action="/search" className="flex flex-wrap md:flex-row" >
+                        <form action="/search" className="flex flex-wrap lg:flex-row" >
                             <input type="search" name="query" placeholder="Rechercher" required="required"
-                                className="items-center w-full max-w-md mx-auto h-12 px-4 text-sm text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/2 xl:transition-all 
+                                className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/2 xl:transition-all 
                             xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
                             dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"
                             />
                         </form>
 
                         <div className="relative flex items-center justify-between h-16">
-                            <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                            <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
 
                                 {/* Mobile menu button*/}
-                                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                                     <span className="sr-only">Ouvrir menu</span>
                                     {open ? (
                                         <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -66,7 +66,7 @@ const Navbar = () => {
 
                             </div>
 
-                            <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                            <div className="flex-1 flex items-center justify-center lg:items-stretch lg:justify-start">
 
                                 {/* Website logo */}
                                 <div className="flex-shrink-0 flex items-center">
@@ -83,7 +83,7 @@ const Navbar = () => {
                                 </div>
 
                                 {/* Link to other parts of website */}
-                                <div className="hidden sm:block sm:ml-6">
+                                <div className="hidden lg:block lg:ml-6">
                                     <div className="flex space-x-4">
                                         {navigation.map((item) => (
                                             <Link
@@ -91,7 +91,7 @@ const Navbar = () => {
                                                 to={item.to}
                                                 className={classNames(
                                                     item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                                    'px-3 py-2 rounded-md text-sm font-medium'
+                                                    'px-3 py-2 rounded-lg text-lg font-medium'
                                                 )}
                                                 aria-current={item.current ? 'page' : undefined}
                                             >
@@ -100,22 +100,26 @@ const Navbar = () => {
                                         ))}
                                     </div>
                                 </div>
-
                             </div>
 
                             {/* Right part of navbar - widgets */}
-                            <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                            <div className="absolute inset-y-0 right-0 flex items-center pr-2 lg:static lg:inset-auto lg:ml-6 lg:pr-0">
 
                                 {/* Display depending if the user is connected or not :
                                     notifications, connection / registration link, profile menu burger 
                                 */}
                                 <ConnectionStatusButtons />
+                                <Link
+                                    to="/panier"
+                                >
+                                    <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                </Link>
 
                             </div>
                         </div>
                     </div>
 
-                    <Disclosure.Panel className="sm:hidden">
+                    <Disclosure.Panel className="lg:hidden">
                         <div className="px-2 pt-2 pb-3 space-y-1">
                             {navigation.map((item) => (
                                 <Disclosure.Button
@@ -124,7 +128,7 @@ const Navbar = () => {
                                     to={item.to}
                                     className={classNames(
                                         item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                        'block px-3 py-2 rounded-md text-base font-medium'
+                                        'block px-3 py-2 rounded-lg text-base font-medium'
                                     )}
                                     aria-current={item.current ? 'page' : undefined}
                                 >
@@ -171,7 +175,7 @@ const ConnectionStatusButtons = () => {
                 {/* User burger menu */}
                 <Menu as="div" className="ml-3 relative">
                     <div>
-                        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <Menu.Button className="bg-gray-800 flex text-lg rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span className="sr-only">Ouvrir le menu utilisateur</span>
                             <img
                                 className="h-8 w-8 rounded-full"
@@ -189,11 +193,11 @@ const ConnectionStatusButtons = () => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link to={URL_ACCOUNT}
-                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                     >
                                         Profil
                                     </Link>
@@ -203,7 +207,7 @@ const ConnectionStatusButtons = () => {
                                 {({ active }) => (
                                     <Link
                                         to="#"
-                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                     >
                                         Changer les informations du compte
                                     </Link>
@@ -213,7 +217,7 @@ const ConnectionStatusButtons = () => {
                                 {({ active }) => (
                                     <Link
                                         to="#"
-                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                         onClick={() => dispatch(signOut())}
                                     >
                                         Se déconnecter
@@ -230,18 +234,18 @@ const ConnectionStatusButtons = () => {
 
         /* Displayed buttons if the user is not connected */
         return (
-            <div className="hidden sm:block sm:ml-6">
+            <div className="hidden lg:block lg:ml-6">
                 <div className="flex space-x-4">
                     <Link
                         to={"/register"}
                         className='text-gray-300 hover:bg-gray-700 hover:text-white
-                        px-3 py-2 rounded-md text-sm font-medium'>
+                        px-3 py-2 rounded-lg text-lg font-medium'>
                         S'inscrire
                     </Link>
                     <Link
                         to={URL_LOGIN}
                         className='text-gray-300 hover:bg-gray-700 hover:text-white
-                        px-3 py-2 rounded-md text-sm font-medium'>
+                        px-3 py-2 rounded-lg text-lg font-medium'>
                         Se connecter
                     </Link>
                 </div>
