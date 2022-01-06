@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
 import { URL_ACCOUNT, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
@@ -124,15 +124,18 @@ const Navbar = () => {
                             {navigation.map((item) => (
                                 <Disclosure.Button
                                     key={item.name}
-                                    as="Link"
-                                    to={item.to}
                                     className={classNames(
                                         item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                         'block px-3 py-2 rounded-lg text-base font-medium'
                                     )}
-                                    aria-current={item.current ? 'page' : undefined}
                                 >
-                                    {item.name}
+                                    <Link
+                                        key={item.name}
+                                        to={item.to}
+                                    >
+                                        {item.name}
+                                    </Link>
+
                                 </Disclosure.Button>
                             ))}
                         </div>
