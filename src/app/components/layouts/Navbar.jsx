@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
 import { URL_ACCOUNT, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';

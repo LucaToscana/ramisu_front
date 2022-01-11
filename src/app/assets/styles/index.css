@@ -38,6 +38,34 @@ h1, h2, h3, h4, h5, h6, p {
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
+.cartCard {
+    box-shadow: 5px 5px 5px #A9A9A9;
+}
+
+.iconNone {
+    color: #EB0707;
+}
+
+.iconTrue {
+    color: #048B2A;
+}
+
+.clearCart {
+    background-color: #21212D;
+    color: whitesmoke;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 10%;
+}
+
+.validateCart {
+    background-color: #EAB727;
+    color: whitesmoke;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 10%;
+}
+
 .active {
     background-color: white; 
     border-radius: 9999px; 

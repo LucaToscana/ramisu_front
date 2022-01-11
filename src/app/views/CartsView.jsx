@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addOrder } from "../api/backend/order";
 import { isAuthenticated } from '../shared/services/accountServices';
 import { URL_LOGIN } from '../shared/constants/urls/urlConstants'
+import { CheckIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/solid';
 
 const CartsView = () => {
     const carts = useSelector(selectCart)
@@ -36,59 +37,79 @@ const CartsView = () => {
     }
 
     return (
-        <div className=''>
-            <h1 className="mb-3 text-4xl text-center">{(carts.length === 0) ? "aucun article" : "Nombre d'article : " + carts.length}</h1>
+        <div className='flex justify-around m-5'>
+            <div className=''>
+                <div className='flex border-b-2 border-gray-400 pb-4'>
+                    <ShoppingCartIcon className='w-10 h-10' />
+                    <h1 className='flex items-end font-bold text-2xl ml-4'>Panier</h1>
+                </div>
 
-            {carts.map(cart =>
-                <div key={cart.id} className="flex flex-row pb-2">
-                    <div className="pr-5">
-                        <img src={cart.picture} alt="" className="w-20"
-                            onClick={() => history.push(`/produits/detail/${cart.id}`)} />
-                    </div>
-                    <div className="flex flex-col">
-                        <div className="font-semibold">{cart.label}</div>
-                        <div className="text-center pl-1 mb-2 bg-black text-white rounded-full">{cart.price} € H.T</div>
-                        <div className="flex flex-row pb-2">
-                            <input type="number"
-                                value={cart.quantite}
-                                className="w-14 mr-5 md:w-20"
-                                onChange={(e) => dispatch(setQuantity([cart, e.target.value]))} />
-                            <img src={trash} alt="" className="w-10" onClick={() => dispatch(remove(cart))} />
+                {/* <h1 className="mb-3 text-4xl text-center">{(carts.length === 0) ? "aucun article" : "Nombre d'article : " + carts.length}</h1> */}
+
+                {carts.map(cart =>
+                    <div key={cart.id} className="flex cartCard mt-4 p-4 w-full">
+                        <div className="pr-5">
+                            <img src={cart.picture} alt="" className="w-40"
+                                onClick={() => history.push(`/produits/detail/${cart.id}`)} />
+                        </div>
+                        <div className="w-full flex flex-col place-content-evenly">
+                            <h2 className="font-semibold">{cart.label}</h2>
+                            <div className="flex items-center pb-2">
+                                <div className='w-1/2'>
+                                    <p className="font-bold">{cart.price} € H.T.</p>
+                                </div>
+                                <div>
+                                    <input type="number"
+                                        value={cart.quantite}
+                                        className="w-14 mr-5 md:w-20"
+                                        onChange={(e) => dispatch(setQuantity([cart, e.target.value]))} />
+                                </div>
+                            </div>
+                            <div className='flex justify-between'>
+                                <div className='w-1/2'>
+                                    <p className='font-bold flex items-center'>En Stock {cart.stock > 0 ? <CheckIcon className='ml-2 w-6 h-6 iconTrue' /> : <XIcon className='ml-2 w-6 h-6 iconNone' />}</p>
+                                </div>
+                                <div>
+                                    <img src={trash} alt="" className="w-10" onClick={() => dispatch(remove(cart))} />
+                                </div>
+                            </div>
                         </div>
 
                     </div>
-
-                </div>
-            )}
-            {(carts.length !== 0) &&
-                <div>
+                )}
+                {(carts.length !== 0) &&
                     <div>
-                        <h1 className="text-lg font-semibold mt-2 mb-3">Date de livraison estimée au:</h1>
-                        <p className="text-center">{addDays(5)}</p>
+                        <div className='p-8'>
+                            <h1 className="text-lg font-semibold mt-2 mb-3 text-center">Date de livraison estimée au:</h1>
+                            <p className="text-center text-2xl">{addDays(5)}</p>
+                        </div>
+                        <div className=''>
+                            <table className="pt-8 pb-8 flex justify-end border-t-2 border-b-2 border-gray-400 ">
+                                <tbody>
+                                    <tr>
+                                        <td className="text-right pr-2 font-bold text-2xl">Sous Totale:</td>
+                                        <td className='font-bold text-xl flex justify-end  mt-1'>{subTotal} €</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2 font-bold text-2xl">TVA:</td>
+                                        <td className='font-bold text-xl flex justify-end  mt-1'>{subTotal * 0.2} €</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="text-right pr-2 font-bold text-2xl">Totale:</td>
+                                        <td className='font-bold text-xl flex justify-end mt-1'>{subTotal * 1.2} €</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div className='flex justify-end'>
+                                <button className="clearCart mt-2 mr-2" onClick={() => dispatch(init())}>Vider</button>
+                                <button className="validateCart mt-2" onClick={() => validate(carts)}>Payer</button>
+                            </div>
+                        </div>
                     </div>
-
-                    <table className="mt-2">
-                        <tbody>
-                            <tr>
-                                <td className="text-right pr-2 font-bold">Sous Totale:</td>
-                                <td>{subTotal} €</td>
-                            </tr>
-                            <tr>
-                                <td className="text-right pr-2 font-bold">TVA:</td>
-                                <td>{subTotal * 0.2} €</td>
-                            </tr>
-                            <tr>
-                                <td className="text-right pr-2 font-bold">Totale:</td>
-                                <td>{subTotal * 1.2} €</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button className="btn btn-primary mt-2 mr-2" onClick={() => dispatch(init())}>Vider</button>
-                    <button className="btn btn-primary mt-2" onClick={() => validate(carts)}>Payer</button>
-                </div>
-            }
+                }
 
 
+            </div>
         </div>
     );
 };
