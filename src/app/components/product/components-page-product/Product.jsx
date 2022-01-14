@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from "react-redux";
 import { add } from '../../../shared/redux-store/cartSlice';
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline';
+import { useHistory } from 'react-router-dom';
 
 
 /**
@@ -11,12 +12,13 @@ import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline';
  */
 export const Product = ({ label, price, stock, id, picture }) => {
     const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": 1, "picture": picture }
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     return (
         <div className="m-4 p-4 Cardproduct ">
             <div className="flex flex-wrap">
-                <img src={picture} alt="" className="w-full" onClick={() => dispatch(add(product))} />
+                <img src={picture} alt="" className="w-full" onClick={() => { history.push(`/produits/detail/${id}`) }} />
                 <div className="mt-4 p-2 flex flex-col justify-center w-full clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold truncate">{label}</h2>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import figurine from '../assets/images/figurine.jpg'
 import { productDetail } from "../api/backend/product";
 import ProductDetails from "../components/product/ProductDetails"
 import { useParams } from "react-router-dom";
@@ -18,15 +17,15 @@ const ProductDetailView = () => {
         })
     }, [id])
     return (
-        <div className="flex flex-col md:flex-row items-center">
-            <img
-                className="w-36 md:w-auto mb-4"
-                src={figurine}
-                alt=""
-            />
-            <ProductDetails label={product.label}
+        <div className="flex items-center justify-center md:m-10">
+            <ProductDetails
+                picture={product.picture}
+                label={product.label}
                 price={product.price}
-                description={product.description} />
+                description={product.description}
+                stock={product.stock}
+                id={product.id}
+            />
         </div>
     );
 };
