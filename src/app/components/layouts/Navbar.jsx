@@ -3,12 +3,12 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_INSCRIPTION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_INSCRIPTION, URL_LOGIN , URL_ADMIN_HOME} from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
 import joey from "../../assets/images/joey.jpg";
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
-
+import { isAdmin } from '../../shared/services/accountServices';
 
 // Constants used for navigating with the navbar
 const navigation = [
@@ -35,7 +35,7 @@ function classNames(...classes) {
 const Navbar = () => {
 
     // const history = useHistory()
-
+    const displayAdmin = isAdmin() &&  useSelector(selectIsLogged);
     return (
         <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
             {({ open }) => (
@@ -114,7 +114,17 @@ const Navbar = () => {
                                 >
                                     <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
                                 </Link>
-
+                                { 
+                                    displayAdmin && 
+                                    <div className='text-gray-200'>
+                                       <Link
+                                            key="isAdmin"
+                                            to={URL_ADMIN_HOME}
+                                            aria-current="button Admin"
+                                            >  <span     className= 'bg-red-900 text-white p-2 rounded font-bold'>Admin</span>
+                                        </Link>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
