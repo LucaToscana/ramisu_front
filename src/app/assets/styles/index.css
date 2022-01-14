@@ -262,7 +262,7 @@ h1, h2, h3, h4, h5, h6, p {
         active:ring-primary-500 ;
     }
     .btn-red{
-        @apply text-white bg-red-600 hover:bg-red-700 hover:text-white 
+        @apply text-whitebg-red-600  hover:bg-red-700 hover:text-white 
         active:ring-red-500 ;
     }
     .btn-green{
@@ -320,3 +320,10 @@ h1, h2, h3, h4, h5, h6, p {
 .anim-delay-600{
     animation-delay: 0.6s;
 }
+
+
+
+.react-datepicker__input-container input {
+    @apply px-3 py-2 w-full
+    border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-lg
+    focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-20 sm:text-sm;    }

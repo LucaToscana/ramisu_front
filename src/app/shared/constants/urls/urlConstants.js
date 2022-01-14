@@ -6,7 +6,7 @@ export const URL_ADMIN_HOME = '/admin'
 export const URL_ACCOUNT = '/account'
 export const URL_PROFILE = '/profil'
 export const URL_ORDERS = '/orders'
-
+export const URL_INSCRIPTION ='/inscription'
 // PRODUCT URLS
 export const URL_PRODUCTS_DETAILS = '/produits/detail/:id'
 export const URL_PRODUCT = '/products'
