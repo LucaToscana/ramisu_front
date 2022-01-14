@@ -1,5 +1,5 @@
 import { getToken, decodeToken } from './tokenServices';
-
+import {ROLE_ADMIN} from '../../shared/constants/rolesConstant'
 /**
  * To get all the roles of the current user
  * 
@@ -24,6 +24,23 @@ export function accountLogin(){
 
 export function hasRole(role) {
     return accountRoles().includes(role)
+}
+
+
+/**
+ * To know if the user has the role of administrator
+ * 
+ * @return {boolean} true if the user is admin
+ * @author Malek MOKRANI
+ */
+export function isAdmin()
+{
+    try{
+        return hasRole(ROLE_ADMIN);
+    }catch(e)
+    {
+        return false;
+    }
 }
 
 /**
