@@ -1,13 +1,9 @@
 import { Field } from 'formik';
 import React, { useState, useEffect, useRef } from 'react'
-import { useDispatch, useSelector } from "react-redux";
 import { CustomInput } from '../../shared/components/form-and-error-components/InputCustom';
-import {
-  setAddress, setAddressRoute
-  , setAddressNumber, setAddressCountry,
-  setAddressVille, setPostalCode
-} from '../../shared/redux-store/addresseSlice';
 
+
+import { useFormikContext } from "formik";
 
 
 
@@ -15,24 +11,26 @@ import {
  * Google address autocomplete input
  */
 const AddressInput = ({
-  style = {},
+  props,
   placeholder = 'Address',
 
 
   handleAddress = () => console.log('handle address'),
-  apiKey = 'AIzaSyD_dNnuhAVdh9XmbXt42vZGqez3rqlXmwI'
 }) => {
+  const apiKey = 'AIzaSyD_dNnuhAVdh9XmbXt42vZGqez3rqlXmwI'
+  const { setFieldValue } = useFormikContext();
 
-  const dispatch = useDispatch();
+  // stateful variable  for Google's Places Autocomplete Service
+  const [autocomplete, setAutocomplete] = useState({ test: false })
 
-  var valueAddress = {
-    postcode: "",
-    street_number: "",
-    route: "",
-    country: "",
-    locality: "",
-    postal_code: ""
-  }
+  // stateful user query string
+  const [input, setInput] = useState('')
+
+  // stateful array of Google's predicted addresses
+  const [predictions, setPredictions] = useState([])
+
+  const predictionList = useRef()
+
   const getPlacesPostCodeById = async placeId =>
     new Promise((resolve, reject) => {
       if (!placeId) reject("placeId not provided")
@@ -49,22 +47,24 @@ const AddressInput = ({
 
             details?.address_components?.forEach(entry => {
               if (entry.types?.[0] === "route") {
-
-                dispatch(setAddressRoute(entry.long_name))
+                setFieldValue('rue', entry.long_name);
               }
               if (entry.types?.[0] === "street_number") {
-                dispatch(setAddressNumber(entry.long_name))
+                setFieldValue('numeroA', entry.long_name);
+
               }
               if (entry.types?.[0] === "locality") {
+                setFieldValue('ville', entry.long_name);
 
-                dispatch(setAddressVille(entry.long_name))
+
               }
               if (entry.types?.[0] === "country") {
-                dispatch(setAddressCountry(entry.long_name))
+                setFieldValue('pays', entry.long_name);
+
               }
               if (entry.types?.[0] === "postal_code") {
+                setFieldValue('codepostal', entry.long_name);
 
-                dispatch(setPostalCode(entry.long_name))
               }
 
             })
@@ -75,17 +75,13 @@ const AddressInput = ({
       }
     })
 
-  // stateful variable  for Google's Places Autocomplete Service
-  const [autocomplete, setAutocomplete] = useState({})
 
-  // stateful user query string
-  const [input, setInput] = useState('')
+  useEffect(() => {
+    loadGoogleMapsAPI(() => {
+      setAutocomplete(new window.google.maps.places.AutocompleteService())
 
-  // stateful array of Google's predicted addresses
-  const [predictions, setPredictions] = useState([])
-
-  const predictionList = useRef()
-
+    })
+  }, [])
   /**
    * @description create and load script element for Google's maps API
    * 
@@ -108,11 +104,7 @@ const AddressInput = ({
   }
 
   // load Google's maps API then instantiate an instance of Google's Places autocomplete service
-  useEffect(() => {
-    loadGoogleMapsAPI(() => {
-      setAutocomplete(new window.google.maps.places.AutocompleteService())
-    })
-  }, [])
+
 
   /**
    * @description get array of predictions based on user query
@@ -120,14 +112,23 @@ const AddressInput = ({
    * @param {String} input - the user's address query
    */
   const getPredictions = input => {
-    autocomplete.getPlacePredictions(
-      { input },
-      predictions => {
-        if (predictions) {
-          setPredictions(predictions.map(prediction => prediction))
+    if (autocomplete.test === false) {
+      setAutocomplete(new window.google.maps.places.AutocompleteService())
+
+
+
+
+    }
+    else {
+      autocomplete.getPlacePredictions(
+        { input },
+        predictions => {
+          if (predictions) {
+            setPredictions(predictions.map(prediction => prediction))
+          }
         }
-      }
-    )
+      )
+    }
   }
 
   // as the user types, get predictions only if there is a query
@@ -238,10 +239,10 @@ const AddressInput = ({
         <Field
           type='text'
           id='autocomplete-address-input'
-          className='rounded-none rounded-b-md mb-4 shadow-inner  w-48	' placeholder={placeholder}
+          className='rounded-none rounded-b-md mb-4 shadow-inner  w-48	'
           value={input.description}
           onChange={({ address = event.target.value }) => setInput(address)}
-          component={CustomInput} className='rounded-none rounded-t-md mb-4 shadow-inner' noError
+          className='rounded-none rounded-t-md mb-4 shadow-inner react-datepicker__input-container input' noError
         />
 
       </div>
@@ -255,17 +256,13 @@ const AddressInput = ({
                 predictions.map((prediction, key) => {
                   return (
                     <div
+                      
                       key={key}
                       className='w-full'
                       tabIndex='0'
                       onClick={() => {
                         selectAddress(prediction)
-
-                        getPlacesPostCodeById(prediction.place_id).then(result => {
-
-                          dispatch(setAddress(result))
-                        })
-
+                        getPlacesPostCodeById(prediction.place_id)
                       }}
                     >
                       <div>   <p className='rounded-none rounded-b-md mb-4 shadow-inner'>{prediction.description}</p></div>

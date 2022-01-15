@@ -1,10 +1,10 @@
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { Link } from 'react-router-dom';
-import { defaulValuesInscription, defaulValuesLogin } from '../../shared/constants/formik-yup/default-values-form/idefaultValuesUser';
+import { defaulValuesInscription } from '../../shared/constants/formik-yup/default-values-form/idefaultValuesUser';
 import { schemaFormInscription } from '../../shared/constants/formik-yup/yup/yupUser';
 import ErrorMessSmall from '../../shared/components/form-and-error-components/ErrorMessSmall';
-import { CustomCheckbox, CustomInput } from '../../shared/components/form-and-error-components/InputCustom';
+import {  CustomInput } from '../../shared/components/form-and-error-components/InputCustom';
 import AddressInput from './AddressInput';
 import DatePickerField from '../../shared/components/form-and-error-components/DatePickerField';
 import "react-datepicker/dist/react-datepicker.css";
@@ -22,7 +22,7 @@ import "react-datepicker/dist/react-datepicker.css";
  * @author Peter Mollet
  */
 
-const FormInscription = ({ submit, errorLog, address, localAddress }) => (
+const FormInscription = ({ submit, errorLog }) => (
 
 
     <Formik enableReinitialize={true}
@@ -54,8 +54,8 @@ const FormInscription = ({ submit, errorLog, address, localAddress }) => (
                     <div className='flex '>
                         <div className='p-1'>
 
-                            <svg class="h-4 w-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            <svg className="h-4 w-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
 
                         </div><div>   Adresse</div> </div> </label>
@@ -118,12 +118,12 @@ const FormInscription = ({ submit, errorLog, address, localAddress }) => (
 
 
                 <label className="mb-2">Password</label>
-                <Field type='text' name='password'
+                <Field type='password' name='password'
                     component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner' noError />
 
 
                 <label className="mb-2">Password Test</label>
-                <Field type='text' name='passwordTest'
+                <Field type='password' name='passwordTest'
                     component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner' noError />
 
 
@@ -158,22 +158,7 @@ const FormInscription = ({ submit, errorLog, address, localAddress }) => (
  */
 const Inscription = (props) => {
 
-    const isMyAddress = () => {
 
-        var myAddress = {
-            street_number: "",
-            route: "",
-            country: "",
-            locality: "",
-            postal_code: ""
-        }
-        if (localStorage.getItem("myAddress")) {
-            return JSON.parse(localStorage.getItem("myAddress"))
-        } else { return myAddress }
-    }
-
- 
-    const localAddress = isMyAddress()
 
     return (
         <div className='mt-10 md:w-1/2 md:border-2 md:shadow-2xl'>
@@ -183,7 +168,7 @@ const Inscription = (props) => {
                 </h2>
             </div>
 
-            {<FormInscription localAddress={localAddress}  {...props} />
+            {<FormInscription  {...props} />
             }
         </div>
     );

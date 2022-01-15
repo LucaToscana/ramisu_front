@@ -17,18 +17,16 @@ import {useSelector, useDispatch} from 'react-redux'
  * @author Luca Toscana
  */
 const InscriptionView = ({ history }) => {
-    const selector = useSelector(state => state.addresse)
 
     const [errorLog, setErrorLog] = useState(false)
 
     const handleInscription = (values) => {
 
 
-        alert(  JSON.stringify(values))
-
 
         inscription(values).then(res => {
             if (res.status === 200 /*&& res.data.token*/) {
+                history.push(URL_HOME)
              /*   dispatch(signIn(res.data.token))
                 if (isAuthenticated) history.push(URL_HOME)*/
             }
@@ -39,7 +37,7 @@ const InscriptionView = ({ history }) => {
         <div className=''>
             <div className="md:flex md:justify-center">
 
-                <Inscription submit={handleInscription} errorLog={errorLog}  address={selector}/>
+                <Inscription submit={handleInscription} errorLog={errorLog}  />
             </div>
         </div>
 
