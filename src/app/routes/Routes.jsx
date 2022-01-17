@@ -4,6 +4,8 @@ import {
     URL_HOME,
     URL_ACCOUNT,
     URL_LOGIN,
+    URL_PASSWORD_RESET_START,
+    URL_PASSWORD_RESET_END,
     URL_ADMIN_HOME,
     URL_PRODUCTS_DETAILS,
     URL_PRODUCT,
@@ -16,6 +18,8 @@ import { ROLE_ADMIN, ROLE_USER } from "../shared/constants/rolesConstant";
 import { PrivateRoute } from "../shared/components/utils-components/PrivateRoute";
 import HomeView from "../views/HomeView";
 import LoginView from "../views/LoginView";
+import PasswordResetStartView from "../views/PasswordResetStartView";
+import PasswordResetEndView from "../views/PasswordResetEndView";
 import AccountView from "../views/AccountView";
 import AdminHomeView from "../views/AdminHomeView";
 import ProductView from "../views/ProductView";
@@ -35,6 +39,8 @@ const Routes = () => {
         <Switch history={customHistory}>
             <Route exact path={URL_HOME} component={HomeView} />
             <Route path={URL_LOGIN} component={LoginView} />
+            <Route exact path={URL_PASSWORD_RESET_START} component={PasswordResetStartView}/>
+            <Route path={URL_PASSWORD_RESET_END} component={PasswordResetEndView}/>
             <PrivateRoute path={URL_ACCOUNT} component={AccountView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_PROFILE} component={ProfileView} roles={[ROLE_USER]} />
             <PrivateRoute
