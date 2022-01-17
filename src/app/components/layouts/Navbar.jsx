@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_INSCRIPTION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
 import joey from "../../assets/images/joey.jpg";
@@ -240,7 +240,7 @@ const ConnectionStatusButtons = () => {
             <div className="hidden lg:block lg:ml-6">
                 <div className="flex space-x-4">
                     <Link
-                        to={"/register"}
+                        to={URL_INSCRIPTION}
                         className='text-gray-300 hover:bg-gray-700 hover:text-white
                         px-3 py-2 rounded-lg text-lg font-medium'>
                         S'inscrire

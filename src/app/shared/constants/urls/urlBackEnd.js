@@ -1,5 +1,6 @@
 // USER BACK-END URLS
 export const URL_BACK_AUTHENTICATE = '/login'
+export const URL_BACK_INSCRIPTION = '/inscription'
 //export const URL_BACK_AUTHENTICATE = '/authenticate'
 export const URL_BACK_PROFILE = '/public/profile'
 export const URL_BACK_RESET_PASSWORD_START = '/public/passwordresetstart'

@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authenticationReducer from './authenticationSlice'
 import cartsReducer from './cartSlice'
-
 /**
  * To configure the store redux. 
  * 
