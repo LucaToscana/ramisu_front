@@ -5,7 +5,6 @@ import { URL_HOME } from '../shared/constants/urls/urlConstants';
 import { isAuthenticated } from '../shared/services/accountServices';
 import Login from '../components/account/Login';
 import Inscription from '../components/account/Inscription';
-import AddressInput from '../components/account/AddressInput';
 
 import {useSelector, useDispatch} from 'react-redux'
 

@@ -5,7 +5,7 @@ import { defaulValuesInscription } from '../../shared/constants/formik-yup/defau
 import { schemaFormInscription } from '../../shared/constants/formik-yup/yup/yupUser';
 import ErrorMessSmall from '../../shared/components/form-and-error-components/ErrorMessSmall';
 import {  CustomInput } from '../../shared/components/form-and-error-components/InputCustom';
-import AddressInput from './AddressInput';
+import AddressInput from '../../shared/components/form-and-error-components/AddressInput';
 import DatePickerField from '../../shared/components/form-and-error-components/DatePickerField';
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -119,12 +119,12 @@ const FormInscription = ({ submit, errorLog }) => (
 
                 <label className="mb-2">Password</label>
                 <Field type='password' name='password'
-                    component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner' noError />
+                    component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner'  />
 
 
                 <label className="mb-2">Password Test</label>
                 <Field type='password' name='passwordTest'
-                    component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner' noError />
+                    component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner'  />
 
 
             </div>
