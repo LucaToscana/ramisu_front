@@ -17,14 +17,42 @@ const ProfileView = () => {
             <h1 className="font-semibold text-center text-2xl ">
                 <img className="w-6 inline " src={person} alt='' />Données du compte</h1>
             <div className="flex flex-col justify-center items-center m-5 ">
-                <div className="box-border p-6 border-4 text-xl shadow-xl">
-                    <div>Prenom: {profile.lastName}</div>
-                    <div>Nom: {profile.firstName}</div>
-                    <div>Date de naissance: {profile.birthdate}</div>
-                    <div>Mail: {profile.mail}</div>
-                    <div>Adresse:{profile.number + " " + profile.street}</div>
-                    <div>Tél: {profile.phone}</div>
-                </div>
+            <form action="#" className='flex flex-col items-center'>
+            <div>
+                <div className='border flex justify-between items-center '>
+                    <label className='mr-4'>Prenom : </label>
+                    <input className='text-center' defaultValue={profile.lastName} type="text" />
+                  </div>
+
+                  <div className='border flex justify-between items-center '>
+                    <label className='mr-4'>Nom : </label>
+                    <input className='text-center' defaultValue={profile.firstName} type="text" />
+                  </div>
+
+                  <div className='border flex justify-between items-center '>
+                    <label className='mr-4'>Date de naissance : </label>
+                    <input className='text-center' defaultValue={profile.birthdate} type="text" />
+                  </div>
+
+                  <div className='border flex justify-between items-center '>
+                    <label className='mr-4'>Mail : </label>
+                    <input className='text-center' defaultValue={profile.mail} type="text" />
+                  </div>
+
+                  <div className='border flex justify-between items-center '>
+                    <label className='mr-4'>Adresse : </label>
+                    <input className='text-center' defaultValue={profile.number} type="text" />
+                    <input className='text-center' defaultValue={profile.street} type="text" />
+                  </div>
+                  <div className='border flex justify-between items-center '>
+                    <label className='mr-4'>Tél : </label>
+                    <input className='text-center' defaultValue={profile.phone} type="text" />
+                  </div>
+            
+                  </div>
+                  <img src={avatar} width="300px" height="100%" className='ml-6 block mt-5'/>
+                  <button type="submit" className="bg-stone-900 text-white p-2 mt-5">Mettre à jour</button>
+                </form>
             </div>
         </div>
     );
