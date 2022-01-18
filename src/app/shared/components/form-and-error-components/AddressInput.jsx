@@ -1,6 +1,5 @@
 import { Field } from 'formik';
 import React, { useState, useEffect, useRef } from 'react'
-import { CustomInput } from './InputCustom';
 
 
 import { useFormikContext } from "formik";
@@ -16,8 +15,9 @@ const AddressInput = ({
 
 
   handleAddress = () => console.log('handle address'),
-}) => {
-  const apiKey ="YOURGOOGLEAPIKEY"
+}) => {    
+
+  const apiKey =import.meta.env.VITE_REACT_GOOGLE_API_KEY
   const { setFieldValue } = useFormikContext();
 
   // stateful variable  for Google's Places Autocomplete Service

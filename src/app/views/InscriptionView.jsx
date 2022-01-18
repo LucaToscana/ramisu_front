@@ -35,7 +35,9 @@ const InscriptionView = ({ history }) => {
     return (
         <div className=''>
             <div className="md:flex md:justify-center">
-
+             
+              
+              
                 <Inscription submit={handleInscription} errorLog={errorLog}  />
             </div>
         </div>
