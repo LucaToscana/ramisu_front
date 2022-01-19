@@ -21,13 +21,13 @@ const FormPasswordAskNew = ({ submit, errorLog }) => (
         <Form className='m-8'>
             <div className='rounded-md shadow-sm -space-y-px'>
                 <label className="mb-2">Veuillez entrer votre nouveau mot de passe</label>
-                <Field type="text" name="newPassword"
+                <Field type="password" name="newPassword"
                     component={CustomInput} className='rounded-none rounded-t-md mb-4 shadow-inner' noError />
             </div>
 
             <div className='rounded-md shadow-sm -space-y-px'>
                 <label className="mb-2">Entrez à nouveau le mot de passe</label>
-                <Field type="text" name="verifyNewPassword"
+                <Field type="password" name="verifyNewPassword"
                     component={CustomInput} className='rounded-none rounded-t-md mb-4 shadow-inner' noError />
             </div>
 
