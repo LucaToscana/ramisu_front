@@ -101,9 +101,9 @@ const CartsView = () => {
                                 </tbody>
                             </table>
                             <div className='flex justify-end'>
-                                <button className="clearCart mt-2 mr-2" onClick={() => dispatch(init())}>Vider</button>
-                                <button className="validateCart mt-2" onClick={() => validate(carts)}>Payer</button>
-                            </div>
+                               <button className="clearCart mt-2 mr-2" onClick={() => dispatch(init())}>Vider</button>
+                                <button className="validateCart mt-2" onClick={() =>history.push('/paiement') /*validate(carts)*/}>Payer</button>
+                            </div> 
                         </div>
                     </div>
                 }

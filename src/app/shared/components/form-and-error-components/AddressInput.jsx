@@ -236,15 +236,16 @@ const AddressInput = ({
     <div className="w-full">
       { }
       <div className="w-full" >
+        <p className=' text-xs'>
         <Field
           type='text'
           id='autocomplete-address-input'
-          className='rounded-none rounded-b-md mb-4 shadow-inner  w-48	'
+          className='rounded-none rounded-b-md mb-4 shadow-inner  w-48 text-xs'
           value={input.description}
           onChange={({ address = event.target.value }) => setInput(address)}
-          className='rounded-none rounded-t-md mb-4 shadow-inner react-datepicker__input-container input' noError
+          className='rounded-none rounded-t-md mb-4 shadow-inner react-datepicker__input-container input  text-xs' noError
         />
-
+</p>
       </div>
 
       <div className='justify-center w-full  grid-rows-1'>
@@ -258,7 +259,7 @@ const AddressInput = ({
                     <div
                       
                       key={key}
-                      className='w-full'
+                      className='w-full text-xs'
                       tabIndex='0'
                       onClick={() => {
                         selectAddress(prediction)

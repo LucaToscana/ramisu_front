@@ -10,7 +10,8 @@ import {
     URL_CART,
     URL_PROFILE,
     URL_ORDERS,
-    URL_INSCRIPTION
+    URL_INSCRIPTION,
+    URL_PAIEMENT
 } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_USER } from "../shared/constants/rolesConstant";
@@ -25,6 +26,7 @@ import CartsView from "../views/CartsView";
 import ProfileView from "../views/ProfileView";
 import OrdersView from "../views/OrdersView";
 import InscriptionView from "../views/InscriptionView";
+import PaiementView from "../views/PaiementView";
 
 /**
  * Routes of the application
@@ -49,7 +51,7 @@ const Routes = () => {
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             <Route path={URL_CART} component={CartsView} />
             <Route path={URL_INSCRIPTION} component={InscriptionView} />
-
+            <Route path={URL_PAIEMENT} component={PaiementView}/>
         </Switch>
     );
 };
