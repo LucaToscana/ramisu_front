@@ -37,3 +37,17 @@ export const schemaFormInscription = Yup.object().shape({
         .required("Champ requis"),
 
 })
+
+// Used to start the password reset feature : ask the user their email address.
+export const schemaFormAskNewPassword = Yup.object().shape({
+    email: Yup.string().required("Adresse mail requise"),
+})
+
+// Used to create and check a new password
+export const schemaFormValidateNewPassword = Yup.object().shape({
+    newPassword: Yup.string().required("Champs requis").matches(
+        /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]))(?=.*\d)((?=.*[a-z]))((?=.*[A-Z])).*$/,
+        "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un nombre et un caractère spécial"
+    ),
+    verifyNewPassword: Yup.string().required("Champs requis").oneOf([Yup.ref("newPassword"), null], "Les mots de passe ne sont pas similaires")
+})

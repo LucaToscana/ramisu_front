@@ -5,6 +5,7 @@ import { defaulValuesLogin } from './../../shared/constants/formik-yup/default-v
 import { schemaFormLogin } from './../../shared/constants/formik-yup/yup/yupUser';
 import ErrorMessSmall from './../../shared/components/form-and-error-components/ErrorMessSmall';
 import { CustomCheckbox, CustomInput } from '../../shared/components/form-and-error-components/InputCustom';
+import { URL_PASSWORD_RESET_START } from '../../shared/constants/urls/urlConstants';
 
 /**
  * Component Form Login
@@ -35,7 +36,7 @@ const FormLogin = ({ submit, errorLog }) => (
                 </div>
 
                 <div className="text-center mb-8 mt-4">
-                    <Link to="/forgot-password" >
+                    <Link to={URL_PASSWORD_RESET_START} >
                         <span className=' font-medium underline' >
                             Mot de passe oublié ?
                         </span>

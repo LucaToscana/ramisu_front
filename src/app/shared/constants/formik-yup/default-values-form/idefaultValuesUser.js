@@ -23,3 +23,12 @@ export const defaulValuesInscription = {
     passwordTest:'',
  //   rememberMe: false
 }
+
+export const defaultValuesAskNewPassword = {
+    email :''
+}
+
+export const defaultValuesValidateNewPassword = {
+    newPassword : '',
+    verifyPassword : ''
+}
