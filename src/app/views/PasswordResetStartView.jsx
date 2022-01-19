@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { resetPasswordStart } from '../api/backend/account';
 import PasswordForgottenForm from '../components/account/PasswordForgottenForm';
 
@@ -16,7 +17,7 @@ const PasswordResetStartView = ({ history }) => {
     
         resetPasswordStart(values).then(response => {
             if (response.status === 200) {
-                console.log(' *** I GOT THE EMAIL !!! *** ')
+                toast.success("Un email a été envoyé à l'adresse indiquée.")
             }
         }).catch(() => setErrorLog(true))
     }
