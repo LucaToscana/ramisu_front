@@ -5,7 +5,6 @@ import { resetPasswordEnd } from '../api/backend/account';
 import PasswordResetForm from '../components/account/PasswordResetForm';
 import { URL_HOME } from './../shared/constants/urls/urlConstants';
 import { resetPasswordCheckTokenValidity } from '../api/backend/account';
-import handleHttpError from './../shared/components/form-and-error-components/HandleHttpError';
 import Loader from './../shared/components/utils-components/Loader';
 
 /**
