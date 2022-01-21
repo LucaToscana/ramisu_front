@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { addOrder } from "../api/backend/order";
 import { isAuthenticated } from '../shared/services/accountServices';
 import { URL_LOGIN } from '../shared/constants/urls/urlConstants'
-import { CheckIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/solid';
+import { CheckIcon, ShoppingCartIcon, XIcon, } from '@heroicons/react/solid';
 
 const CartsView = () => {
     const carts = useSelector(selectCart)
@@ -35,6 +35,25 @@ const CartsView = () => {
             history.push(URL_LOGIN)
         }
     }
+
+
+
+
+
+const pushToPiement =()=>{
+
+    if (isAuthenticated()) {
+        history.push('/paiement')
+        
+      
+    } else {
+        localStorage.setItem("testLoginPanier",true)
+        history.push(URL_LOGIN)
+    }
+}
+
+
+
 
     return (
         <div className='flex justify-around m-5'>
@@ -102,7 +121,7 @@ const CartsView = () => {
                             </table>
                             <div className='flex justify-end'>
                                <button className="clearCart mt-2 mr-2" onClick={() => dispatch(init())}>Vider</button>
-                                <button className="validateCart mt-2" onClick={() =>history.push('/paiement') /*validate(carts)*/}>Payer</button>
+                                <button className="validateCart mt-2" onClick={() =>{pushToPiement() }}>Payer</button>
                             </div> 
                         </div>
                     </div>

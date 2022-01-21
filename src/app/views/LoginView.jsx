@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { signIn } from '../shared/redux-store/authenticationSlice';
 import { authenticate } from './../api/backend/account';
-import { URL_HOME } from './../shared/constants/urls/urlConstants';
+import { URL_HOME, URL_PAIEMENT } from './../shared/constants/urls/urlConstants';
 import { isAuthenticated } from './../shared/services/accountServices';
 import Login from './../components/account/Login';
 
@@ -21,7 +21,21 @@ const LoginView = ({ history }) => {
         authenticate(values).then(res => {
             if (res.status === 200 && res.data.token) {
                 dispatch(signIn(res.data.token))
-                if (isAuthenticated) history.push(URL_HOME)
+
+
+                if (isAuthenticated) {
+
+                    if (localStorage.getItem("testLoginPanier") !== null) {
+                        history.push(URL_PAIEMENT)
+                        localStorage.removeItem("testLoginPanier")
+
+
+                    }
+                    else {
+                        history.push(URL_HOME)
+                    }
+
+                }
             }
         }).catch(() => setErrorLog(true))
     }

@@ -1,69 +1,95 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 import { selectCart } from "../shared/redux-store/cartSlice";
-import Modal from '../shared/components/utils-components/Modal/ModalExample';
 import useModal from '../shared/components/utils-components/Modal/useModal';
 import ModalAddress from '../shared/components/utils-components/Modal/modalAddress/ModalAddress';
+import { setLivraison, selectLivraison } from "../shared/redux-store/livraisonSlice"
+import { useDispatch } from 'react-redux';
+import { CheckIcon } from '@heroicons/react/solid';
 
-
-
-const PaiementView = () => {
+import { useHistory } from 'react-router-dom';
+import ButtonStripe from '../shared/components/buttons/ButtonStripe';
+import paypal from "../assets/images/paypal.png";
+import visaMaster from "../assets/images/visaMastercard.png";
+const PaiementPayerView = () => {
+    const [methodPay, selectMethodPay] = useState("")
     const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
-
+    const liv = useSelector(selectLivraison);
     const carts = useSelector(selectCart)
+
+    const history = useHistory();
+    /*toggleddressForm*/
+
+    const dispatch = useDispatch();
+
+    const selectCard = () => {
+        selectMethodPay("cart")
+
+    }
+
+
     let subTotal = 0;
     for (let i = 0; i < carts.length; i++) {
         subTotal += carts[i].quantite * carts[i].price
     }
+    const submit = (value) => {
+        dispatch(setLivraison(value))
+        toggleAddressForm()
+    }
 
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default m-5 p-5 flex justify-around m-5'>
-      
-     
 
-        <ModalAddress
-          isShowing={isAddressFormShowed}
-          hide={toggleAddressForm}
-          title="Indiquer mon adresse"
-        >
-        </ModalAddress>
+
+            <ModalAddress
+                isShowing={isAddressFormShowed}
+                hide={toggleAddressForm}
+                title="Indiquer mon adresse"
+                submit={submit}
+            >
+            </ModalAddress>
 
             <div className='lg:w-2/3'>
                 <div className='flex border-b-2 border-gray-400 pb-4 mb-5'>
-                    <h1 className='flex items-end font-bold text-4xl ml-4'>Livraison</h1>
+                    <h1 className='flex  font-bold text-4xl ml-4'>Paiement</h1>
                 </div>
 
                 <div className='flex border-b-2 border-gray-400 pb-4'>
-                    <h1 className='flex items-end font-bold text-2xl ml-4'>En magasin ( gratuit )</h1>
+                    <h1 className='flex font-bold text-2xl ml-4'>Paiement par paypal</h1>
                 </div>
-                <div className='flex  border-b-2 border-gray-400 mt-5   cartCard '>
-                    <div className="lg:w-full ml-10 ">    <p className="text-sm mt-10 pb-10 border-b-2 ">
-                        La livraison est toujours gratuite en magasin Games Workshop ou Warhammer, sans exigence de montant minimum ni de pacte avec les dieux du Chaos.
-
-                    </p></div>
-                    <div className="lg:w-1/8  ">   </div>
+                <div className='flex justify-between  border-b-2 border-gray-400 mt-5   cartCard '>
+                    <div className='self-center h-full'>  <img src={paypal} height={200} width={200}></img>  </div>    <p className="text-sm mt-10 pb-10 self-center">
+                        Vous pouvez valider le paiement avec paypal
+                    </p>
 
                     <div className='flex justify-end self-end m-2 text-sm	'>
-                        <button className="paiementCart h-12 w-24" onClick={() => alert("Choisir un magasin")/*validate(carts)*/}>Choisir un magasin</button>
+                        <button className="paiementCart h-12 w-24" onClick={() => alert("button paypal")/*validate(carts)*/}>Paypal</button>
                     </div>
                 </div>
 
 
 
                 <div className='flex border-b-2 border-gray-400 pb-4 mt-5 '>
-                    <h1 className='flex items-end font-bold text-2xl ml-4'>A domicile (gratuit a partir de 25 €) </h1>
+                    <h1 className='flex items-end font-bold text-2xl ml-4'>Paiement par carte </h1>
                 </div>
-                <div className='flex  border-b-2 border-gray-400   cartCard '>
-                    <div className="lg:w-full ml-10 ">    <p className="text-sm mt-10 pb-10 border-b-2 ">
-                        Le port Standard coûte 6€ et il est OFFERT pour toute commande de plus de 25€. Tous les frais de port incluent les taxes et frais de douane.
+                <div className='flex justify-between  border-b-2 border-gray-400 mt-5   cartCard '>
+                    <div className='self-center h-full m-4 '>  <img src={visaMaster} height={130} width={130}></img>  </div>    <p className="text-sm mt-10 pb-10 self-center">
+                        Vous pouvez valider le paiement avec Visa or Mastercard
+                    </p>
 
-                    </p></div>
-                    <div className="lg:w-1/8  ">   </div>
+
+
+
 
                     <div className='flex justify-end self-end m-2 text-sm	'>
-                 
-                        <button className="paiementCart h-12 w-24"  onClick={toggleAddressForm}/*validate(carts)*/>Indiquer mon adresse</button>
+                        {<div className='flex justify-center m-5'>
+                            <ButtonStripe amountO= {(subTotal * 1.2) < 25 ? (subTotal * 1.2) + 10
+                        : (subTotal * 1.2)}></ButtonStripe>                    </div>
+
+                        }
+
                     </div>
+
                 </div>
 
 
@@ -113,26 +139,32 @@ const PaiementView = () => {
                     </div>
                     <div class="grid grid-cols-3 gap-2 w-full p-3 	">
                         <div className='w-full'><h1 className='flex items-end font-bold text-1xl'>
-                        Total (TVA incluse)</h1></div>
+                            Total (TVA incluse)</h1></div>
                         <div className='w-full text-center'><p className='text-sm font-bold  '> </p></div>
-                        {(subTotal * 1.2) < 25 ? <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2) +10}€</p></div>
-                            : <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2) }€</p></div>}                    </div>
-                
-                
-                <div className='flex justify-center m-5'>
-                                <button className="validateCart mt-2" onClick={() =>history.push('/paiement') /*validate(carts)*/}>Payer</button>
-                            </div>
-                </div>
+                        {(subTotal * 1.2) < 25 ? <> <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2) + 10}€</p></div>
 
-              
+
+
+                        </> : <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2)}€</p></div>}                    </div>
+
+                    <div className="lg:w-1/8  flex justify-end self-end p-1 ">
+                        {localStorage.getItem('myAddress') !== null ? <> <CheckIcon className='md:w-12 h-12 iconTrue' />
+                            <p className='text-xs p-5'> A domicile:
+                                {JSON.parse(localStorage.getItem('myAddress')).numeroA + "   "
+                                    + JSON.parse(localStorage.getItem('myAddress')).rue + "   "
+                                    + JSON.parse(localStorage.getItem('myAddress')).ville + "   " + JSON.parse(localStorage.getItem('myAddress')).codepostal + "  "
+                                    + JSON.parse(localStorage.getItem('myAddress')).pays + JSON.parse(localStorage.getItem('myAddress')).complementadresse}
+
+                            </p>
+                        </> : null}  </div></div>
+
             </div>
 
 
-             
 
             <div></div>
         </div>
     );
 };
 
-export default PaiementView;
+export default PaiementPayerView;

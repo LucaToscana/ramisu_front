@@ -10,6 +10,7 @@ export const URL_PROFILE = '/profil'
 export const URL_ORDERS = '/orders'
 export const URL_INSCRIPTION ='/inscription'
 export const URL_PAIEMENT ='/paiement'
+export const URL_PAIEMENT_2 ='/paiementmethod'
 
 // PRODUCT URLS
 export const URL_PRODUCTS_DETAILS = '/produits/detail/:id'

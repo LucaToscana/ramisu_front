@@ -6,6 +6,9 @@ import { CustomCheckbox, CustomInput } from '../../../../../shared/components/fo
 import AddressInput from '../../../form-and-error-components/AddressInput';
 import { defaulValuesAdress } from '../../../../constants/formik-yup/default-values-form/idefaultValuesAddress'
 import { schemaFormModalAddress } from '../../../../constants/formik-yup/yup/yupAddress';
+import { useSelector } from "react-redux";
+
+
 
 
 /**
@@ -23,8 +26,15 @@ const FormModalAddress = ({ submit, errorLog }) => (
 
 
     <Formik enableReinitialize={true}
-        initialValues={defaulValuesAdress} onSubmit={submit} validationSchema={schemaFormModalAddress}>
-        <Form className='m-8'>
+
+    
+    
+    initialValues={(localStorage.getItem('myAddress')===null)?defaulValuesAdress: JSON.parse(localStorage.getItem('myAddress'))}
+        
+        
+        
+        onSubmit={submit} validationSchema={schemaFormModalAddress}>
+        <Form className='m-2'>
             <div className='rounded-md shadow-sm -space-y-px'>
 
 
@@ -125,15 +135,12 @@ const FormModalAddress = ({ submit, errorLog }) => (
  */
 const ModalAddressForm = (props) => {
 
-const submit=(value)=>{
-
-    alert("ciao"+JSON.stringify( value))
-}
+  
 
     return (
         <div className='mt-10 w-full md:border-2 md:shadow-2xl'>
 
-            {<FormModalAddress  submit={submit} {...props} />
+            {<FormModalAddress {...props} />
             }
         </div>
     );
