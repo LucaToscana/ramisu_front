@@ -24,18 +24,14 @@ import "../../assets/styles/datepickerprofile.css"
 const Profile = (props) => {
 
     const schemaFormProfile = Yup.object().shape({
-        firstName: Yup.string().max(30, 'Must be 30 characters or less').required('Required'),
-        lastName: Yup.string().max(30, 'Must be 30 characters or less').required('Required'),
+        firstName: Yup.string().max(30, 'Must be 30 characters or less').required(),
+        lastName: Yup.string().max(30, 'Must be 30 characters or less').required(),
         birthdate: Yup.string().required(),
-        email: Yup.string().email('Invalid email address').required('Required'),
-        number: Yup.string().required('Required'),
+        number: Yup.string().required(),
         address: Yup.string().required(),
         phone: Yup.string().required()
     });
 
-    const schema = Yup.object().shape({
-        phone: Yup.string().required()
-    })
 
     return (
         <div className='p-5'>
@@ -49,7 +45,7 @@ const Profile = (props) => {
                 initialValues={props.data}
                 enableReinitialize={true}
                 onSubmit={props.submit}
-                validationSchema={schema}>
+                validationSchema={schemaFormProfile}>
                 {({ setFieldValue }) => (
                 <Form className="flex flex-col md:flex-row justify-evenly items-stretch">
 
@@ -57,7 +53,7 @@ const Profile = (props) => {
 
                     <div className='flex justify-center items-center p-3 relative'>
                         <img src={avatar} width="200px" height="100%" className='ml-6' />
-                        <button className='border-2 border-black rounded-full w-15 h-15 p-2 absolute top-1/8 right-1/4 bg-white'  >
+                        <button className='border-2 border-black rounded-full w-15 h-15 p-2  bg-white'  >
                             <img src={addImg} width="30px" height="30px" />
                         </button>
                         
@@ -263,7 +259,7 @@ const FromRowDate = (props) => {
     
     const styleShowBtn =    'ml-2  ';
     const styleHideBtn =    'ml-2 hidden';
-    const styleOpen    =    'text-right bg-white border-1';
+    const styleOpen    =    'text-right bg-white border-1 w-3/4 md:w-min';
     const styleClose   =    'text-right flex-none bg-transparent border-0  w-full md:w-min';
                               
     
