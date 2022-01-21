@@ -33,6 +33,6 @@ export const { signIn, signOut } = authenticationSlice.actions;
 
 export const selectIsLogged = (state) => state.auth.isLogged;
 
-export const selectIsLoggedAdmin = (state) => state.auth.isLogged;
+export const selectIsLoggedAdmin = (state) => state.auth.isAdmin;
 
 export default authenticationSlice.reducer

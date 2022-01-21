@@ -207,10 +207,11 @@ const ConnectionStatusButtons = () => {
                                     </Link>
                                 )}
                             </Menu.Item>
+                          {      displayAdmin &&  (
                             <Menu.Item>
                             { 
                               ({ active }) => (
-                                displayAdmin && 
+                          
                                        <Link
                                             key="isAdmin"
                                             to={URL_ADMIN_HOME}
@@ -220,6 +221,7 @@ const ConnectionStatusButtons = () => {
                                         </Link>
                                ) }
                                </Menu.Item>
+                            )}
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link
