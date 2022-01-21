@@ -1,5 +1,5 @@
 import { setToken } from './../../shared/services/tokenServices';
-import { isAuthenticated } from '../../shared/services/accountServices';
+import { isAuthenticated , isAdmin } from '../../shared/services/accountServices';
 import { createSlice } from '@reduxjs/toolkit';
 
 /**
@@ -7,7 +7,8 @@ import { createSlice } from '@reduxjs/toolkit';
  * @author Peter Mollet
  */
  const initialState = { 
-    isLogged : isAuthenticated() 
+    isLogged : isAuthenticated() ,
+    isAdmin : isAdmin()
 }
 
 export const authenticationSlice = createSlice({
@@ -15,19 +16,23 @@ export const authenticationSlice = createSlice({
     initialState,
     reducers: {
         signIn: (state, action) => {
-            setToken(action.payload)
-            state.isLogged = true
+            setToken(action.payload);
+            state.isLogged = true;
+            state.isAdmin = isAdmin();
         },
         signOut: (state) => {
-            localStorage.setItem("token","")
-            sessionStorage.clear()
-            state.isLogged = false
+            localStorage.setItem("token","");
+            sessionStorage.clear();
+            state.isLogged = false;
+            state.isAdmin = false;
         }
     }
 })
 
-export const { signIn, signOut } = authenticationSlice.actions
+export const { signIn, signOut } = authenticationSlice.actions;
 
-export const selectIsLogged = (state) => state.auth.isLogged
+export const selectIsLogged = (state) => state.auth.isLogged;
+
+export const selectIsLoggedAdmin = (state) => state.auth.isAdmin;
 
 export default authenticationSlice.reducer
