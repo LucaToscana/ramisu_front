@@ -263,8 +263,8 @@ const FromRowDate = (props) => {
     
     const styleShowBtn =    'ml-2  ';
     const styleHideBtn =    'ml-2 hidden';
-    const styleOpen    =    'text-right bg-white border-1 w-4/5 md:w-min';
-    const styleClose   =    'text-right flex-none bg-transparent border-0 ';
+    const styleOpen    =    'text-right bg-white border-1';
+    const styleClose   =    'text-right flex-none bg-transparent border-0  w-full md:w-min';
                               
     
     const [isOpen, setIsOpen] = useState(false);
@@ -291,7 +291,7 @@ const FromRowDate = (props) => {
 
     return (
         <div className="m-2 p-2 flex justify-between items-stretch items-center border-b-2">
-            <label className="md:w-1/4 w-1/3 text-right  flex-none border-1 border-red-600" >{props.label}  </label>
+            <label className="md:w-1/4 w-1/3 text-right  flex-none border-1" >{props.label}  </label>
             <DatePickerField 
                 defaultValue={props.value}
                 name={props.name}
