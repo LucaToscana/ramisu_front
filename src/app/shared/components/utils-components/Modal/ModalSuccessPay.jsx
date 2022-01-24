@@ -7,33 +7,39 @@ import logo from "../../../../assets/images/icones/logo/warhammer-shop-logo.png"
 
 
 
-const ModalSuccessPay = ({ isShowing, hide,amount }) =>
+const ModalSuccessPay = ({ isShowing, hide }) =>
   isShowing
     ? ReactDOM.createPortal(
-        <>
-          <div className="modal-overlay">
-            <div className="modal-wrapper">
-              <div className="modal">
-                <div className="modal-header"> <p className="font-extrabold text-2xl text-center	">Paiement effectué avec succès !</p>
-                
-                  <button
-                    type="button"
-                    className="modal-close-button"
-                    onClick={hide}
-                  >
-                    <span>&times;</span>
-                  </button>
-                </div>
-                <div className="modal-body items-center justify-center text-center">
-             <div className="grid grid-cols-2 gap-2"> <div > <BadgeCheckIcon className='md:w-48 h-48 iconTrue' /> </div><div className="self-center p-3"><img src={logo}></img> </div></div> 
-                <div><p className="font-extrabold text-2xl text-center	"> Tot paye:  {"  "+amount}€</p></div>
-                
-                </div>
+      <>
+        <div className="modal-overlay">
+          <div className="modal-wrapper">
+            <div className="modal">
+              <div className="modal-header"> <p className="font-extrabold text-2xl text-center	">Paiement effectué avec succès !</p>
+
+                <button
+                  type="button"
+                  className="modal-close-button"
+                  onClick={hide}
+                >
+                  <span>&times;</span>
+                </button>
+              </div>
+              <div className="modal-body items-center justify-center text-center">
+          <div className="self-center">    <BadgeCheckIcon className='md:w-full h-full iconTrue' /></div>
+              {/*  <div className="grid grid-cols-2 gap-2"> <div > <BadgeCheckIcon className='md:w-48 h-48 iconTrue' /> </div><div className="self-center p-3">
+                 <img src={logo}></img>
+                  
+                  
+                   </div></div>*/}
+                <div><p className="font-extrabold text-2xl text-center	"> Tot paye:  {"  " +   localStorage.getItem("totPayer")
+                }€</p></div>
+
               </div>
             </div>
           </div>
+        </div>
 
-          <style jsx="true">{`
+        <style jsx="true">{`
             .modal-overlay {
               position: fixed;
               top: 0;
@@ -84,9 +90,9 @@ const ModalSuccessPay = ({ isShowing, hide,amount }) =>
               background: transparent;
             }
           `}</style>
-        </>,
-        document.body
-      )
+      </>,
+      document.body
+    )
     : null;
 
 export default ModalSuccessPay;

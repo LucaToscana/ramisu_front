@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import StripeCheckout from "react-stripe-checkout";
 import useModal from "../utils-components/Modal/useModal";
@@ -16,17 +16,42 @@ import { addOrder } from "../../../api/backend/order";
 
 
 function ButtonStripe(props) {
+
+
+    const apiKey =import.meta.env.VITE_REACT_STRIPE_API_KEY
+   
+    const am = props.amountO
     const carts = useSelector(selectCart)
 
     const history = useHistory()
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        if (performance.navigation.type === 1) {
+
+            var test = localStorage.getItem("successPaiement")
+            if (test === "true") {
+                localStorage.removeItem('totPayer')
+                dispatch(init())
+                history.push("/")
+            }
+
+            console.log("This page is reloaded");
+        } else {
+            console.log("This page is not reloaded");
+        }
+    });
 
     const validate = (carts) => {
+        
         if (isAuthenticated()) {
             addOrder(carts.filter(c => !(c.quantite === ""))).then(res => {
-                if (res.data)
-                    localStorage.removeItem('myAddress')
+                if (res.data) {
+
+                    localStorage.setItem("successPaiement", true)
+
+
+                }
             }
             )
         } else {
@@ -35,16 +60,30 @@ function ButtonStripe(props) {
     }
 
     const hideSuccess = () => {
-        toggleSuccessForm()
-        dispatch(init())
-
 
         history.push('/')
+        dispatch(init())
+        toggleSuccessForm()
+
+        localStorage.removeItem('myAddress')
+        localStorage.removeItem('totPayer')
+
+
 
     }
 
     const { isShowing: isAddressFormShowed, toggle: toggleSuccessForm } = useModal();
 
+
+    const deleteAndRefresh = () => {
+        dispatch(init())
+        localStorage.removeItem('totPayer')
+
+        history.push('/')
+
+
+    }
+    const x = () => setTimeout(function () { deleteAndRefresh() }, 5000);
 
     async function handleToken(token) {
         console.log(token);
@@ -53,15 +92,18 @@ function ButtonStripe(props) {
                 headers: {
                     token: token.id,
                     amount: props.amountO,
+
                 },
             })
             .then(() => {
 
-
+                localStorage.setItem('totPayer', props.amountO)
                 validate(carts)
 
-
                 toggleSuccessForm()
+
+                x()
+
             })
             .catch((error) => {
                 alert(error);
@@ -71,12 +113,12 @@ function ButtonStripe(props) {
     return (
         <div className="ButtonStripe">
             <StripeCheckout
-                stripeKey="pk_test_51KK9NkAvTn1DnSSqnzRsFb8er0ixZXhPSAbOC2pPCszrsitVBz2X9PKRGP9ymRO8weIYbNqpFXCAlfGuxgV6UDS0004nDX8FHN"
+                stripeKey={apiKey}
                 token={handleToken}
                 description="Warhammer Market"
                 image={logo}
             >
-                <button className="validateCart mt-2" >Payer {props.amountO} €</button>
+                <button className="validateCart mt-2" disabled={am < 11 ? true : false}>Payer par CB {props.amountO} €</button>
 
 
             </StripeCheckout>
@@ -84,7 +126,6 @@ function ButtonStripe(props) {
                 isShowing={isAddressFormShowed}
                 hide={hideSuccess}
                 title="SUCCESS"
-                amount={props.amountO}
             >
             </ModalSuccessPay>
 

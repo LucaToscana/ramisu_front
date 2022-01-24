@@ -11,6 +11,9 @@ import { useHistory } from 'react-router-dom';
 import ButtonStripe from '../shared/components/buttons/ButtonStripe';
 import paypal from "../assets/images/paypal.png";
 import visaMaster from "../assets/images/visaMastercard.png";
+import { useEffect } from 'react';
+import { URL_HOME } from '../shared/constants/urls/urlConstants';
+import { ButtonBack } from '../shared/components/buttons/ButtonBack';
 const PaiementPayerView = () => {
     const [methodPay, selectMethodPay] = useState("")
     const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
@@ -21,12 +24,7 @@ const PaiementPayerView = () => {
     /*toggleddressForm*/
 
     const dispatch = useDispatch();
-
-    const selectCard = () => {
-        selectMethodPay("cart")
-
-    }
-
+   
 
     let subTotal = 0;
     for (let i = 0; i < carts.length; i++) {
@@ -83,8 +81,8 @@ const PaiementPayerView = () => {
 
                     <div className='flex justify-end self-end m-2 text-sm	'>
                         {<div className='flex justify-center m-5'>
-                            <ButtonStripe amountO= {(subTotal * 1.2) < 25 ? (subTotal * 1.2) + 10
-                        : (subTotal * 1.2)}></ButtonStripe>                    </div>
+                            <ButtonStripe amountO={(subTotal * 1.2) < 25 ? (subTotal * 1.2) + 10
+                                : (subTotal * 1.2)}></ButtonStripe>                    </div>
 
                         }
 
@@ -156,11 +154,13 @@ const PaiementPayerView = () => {
                                     + JSON.parse(localStorage.getItem('myAddress')).pays + JSON.parse(localStorage.getItem('myAddress')).complementadresse}
 
                             </p>
-                        </> : null}  </div></div>
+                        </> : null}  </div>
+                        
+                        <ButtonBack></ButtonBack></div>
 
             </div>
 
-
+           
 
             <div></div>
         </div>

@@ -59,8 +59,8 @@ const Routes = () => {
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             <Route path={URL_CART} component={CartsView} />
             <Route path={URL_INSCRIPTION} component={InscriptionView} />
-            <Route path={URL_PAIEMENT} component={PaiementLivraisonView}/>
-            <Route path={URL_PAIEMENT_2} component={PaiementPayerView}/>
+            <PrivateRoute path={URL_PAIEMENT}  roles={[ROLE_USER]}    component={PaiementLivraisonView}/>
+            <PrivateRoute path={URL_PAIEMENT_2}roles={[ROLE_USER]}  component={PaiementPayerView}/>
 
         </Switch>
     );

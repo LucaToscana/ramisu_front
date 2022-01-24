@@ -11,13 +11,33 @@ import { useEffect } from 'react';
 import { useFormikContext } from "formik";
 import { URL_PAIEMENT_2 } from '../shared/constants/urls/urlConstants';
 import { useHistory } from "react-router-dom";
-
+import { ButtonToPayer } from '../shared/components/buttons/ButtonToPayer';
+import {getProfile} from '../api/backend/user'
 const PaiementLivraisonView = () => {
     const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
     const liv = useSelector(selectLivraison);
     const carts = useSelector(selectCart)
 
+    const [profile, setProfile] = useState([])
+    useEffect(() => {
+        getProfile().then(res => {
+           
+            dispatch(setLivraison({ 
+   
+  
+                numeroA:res.data.number,
+                rue:res.data.street,
+                complementadresse:res.data.additionalAddress,
+                codepostal:res.data.postalCode,
+                ville: res.data.city,
+                pays: res.data.country,
+               isMain:false
+             //   rememberMe: false
+            }))
 
+
+        })
+    }, [])
     const history = useHistory();
 
     const dispatch = useDispatch();
@@ -67,38 +87,38 @@ const PaiementLivraisonView = () => {
 
                 <div className='flex border-b-2 border-gray-400 pb-4 mt-5 '>
                     <h1 className='flex items-end font-bold text-2xl ml-4'>A domicile (gratuit a partir de 25 €) </h1>
-                   
+
                 </div>
                 <div className='flex  border-b-2 border-gray-400   cartCard '>
 
-                    <div className="lg:w-full ml-10 ">   
-                    
-                    
-                     <p className="text-sm mt-10 pb-10 border-b-2 ">
-                        Le port Standard coûte 10€ et il est OFFERT pour toute commande de plus de 25€. Tous les frais de port incluent les taxes et frais de douane.
+                    <div className="lg:w-full ml-10 ">
 
-                    </p>
-                    <div className="lg:w-1/8  flex justify-end self-end p-1 "> 
-                     {localStorage.getItem('myAddress')!==null&&liv!==undefined ? <> <CheckIcon className='md:w-12 h-12 iconTrue' />
-                        <p className='text-xs p-5'>
-                      {JSON.parse(localStorage.getItem('myAddress')).numeroA+ "   " 
-                        + JSON.parse(localStorage.getItem('myAddress')).rue + "   " 
-                        + JSON.parse(localStorage.getItem('myAddress')).ville + "   " + JSON.parse(localStorage.getItem('myAddress')).codepostal + "  "
-                         + JSON.parse(localStorage.getItem('myAddress')).pays + JSON.parse(localStorage.getItem('myAddress')).complementadresse}
+
+                        <p className="text-sm mt-10 pb-10 border-b-2 ">
+                            Le port Standard coûte 10€ et il est OFFERT pour toute commande de plus de 25€. Tous les frais de port incluent les taxes et frais de douane.
 
                         </p>
-                    </> : null}  </div>
+                        <div className="lg:w-1/8  flex justify-end self-end p-1 ">
+                            {localStorage.getItem('myAddress') !== null && liv !== undefined ? <> <CheckIcon className='md:w-12 h-12 iconTrue' />
+                                <p className='text-xs p-5'>
+                                    {JSON.parse(localStorage.getItem('myAddress')).numeroA + "   "
+                                        + JSON.parse(localStorage.getItem('myAddress')).rue + "   "
+                                        + JSON.parse(localStorage.getItem('myAddress')).ville + "   " + JSON.parse(localStorage.getItem('myAddress')).codepostal + "  "
+                                        + JSON.parse(localStorage.getItem('myAddress')).pays + JSON.parse(localStorage.getItem('myAddress')).complementadresse}
+
+                                </p>
+                            </> : null}  </div>
 
                     </div>
-                    <div className="lg:w-1/8  flex justify-end self-end p-1 "> 
+                    <div className="lg:w-1/8  flex justify-end self-end p-1 ">
                     </div>
 
                     <div className='flex justify-end self-end m-2 text-sm	'>
-                   
+
                         <button className="paiementCart h-12 w-24" onClick={toggleAddressForm}/*validate(carts)*/>Indiquer mon adresse</button>
 
                     </div>
-                    
+
                 </div>
 
 
@@ -142,12 +162,12 @@ const PaiementLivraisonView = () => {
                         <div className='w-full text-center'><p className='text-sm '> </p></div>
                         {(subTotal * 1.2) < 25 ? <div className='w-full text-center'><p className='text-sm '> 10 €
                         </p>
-                        
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
+
                         </div>
                             : <div className='w-full text-center'><p className='text-sm '> gratuit</p></div>}
                     </div>
@@ -161,18 +181,16 @@ const PaiementLivraisonView = () => {
                         {(subTotal * 1.2) < 25 ? <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2) + 10}€</p></div>
                             : <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2)}€</p></div>}                    </div>
 
+                    {localStorage.getItem('myAddress') !== null ? <div className='flex justify-end	 w-full	'><ButtonToPayer></ButtonToPayer></div>
+                        : null}
 
-         { localStorage.getItem('myAddress')!==null?          <div className='flex justify-center m-5'>
-                    <button className="validateCart mt-2" onClick={() =>{history.push(URL_PAIEMENT_2) /*validate(carts)*/}}>Payer</button>
-                    </div>:null}
+
+
                 </div>
 
 
+
             </div>
-
-
-         
-
             <div></div>
         </div>
     );

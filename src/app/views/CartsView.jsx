@@ -24,18 +24,6 @@ const CartsView = () => {
         return result.toLocaleDateString();
     }
 
-    function validate(carts) {
-        if (isAuthenticated()) {
-            addOrder(carts.filter(c => !(c.quantite === ""))).then(res => {
-                if (res.data)
-                    dispatch(init())
-            }
-            )
-        } else {
-            history.push(URL_LOGIN)
-        }
-    }
-
 
 
 
@@ -43,6 +31,15 @@ const CartsView = () => {
 const pushToPiement =()=>{
 
     if (isAuthenticated()) {
+
+        let subTotale = 0;
+        for (let i = 0; i < carts.length; i++) {
+            subTotale += carts[i].quantite * carts[i].price
+        }
+        if((subTotale * 1.2) < 25) {subTotale =  (subTotale * 1.2) + 10}
+        else{(subTotale=subTotale * 1.2)}
+
+        localStorage.setItem("totPayer",subTotale)
         history.push('/paiement')
         
       

@@ -26,6 +26,13 @@ const HomeView = ({ history }) => {
     const [loadingTopSale, setLoadingTopSale] = useState(true);
 
     useEffect(() => {
+
+        if (localStorage.getItem("successPaiement")) {
+
+            localStorage.removeItem("successPaiement")
+
+        }
+
         getNumberOfProductsByField('random', 3)
             .then(response => {
                 response.status === 200 && setProductsRandom(response.data);
@@ -48,7 +55,10 @@ const HomeView = ({ history }) => {
             .then(response => {
                 response.status === 200 && setProductsTopSale(response.data);
                 setLoadingTopSale(false);
-            })
+            }
+
+
+            )
             .catch((error, response) => {
                 handleHttpError(error)
             })
