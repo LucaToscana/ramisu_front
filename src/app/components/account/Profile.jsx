@@ -4,10 +4,6 @@ import React, { useEffect, useState , forwardRef} from 'react';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import { CustomInput } from '../../shared/components/form-and-error-components/InputCustom';
 
-
-import * as Yup from 'yup'
-
-
 import avatar from '../../assets/images/default-avatar.png';
 import addImg from '../../assets/images/icones/add-image.svg';
 import person from "../../assets/images/icones/person.svg";
@@ -20,18 +16,12 @@ import DatePickerField from '../../shared/components/form-and-error-components/D
 import "react-datepicker/dist/react-datepicker.css";
 import "../../assets/styles/datepickerprofile.css"
 
+import {schemaFormProfile} from '../../shared/constants/formik-yup/yup/yupUser';
 
 const Profile = (props) => {
 
-    const schemaFormProfile = Yup.object().shape({
-        firstName: Yup.string().max(30, 'Must be 30 characters or less').required(),
-        lastName: Yup.string().max(30, 'Must be 30 characters or less').required(),
-        birthdate: Yup.string().required(),
-        number: Yup.string().required(),
-        address: Yup.string().required(),
-        phone: Yup.string().required()
-    });
-
+  
+  
 
     return (
         <div className='p-5'>
@@ -45,12 +35,13 @@ const Profile = (props) => {
                 initialValues={props.data}
                 enableReinitialize={true}
                 onSubmit={props.submit}
-                validationSchema={schemaFormProfile}>
-                {({ setFieldValue }) => (
+                validationSchema={schemaFormProfile}
+                >
+                {({ setFieldValue , errors}) => (
                 <Form className="flex flex-col md:flex-row justify-evenly items-stretch">
-
-                    <Fieldset data={props.data} setFieldValue={setFieldValue} />
-
+                  
+                    <Fieldset data={props.data} setFieldValue={setFieldValue} errors={errors} />
+                   
                     <div className='flex justify-center items-center p-3 relative'>
                         <img src={avatar} width="200px" height="100%" className='ml-6' />
                         <button className='border-2 border-black rounded-full w-15 h-15 p-2  bg-white'  >
@@ -87,6 +78,7 @@ const Fieldset = (props) => {
                 value={props.data.first}
                 onSubmit={handleSubmit} 
                 setFieldValue={props.setFieldValue}
+                error={props.errors['firstName']}
             />
 
 
@@ -96,6 +88,7 @@ const Fieldset = (props) => {
                 value={props.data.lastName}
                 onSubmit={handleSubmit} 
                 setFieldValue={props.setFieldValue}
+                error={props.errors['lastName']}
             />
 
             <FormRow label="Tél&nbsp;:&nbsp;"
@@ -103,6 +96,7 @@ const Fieldset = (props) => {
                 value={props.data.phone}
                 onSubmit={handleSubmit} 
                 setFieldValue={props.setFieldValue}
+                error={props.errors['phone']}
              />
             
             <FromRowDate 
@@ -110,7 +104,7 @@ const Fieldset = (props) => {
                 name="birthdate"
                 value={props.data.birthdate}
                 onSubmit={handleSubmit} 
-                
+                error={props.errors['birthdate']}
             />
 
         
@@ -120,6 +114,7 @@ const Fieldset = (props) => {
                 formName="number"
                 value={props.data.number}
                 onSubmit={handleSubmit} 
+                error={props.errors['number']}
                 setFieldValue={props.setFieldValue}
             />
 
@@ -128,12 +123,14 @@ const Fieldset = (props) => {
                 formName="street"
                 value={props.data.street}
                 onSubmit={handleSubmit} 
+                error={props.errors['street']}
                 setFieldValue={props.setFieldValue}
             />
 
             <FormRow label="Ville&nbsp;:&nbsp;"
                 formName="city"
                 value={props.data.city}
+                error={props.errors['city']}
                 onSubmit={handleSubmit} 
                 setFieldValue={props.setFieldValue}
             />
@@ -143,6 +140,7 @@ const Fieldset = (props) => {
                 formName="postalCode"
                 value={props.data.postalCode}
                 onSubmit={handleSubmit} 
+                error={props.errors['postalCode']}
                 setFieldValue={props.setFieldValue}
             />
 
@@ -150,6 +148,7 @@ const Fieldset = (props) => {
                 formName="country"
                 value={props.data.country}
                 onSubmit={handleSubmit} 
+                error={props.errors['country']}
                 setFieldValue={props.setFieldValue}
             />
 
@@ -175,6 +174,8 @@ const FormRow = (props) => {
 
 
     useEffect(()=>{
+
+        // console.log(props.error)
         if(isEnable && inputField!=undefined){
             inputField.focus();
         }
@@ -183,14 +184,10 @@ const FormRow = (props) => {
 
     const toggle = (target)=>{
 
-     
-        // debugger;
-      
         
-        if(inputField==undefined)setInputField(target.parentNode.parentNode.childNodes[1].firstChild);// input Field
-      
-        setEnabled(!isEnable);
-        // props.clickhandler(event);
+            if(inputField==undefined)setInputField(target.parentNode.parentNode.childNodes[1].firstChild);// input Field
+            setEnabled(!isEnable);
+       
     }
 
 
@@ -255,16 +252,12 @@ const FormRow = (props) => {
 
 const FromRowDate = (props) => {
 
-
-    
     const styleShowBtn =    'ml-2  ';
     const styleHideBtn =    'ml-2 hidden';
     const styleOpen    =    'text-right bg-white border-1 w-3/4 md:w-min';
     const styleClose   =    'text-right flex-none bg-transparent border-0  w-full md:w-min';
                               
-    
     const [isOpen, setIsOpen] = useState(false);
-
    
     const onFocusChange = (event)=>{
         setIsOpen(true);    
@@ -286,41 +279,41 @@ const FromRowDate = (props) => {
     }
 
     return (
-        <div className="m-2 p-2 flex justify-between items-stretch items-center border-b-2">
-            <label className="md:w-1/4 w-1/3 text-right  flex-none border-1" >{props.label}  </label>
-            <DatePickerField 
-                defaultValue={props.value}
-                name={props.name}
-                className={ isOpen ? styleOpen : styleClose }
-              
-                onFocus={onFocusChange}
-                onBlur={blurHandler}
-                onClickOutside={blurHandler} />
-              
-            <div className="btn-form flex-none">
+            <div className="m-2 p-2 flex justify-between items-stretch items-center border-b-2">
+                <label className="md:w-1/4 w-1/3 text-right  flex-none border-1" >{props.label}  </label>
+                <DatePickerField 
+                    defaultValue={props.value}
+                    name={props.name}
+                    className={ isOpen ? styleOpen : styleClose }
+                
+                    onFocus={onFocusChange}
+                    onBlur={blurHandler}
+                    onClickOutside={blurHandler} />
+                
+                <div className="btn-form flex-none">
 
-                <button 
-                        onClick={(event)=>openDatePicker(event)} 
-                        type='button' 
-                        className={isOpen? styleHideBtn : styleShowBtn} >
-                    <img className="w-6 " src={pencil} alt='' />
-                </button>
-            
-                <button type='button' 
-                        onClick={(event)=>{
-                        resetState(event)
-                        props.onSubmit();
-                    }} 
-                        className={isOpen? styleShowBtn : styleHideBtn}  >
-                            <img className="w-6  " src={check} alt='' />
-                </button>
+                    <button 
+                            onClick={(event)=>openDatePicker(event)} 
+                            type='button' 
+                            className={isOpen? styleHideBtn : styleShowBtn} >
+                        <img className="w-6 " src={pencil} alt='' />
+                    </button>
+                
+                    <button type='button' 
+                            onClick={(event)=>{
+                            resetState(event)
+                            props.onSubmit();
+                        }} 
+                            className={isOpen? styleShowBtn : styleHideBtn}  >
+                                <img className="w-6  " src={check} alt='' />
+                    </button>
 
-                <button type='button' onClick={(event)=>resetState(event)} className={isOpen? styleShowBtn : styleHideBtn}  >
-                    <img className="w-6  " src={cancel} alt='' />
-                </button>
-            </div>  
-    </div>
-);
+                    <button type='button' onClick={(event)=>resetState(event)} className={isOpen? styleShowBtn : styleHideBtn}  >
+                        <img className="w-6  " src={cancel} alt='' />
+                    </button>
+                </div>  
+        </div>
+    );
 }
 
 export default Profile;
