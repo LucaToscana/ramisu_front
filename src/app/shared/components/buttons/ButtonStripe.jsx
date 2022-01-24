@@ -18,8 +18,8 @@ import { addOrder } from "../../../api/backend/order";
 function ButtonStripe(props) {
 
 
-    const apiKey =import.meta.env.VITE_REACT_STRIPE_API_KEY
-   
+    const apiKey = import.meta.env.VITE_REACT_STRIPE_API_KEY
+
     const am = props.amountO
     const carts = useSelector(selectCart)
 
@@ -43,7 +43,7 @@ function ButtonStripe(props) {
     });
 
     const validate = (carts) => {
-        
+
         if (isAuthenticated()) {
             addOrder(carts.filter(c => !(c.quantite === ""))).then(res => {
                 if (res.data) {
