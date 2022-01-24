@@ -1,33 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from "react-router-dom";
-import person from "../assets/images/icones/person.svg";
-import { getProfile } from "../api/backend/user";
+import { getProfile, updateProfile } from "../api/backend/user";
+
+import Profile from '../components/account/Profile'
 
 const ProfileView = () => {
 
     const history = useHistory();
-    const [profile, setProfile] = useState([])
+    
+    const [profileData, setProfileData] = useState({    firstName: '', lastName: '', birthdate: '', email: '', street:'', number: '', phone : '', city:'' , postalCode:'', country:''});
+
     useEffect(() => {
         getProfile().then(res => {
-            setProfile(res.data)
-        })
-    }, [])
+            setProfileData(res.data);  
+        });
+    }, []);
+
+    const formHandler = (values)=>{
+      
+        updateProfile(values).then(res=>{
+                
+                if(res.data=="OK")
+                {
+                    getProfile().then(res => {
+                        setProfileData(res.data);  
+                    });
+                }
+        }).catch(e=>{
+            console.error("error edite profile", e)
+        });
+    }
+ 
+
     return (
         <div className=''>
-            <h1 className="font-semibold text-center text-2xl ">
-                <img className="w-6 inline " src={person} alt='' />Données du compte</h1>
-            <div className="flex flex-col justify-center items-center m-5 ">
-                <div className="box-border p-6 border-4 text-xl shadow-xl">
-                    <div>Prenom: {profile.lastName}</div>
-                    <div>Nom: {profile.firstName}</div>
-                    <div>Date de naissance: {profile.birthdate}</div>
-                    <div>Mail: {profile.mail}</div>
-                    <div>Adresse:{profile.number + " " + profile.street}</div>
-                    <div>Tél: {profile.phone}</div>
-                </div>
-            </div>
+          
+                <Profile submit={formHandler} data={profileData} />
+          
         </div>
-    );
-};
+    )
+        
+}
+
 
 export default ProfileView;

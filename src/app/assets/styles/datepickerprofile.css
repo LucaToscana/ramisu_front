@@ -1,0 +1,11 @@
+/*
+    overried dist style  
+    
+    */
+    .react-datepicker__input-container{
+        
+        text-align: center; 
+    }
+    .react-datepicker-wrapper{
+        /* border:1px solid black; */
+    }
