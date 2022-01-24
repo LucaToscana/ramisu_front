@@ -39,3 +39,27 @@ export const schemaFormProfile = Yup.object().shape({
         .required("Champ requis"),
 
 })
+
+export const schemaFormProfileUpdate =  Yup.object().shape({
+    firstName: Yup.string().required("Required input"),
+
+
+
+    lastName: Yup.string().required("Required input"),
+    birthdate: Yup.string().required("Required input"),
+    mail: Yup.string()
+        .email("L'email n'est pas valide")
+        .required("Champ requis"),
+    number: Yup.string().required("Required input"),
+    street: Yup.string().required("Required input"),
+    postalCode: Yup.string().required("Required input"),
+    city: Yup.string().required("Required input"),
+    country: Yup.string().required("Required input"),
+    phone: Yup.string()
+        .required("Champ requis")
+        .matches(/^[0-9]+$/, "Nombres uniquement")
+        .min(10, "Doit contenir au moins 10 chiffres")
+        .max(16, "Doit contenir moins de 16 chiffres"),
+  
+
+})

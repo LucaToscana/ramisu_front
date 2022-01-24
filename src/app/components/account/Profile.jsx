@@ -16,7 +16,7 @@ import DatePickerField from '../../shared/components/form-and-error-components/D
 import "react-datepicker/dist/react-datepicker.css";
 import "../../assets/styles/datepickerprofile.css"
 
-import {schemaFormProfile} from '../../shared/constants/formik-yup/yup/yupUser';
+import {schemaFormProfileUpdate} from '../../shared/constants/formik-yup/yup/yupUser';
 
 const Profile = (props) => {
 
@@ -35,7 +35,7 @@ const Profile = (props) => {
                 initialValues={props.data}
                 enableReinitialize={true}
                 onSubmit={props.submit}
-                validationSchema={schemaFormProfile}
+                validationSchema={schemaFormProfileUpdate}
                 >
                 {({ setFieldValue , errors}) => (
                 <Form className="flex flex-col md:flex-row justify-evenly items-stretch">
