@@ -4,20 +4,16 @@ import React, { useEffect, useState , forwardRef} from 'react';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import { CustomInput } from '../../shared/components/form-and-error-components/InputCustom';
 
+import {schemaFormProfileUpdate} from '../../shared/constants/formik-yup/yup/yupUser';
 import avatar from '../../assets/images/default-avatar.png';
 import addImg from '../../assets/images/icones/add-image.svg';
-import person from "../../assets/images/icones/person.svg";
-import pencil from "../../assets/images/icones/pencil.svg";
-import cancel from "../../assets/images/icones/cancel.svg";
-import check  from "../../assets/images/icones/check.svg";
 
 // import DatePicker from "react-datepicker";
 import DatePickerField from '../../shared/components/form-and-error-components/DatePickerField'
 import "react-datepicker/dist/react-datepicker.css";
 import "../../assets/styles/datepickerprofile.css"
 
-import {schemaFormProfileUpdate} from '../../shared/constants/formik-yup/yup/yupUser';
-
+import { PlusCircleIcon , PencilIcon , UserIcon, CheckCircleIcon, RefreshIcon, XCircleIcon } from '@heroicons/react/solid'
 const Profile = (props) => {
 
   
@@ -26,18 +22,19 @@ const Profile = (props) => {
     return (
         <div className='p-5'>
 
-            <h1 className="font-semibold text-center text-2xl flex justify-center">
-                <img className="w-6 inline " src={person} alt='' />Données du compte
+            <h1 className="font-semibold text-center text-2xl flex justify-center items-center mb-5">
+                <UserIcon className="h-6 w-6 inline mr-3" />
+                <span>Données du compte</span>
             </h1>
-
 
             <Formik 
                 initialValues={props.data}
                 enableReinitialize={true}
                 onSubmit={props.submit}
-                validationSchema={schemaFormProfileUpdate}
-                >
+                validationSchema={schemaFormProfileUpdate}>
+
                 {({ setFieldValue , errors}) => (
+                
                 <Form className="flex flex-col md:flex-row justify-evenly items-stretch">
                   
                     <Fieldset data={props.data} setFieldValue={setFieldValue} errors={errors} />
@@ -51,6 +48,7 @@ const Profile = (props) => {
                     </div>
 
                 </Form>
+                
                 )}
             </Formik>
         </div>
@@ -169,7 +167,7 @@ const FormRow = (props) => {
     const [inputField , setInputField] = useState(undefined);
   
       
-    const styleShowBtn =    'ml-2  ';
+    const styleShowBtn =    'ml-2 mt-2';
     const styleHideBtn =    'ml-2 hidden';
 
 
@@ -204,10 +202,13 @@ const FormRow = (props) => {
         }
     }
 
-
     
-
-    return (<div className="m-2 p-2 flex justify-between items-stretch  items-center border-b-2">
+    return (<div className="m-2 p-2 flex justify-between items-center border-b-2">
+        
+        
+           
+          
+        
         
         <label className="md:w-1/4 w-1/2 text-right " >{props.label}  </label>
 
@@ -226,7 +227,7 @@ const FormRow = (props) => {
                     onClick={(event)=>toggle(event.currentTarget)} 
                     type='button' 
                     className={!isEnable? styleShowBtn : styleHideBtn}  >
-                <img className="w-6 inline " src={pencil} alt='' />
+                <PencilIcon className="h-6 w-6"/>
             </button>
 
             <button type='button' 
@@ -235,14 +236,16 @@ const FormRow = (props) => {
                     props.onSubmit();
                 }} 
                 className={isEnable? styleShowBtn : styleHideBtn}  >
-                <img className="w-6 inline " src={check} alt='' />
+                 <CheckCircleIcon className="h-6 w-6"/>
             </button>
 
             <button type='button' 
                     onClick={(event)=>toggle(event.currentTarget)} 
                     className={isEnable? styleShowBtn : styleHideBtn}  >
-                <img className="w-6 inline " src={cancel} alt='' />
+                  
+                    <XCircleIcon className="h-6 w-6"/>
             </button>
+        
         </div>  
         
     </div>
@@ -296,7 +299,7 @@ const FromRowDate = (props) => {
                             onClick={(event)=>openDatePicker(event)} 
                             type='button' 
                             className={isOpen? styleHideBtn : styleShowBtn} >
-                        <img className="w-6 " src={pencil} alt='' />
+                          <PencilIcon className="h-6 w-6"/>
                     </button>
                 
                     <button type='button' 
@@ -305,11 +308,11 @@ const FromRowDate = (props) => {
                             props.onSubmit();
                         }} 
                             className={isOpen? styleShowBtn : styleHideBtn}  >
-                                <img className="w-6  " src={check} alt='' />
+                                 <CheckCircleIcon className="h-6 w-6"/>
                     </button>
 
                     <button type='button' onClick={(event)=>resetState(event)} className={isOpen? styleShowBtn : styleHideBtn}  >
-                        <img className="w-6  " src={cancel} alt='' />
+                        <XCircleIcon className="h-6 w-6"/>
                     </button>
                 </div>  
         </div>
