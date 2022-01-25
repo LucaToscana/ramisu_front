@@ -15,6 +15,7 @@ export const cartSlice = createSlice({
             }
             localStorage.setItem("cart",JSON.stringify(state.cart))
         },
+
         remove(state, {payload}){
             let pos = state.cart.findIndex((p)=>p.id===payload.id);
             state.cart.splice(pos,1)
@@ -26,7 +27,15 @@ export const cartSlice = createSlice({
         },
         setQuantity(state, {payload} ){
             if(payload[1]<=payload[0].stock){
+                if(  state.cart[state.cart.findIndex(c => c.id === payload[0].id)]!==undefined){
                 state.cart[state.cart.findIndex(c => c.id === payload[0].id)].quantite=payload[1]
+            }else{
+
+                state.cart.push(payload[0])
+
+            }
+
+
                 localStorage.setItem("cart",JSON.stringify(state.cart))
             }
         },
