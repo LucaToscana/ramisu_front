@@ -36,7 +36,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id }) => {
                         <div>
                             <p className='font-bold flex items-center text-2xl mt-10'>En Stock {stock > 0 ? <CheckIcon className='ml-2 w-6 h-6 iconTrue' /> : <XIcon className='ml-2 w-6 h-6 iconNone' />}</p>
                         </div>
-                        <div className="inline-flex rounded-xl items-center justify-end content-center mt-10 login" onClick={() => dispatch(add(product))}>
+                        <div className="inline-flex rounded-xl items-center justify-end content-center mt-10 login hover:cursor-pointer" onClick={() => dispatch(add(product))}>
                             Ajoutez au panier <ShoppingCartIcon className="w-8 h-8" />
                         </div>
                     </div>
