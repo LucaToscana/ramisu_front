@@ -1,7 +1,7 @@
 import React from "react";
 import { CheckIcon, XIcon, ShoppingCartIcon, RefreshIcon } from '@heroicons/react/solid';
 import { useDispatch, useSelector } from "react-redux";
-import { add, selectCart, setQuantity } from '../../shared/redux-store/cartSlice';
+import { add, remove, selectCart, setQuantity } from '../../shared/redux-store/cartSlice';
 import { useState } from "react";
 
 /**
@@ -24,7 +24,10 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
 
         var reset = carts.find(x => x.id === id)
-        document.getElementById("myNumberInput").value = reset.quantite
+        if (reset === undefined) {
+            document.getElementById("myNumberInput").value = 0
+        }
+        else { document.getElementById("myNumberInput").value = reset.quantite }
         setErrorQty('')
 
     };
@@ -32,10 +35,20 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
     const handleChange = event => {
         let { value, min, max } = event;
 
+        if (isNaN(parseInt(value, 10))) {
+            value = 0
 
+
+            document.getElementById("myNumberInput").value = 0;
+        }
 
         document.getElementById("myNumberInput").value = parseInt(value, 10);
-        if (value === "") { document.getElementById("myNumberInput").value = 0 }
+        if (value === "") {
+            value = 0
+            document.getElementById("myNumberInput").value = 0
+            setQuantityNew(0)
+
+        }
 
         if (+value >= +min && +value <= +max) {
             setQuantityNew(parseInt(value, 10))
@@ -43,8 +56,11 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
         }
         else if (value < 0) {
+            setQuantityNew(0)
+
             setErrorQty('  La quantité doit être supérieure à 0')
         }
+
         else {
 
 
@@ -82,14 +98,19 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
                             <div className="grid grid-cols-6 p-2">
 
-                                <div className="pt-3 "><RefreshIcon className="h-5 w-5" onClick={() => handleReset()}></RefreshIcon></div>
+                                <div className="pt-3 "><RefreshIcon className="h-5 w-5 hover:cursor-pointer" onClick={() => handleReset()}></RefreshIcon></div>
 
                                 <div className="p-1"><input type="number"
                                     id="myNumberInput"
-                                    min={0} max={100}
+                                    min={0} max={stock}
                                     defaultValue={cart !== null ? cartQuantity : quantity}
                                     className="w-14 mr-1 md:w-20"
-                                    onChange={(event) => handleChange(event.target)}
+                                    onInput={(event) => {
+                                        handleChange(event.target)
+                                    }}
+
+
+
                                 />
 
 
@@ -99,16 +120,26 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
 
                                 <div className="col-start-4 col-span-4">
-                                    <div className="inline-flex rounded-xl items-center  content-center  login text-sm" onClick={() => dispatch(setQuantity([product, quantity]))}>
+                                    {errorQty === "" ? <div className="inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" onClick={() => {
+
+                                        if (isNaN(quantity)) {
+                                            setQuantityNew(0)
+
+
+                                        }
+                                        if (quantity !== 0) { dispatch(setQuantity([product, quantity])) }
+                                        else { dispatch(remove(product)) }
+                                    }
+                                    }>
                                         modifier  le panier<ShoppingCartIcon className="w-8 h-8" />
-                                    </div>
+                                    </div> : errorQty
+                                    }
                                 </div>
                             </div>
 
 
 
                         </div>
-                        {errorQty}
 
 
                     </div>
