@@ -34,7 +34,7 @@ export const Product = ({ label, price, stock, id, picture }) => {
                                     height={32}
                                 />
                             </div>
-                            <div className="login rounded-2xl m-1 p-3">
+                            <div className="login rounded-2xl m-1 p-3 hover:cursor-pointer">
                                 <ShoppingCartIcon
                                     width={32}
                                     height={32}
@@ -71,7 +71,7 @@ export const ProductList = ({ label, price, stock, id, picture }) => {
                                     height={32}
                                 />
                             </div>
-                            <div className="login rounded-2xl m-1 p-3">
+                            <div className="login rounded-2xl m-1 p-3  hover:cursor-pointer">
                                 <ShoppingCartIcon
                                     width={32}
                                     height={32}
