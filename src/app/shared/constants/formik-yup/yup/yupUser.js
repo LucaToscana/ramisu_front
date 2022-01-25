@@ -82,16 +82,13 @@ export const schemaFormValidateNewPassword = Yup.object().shape({
 
 
 export const schemaFormProfileUpdate =  Yup.object().shape({
-    firstName: Yup.string().required("Required input"),
-
-
-
-    lastName: Yup.string().required("Required input"),
-    birthdate: Yup.string().required("Required input"),
+    firstName: Yup.string().required("Required input").max(50, "50 caractères Maximum"),
+    lastName: Yup.string().required("Required input").max(50, "50 caractères Maximum"),
+    birthdate: Yup.string().required("Required input").max(10, "Format"),
     mail: Yup.string()
         .email("L'email n'est pas valide")
         .required("Champ requis"),
-    number: Yup.string().required("Required input"),
+    number: Yup.string().required("Required input").max(10, "10 caractères Maximum"),
     street: Yup.string().required("Required input"),
     postalCode: Yup.string().required("Required input"),
     city: Yup.string().required("Required input"),
