@@ -17,8 +17,8 @@ const test =()=>{
 
   return (
     
-     <div className="justify-end w-full	">
-     <FastForwardIcon className='ml-2 h-11 w-11 iconTrue' onClick={()=>test()} /> 
+     <div >
+     <FastForwardIcon className=' h-11 w-11 iconTrue' onClick={()=>test()} /> 
     </div>
   );
 }

@@ -156,7 +156,7 @@ const PaiementPayerView = () => {
                             </p>
                         </> : null}  </div>
                         
-                        <ButtonBack></ButtonBack></div>
+                      <div className='p-5'>  <ButtonBack ></ButtonBack></div></div>
 
             </div>
 

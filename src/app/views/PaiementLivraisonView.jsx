@@ -12,7 +12,7 @@ import { useFormikContext } from "formik";
 import { URL_PAIEMENT_2 } from '../shared/constants/urls/urlConstants';
 import { useHistory } from "react-router-dom";
 import { ButtonToPayer } from '../shared/components/buttons/ButtonToPayer';
-import {getProfile} from '../api/backend/user'
+import { getProfile } from '../api/backend/user'
 const PaiementLivraisonView = () => {
     const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
     const liv = useSelector(selectLivraison);
@@ -21,18 +21,18 @@ const PaiementLivraisonView = () => {
     const [profile, setProfile] = useState([])
     useEffect(() => {
         getProfile().then(res => {
-           
-            dispatch(setLivraison({ 
-   
-  
-                numeroA:res.data.number,
-                rue:res.data.street,
-                complementadresse:res.data.additionalAddress,
-                codepostal:res.data.postalCode,
+
+            dispatch(setLivraison({
+
+
+                numeroA: res.data.number,
+                rue: res.data.street,
+                complementadresse: res.data.additionalAddress,
+                codepostal: res.data.postalCode,
                 ville: res.data.city,
                 pays: res.data.country,
-               isMain:false
-             //   rememberMe: false
+                isMain: false
+                //   rememberMe: false
             }))
 
 
@@ -181,11 +181,11 @@ const PaiementLivraisonView = () => {
                         {(subTotal * 1.2) < 25 ? <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2) + 10}€</p></div>
                             : <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2)}€</p></div>}                    </div>
 
-                    {localStorage.getItem('myAddress') !== null ? <div className='flex justify-end	 w-full	'><ButtonToPayer></ButtonToPayer></div>
+
+<div className=''>   {localStorage.getItem('myAddress') !== null ? <div className='flex justify-end	 w-full p-5	'><ButtonToPayer></ButtonToPayer></div>
                         : null}
 
-
-
+</div> 
                 </div>
 
 

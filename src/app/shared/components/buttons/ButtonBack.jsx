@@ -11,7 +11,7 @@ export function ButtonBack() {
   return (
     
      <div>
-     <RewindIcon className='ml-2 h-11 w-11 iconTrue' onClick={()=>  history.goBack()} /> 
+     <RewindIcon className='h-11 w-11 iconTrue' onClick={()=>  history.goBack()} /> 
     </div>
   );
 }
