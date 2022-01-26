@@ -3,6 +3,9 @@ import { CheckIcon, XIcon, ShoppingCartIcon, RefreshIcon } from '@heroicons/reac
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove, selectCart, setQuantity } from '../../shared/redux-store/cartSlice';
 import { useState } from "react";
+import ModalExample from "../../shared/components/utils-components/Modal/ModalExample";
+import useModal from "../../shared/components/utils-components/Modal/useModal";
+import ModalAddToCart from "../../shared/components/utils-components/Modal/modalAddToCart/ModalAddToCart";
 
 /**
  * Component product to show details
@@ -13,13 +16,14 @@ import { useState } from "react";
 
  */
 const ProductDetails = ({ label, price, description, picture, stock, id, cart, cartQuantity }) => {
-    const [quantity, setQuantityNew] = useState(0)
+    const [quantity, setQuantityNew] = useState()
     const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": quantity, "picture": picture }
     const dispatch = useDispatch();
     const carts = useSelector(selectCart)
     //var getQuantity = () => { if (cartQuantity !== undefined) { return cartQuantity } else { return "0" } }
     const [errorQty, setErrorQty] = useState("")
-
+    const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
+    const [modalQty, setModalQty] = useState(0)
     const handleReset = () => {
 
 
@@ -98,12 +102,11 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
                             <div className="grid grid-cols-6 p-2">
 
-                                <div className="pt-3 "><RefreshIcon className="h-5 w-5 hover:cursor-pointer" onClick={() => handleReset()}></RefreshIcon></div>
 
                                 <div className="p-1"><input type="number"
                                     id="myNumberInput"
                                     min={0} max={stock}
-                                    defaultValue={cart !== null ? cartQuantity : quantity}
+                                    defaultValue={cart !== null ? cartQuantity : 0}
                                     className="w-14 mr-1 md:w-20"
                                     onInput={(event) => {
                                         handleChange(event.target)
@@ -117,21 +120,25 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                 </div>
 
 
-
+                                {//  <div className="pt-3 "><RefreshIcon className="h-5 w-5 hover:cursor-pointer" onClick={() => handleReset()}></RefreshIcon></div>
+                                }
 
                                 <div className="col-start-4 col-span-4">
-                                    {errorQty === "" ? <div className="inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" onClick={() => {
+                                    {errorQty === "" && isNaN(quantity) === false ? <div className="inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" onClick={() => {
 
                                         if (isNaN(quantity)) {
-                                            setQuantityNew(0)
+                                            // setQuantityNew(0)
 
 
+                                        } else {
+                                            if (quantity !== 0) { dispatch(setQuantity([product, quantity])) }
+                                            else { dispatch(remove(product)) }
+                                            toggleAddressForm()
+                                            setModalQty(quantity)
                                         }
-                                        if (quantity !== 0) { dispatch(setQuantity([product, quantity])) }
-                                        else { dispatch(remove(product)) }
                                     }
                                     }>
-                                        modifier  le panier<ShoppingCartIcon className="w-8 h-8" />
+                                        ajouter a le panier<ShoppingCartIcon className="w-8 h-8" />
                                     </div> : errorQty
                                     }
                                 </div>
@@ -145,6 +152,13 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                     </div>
 
                 </div>
+                <ModalAddToCart
+                    isShowing={isAddressFormShowed}
+                    hide={toggleAddressForm}
+                    cart={product}
+                    qty={modalQty}
+                >
+                </ModalAddToCart>
             </div>
         </>
     );
