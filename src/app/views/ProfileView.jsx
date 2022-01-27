@@ -1,7 +1,7 @@
 import React, { useEffect, useState }   from 'react';
 import { useHistory }                   from "react-router-dom";
 import { getProfile, updateProfile }    from "../api/backend/user";
-import {uploadPicture}                  from '../api/backend/user';
+import {uploadPicture , removePicture}  from '../api/backend/user';
 
 
 
@@ -322,8 +322,8 @@ const PictureForm = (props)=>
 
   
     const fileSelector=(event)=>{
-      
         const uploadField = event.currentTarget.parentNode.querySelector('#uploadField');
+
         uploadField.addEventListener('change' , (event)=>{
             // debugger
             const file =  event.currentTarget.files[0];
@@ -340,17 +340,28 @@ const PictureForm = (props)=>
 
 
     const uploadHandler = (formData)=>{
-        console.log('ProfileView uploadHandler');
-     
+    
         uploadPicture(formData).then((res)=>{
-            console.log('upload callback' , res.data);
+           
             getProfile().then(res => {
                 dispatch(setProfileInfo(res.data));
             });
         });
     }
  
-   
+   const clickHandler = (event)=>{
+        // debugger
+        const uploadField = event.currentTarget.parentNode.querySelector('#uploadField')
+        uploadField.value = '';// !important reset the input 
+        removePicture().then((res)=>{
+            
+        console.log(uploadField);
+        getProfile().then(res => {
+            dispatch(setProfileInfo(res.data));
+        });
+    });
+
+   }
 
  
     return (<div className='ml-20 flex flex-col justify-center items-center p-3'>
@@ -377,7 +388,7 @@ const PictureForm = (props)=>
                                 id="uploadField"/>
                         
                     </div>
-                                 
+                          <button onClick={clickHandler} className={userInfo.avatar==null ? 'hidden' : ''}>remove</button>       
             </div>);
 
 }
