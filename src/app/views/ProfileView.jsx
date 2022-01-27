@@ -1,13 +1,12 @@
 import React, { useEffect, useState }   from 'react';
 import { useHistory }                   from "react-router-dom";
 import { getProfile, updateProfile }    from "../api/backend/user";
-import Profile                          from '../components/account/Profile/ProfileInformations'
 import {uploadPicture}                  from '../api/backend/user';
 
 
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectProfileInfo, getuserPicture } from '../shared/redux-store/userProfileSlice';
+import { selectProfileInfo, getuserPicture, setProfileInfo } from '../shared/redux-store/userProfileSlice';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import { schemaFormProfileUpdate } from '../shared/constants/formik-yup/yup/yupUser';
 import { PlusCircleIcon, PencilIcon, UserIcon, CheckCircleIcon, RefreshIcon, XCircleIcon } from '@heroicons/react/solid'
@@ -24,15 +23,13 @@ const ProfileView = () => {
    
     const submitHandler = (values)=>{
       
+        // debugger
        
         updateProfile(values).then(res=>{
-                
-                if(res.data=="OK")
-                {
                     getProfile().then(res => {
-                        dispatch(setProfileData(res.data));  
+                        dispatch(setProfileInfo(res.data));  
                     });
-                }
+                
         }).catch(e=>{
             console.error("error edite profile", e)
         });
@@ -298,7 +295,8 @@ const FromRowDate = (props) => {
 
                 <button type='button'
                     onClick={(event) => {
-                        resetState(event)
+                        resetState(event);
+                        // debugger
                         props.onSubmit();
                     }}
                     className={isOpen ? styleShowBtn : styleHideBtn}  >
@@ -379,7 +377,7 @@ const PictureForm = (props)=>
                                 id="uploadField"/>
                         
                     </div>
-             
+                                 
             </div>);
 
 }
