@@ -6,9 +6,14 @@ import { Link } from 'react-router-dom';
 import { URL_ACCOUNT, URL_INSCRIPTION, URL_LOGIN , URL_ADMIN_HOME} from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsLogged, selectIsLoggedAdmin , signOut } from './../../shared/redux-store/authenticationSlice';
-import joey from "../../assets/images/joey.jpg";
-import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
+import { selectProfileInfo, getuserPicture, isUpdated , clearUserInformations} from './../../shared/redux-store/userProfileSlice';
 
+
+import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
+import { useEffect } from 'react';
+
+import {setProfileInfo } from '../../shared/redux-store/userProfileSlice';
+import { getProfile } from "../../api/backend/user";
 
 // Constants used for navigating with the navbar
 const navigation = [
@@ -160,9 +165,24 @@ const ConnectionStatusButtons = () => {
 
     const isLogged = useSelector(selectIsLogged);
     const displayAdmin = useSelector(selectIsLoggedAdmin);
+    const profileData = useSelector(selectProfileInfo);
     const dispatch = useDispatch();
 
+   
+
     if (isLogged) {
+
+
+        if(profileData.updated===false)
+        {
+            getProfile().then((response) => {
+                dispatch(setProfileInfo(response.data));
+                dispatch(isUpdated(true))
+            }).catch(e=>{
+                        console.error("error edite profile", e)
+                    });
+        }
+     
 
         /* Connected user buttons and menu */
         return (
@@ -182,8 +202,8 @@ const ConnectionStatusButtons = () => {
                         <Menu.Button className="bg-gray-800 flex text-lg rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span className="sr-only">Ouvrir le menu utilisateur</span>
                             <img
-                                className="h-8 w-8 rounded-full"
-                                src={joey}
+                                className="p-1 h-8 w-8 rounded-full bg-white"
+                                src={ getuserPicture(profileData.avatar) }
                                 alt=""
                             />
                         </Menu.Button>
@@ -237,7 +257,10 @@ const ConnectionStatusButtons = () => {
                                     <Link
                                         to="#"
                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
-                                        onClick={() => dispatch(signOut())}
+                                        onClick={() => {
+                                            dispatch(signOut());
+                                            dispatch(clearUserInformations());
+                                        }}
                                     >
                                         Se déconnecter
                                     </Link>
