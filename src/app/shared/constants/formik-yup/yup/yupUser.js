@@ -84,7 +84,7 @@ export const schemaFormValidateNewPassword = Yup.object().shape({
 export const schemaFormProfileUpdate =  Yup.object().shape({
     firstName: Yup.string().required("Required input").max(50, "50 caractères Maximum"),
     lastName: Yup.string().required("Required input").max(50, "50 caractères Maximum"),
-    birthdate: Yup.string().required("Required input").max(10, "Format"),
+    birthdate: Yup.string().required("Required input"),
     mail: Yup.string()
         .email("L'email n'est pas valide")
         .required("Champ requis"),
