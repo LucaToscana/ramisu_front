@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_INSCRIPTION, URL_LOGIN , URL_ADMIN_HOME} from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_INSCRIPTION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsLogged, selectIsLoggedAdmin , signOut } from './../../shared/redux-store/authenticationSlice';
 import { selectProfileInfo, getuserPicture, isUpdated , clearUserInformations} from './../../shared/redux-store/userProfileSlice';
@@ -164,7 +164,6 @@ export default Navbar
 const ConnectionStatusButtons = () => {
 
     const isLogged = useSelector(selectIsLogged);
-    const displayAdmin = useSelector(selectIsLoggedAdmin);
     const profileData = useSelector(selectProfileInfo);
     const dispatch = useDispatch();
 
@@ -222,35 +221,11 @@ const ConnectionStatusButtons = () => {
                                     <Link to={URL_ACCOUNT}
                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                     >
-                                        Profil
+                                        Gérer votre compte 
                                     </Link>
                                 )}
                             </Menu.Item>
-                          {      displayAdmin &&  (
-                            <Menu.Item>
-                            { 
-                              ({ active }) => (
                           
-                                       <Link
-                                            key="isAdmin"
-                                            to={URL_ADMIN_HOME}
-                                            aria-current="button Admin"
-                                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}>
-                                                Tableau de bord
-                                        </Link>
-                               ) }
-                               </Menu.Item>
-                            )}
-                            <Menu.Item>
-                                {({ active }) => (
-                                    <Link
-                                        to="#"
-                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
-                                    >
-                                        Changer les informations du compte
-                                    </Link>
-                                )}
-                            </Menu.Item>
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link
