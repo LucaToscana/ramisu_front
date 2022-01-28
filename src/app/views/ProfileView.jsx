@@ -11,8 +11,8 @@ import { Formik, Form, Field, useFormikContext } from 'formik';
 import { schemaFormProfileUpdate } from '../shared/constants/formik-yup/yup/yupUser';
 import { PlusCircleIcon, PencilIcon, UserIcon, CheckCircleIcon, RefreshIcon, XCircleIcon } from '@heroicons/react/solid'
 import { CustomInput } from '../shared/components/form-and-error-components/InputCustom';
-
 import DatePickerField from '../shared/components/form-and-error-components/DatePickerField'
+import "../assets/styles/datepickerprofile.css"
 
 
 const ProfileView = () => {
@@ -248,8 +248,9 @@ const FromRowDate = (props) => {
 
     const styleShowBtn = 'ml-2  ';
     const styleHideBtn = 'ml-2 hidden';
-    const styleOpen = 'text-right bg-white border-1 w-3/4 md:w-min';
-    const styleClose = 'text-right flex-none bg-transparent border-0  w-full md:w-min';
+    // !!!  import "../assets/styles/datepickerprofile.css"  style overrided
+    const styleOpen = 'text-right bg-white w-3/4 md:w-min';
+    const styleClose = 'text-right flex-none w-1/2 border-0 bg-transparent border-0';
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -273,8 +274,8 @@ const FromRowDate = (props) => {
     }
 
     return (
-        <div className="m-2 p-2 flex justify-between items-stretch items-center border-b-2">
-            <label className="md:w-1/4 w-1/3 text-right  flex-none border-1" >{props.label}  </label>
+        <div className="m-2 p-2 flex justify-between items-center border-b-2">
+            <label className="md:w-1/4 w-1/2 text-left md:text-right flex-none" >{props.label}  </label>
             <DatePickerField
                 defaultValue={props.value}
                 name={props.name}

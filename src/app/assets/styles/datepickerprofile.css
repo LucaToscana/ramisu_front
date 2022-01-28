@@ -3,9 +3,9 @@
     
     */
     .react-datepicker__input-container{
-        
-        text-align: center; 
-    }
-    .react-datepicker-wrapper{
-        /* border:1px solid black; */
+      
+        width:50%!important;
+        margin: auto;
+        display: block!important;
+       
     }
