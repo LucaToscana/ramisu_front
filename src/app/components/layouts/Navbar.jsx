@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectIsLogged, selectIsLoggedAdmin , signOut } from './../../shared/redux-store/authenticationSlice';
 import joey from "../../assets/images/joey.jpg";
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
+import { labelFilter } from '../../shared/redux-store/filterProductSlice';
+
 
 
 // Constants used for navigating with the navbar
@@ -33,7 +35,8 @@ function classNames(...classes) {
  * @author Cecile
  */
 const Navbar = () => {
-
+//input filter
+const dispatch = useDispatch();
     // const history = useHistory()
    
     return (
@@ -44,7 +47,7 @@ const Navbar = () => {
 
                         {/* Search bar */}
                         <form action="/search" className="flex flex-wrap lg:flex-row" >
-                            <input type="search" name="query" placeholder="Rechercher" required="required"
+                            <input type="search" name="query" placeholder="Rechercher" required="required" onChange={(e)=>dispatch(labelFilter(e.target.value))}
                                 className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/2 xl:transition-all 
                             xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
                             dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"

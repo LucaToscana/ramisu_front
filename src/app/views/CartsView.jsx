@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import trash from "../assets/images/icones/trash.png";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addOrder } from "../api/backend/order";
 import { isAuthenticated } from '../shared/services/accountServices';
 import { URL_LOGIN } from '../shared/constants/urls/urlConstants'
 import { CheckIcon, ShoppingCartIcon, XIcon, } from '@heroicons/react/solid';
 
 const CartsView = () => {
     const carts = useSelector(selectCart)
+
     const history = useHistory();
     const dispatch = useDispatch();
     let subTotal = 0;
@@ -28,26 +28,26 @@ const CartsView = () => {
 
 
 
-const pushToPiement =()=>{
+    const pushToPiement = () => {
 
-    if (isAuthenticated()) {
+        if (isAuthenticated()) {
 
-        let subTotale = 0;
-        for (let i = 0; i < carts.length; i++) {
-            subTotale += carts[i].quantite * carts[i].price
+            let subTotale = 0;
+            for (let i = 0; i < carts.length; i++) {
+                subTotale += carts[i].quantite * carts[i].price
+            }
+            if ((subTotale * 1.2) < 25) { subTotale = (subTotale * 1.2) + 10 }
+            else { (subTotale = subTotale * 1.2) }
+
+            localStorage.setItem("totPayer", subTotale)
+            history.push('/paiement')
+
+
+        } else {
+            localStorage.setItem("testLoginPanier", true)
+            history.push(URL_LOGIN)
         }
-        if((subTotale * 1.2) < 25) {subTotale =  (subTotale * 1.2) + 10}
-        else{(subTotale=subTotale * 1.2)}
-
-        localStorage.setItem("totPayer",subTotale)
-        history.push('/paiement')
-        
-      
-    } else {
-        localStorage.setItem("testLoginPanier",true)
-        history.push(URL_LOGIN)
     }
-}
 
 
 
@@ -55,6 +55,7 @@ const pushToPiement =()=>{
     return (
         <div className='flex justify-around m-5'>
             <div className=''>
+            
                 <div className='flex border-b-2 border-gray-400 pb-4'>
                     <ShoppingCartIcon className='w-10 h-10' />
                     <h1 className='flex items-end font-bold text-2xl ml-4'>Panier</h1>
@@ -117,9 +118,9 @@ const pushToPiement =()=>{
                                 </tbody>
                             </table>
                             <div className='flex justify-end'>
-                               <button className="clearCart mt-2 mr-2" onClick={() => dispatch(init())}>Vider</button>
-                                <button className="validateCart mt-2" onClick={() =>{pushToPiement() }}>Payer</button>
-                            </div> 
+                                <button className="clearCart mt-2 mr-2" onClick={() => dispatch(init())}>Vider</button>
+                                <button className="validateCart mt-2" onClick={() => { pushToPiement() }}>Payer</button>
+                            </div>
                         </div>
                     </div>
                 }

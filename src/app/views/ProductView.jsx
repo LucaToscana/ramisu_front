@@ -3,6 +3,7 @@ import ListProducts from './../components/product/components-page-product/ListPr
 import { AdjustmentsIcon, ViewGridIcon, ViewListIcon } from '@heroicons/react/solid';
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
 import ShowFilters from '../components/product/components-page-product/ShowFilters';
+import { useDispatch } from 'react-redux';
 /**
  * Creation of productView for the listing of products + pagination + filter
  * 
@@ -18,8 +19,11 @@ const ProductView = () => {
     const handleFilters = (label) => {
         if (filters.includes(label)) {
             setFilters(filter => [...filter].filter((filter) => filter !== label))
+
         } else {
             setFilters(filter => [...filter, label]);
+          
+
         }
     }
 

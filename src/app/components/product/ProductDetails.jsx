@@ -24,7 +24,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
     const [errorQty, setErrorQty] = useState("")
     const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
     const [modalQty, setModalQty] = useState(0)
-    const handleReset = () => {
+  /*  const handleReset = () => {
 
 
         var reset = carts.find(x => x.id === id)
@@ -34,7 +34,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
         else { document.getElementById("myNumberInput").value = reset.quantite }
         setErrorQty('')
 
-    };
+    };*/
 
     const handleChange = event => {
         let { value, min, max } = event;

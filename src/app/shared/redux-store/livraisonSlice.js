@@ -35,7 +35,6 @@ export const livraisonSlice = createSlice({
         setLivraison: (state, { payload }) => {
             state.value = payload
             localStorage.setItem("myAddress", JSON.stringify(state.value))
-            //   state.value = JSON.parse(localStorage.getItem('myAddress'))
         }
     }
 })

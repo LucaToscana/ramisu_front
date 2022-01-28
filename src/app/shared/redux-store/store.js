@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import authenticationReducer from './authenticationSlice'
 import cartsReducer from './cartSlice'
 import livraisonReducer from './livraisonSlice'
-
+import filterProductReducer from './filterProductSlice';
 /**
  * To configure the store redux. 
  * 
@@ -12,6 +12,7 @@ import livraisonReducer from './livraisonSlice'
 	reducer: {
 		auth: authenticationReducer,
 		carts: cartsReducer,
-		livraison: livraisonReducer
+		livraison: livraisonReducer,
+		filterProducts:filterProductReducer,
 	},
 });

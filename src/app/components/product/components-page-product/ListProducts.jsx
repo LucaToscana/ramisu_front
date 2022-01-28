@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { getProducts } from '../../../api/backend/product';
+import { useDispatch, useSelector } from 'react-redux';
+import {  productSearchCriteria } from '../../../api/backend/product';
+import { selectPage, selectProductFilter,  setCurrentPageFilter, setTotal } from '../../../shared/redux-store/filterProductSlice';
 import PaginationProduct from './PaginationProduct';
 import { Product, ProductList } from './Product';
 
@@ -7,15 +9,33 @@ import { Product, ProductList } from './Product';
 
 
 const ListProducts = ({ show }) => {
-
+    const filter = useSelector(selectProductFilter)
+    const dispatch = useDispatch()
+    const pageRedux = useSelector(selectPage)
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
+    const page = useSelector(selectPage)
+
+
+
 
     useEffect(() => {
-        getProducts(currentPage).then(response => {
-            setProducts(response.data);
-        });
-    }, [currentPage]);
+
+
+        productSearchCriteria(filter).
+            then(response => {
+                if (response.data.content !== null) {
+                    if (response.data.content.length === 0) {
+                        dispatch(setCurrentPageFilter(page - 1))
+
+                    }
+                    setProducts(response.data.content);
+                    dispatch(setTotal(response.data.totalElements))
+                    setCurrentPage(filter.page)
+
+                }
+            })
+    }, [JSON.stringify(filter)]);
 
     return (
         <div>

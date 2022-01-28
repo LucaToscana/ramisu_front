@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { getAllCategories, getAllUniverses, getAllTags } from '../../../api/backend/filter';
 import SelectFilter from '../../../shared/components/buttons/SelectFilter';
+import { categoryFilter, initFilter, tagFilter, universeFilter } from '../../../shared/redux-store/filterProductSlice';
+import { useDispatch } from 'react-redux';
 
 
 const SideBarFilters = ({ filters, handleFilters }) => {
+    const dispatch = useDispatch();
 
     const [categories, setCategories] = useState([]);
     const [universes, setUniverses] = useState([]);
@@ -12,6 +15,7 @@ const SideBarFilters = ({ filters, handleFilters }) => {
 
     // Allows to recover data in back
     useEffect(() => {
+       dispatch( initFilter())
         axios.all([getAllCategories(), getAllUniverses(), getAllTags()]).then(responses => {
             setCategories(responses[0].data);
             setUniverses(responses[1].data);
@@ -22,6 +26,8 @@ const SideBarFilters = ({ filters, handleFilters }) => {
     const listCategories = categories.map(category => {
         return (
             <CheckFilter
+                typeFilter={"category"}
+
                 key={category.id}
                 label={category.label}
                 handleFilters={handleFilters}
@@ -30,9 +36,11 @@ const SideBarFilters = ({ filters, handleFilters }) => {
         )
     });
 
+
     const listUniverses = universes.map(universe => {
         return (
             <CheckFilter
+                typeFilter={"universe"}
                 key={universe.id}
                 label={universe.label}
                 handleFilters={handleFilters}
@@ -44,6 +52,8 @@ const SideBarFilters = ({ filters, handleFilters }) => {
     const listTags = tags.map(tag => {
         return (
             <CheckFilter
+                typeFilter={"tag"}
+
                 key={tag.id}
                 label={tag.label}
                 handleFilters={handleFilters}
@@ -70,11 +80,21 @@ const SideBarFilters = ({ filters, handleFilters }) => {
 export default SideBarFilters;
 
 
-const CheckFilter = ({ label, handleFilters, checked }) => {
+const CheckFilter = ({ label, handleFilters, checked,typeFilter }) => {
     // const [checked, setChecked] = useState(false);
+    const dispatch = useDispatch();
 
     const handleChecked = (e) => {
+        if(typeFilter==="universe"){
+        dispatch(universeFilter(label))}
+        if(typeFilter==="category"){
+            dispatch(categoryFilter(label))}
+            if(typeFilter==="tag"){
+                dispatch(tagFilter(label))}
+
+
         handleFilters(label);
+
     }
 
 

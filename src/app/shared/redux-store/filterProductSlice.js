@@ -1,0 +1,135 @@
+import { createSlice } from "@reduxjs/toolkit";
+import { useState } from "react";
+import { productSearchCriteria } from "../../api/backend/product";
+
+const tot=(total,itemPerPage)=>{
+
+var pages =[]
+    for (let i = 0; i <= Math.ceil(total / itemPerPage) - 1; i++) {
+        pages.push(i);
+    }   
+return pages
+}
+
+const initialState = {
+
+    label: null,
+    price: null,
+    universe: null,
+    category: null,
+    tag: null,
+    page: 0,
+    pageSize: 10,
+    total: 0,
+    totalpage:[]
+
+
+}
+export const filterProductSlice = createSlice({
+
+    name: 'filterProducts',
+    initialState: initialState,
+    reducers: {
+        initFilter(state) {
+            var fSelect = localStorage.getItem("filters")
+            state.page = 0
+            state.totalpage =  tot(state.total,state.pageSize)
+
+            if (state !== fSelect) {
+                localStorage.removeItem("filters")
+
+            }
+
+
+        },
+        labelFilter(state, { payload }) {
+            state.label = payload
+            state.page = 0
+            state.totalpage =  tot(state.total,state.pageSize)
+            localStorage.setItem("filters", JSON.stringify(state))
+
+        },
+        universeFilter(state, { payload }) {
+            if (state.universe === null) {
+                var list = [payload]
+                state.universe = list
+            } else {
+                if (state.universe.includes(payload)) { state.universe.splice(state.universe.indexOf(payload), 1); }
+                else { state.universe.push(payload) }
+            }
+            state.page = 0
+            state.totalpage =  tot(state.total,state.pageSize)
+
+            localStorage.setItem("filters", JSON.stringify(state))
+
+        },
+        categoryFilter(state, { payload }) {
+            if (state.category === null) {
+                var list = [payload]
+                state.category = list
+            } else {
+                if (state.category.includes(payload)) { state.category.splice(state.category.indexOf(payload), 1); }
+                else { state.category.push(payload) }
+            }
+            state.page = 0
+            state.totalpage =  tot(state.total,state.pageSize)
+
+            localStorage.setItem("filters", JSON.stringify(state))
+
+        },
+        tagFilter(state, { payload }) {
+            if (state.tag === null) {
+                var list = [payload]
+                state.tag = list
+            } else {
+                if (state.tag.includes(payload)) { state.tag.splice(state.tag.indexOf(payload), 1); }
+                else { state.tag.push(payload) }
+            }
+
+            state.page = 0
+            state.totalpage =  tot(state.total,state.pageSize)
+
+            localStorage.setItem("filters", JSON.stringify(state))
+
+        },
+        removeFilter(state, { payload }) {
+            if (state.universe!==null && state.universe.includes(payload)) { state.universe.splice(state.universe.indexOf(payload), 1); }
+            if (state.tag!==null && state.tag.includes(payload)) { state.tag.splice(state.tag.indexOf(payload), 1); }
+            if (state.category!==null && state.category.includes(payload)) { state.category.splice(state.category.indexOf(payload), 1); }
+
+            state.page = 0
+            state.totalpage =  tot(state.total,state.pageSize)
+
+            localStorage.setItem("filters", JSON.stringify(state))
+
+        },
+        setCurrentPageFilter(state, { payload }) {
+         
+         if(payload>-1){
+            state.page = payload
+
+         }
+         state.totalpage =  tot(state.total,state.pageSize)
+
+            localStorage.setItem("filters", JSON.stringify(state))
+
+        }
+        ,  setTotal(state, { payload }) {
+         
+               state.total = payload
+               state.totalpage =  tot(state.total,state.pageSize)
+
+            
+               localStorage.setItem("filters", JSON.stringify(state))
+   
+           }
+    }
+})
+
+export const { labelFilter, universeFilter, categoryFilter, tagFilter, initFilter, removeFilter ,setCurrentPageFilter,setTotal} = filterProductSlice.actions
+export const selectProductFilter = (state) => state.filterProducts
+export const selectPage = (state) => state.filterProducts.page
+export const selectTotal = (state) => state.filterProducts.total
+export const selectTotalPages = (state) => state.filterProducts.totalPage
+
+export default filterProductSlice.reducer

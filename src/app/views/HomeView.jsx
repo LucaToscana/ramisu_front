@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { getNumberOfProductsByField } from "../api/backend/product";
+import { getNumberOfProductsByField, productSearchCriteria } from "../api/backend/product";
 import ProductHomePageCard from '../components/product/ProductHomePageCard';
 // import { hasRole } from './../shared/services/accountServices';
 // import { ROLE_ADMIN } from './../shared/constants/rolesConstant';
 // import { URL_ADMIN_HOME } from './../shared/constants/urls/urlConstants';
 import Loader from './../shared/components/utils-components/Loader';
 import handleHttpError from './../shared/components/form-and-error-components/HandleHttpError';
+import apiBackEnd from '../api/backend/api.Backend';
 
 
 /**
@@ -74,6 +75,7 @@ const HomeView = ({ history }) => {
                             <h2 className="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
                                 Notre boutique
                             </h2>
+
                         </div>
                         <div className="w-full bg-custom-lightbrown">
                             <section className="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
@@ -141,7 +143,6 @@ const HomeView = ({ history }) => {
                     </>
                 }
             </div>
-
 
 
             {/* hasRole(ROLE_ADMIN) && (
