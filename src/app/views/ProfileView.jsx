@@ -374,11 +374,10 @@ const PictureForm = (props)=>
                             width="30px" 
                             height="30px" />
                     </button>
-                    <div className='border-2 border-black w-[200px] rounded-full overflow-hidden'>
+                    <div className='border-2 border-black rounded-full overflow-hidden'>
                          <img    src={getuserPicture(userInfo.avatar)} 
-                                width="200px"
-                                height="200px"
-                                className="object-fill" /> 
+                              
+                              className="h-80 w-80 rounded-full object-contain" />
                     </div>
                     <div>
                         <input  type="file" 
