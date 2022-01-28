@@ -3,6 +3,8 @@ import authenticationReducer from './authenticationSlice'
 import cartsReducer from './cartSlice'
 import livraisonReducer from './livraisonSlice'
 import filterProductReducer from './filterProductSlice';
+import userInfo from './userProfileSlice'
+
 /**
  * To configure the store redux. 
  * 
@@ -14,5 +16,6 @@ import filterProductReducer from './filterProductSlice';
 		carts: cartsReducer,
 		livraison: livraisonReducer,
 		filterProducts:filterProductReducer,
+		userInfo	: userInfo
 	},
 });
