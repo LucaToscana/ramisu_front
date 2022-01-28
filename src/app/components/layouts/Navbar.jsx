@@ -7,6 +7,7 @@ import { URL_ACCOUNT, URL_INSCRIPTION, URL_LOGIN } from './../../shared/constant
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsLogged, selectIsLoggedAdmin, signOut } from './../../shared/redux-store/authenticationSlice';
 import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations } from './../../shared/redux-store/userProfileSlice';
+import {init} from '../../shared/redux-store/cartSlice';
 
 
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
@@ -234,6 +235,8 @@ const ConnectionStatusButtons = () => {
                                         onClick={() => {
                                             dispatch(signOut());
                                             dispatch(clearUserInformations());
+                                            dispatch(init());
+                                        
                                         }}
                                     >
                                         Se déconnecter
