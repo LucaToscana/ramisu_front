@@ -172,7 +172,6 @@ const ConnectionStatusButtons = () => {
 
     if (isLogged) {
 
-
         if(profileData.updated===false)
         {
             getProfile().then((response) => {
@@ -202,7 +201,7 @@ const ConnectionStatusButtons = () => {
                         <Menu.Button className="bg-gray-800 flex text-lg rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                             <span className="sr-only">Ouvrir le menu utilisateur</span>
                             <img
-                                className="p-1 h-8 w-8 rounded-full bg-white"
+                                className="p-1 h-8 w-8 rounded-full bg-white  object-contain"
                                 src={ getuserPicture(profileData.avatar) }
                                 alt=""
                             />
