@@ -11,7 +11,7 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
     const dispatch = useDispatch()
     const page = useSelector(selectPage)
     const total = useSelector(selectTotal)
-   // const totalPages = useSelector(selectTotalPages)
+    const totalPages = useSelector(selectTotalPages)
 
     const history = useHistory();
 
@@ -33,19 +33,14 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
 
     useEffect(() => {
         dispatch(setCurrentPageFilter(0))
-
-
-    }, []);
+    }, [JSON.stringify(totalPages)]);
 
     const handleClick = (number) => {
         setCurrentPage(parseInt(number));
         dispatch(setCurrentPageFilter(parseInt(number)))
     };
 
-    /*   for (let i = 0; i <= Math.ceil(total / itemPerPage) - 1; i++) {
-           pages.push(i);
-       }
-   */
+  
     const renderPageNumber = () => pagesList().map((number) => {
         if (number<=maxPageNumberLimit) {
             return (
@@ -66,22 +61,22 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
 
         dispatch(setCurrentPageFilter(+page + 1))
         setCurrentPage(currentPage + 1);
-
+/*
         if (currentPage + 1 > maxPageNumberLimit) {
             setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
             setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
-        };
+        };*/
     };
 
     const prevPage = () => {
         dispatch(setCurrentPageFilter(+page - 1))
 
         setCurrentPage(currentPage - 1);
-
+/*
         if ((currentPage - 1) % pageNumberLimit === 0) {
             setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
             setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
-        };
+        };*/
     };
 
     let pageIncrementBtn = null;
@@ -98,12 +93,12 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
 
     return (
         <div className=''>
-
+  {total===0?null:<>
             <ul className=" flex justify-center m-5 text-black text-center ">
                 <li className="rounded-full w-24 h-10 bg-gray-500 hover:bg-blue-500">
                     <button
                         onClick={prevPage}
-                        //   disabled={currentPage === pages[0] ? true : false}
+                          disabled={currentPage === totalPages[0] ? true : false}
                         className="w-24 h-10 "
                     >
                         Précédent
@@ -116,7 +111,7 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
                 <li className="inline-block rounded-full w-24 h-10 bg-gray-500 hover:bg-blue-500">
                     <button
                         onClick={nextPage}
-                        //    disabled={currentPage === pages[pages.length - 1] ? true : false}
+                          disabled={currentPage === totalPages[totalPages.length - 1] ? true : false}
                         className="w-24 h-10 "
                     >
                         Suivant
@@ -124,6 +119,8 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
                 </li>
             </ul>
             <button className="btn btn-primary" onClick={() => history.push(URL_CART)}>Panier</button>
+
+            </>}
         </div>
     )
 }

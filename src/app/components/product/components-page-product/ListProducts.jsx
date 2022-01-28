@@ -39,6 +39,7 @@ const ListProducts = ({ show }) => {
 
     return (
         <div>
+            {products.length===0?"aucun produit trouvé":null}
             {show ? <div className="md:grid md:grid-cols-2 lg:grid-cols-3  sm:w-100">
                 {products.map(product => {
                     return (

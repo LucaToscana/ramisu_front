@@ -130,6 +130,6 @@ export const { labelFilter, universeFilter, categoryFilter, tagFilter, initFilte
 export const selectProductFilter = (state) => state.filterProducts
 export const selectPage = (state) => state.filterProducts.page
 export const selectTotal = (state) => state.filterProducts.total
-export const selectTotalPages = (state) => state.filterProducts.totalPage
+export const selectTotalPages = (state) => state.filterProducts.totalpage
 
 export default filterProductSlice.reducer
