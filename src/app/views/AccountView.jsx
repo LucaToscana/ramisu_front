@@ -12,6 +12,7 @@ import powerButton from "../assets/images/icones/power-button.svg";
 import  Dashboard from "../assets/images/icones/dashboard.svg";
 import ButtonIcon from "../shared/components/buttons/ButtonIcon";
 import { Link, useHistory } from "react-router-dom";
+import {init} from '../shared/redux-store/cartSlice';
 /**
  * The user page account with multiple links (cart, user infos, orders...)
  *
@@ -70,6 +71,8 @@ const DisconnectionLink = () => {
       key="Déconnexion"
       onClick={() => {
         dispatch(signOut());
+        dispatch(clearUserInformations());
+        dispatch(init());
         history.push(URL_HOME);
       }}
     >

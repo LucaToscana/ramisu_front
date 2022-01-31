@@ -81,6 +81,7 @@ const ProfileView = () => {
                                         label="Date de naissance&nbsp;:&nbsp;"
                                         name="birthdate"
                                         value={userInfo.birthdate}
+                                        setFieldValue={setFieldValue}
                                         onSubmit={handleSubmit}
                                         error={errors['birthdate']}/>
 
@@ -148,8 +149,11 @@ const FormRow = (props) => {
     const [inputField, setInputField] = useState(undefined);
 
 
-    const styleShowBtn = 'ml-2 mt-2';
-    const styleHideBtn = 'ml-2 hidden';
+    const styleShowBtn = ' mt-2';
+    const styleHideBtn = ' hidden';
+
+    const userInfo = useSelector(selectProfileInfo);
+   
 
 
     useEffect(() => {
@@ -158,6 +162,13 @@ const FormRow = (props) => {
         }
     }, [isEnable])
 
+
+    const cancelHandler = (event)=>{
+
+        props.setFieldValue(props.formName , userInfo[props.formName]);
+        toggle(event.currentTarget)
+
+    }
 
     const toggle = (target) => {
 
@@ -213,7 +224,7 @@ const FormRow = (props) => {
 
             <button type='button'
                 className={props.error != undefined ? styleShowBtn : styleHideBtn} >
-                <RefreshIcon className="h-6 w-6" />
+                <RefreshIcon className="h-6 w-6" onClick={cancelHandler} />
             </button>
 
             <button type='button'
@@ -221,15 +232,12 @@ const FormRow = (props) => {
                     toggle(event.currentTarget);
                     props.onSubmit();
                 }}
-                className={isEnable ? styleShowBtn : styleHideBtn}  >
+                className={isEnable && props.error == undefined  ? styleShowBtn : styleHideBtn}  >
                 <CheckCircleIcon className="h-6 w-6" />
             </button>
 
             <button type='button'
-                onClick={(event) => {
-
-                    toggle(event.currentTarget);
-                }}
+                onClick={cancelHandler}
                 className={isEnable ? styleShowBtn : styleHideBtn}  >
 
                 <XCircleIcon className="h-6 w-6" />
@@ -254,6 +262,10 @@ const FromRowDate = (props) => {
 
     const [isOpen, setIsOpen] = useState(false);
 
+
+    const userInfo = useSelector(selectProfileInfo);
+   
+
     const onFocusChange = (event) => {
         setIsOpen(true);
     }
@@ -265,6 +277,8 @@ const FromRowDate = (props) => {
 
 
     const resetState = (parent) => {
+        console.log("reset state " , props.formName , userInfo[props.formName]);
+        props.setFieldValue(props.formName , userInfo[props.formName]);
         setIsOpen(false);
     }
 
@@ -296,15 +310,16 @@ const FromRowDate = (props) => {
 
                 <button type='button'
                     onClick={(event) => {
-                        resetState(event);
+                        // resetState(event);
                         // debugger
                         props.onSubmit();
+                        setIsOpen(false);
                     }}
                     className={isOpen ? styleShowBtn : styleHideBtn}  >
                     <CheckCircleIcon className="h-6 w-6" />
                 </button>
 
-                <button type='button' onClick={(event) => resetState(event)} className={isOpen ? styleShowBtn : styleHideBtn}  >
+                <button type='button' onClick={resetState} className={isOpen ? styleShowBtn : styleHideBtn}  >
                     <XCircleIcon className="h-6 w-6" />
                 </button>
             </div>

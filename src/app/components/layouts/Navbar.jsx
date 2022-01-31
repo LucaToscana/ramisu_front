@@ -1,21 +1,19 @@
 import React, { Fragment } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon } from '@heroicons/react/outline';
+import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_INSCRIPTION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT,URL_INSCRIPTION,URL_LOGIN } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectIsLogged, selectIsLoggedAdmin , signOut } from './../../shared/redux-store/authenticationSlice';
 import joey from "../../assets/images/joey.jpg";
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
 import { labelFilter } from '../../shared/redux-store/filterProductSlice';
+import { selectIsLogged, selectIsLoggedAdmin, signOut } from './../../shared/redux-store/authenticationSlice';
+import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations ,setProfileInfo} from './../../shared/redux-store/userProfileSlice';
 
-import { selectProfileInfo, getuserPicture, isUpdated , clearUserInformations} from './../../shared/redux-store/userProfileSlice';
-
-
-
-import {setProfileInfo } from '../../shared/redux-store/userProfileSlice';
 import { getProfile } from "../../api/backend/user";
+
+
 
 // Constants used for navigating with the navbar
 const navigation = [
@@ -43,7 +41,7 @@ const Navbar = () => {
 //input filter
 const dispatch = useDispatch();
     // const history = useHistory()
-   
+
     return (
         <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
             {({ open }) => (
@@ -123,7 +121,8 @@ const dispatch = useDispatch();
                                 >
                                     <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
                                 </Link>
-                             
+
+
                             </div>
                         </div>
                     </div>
@@ -171,20 +170,19 @@ const ConnectionStatusButtons = () => {
     const profileData = useSelector(selectProfileInfo);
     const dispatch = useDispatch();
 
-   
+
 
     if (isLogged) {
 
-        if(profileData.updated===false)
-        {
+        if (profileData.updated === false) {
             getProfile().then((response) => {
                 dispatch(setProfileInfo(response.data));
                 dispatch(isUpdated(true))
-            }).catch(e=>{
-                        console.error("error edite profile", e)
-                    });
+            }).catch(e => {
+                console.error("error edite profile", e)
+            });
         }
-     
+
 
         /* Connected user buttons and menu */
         return (
@@ -205,7 +203,7 @@ const ConnectionStatusButtons = () => {
                             <span className="sr-only">Ouvrir le menu utilisateur</span>
                             <img
                                 className="p-1 h-8 w-8 rounded-full bg-white  object-contain"
-                                src={ getuserPicture(profileData.avatar) }
+                                src={getuserPicture(profileData.avatar)}
                                 alt=""
                             />
                         </Menu.Button>
@@ -225,11 +223,11 @@ const ConnectionStatusButtons = () => {
                                     <Link to={URL_ACCOUNT}
                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                     >
-                                        Gérer votre compte 
+                                        Gérer votre compte
                                     </Link>
                                 )}
                             </Menu.Item>
-                          
+
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link
@@ -238,6 +236,8 @@ const ConnectionStatusButtons = () => {
                                         onClick={() => {
                                             dispatch(signOut());
                                             dispatch(clearUserInformations());
+                                            dispatch(init());
+                                        
                                         }}
                                     >
                                         Se déconnecter
@@ -254,22 +254,53 @@ const ConnectionStatusButtons = () => {
 
         /* Displayed buttons if the user is not connected */
         return (
-            <div className="hidden lg:block lg:ml-6">
-                <div className="flex space-x-4">
-                    <Link
-                        to={URL_INSCRIPTION}
-                        className='text-gray-300 hover:bg-gray-700 hover:text-white
-                        px-3 py-2 rounded-lg text-lg font-medium'>
-                        S'inscrire
-                    </Link>
-                    <Link
-                        to={URL_LOGIN}
-                        className='text-gray-300 hover:bg-gray-700 hover:text-white
-                        px-3 py-2 rounded-lg text-lg font-medium'>
-                        Se connecter
-                    </Link>
+            <div>
+                <div className="hidden lg:block lg:ml-6">
+                    <div className="flex space-x-4">
+                        <Link
+                            to={URL_INSCRIPTION}
+                            className='text-gray-300 hover:bg-gray-700 hover:text-white
+                            px-3 py-2 rounded-lg text-lg font-medium'>
+                            <span>S'inscrire</span>
+
+                        </Link>
+                        <Link
+                            to={URL_LOGIN}
+                            className='text-gray-300 hover:bg-gray-700 hover:text-white
+                            px-3 py-2 rounded-lg text-lg font-medium'>
+                            Se connecter
+                        </Link>
+                    </div>
                 </div>
-            </div>
-        )
+                <div className="lg:hidden block">
+                    <Menu as="div"
+                        className="relative">
+                        <Menu.Button>
+                            <UserIcon className='bg-gray-800 p-1 mt-3 text-gray-400 w-8 h-8 m-2' />
+                        </Menu.Button>
+                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div className='flex flex-col'>
+                            <Menu.Item>
+                                <Link
+                                    to={URL_INSCRIPTION}
+                                    className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
+                                    <span>S'inscrire</span>
+                                </Link>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Link
+                                    to={URL_LOGIN}
+                                    className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
+                                    Se connecter
+                                </Link>
+                            </Menu.Item>
+                                </div>
+
+                        </Menu.Items>
+                    </Menu>
+
+                </div>
+            </div>)
     }
 }
+
