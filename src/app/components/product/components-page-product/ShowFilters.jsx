@@ -68,7 +68,7 @@ function ShowFilters({ filters, handleFilters }) {
             {getFIlter().map(f =>
                 <div key={f} className="flex  showFilter shadow-inner mb-4 mr-8">
                     <p className="font-bold p-2" >{f}</p>
-                    <p className="font-bold p-2 deleteFilter" onClick={() => removeFilterX(f)}>X</p>
+                    <p className="font-bold p-2 deleteFilter hover:cursor-pointer " onClick={() => removeFilterX(f)}>X</p>
                 </div>
             )}
         </div>

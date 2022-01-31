@@ -80,7 +80,7 @@ const SideBarFilters = ({ filters, handleFilters }) => {
             <SelectFilter title="Tags">
                 {listTags}
             </SelectFilter>
-            <SelectFilter title="Price">
+            <SelectFilter title="Prix">
                 <PriceInput submit={handelPriceRande} ></PriceInput>
             </SelectFilter>
         </div>

@@ -26,7 +26,7 @@ const PriceInput = ({ submit }) => {
                             </div>
 
                             <div className="login rounded-2xl w-1/3 p-3 hover:cursor-pointer flex justify-center">
-                                <button className='self-center' type="submit">Aller</button>
+                                <button className='self-center' type="submit">Filtrer</button>
                             </div>
 
                         </Form>

@@ -139,7 +139,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                         }
                                     }
                                     }>
-                                        ajouter a le panier<ShoppingCartIcon className="w-8 h-8" />
+                                       Ajouter au panier<ShoppingCartIcon className="w-8 h-8" />
                                     </div> : errorQty
                                     }
                                 </div>

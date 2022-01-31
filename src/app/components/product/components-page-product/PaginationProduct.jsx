@@ -43,7 +43,7 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
                 <li key={number}
                     id={number}
                     onClick={() => handleClick(number)}
-                    className={`w-12 h-10 p-2 inline-block rounded-full bg-gray-500 hover:bg-blue-500 ${currentPage === number ? "active " : "bg-color-red"}`}
+                    className={`w-12 h-10 p-2 inline-block rounded-full bg-gray-500 hover:bg-blue-500 hover:cursor-pointer  ${currentPage === number ? "active " : "bg-color-red"}`}
                 >
                     {number + 1}
                 </li>
@@ -91,7 +91,7 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
         <div className=''>
   {total===0?null:<>
             <ul className=" flex justify-center m-5 text-black text-center ">
-                <li className="rounded-full w-24 h-10 bg-gray-500 hover:bg-blue-500">
+                <li className="rounded-full w-24 h-10 bg-gray-500 hover:bg-blue-500 hover:cursor-pointer ">
                     <button
                         onClick={prevPage}
                           disabled={currentPage === totalPages[0] ? true : false}
@@ -104,7 +104,7 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
                 <div > {renderPageNumber()}</div>
                 {pageIncrementBtn}
 
-                <li className="inline-block rounded-full w-24 h-10 bg-gray-500 hover:bg-blue-500">
+                <li className="inline-block rounded-full w-24 h-10 bg-gray-500 hover:bg-blue-500 hover:cursor-pointer ">
                     <button
                         onClick={nextPage}
                           disabled={currentPage === totalPages[totalPages.length - 1] ? true : false}

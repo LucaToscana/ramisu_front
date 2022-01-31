@@ -18,7 +18,7 @@ export const Product = ({ label, price, stock, id, picture }) => {
     return (
         <div className="m-4 p-4 Cardproduct ">
             <div className="flex flex-wrap">
-                <img src={picture} alt="" className="w-full" onClick={() => {
+                <img src={picture} alt="" className="w-full hover:cursor-pointer " onClick={() => {
                      history.push(`/produits/detail/${id}`) }} />
                 <div className="mt-4 p-2 flex flex-col justify-center w-full clip-path productCard">
                     <div>
@@ -53,10 +53,13 @@ export const Product = ({ label, price, stock, id, picture }) => {
 export const ProductList = ({ label, price, stock, id, picture }) => {
     const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": 1, "picture": picture }
     const dispatch = useDispatch()
+    const history = useHistory();
+
     return (
         <div className="flex m-4 p-4 shadow-inner Cardproduct">
             <div className="flex w-full">
-                <img src={picture} alt="" className="w-20 mr-1" />
+                <img src={picture} alt="" className="w-20 mr-1 hover:cursor-pointer "  onClick={() => {
+                     history.push(`/produits/detail/${id}`) }}/>
                 <div className="flex flex-col p-2 justify-evenly clip-path productCard w-full overflow-hidden">
                     <div className='w-4/5'>
                         <h2 className="m-2 text-center font-bold truncate">{label}</h2>
