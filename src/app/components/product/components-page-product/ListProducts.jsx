@@ -13,7 +13,7 @@ const ListProducts = ({ show }) => {
     const dispatch = useDispatch()
     const pageRedux = useSelector(selectPage)
     const [products, setProducts] = useState([]);
-    const [currentPage, setCurrentPage] = useState(0);
+    const [currentPage, setCurrentPage] = useState(pageRedux);
     const page = useSelector(selectPage)
 
 
@@ -35,7 +35,7 @@ const ListProducts = ({ show }) => {
 
                 }
             })
-    }, [JSON.stringify(filter)]);
+    }, [JSON.stringify(filter),show]);
 
     return (
         <div>

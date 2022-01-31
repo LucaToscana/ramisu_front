@@ -3,7 +3,8 @@ import { productDetail } from "../api/backend/product";
 import ProductDetails from "../components/product/ProductDetails"
 import { useParams } from "react-router-dom";
 import { selectCart } from '../shared/redux-store/cartSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { initFilter } from '../shared/redux-store/filterProductSlice';
 
 /**
  * recovers the product in databas with the id
@@ -16,8 +17,10 @@ const ProductDetailView = () => {
     const [cart, setCart] = useState({})
     const carts = useSelector(selectCart)
     const [cartQuantity, setCartQuantity] = useState()
-
     useEffect(() => {
+
+
+        
         productDetail(id).then(res => {
             setProduct(res.data)
 

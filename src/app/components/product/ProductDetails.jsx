@@ -104,6 +104,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
 
                                 <div className="p-1"><input type="number"
+                                step={1}
                                     id="myNumberInput"
                                     min={0} max={stock}
                                     defaultValue={cart !== null ? cartQuantity : 0}

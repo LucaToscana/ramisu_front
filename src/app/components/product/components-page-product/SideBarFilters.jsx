@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
 import { getAllCategories, getAllUniverses, getAllTags } from '../../../api/backend/filter';
 import SelectFilter from '../../../shared/components/buttons/SelectFilter';
-import { categoryFilter, initFilter, tagFilter, universeFilter } from '../../../shared/redux-store/filterProductSlice';
+import { categoryFilter, initFilter, setPriceRange, tagFilter, universeFilter } from '../../../shared/redux-store/filterProductSlice';
 import { useDispatch } from 'react-redux';
+import PriceInput from '../../../shared/components/form-and-error-components/PriceInput';
 
 
 const SideBarFilters = ({ filters, handleFilters }) => {
@@ -13,14 +14,20 @@ const SideBarFilters = ({ filters, handleFilters }) => {
     const [universes, setUniverses] = useState([]);
     const [tags, setTags] = useState([]);
 
+    const handelPriceRande = (values) => {
+        dispatch(setPriceRange(values))
+
+    }
+
     // Allows to recover data in back
     useEffect(() => {
-       dispatch( initFilter())
+        //   dispatch( initFilter())
         axios.all([getAllCategories(), getAllUniverses(), getAllTags()]).then(responses => {
             setCategories(responses[0].data);
             setUniverses(responses[1].data);
             setTags(responses[2].data);
         })
+
     }, []);
 
     const listCategories = categories.map(category => {
@@ -73,6 +80,9 @@ const SideBarFilters = ({ filters, handleFilters }) => {
             <SelectFilter title="Tags">
                 {listTags}
             </SelectFilter>
+            <SelectFilter title="Price">
+                <PriceInput submit={handelPriceRande} ></PriceInput>
+            </SelectFilter>
         </div>
     )
 }
@@ -80,17 +90,20 @@ const SideBarFilters = ({ filters, handleFilters }) => {
 export default SideBarFilters;
 
 
-const CheckFilter = ({ label, handleFilters, checked,typeFilter }) => {
+const CheckFilter = ({ label, handleFilters, checked, typeFilter }) => {
     // const [checked, setChecked] = useState(false);
     const dispatch = useDispatch();
 
     const handleChecked = (e) => {
-        if(typeFilter==="universe"){
-        dispatch(universeFilter(label))}
-        if(typeFilter==="category"){
-            dispatch(categoryFilter(label))}
-            if(typeFilter==="tag"){
-                dispatch(tagFilter(label))}
+        if (typeFilter === "universe") {
+            dispatch(universeFilter(label))
+        }
+        if (typeFilter === "category") {
+            dispatch(categoryFilter(label))
+        }
+        if (typeFilter === "tag") {
+            dispatch(tagFilter(label))
+        }
 
 
         handleFilters(label);

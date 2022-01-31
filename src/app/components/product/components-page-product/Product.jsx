@@ -18,7 +18,8 @@ export const Product = ({ label, price, stock, id, picture }) => {
     return (
         <div className="m-4 p-4 Cardproduct ">
             <div className="flex flex-wrap">
-                <img src={picture} alt="" className="w-full" onClick={() => { history.push(`/produits/detail/${id}`) }} />
+                <img src={picture} alt="" className="w-full" onClick={() => {
+                     history.push(`/produits/detail/${id}`) }} />
                 <div className="mt-4 p-2 flex flex-col justify-center w-full clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold truncate">{label}</h2>

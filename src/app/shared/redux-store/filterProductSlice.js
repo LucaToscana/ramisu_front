@@ -1,27 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useState } from "react";
-import { productSearchCriteria } from "../../api/backend/product";
 
-const tot=(total,itemPerPage)=>{
+const tot = (total, itemPerPage) => {
 
-var pages =[]
+    var pages = []
     for (let i = 0; i <= Math.ceil(total / itemPerPage) - 1; i++) {
         pages.push(i);
-    }   
-return pages
+    }
+    return pages
 }
 
 const initialState = {
 
-    label: null,
+    label: "",
     price: null,
     universe: null,
     category: null,
     tag: null,
     page: 0,
-    pageSize: 10,
+    pageSize: 9,
     total: 0,
-    totalpage:[]
+    totalpage: [],
+    minPrice: 0,
+    maxPrice: 10000
 
 
 }
@@ -33,7 +33,7 @@ export const filterProductSlice = createSlice({
         initFilter(state) {
             var fSelect = localStorage.getItem("filters")
             state.page = 0
-            state.totalpage =  tot(state.total,state.pageSize)
+            state.totalpage = tot(state.total, state.pageSize)
 
             if (state !== fSelect) {
                 localStorage.removeItem("filters")
@@ -45,7 +45,7 @@ export const filterProductSlice = createSlice({
         labelFilter(state, { payload }) {
             state.label = payload
             state.page = 0
-            state.totalpage =  tot(state.total,state.pageSize)
+            state.totalpage = tot(state.total, state.pageSize)
             localStorage.setItem("filters", JSON.stringify(state))
 
         },
@@ -58,7 +58,7 @@ export const filterProductSlice = createSlice({
                 else { state.universe.push(payload) }
             }
             state.page = 0
-            state.totalpage =  tot(state.total,state.pageSize)
+            state.totalpage = tot(state.total, state.pageSize)
 
             localStorage.setItem("filters", JSON.stringify(state))
 
@@ -72,7 +72,7 @@ export const filterProductSlice = createSlice({
                 else { state.category.push(payload) }
             }
             state.page = 0
-            state.totalpage =  tot(state.total,state.pageSize)
+            state.totalpage = tot(state.total, state.pageSize)
 
             localStorage.setItem("filters", JSON.stringify(state))
 
@@ -87,46 +87,56 @@ export const filterProductSlice = createSlice({
             }
 
             state.page = 0
-            state.totalpage =  tot(state.total,state.pageSize)
+            state.totalpage = tot(state.total, state.pageSize)
 
             localStorage.setItem("filters", JSON.stringify(state))
 
         },
         removeFilter(state, { payload }) {
-            if (state.universe!==null && state.universe.includes(payload)) { state.universe.splice(state.universe.indexOf(payload), 1); }
-            if (state.tag!==null && state.tag.includes(payload)) { state.tag.splice(state.tag.indexOf(payload), 1); }
-            if (state.category!==null && state.category.includes(payload)) { state.category.splice(state.category.indexOf(payload), 1); }
+            if (state.universe !== null && state.universe.includes(payload)) { state.universe.splice(state.universe.indexOf(payload), 1); }
+            if (state.tag !== null && state.tag.includes(payload)) { state.tag.splice(state.tag.indexOf(payload), 1); }
+            if (state.category !== null && state.category.includes(payload)) { state.category.splice(state.category.indexOf(payload), 1); }
 
             state.page = 0
-            state.totalpage =  tot(state.total,state.pageSize)
+            state.totalpage = tot(state.total, state.pageSize)
 
             localStorage.setItem("filters", JSON.stringify(state))
 
         },
         setCurrentPageFilter(state, { payload }) {
-         
-         if(payload>-1){
-            state.page = payload
 
-         }
-         state.totalpage =  tot(state.total,state.pageSize)
+            if (payload > -1) {
+                state.page = payload
+
+            }
+            state.totalpage = tot(state.total, state.pageSize)
 
             localStorage.setItem("filters", JSON.stringify(state))
 
         }
-        ,  setTotal(state, { payload }) {
-         
-               state.total = payload
-               state.totalpage =  tot(state.total,state.pageSize)
+        , setTotal(state, { payload }) {
 
-            
-               localStorage.setItem("filters", JSON.stringify(state))
-   
-           }
+            state.total = payload
+            state.totalpage = tot(state.total, state.pageSize)
+
+
+            localStorage.setItem("filters", JSON.stringify(state))
+
+        }
+        , setPriceRange(state, { payload }) {
+            if (payload.min === ""||payload.min<0) { state.minPrice = 0 } else { state.minPrice = payload.min }
+            if (payload.max === ""||payload.max <0) { state.maxPrice = 10000 } else { state.maxPrice = payload.max }
+
+
+
+
+            localStorage.setItem("filters", JSON.stringify(state))
+
+        }
     }
 })
 
-export const { labelFilter, universeFilter, categoryFilter, tagFilter, initFilter, removeFilter ,setCurrentPageFilter,setTotal} = filterProductSlice.actions
+export const { labelFilter, universeFilter, categoryFilter, tagFilter, initFilter, removeFilter, setCurrentPageFilter, setTotal, setPriceRange } = filterProductSlice.actions
 export const selectProductFilter = (state) => state.filterProducts
 export const selectPage = (state) => state.filterProducts.page
 export const selectTotal = (state) => state.filterProducts.total

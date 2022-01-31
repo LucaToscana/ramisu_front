@@ -48,17 +48,18 @@ const dispatch = useDispatch();
         <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
             {({ open }) => (
                 <>
-                    <div className="max-w-7xl mx-auto px-4 lg:px-6 pt-2">
+                    <div className="max-w-7xl mx-auto px-4 lg:px-6 pt-2 ">
 
                         {/* Search bar */}
-                        <form action="/search" className="flex flex-wrap lg:flex-row" >
-                            <input type="search" name="query" placeholder="Rechercher" required="required" onChange={(e)=>dispatch(labelFilter(e.target.value))}
+                       {// <form action="/search" className="flex flex-wrap lg:flex-row" >
+}<div className='flex flex-wrap lg:flex-row'>
+                            <input type="text"/* name="query"*/ placeholder="Rechercher" required="required" onChange={(e)=>dispatch(labelFilter(e.target.value))}
                                 className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/2 xl:transition-all 
                             xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
                             dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"
-                            />
-                        </form>
-
+                            /></div>
+                     {  // </form>
+}
                         <div className="relative flex items-center justify-between h-16">
                             <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
 

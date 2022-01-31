@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ListProducts from './../components/product/components-page-product/ListProducts';
 import { AdjustmentsIcon, ViewGridIcon, ViewListIcon } from '@heroicons/react/solid';
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
 import ShowFilters from '../components/product/components-page-product/ShowFilters';
 import { useDispatch } from 'react-redux';
+import { initFilter, selectProductFilter } from '../shared/redux-store/filterProductSlice';
+import { useSelector } from 'react-redux';
+
+
+
+
 /**
  * Creation of productView for the listing of products + pagination + filter
  * 
@@ -11,10 +17,41 @@ import { useDispatch } from 'react-redux';
  */
 const ProductView = () => {
 
+    const filterStore = useSelector(selectProductFilter);
+    const getFIlter = () => {
+
+        let f = []
+
+        if (filterStore.tag !== null) {
+
+            for (let i = 0; i <= filterStore.tag.length - 1; i++) {
+                f.push(filterStore.tag[i]);
+            }
+        }
+        if (filterStore.universe !== null) {
+
+            for (let i = 0; i <= filterStore.universe.length - 1; i++) {
+                f.push(filterStore.universe[i]);
+            }
+        }
+
+        if (filterStore.category !== null) {
+
+            for (let i = 0; i <= filterStore.category.length - 1; i++) {
+                f.push(filterStore.category[i]);
+            }
+        }
+
+
+        return f
+
+    }
+
     // Creation of a state for products
     const [openModal, setOpenModal] = useState(false);
-    const [filters, setFilters] = useState([]);
+    const [filters, setFilters] = useState(getFIlter());
     const [show, setShow] = useState(true);
+    
 
     const handleFilters = (label) => {
         if (filters.includes(label)) {
@@ -22,10 +59,12 @@ const ProductView = () => {
 
         } else {
             setFilters(filter => [...filter, label]);
-          
+
 
         }
     }
+
+
 
     return (
         <div>

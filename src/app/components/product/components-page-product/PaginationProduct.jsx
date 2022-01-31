@@ -14,26 +14,22 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
     const totalPages = useSelector(selectTotalPages)
 
     const history = useHistory();
-
-    const itemPerPage = 10;
-    const pageNumberLimit = 12;
-    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(12);
+    //const itemPerPage = 10;
+    const pageNumberLimit = 15;
+    const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(15);
     const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
     const pages = [];
 
     const pagesList = () => {
         var p = []
-
-        for (let i = 0; i <= Math.ceil(total / itemPerPage) - 1; i++) {
+        for (let i = 0; i <= totalPages.length-1; i++) {
             p.push(i);
-
         }
         return p
     }
 
     useEffect(() => {
-        dispatch(setCurrentPageFilter(0))
-    }, [JSON.stringify(totalPages)]);
+    }, [JSON.stringify(totalPages),currentPage, setCurrentPage ]);
 
     const handleClick = (number) => {
         setCurrentPage(parseInt(number));
@@ -80,14 +76,14 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
     };
 
     let pageIncrementBtn = null;
-    if (pages.length > maxPageNumberLimit) {
+   /* if (totalPages.length > maxPageNumberLimit) {
         pageIncrementBtn = <li className="inline-block rounded-full w-12 h-10 p-1 border-2 border-white  hover:bg-blue-500" onClick={nextPage}>&hellip;</li>
-    }
+    }*/
 
     let pageDecrementBtn = null;
-    if (minPageNumberLimit >= 1) {
+    /*if (minPageNumberLimit >= 1) {
         pageDecrementBtn = <li className="inline-block rounded-full w-12 h-10 p-1 border-2 border-white hover:bg-blue-500" onClick={prevPage}>&hellip;</li>
-    }
+    }/*/
 
 
 
