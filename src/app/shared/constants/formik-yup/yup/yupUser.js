@@ -35,19 +35,19 @@ export const schemaFormProfile = Yup.object().shape({
 
 })
 
-export const schemaFormInscription = Yup.object().shape({
-    nom: Yup.string().required("Required input"),
-    prenom: Yup.string().required("Required input"),
-    anniversaire: Yup.string().required("Required input"),
-    email: Yup.string()
+export const schemaFormRegistration = Yup.object().shape({
+    firstName: Yup.string().required("Required input"),
+    lastName: Yup.string().required("Required input"),
+    birthdate: Yup.string().required("Required input"),
+    mail: Yup.string()
         .email("L'email n'est pas valide")
         .required("Champ requis"),
-    numeroA: Yup.string().required("Required input"),
-    rue: Yup.string().required("Required input"),
-    codepostal: Yup.string().required("Required input"),
-    ville: Yup.string().required("Required input"),
-    pays: Yup.string().required("Required input"),
-    telephone: Yup.string()
+    number: Yup.string().required("Required input"),
+    street: Yup.string().required("Required input"),
+    postalCode: Yup.string().required("Required input"),
+    city: Yup.string().required("Required input"),
+    country: Yup.string().required("Required input"),
+    phone: Yup.string()
         .required("Champ requis")
         .matches(/^[0-9]+$/, "Nombres uniquement")
         .min(10, "Doit contenir au moins 10 chiffres")
