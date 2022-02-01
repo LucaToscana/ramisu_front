@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
@@ -10,25 +10,10 @@ import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
 import { labelFilter } from '../../shared/redux-store/filterProductSlice';
 import { selectIsLogged, selectIsLoggedAdmin, signOut } from './../../shared/redux-store/authenticationSlice';
 import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations, setProfileInfo } from './../../shared/redux-store/userProfileSlice';
-
+import { useLocation } from 'react-router-dom'
 import { getProfile } from "../../api/backend/user";
 
-
-
 // Constants used for navigating with the navbar
-const navigation = [
-    { name: 'Accueil', to: '/', current: true },
-    { name: 'Boutique', to: '/products', current: false },
-    { name: 'Figurines', to: '/Figurine', current: false },
-    { name: 'Peinture', to: '/Peinture', current: false },
-    { name: 'Librairie', to: '/Librairie', current: false },
-    { name: 'Contact', to: '#', current: false },
-]
-
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
-
 
 /**
  * Website navbar made with Tailwind
@@ -38,9 +23,28 @@ function classNames(...classes) {
  * @author Cecile
  */
 const Navbar = () => {
-    //input filter
+    const location = useLocation()    //input filter
     const dispatch = useDispatch();
     // const history = useHistory()
+
+    const [navigation, setNavigation] = useState([
+        { name: 'Accueil', to: '/', current: true },
+        { name: 'Boutique', to: '/products', current: true },
+        { name: 'Figurines', to: '/Figurine', current: true },
+        { name: 'Peinture', to: '/Peinture', current: true },
+        { name: 'Librairie', to: '/Librairie', current: true },
+        { name: 'Contact', to: '#', current: false },])
+
+
+
+
+
+
+
+
+    function classNames(...classes) {
+        return classes.filter(Boolean).join(' ')
+    }
 
     return (
         <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
@@ -51,7 +55,7 @@ const Navbar = () => {
                         {/* Search bar */}
                         {// <form action="/search" className="flex flex-wrap lg:flex-row" >
                         }<div className='flex flex-wrap lg:flex-row'>
-                            <input type="text"/* name="query"*/ id="searchNavBar"placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
+                            <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
                                 className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/2 xl:transition-all 
                             xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
                             dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"
@@ -97,10 +101,10 @@ const Navbar = () => {
                                                 key={item.name}
                                                 to={item.to}
                                                 className={classNames(
-                                                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                    item.to == location.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                                     'px-3 py-2 rounded-lg text-lg font-medium'
                                                 )}
-                                                aria-current={item.current ? 'page' : undefined}
+                                                aria-current={item.to == location.pathname ? 'page' : undefined}
                                             >
                                                 {item.name}
                                             </Link>

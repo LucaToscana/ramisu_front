@@ -17,7 +17,7 @@ import { CheckCircleIcon, PencilIcon, XCircleIcon } from "@heroicons/react/outli
 
  */
 const ProductDetails = ({ label, price, description, picture, stock, id, cart, cartQuantity }) => {
-    const [quantity, setQuantityNew] = useState(0)
+    const [quantity, setQuantityNew] = useState()
     const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": quantity, "picture": picture }
     const dispatch = useDispatch();
     const carts = useSelector(selectCart)
