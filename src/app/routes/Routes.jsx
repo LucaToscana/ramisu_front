@@ -1,21 +1,21 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import {
-    URL_HOME,
-    URL_ACCOUNT,
-    URL_LOGIN,
-    URL_PASSWORD_RESET_START,
-    URL_PASSWORD_RESET_END,
-    URL_ADMIN_HOME,
-    URL_PRODUCTS_DETAILS,
-    URL_PRODUCT,
-    URL_CART,
-    URL_PROFILE,
-    URL_ORDERS,
-    URL_INSCRIPTION,
-    URL_PAIEMENT,
-    URL_PAIEMENT_2
-} from "../shared/constants/urls/urlConstants";
+            URL_HOME,
+            URL_ACCOUNT,
+            URL_LOGIN,
+            URL_PASSWORD_RESET_START,
+            URL_PASSWORD_RESET_END,
+            URL_ADMIN_HOME,
+            URL_PRODUCTS_DETAILS,
+            URL_PRODUCT,
+            URL_CART,
+            URL_PROFILE,
+            URL_ORDERS,
+            URL_REGISTRATION,
+            URL_PAIEMENT,
+            URL_PAIEMENT_2
+        } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_USER } from "../shared/constants/rolesConstant";
 import { PrivateRoute } from "../shared/components/utils-components/PrivateRoute";
@@ -30,7 +30,7 @@ import ProductDetailView from "../views/ProductDetailView";
 import CartsView from "../views/CartsView";
 import ProfileView from "../views/ProfileView";
 import OrdersView from "../views/OrdersView";
-import InscriptionView from "../views/InscriptionView";
+import RegisterView from "../views/RegisterView";
 import PaiementLivraisonView from "../views/PaiementLivraisonView";
 import PaiementPayerView from "../views/PaiementPayerView";
 
@@ -58,7 +58,7 @@ const Routes = () => {
             <Route exact path={URL_PRODUCT} component={ProductView} />
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             <Route path={URL_CART} component={CartsView} />
-            <Route path={URL_INSCRIPTION} component={InscriptionView} />
+            <Route path={URL_REGISTRATION} component={RegisterView} />
             <PrivateRoute path={URL_PAIEMENT}  roles={[ROLE_USER]}    component={PaiementLivraisonView}/>
             <PrivateRoute path={URL_PAIEMENT_2}roles={[ROLE_USER]}  component={PaiementPayerView}/>
 
