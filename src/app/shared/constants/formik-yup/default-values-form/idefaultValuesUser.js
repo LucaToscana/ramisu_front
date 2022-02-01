@@ -6,19 +6,19 @@ export const defaulValuesLogin = {
 }
 
 
-export const defaulValuesInscription = { 
-    nom:'',
-    prenom:'',
-    anniversaire:'',
-    email:'',
+export const defaulValuesRegistration = { 
+    firstName:'',
+    lastName:'',
+    birthdate:'',
+    mail:'',
     adresse:'',
-    numeroA:'',
-    rue:'',
-    complementadresse:'',
-    codepostal:'',
-    ville: '',
-    pays: '',
-    telephone:'', 
+    number:'',
+    street:'',
+    additionalAddress:'',
+    postalCode:'',
+    city: '',
+    country: '',
+    phone:'', 
     password:'',
     passwordTest:'',
  //   rememberMe: false
