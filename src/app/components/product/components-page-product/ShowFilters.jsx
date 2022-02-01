@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { URL_PRODUCT, URL_PRODUCT_FIGURINES, URL_PRODUCT_LIBRAIRIE, URL_PRODUCT_PEINTURES } from '../../../shared/constants/urls/urlConstants'
 import { removeFilter, selectProductFilter, setPriceRange } from '../../../shared/redux-store/filterProductSlice'
 
 function ShowFilters({ filters, handleFilters }) {
@@ -37,7 +38,7 @@ function ShowFilters({ filters, handleFilters }) {
             }
         }
 
-        
+
         return f
 
     }
@@ -47,7 +48,7 @@ function ShowFilters({ filters, handleFilters }) {
         dispatch(removeFilter(f))
     }
     const removeFilterPrice = () => {
-        dispatch(setPriceRange({min :0,max:10000}))
+        dispatch(setPriceRange({ min: 0, max: 10000 }))
         handleFilters("priceRange")
 
     }
@@ -68,7 +69,13 @@ function ShowFilters({ filters, handleFilters }) {
             {getFIlter().map(f =>
                 <div key={f} className="flex  showFilter shadow-inner mb-4 mr-8">
                     <p className="font-bold p-2" >{f}</p>
-                    <p className="font-bold p-2 deleteFilter hover:cursor-pointer " onClick={() => removeFilterX(f)}>X</p>
+                    {
+
+                        window.location.pathname === URL_PRODUCT ||
+                            (window.location.pathname === URL_PRODUCT_PEINTURES && f !== "Peinture") ||
+                            (window.location.pathname === URL_PRODUCT_FIGURINES && f !== "Figurine") ||
+                            (window.location.pathname === URL_PRODUCT_LIBRAIRIE && f !== "Livre")
+                            ? <p className="font-bold p-2 deleteFilter hover:cursor-pointer " onClick={() => removeFilterX(f)}>X</p> : null}
                 </div>
             )}
         </div>

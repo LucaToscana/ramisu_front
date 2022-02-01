@@ -3,13 +3,13 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT,URL_INSCRIPTION,URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_INSCRIPTION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import joey from "../../assets/images/joey.jpg";
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
 import { labelFilter } from '../../shared/redux-store/filterProductSlice';
 import { selectIsLogged, selectIsLoggedAdmin, signOut } from './../../shared/redux-store/authenticationSlice';
-import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations ,setProfileInfo} from './../../shared/redux-store/userProfileSlice';
+import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations, setProfileInfo } from './../../shared/redux-store/userProfileSlice';
 
 import { getProfile } from "../../api/backend/user";
 
@@ -19,9 +19,9 @@ import { getProfile } from "../../api/backend/user";
 const navigation = [
     { name: 'Accueil', to: '/', current: true },
     { name: 'Boutique', to: '/products', current: false },
-    { name: 'Figurines', to: '#', current: false },
-    { name: 'Peinture', to: '#', current: false },
-    { name: 'Librairie', to: '#', current: false },
+    { name: 'Figurines', to: '/Figurine', current: false },
+    { name: 'Peinture', to: '/Peinture', current: false },
+    { name: 'Librairie', to: '/Librairie', current: false },
     { name: 'Contact', to: '#', current: false },
 ]
 
@@ -38,8 +38,8 @@ function classNames(...classes) {
  * @author Cecile
  */
 const Navbar = () => {
-//input filter
-const dispatch = useDispatch();
+    //input filter
+    const dispatch = useDispatch();
     // const history = useHistory()
 
     return (
@@ -49,15 +49,15 @@ const dispatch = useDispatch();
                     <div className="max-w-7xl mx-auto px-4 lg:px-6 pt-2 ">
 
                         {/* Search bar */}
-                       {// <form action="/search" className="flex flex-wrap lg:flex-row" >
-}<div className='flex flex-wrap lg:flex-row'>
-                            <input type="text"/* name="query"*/ placeholder="Rechercher" required="required" onChange={(e)=>dispatch(labelFilter(e.target.value))}
+                        {// <form action="/search" className="flex flex-wrap lg:flex-row" >
+                        }<div className='flex flex-wrap lg:flex-row'>
+                            <input type="text"/* name="query"*/ id="searchNavBar"placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
                                 className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/2 xl:transition-all 
                             xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
                             dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"
                             /></div>
-                     {  // </form>
-}
+                        {  // </form>
+                        }
                         <div className="relative flex items-center justify-between h-16">
                             <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
 
@@ -237,7 +237,7 @@ const ConnectionStatusButtons = () => {
                                             dispatch(signOut());
                                             dispatch(clearUserInformations());
                                             dispatch(init());
-                                        
+
                                         }}
                                     >
                                         Se déconnecter
@@ -279,22 +279,22 @@ const ConnectionStatusButtons = () => {
                             <UserIcon className='bg-gray-800 p-1 mt-3 text-gray-400 w-8 h-8 m-2' />
                         </Menu.Button>
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                <div className='flex flex-col'>
-                            <Menu.Item>
-                                <Link
-                                    to={URL_INSCRIPTION}
-                                    className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
-                                    <span>S'inscrire</span>
-                                </Link>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <Link
-                                    to={URL_LOGIN}
-                                    className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
-                                    Se connecter
-                                </Link>
-                            </Menu.Item>
-                                </div>
+                            <div className='flex flex-col'>
+                                <Menu.Item>
+                                    <Link
+                                        to={URL_INSCRIPTION}
+                                        className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
+                                        <span>S'inscrire</span>
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item>
+                                    <Link
+                                        to={URL_LOGIN}
+                                        className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
+                                        Se connecter
+                                    </Link>
+                                </Menu.Item>
+                            </div>
 
                         </Menu.Items>
                     </Menu>

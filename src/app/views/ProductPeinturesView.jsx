@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from 'react';
-import ListProducts from './../components/product/components-page-product/ListProducts';
+import ListProducts from '../components/product/components-page-product/ListProducts';
 import { AdjustmentsIcon, ViewGridIcon, ViewListIcon } from '@heroicons/react/solid';
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
 import ShowFilters from '../components/product/components-page-product/ShowFilters';
-import { useDispatch } from 'react-redux';
-import { initFilter, selectProductFilter } from '../shared/redux-store/filterProductSlice';
+import { initFilter, initFilterByPage, selectProductFilter } from '../shared/redux-store/filterProductSlice';
+import { Prompt } from 'react-router'
+
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 
 
 
-/**
- * Creation of productView for the listing of products + pagination + filter
- * 
- * @author Jeremy Dejonghe
- */
-const ProductView = () => {
-    const dispatch = useDispatch()
+const ProductPeinturesView = () => {
+const dispatch = useDispatch()
 
- 
     useEffect(() => {
-        document.getElementById("searchNavBar").value = ""
+   dispatch(initFilterByPage(window.location.pathname.replace("/","")))
+   document.getElementById("searchNavBar").value = ""
+    }, []);
 
-         }, []);
-     
+
+
+
     const filterStore = useSelector(selectProductFilter);
     const getFIlter = () => {
-
         let f = []
 
         if (filterStore.tag !== null) {
@@ -140,4 +138,4 @@ const ProductView = () => {
     );
 };
 
-export default ProductView;
+export default ProductPeinturesView;

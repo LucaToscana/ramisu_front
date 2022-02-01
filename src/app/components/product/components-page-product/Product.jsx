@@ -1,11 +1,13 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
-import { add } from '../../../shared/redux-store/cartSlice';
+import { add, selectCart } from '../../../shared/redux-store/cartSlice';
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline';
 import { useHistory } from 'react-router-dom';
 import ModalAddToCart from '../../../shared/components/utils-components/Modal/modalAddToCart/ModalAddToCart';
 import useModal from '../../../shared/components/utils-components/Modal/useModal';
+import { useSelector } from 'react-redux';
 
+    
 
 /**
  * Creation of a component Product.jsx to display the products
@@ -17,12 +19,22 @@ export const Product = ({ label, price, stock, id, picture }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
+    const carts  =useSelector(selectCart)
+    
+    const quantity = () => {
+        var cartFind = carts.find(x => x.id === id)
+        if (cartFind !== undefined) {
+            return cartFind.quantite
+    
+        } else { return 0 }
+    }
 
     return (
         <div className="m-4 p-4 Cardproduct ">
             <div className="flex flex-wrap">
                 <img src={picture} alt="" className="w-full hover:cursor-pointer " onClick={() => {
-                     history.push(`/produits/detail/${id}`) }} />
+                    history.push(`/produits/detail/${id}`)
+                }} />
                 <div className="mt-4 p-2 flex flex-col justify-center w-full clip-path productCard">
                     <div>
                         <h2 className="m-2 text-center font-bold truncate">{label}</h2>
@@ -42,25 +54,26 @@ export const Product = ({ label, price, stock, id, picture }) => {
                                 <ShoppingCartIcon
                                     width={32}
                                     height={32}
-                                    onClick={() =>{ 
-                                        
-                                        
+                                    onClick={() => {
+
+
                                         dispatch(add(product))
-                                    
-                                    
-                                        toggleAddressForm()}}
+
+
+                                        toggleAddressForm()
+                                    }}
                                 />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>        <ModalAddToCart
-                    isShowing={isAddressFormShowed}
-                    hide={toggleAddressForm}
-                    cart={product}
-                    qty={"+1"}
-                >
-                </ModalAddToCart>
+                isShowing={isAddressFormShowed}
+                hide={toggleAddressForm}
+                cart={product}
+                qty={quantity()+ "(+1)"}
+            >
+            </ModalAddToCart>
         </div>
     )
 }
@@ -69,13 +82,21 @@ export const ProductList = ({ label, price, stock, id, picture }) => {
     const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": 1, "picture": picture }
     const dispatch = useDispatch()
     const history = useHistory();
+    const carts  =useSelector(selectCart)
     const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
-
+    const quantity = () => {
+        var cartFind = carts.find(x => x.id === id)
+        if (cartFind !== undefined) {
+            return cartFind.quantite
+    
+        } else { return 0 }
+    }
     return (
         <div className="flex m-4 p-4 shadow-inner Cardproduct">
             <div className="flex w-full">
-                <img src={picture} alt="" className="w-20 mr-1 hover:cursor-pointer "  onClick={() => {
-                     history.push(`/produits/detail/${id}`) }}/>
+                <img src={picture} alt="" className="w-20 mr-1 hover:cursor-pointer " onClick={() => {
+                    history.push(`/produits/detail/${id}`)
+                }} />
                 <div className="flex flex-col p-2 justify-evenly clip-path productCard w-full overflow-hidden">
                     <div className='w-4/5'>
                         <h2 className="m-2 text-center font-bold truncate">{label}</h2>
@@ -92,29 +113,30 @@ export const ProductList = ({ label, price, stock, id, picture }) => {
                                 />
                             </div>
                             <div className="login rounded-2xl m-1 p-3  ">
-                              <button  onClick={() =>{ 
-                                        
-                                        
-                                        dispatch(add(product))
-                                    
-                                    
-                                        toggleAddressForm()}}> <ShoppingCartIcon
-                                    width={32}
-                                    height={32}
-                                   
-                                /></button> 
+                                <button onClick={() => {
+
+
+                                    dispatch(add(product))
+
+
+                                    toggleAddressForm()
+                                }}> <ShoppingCartIcon
+                                        width={32}
+                                        height={32}
+
+                                    /></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <ModalAddToCart
-                    isShowing={isAddressFormShowed}
-                    hide={toggleAddressForm}
-                    cart={product}
-                    qty={"+1"}
-                >
-                </ModalAddToCart>
+                isShowing={isAddressFormShowed}
+                hide={toggleAddressForm}
+                cart={product}
+                qty={quantity()+ "(+1)"}
+            >
+            </ModalAddToCart>
         </div>
     )
 }

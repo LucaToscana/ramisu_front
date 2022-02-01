@@ -41,6 +41,17 @@ export const filterProductSlice = createSlice({
             }
 
 
+        }, initFilterByPage(state, { payload }) {
+
+            var list = [payload]
+            state.category = list
+            state.label = "",
+               
+                state.page = 0
+            state.totalpage = tot(state.total, state.pageSize)
+
+            localStorage.setItem("filters", JSON.stringify(state))
+
         },
         labelFilter(state, { payload }) {
             state.label = payload
@@ -124,8 +135,8 @@ export const filterProductSlice = createSlice({
 
         }
         , setPriceRange(state, { payload }) {
-            if (payload.min === ""||payload.min<0) { state.minPrice = 0 } else { state.minPrice = payload.min }
-            if (payload.max === ""||payload.max <0) { state.maxPrice = 10000 } else { state.maxPrice = payload.max }
+            if (payload.min === "" || payload.min < 0) { state.minPrice = 0 } else { state.minPrice = payload.min }
+            if (payload.max === "" || payload.max < 0) { state.maxPrice = 10000 } else { state.maxPrice = payload.max }
 
 
 
@@ -136,7 +147,8 @@ export const filterProductSlice = createSlice({
     }
 })
 
-export const { labelFilter, universeFilter, categoryFilter, tagFilter, initFilter, removeFilter, setCurrentPageFilter, setTotal, setPriceRange } = filterProductSlice.actions
+export const { labelFilter, universeFilter, categoryFilter, tagFilter, initFilter,
+    removeFilter, setCurrentPageFilter, setTotal, setPriceRange, initFilterByPage } = filterProductSlice.actions
 export const selectProductFilter = (state) => state.filterProducts
 export const selectPage = (state) => state.filterProducts.page
 export const selectTotal = (state) => state.filterProducts.total

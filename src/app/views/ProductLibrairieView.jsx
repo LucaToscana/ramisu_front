@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import ListProducts from './../components/product/components-page-product/ListProducts';
+import ListProducts from '../components/product/components-page-product/ListProducts';
 import { AdjustmentsIcon, ViewGridIcon, ViewListIcon } from '@heroicons/react/solid';
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
 import ShowFilters from '../components/product/components-page-product/ShowFilters';
 import { useDispatch } from 'react-redux';
-import { initFilter, selectProductFilter } from '../shared/redux-store/filterProductSlice';
+import { initFilter, initFilterByPage, selectProductFilter } from '../shared/redux-store/filterProductSlice';
 import { useSelector } from 'react-redux';
 
 
 
 
-/**
- * Creation of productView for the listing of products + pagination + filter
- * 
- * @author Jeremy Dejonghe
- */
-const ProductView = () => {
+const ProductLibrairieView = () => {
     const dispatch = useDispatch()
 
- 
+    const filterStore = useSelector(selectProductFilter);
+
+
     useEffect(() => {
+        dispatch(initFilterByPage("Livre"))
         document.getElementById("searchNavBar").value = ""
 
          }, []);
      
-    const filterStore = useSelector(selectProductFilter);
     const getFIlter = () => {
 
         let f = []
@@ -140,4 +137,4 @@ const ProductView = () => {
     );
 };
 
-export default ProductView;
+export default ProductLibrairieView;

@@ -14,7 +14,10 @@ import {
     URL_ORDERS,
     URL_INSCRIPTION,
     URL_PAIEMENT,
-    URL_PAIEMENT_2
+    URL_PAIEMENT_2,
+    URL_PRODUCT_LIBRAIRIE,
+    URL_PRODUCT_PEINTURES,
+    URL_PRODUCT_FIGURINES
 } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_USER } from "../shared/constants/rolesConstant";
@@ -33,6 +36,9 @@ import OrdersView from "../views/OrdersView";
 import InscriptionView from "../views/InscriptionView";
 import PaiementLivraisonView from "../views/PaiementLivraisonView";
 import PaiementPayerView from "../views/PaiementPayerView";
+import ProductFigurinesView from "../views/ProductFigurinesView";
+import ProductPeinturesView from "../views/ProductPeinturesView";
+import ProductLibrairieView from "../views/ProductLibrairieView";
 
 /**
  * Routes of the application
@@ -56,6 +62,10 @@ const Routes = () => {
             />
             <PrivateRoute path={URL_ORDERS} component={OrdersView} roles={[ROLE_USER]} />
             <Route exact path={URL_PRODUCT} component={ProductView} />
+            <Route exact path={URL_PRODUCT_FIGURINES} component={ProductFigurinesView} />
+            <Route exact path={URL_PRODUCT_PEINTURES} component={ProductPeinturesView} />
+            <Route exact path={URL_PRODUCT_LIBRAIRIE} component={ProductLibrairieView} />
+
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             <Route path={URL_CART} component={CartsView} />
             <Route path={URL_INSCRIPTION} component={InscriptionView} />

@@ -5,6 +5,7 @@ import SelectFilter from '../../../shared/components/buttons/SelectFilter';
 import { categoryFilter, initFilter, setPriceRange, tagFilter, universeFilter } from '../../../shared/redux-store/filterProductSlice';
 import { useDispatch } from 'react-redux';
 import PriceInput from '../../../shared/components/form-and-error-components/PriceInput';
+import { URL_PRODUCT_FIGURINES, URL_PRODUCT_LIBRAIRIE, URL_PRODUCT_PEINTURES } from '../../../shared/constants/urls/urlConstants';
 
 
 const SideBarFilters = ({ filters, handleFilters }) => {
@@ -74,9 +75,12 @@ const SideBarFilters = ({ filters, handleFilters }) => {
             <SelectFilter title="Univers">
                 {listUniverses}
             </SelectFilter>
-            <SelectFilter title="Catégories">
+            {window.location.pathname!==URL_PRODUCT_PEINTURES  &&
+            window.location.pathname!==URL_PRODUCT_FIGURINES &&
+            window.location.pathname!==URL_PRODUCT_LIBRAIRIE
+            ?      <SelectFilter title="Catégories">
                 {listCategories}
-            </SelectFilter>
+            </SelectFilter>:null}
             <SelectFilter title="Tags">
                 {listTags}
             </SelectFilter>
