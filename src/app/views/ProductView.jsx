@@ -51,7 +51,7 @@ const ProductView = () => {
     const [openModal, setOpenModal] = useState(false);
     const [filters, setFilters] = useState(getFIlter());
     const [show, setShow] = useState(true);
-    
+
 
     const handleFilters = (label) => {
         if (filters.includes(label)) {
@@ -98,6 +98,9 @@ const ProductView = () => {
                         </div>
                     </div>
                 }
+                <div className="flex justify-center self-center m-2 ">
+                    <p>{"total products:  " + JSON.parse(localStorage.getItem("filters")).total}</p>
+                </div>
                 <div className="bg-gray-200 text-sm text-gray-500 leading-none border-2 border-gray-200 rounded-full inline-flex">
                     <button onClick={() => setShow(true)} className={`inline-flex items-center transition-colors duration-300 ease-in focus:outline-none  focus:text-blue-400 rounded-l-full px-4 py-2 ${show ? "active" : ""}`} id="grid">
                         <ViewGridIcon

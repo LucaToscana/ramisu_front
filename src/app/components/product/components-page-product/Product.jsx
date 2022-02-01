@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { add } from '../../../shared/redux-store/cartSlice';
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/outline';
 import { useHistory } from 'react-router-dom';
+import ModalAddToCart from '../../../shared/components/utils-components/Modal/modalAddToCart/ModalAddToCart';
+import useModal from '../../../shared/components/utils-components/Modal/useModal';
 
 
 /**
@@ -14,6 +16,7 @@ export const Product = ({ label, price, stock, id, picture }) => {
     const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": 1, "picture": picture }
     const dispatch = useDispatch();
     const history = useHistory();
+    const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
 
     return (
         <div className="m-4 p-4 Cardproduct ">
@@ -39,13 +42,25 @@ export const Product = ({ label, price, stock, id, picture }) => {
                                 <ShoppingCartIcon
                                     width={32}
                                     height={32}
-                                    onClick={() => dispatch(add(product))}
+                                    onClick={() =>{ 
+                                        
+                                        
+                                        dispatch(add(product))
+                                    
+                                    
+                                        toggleAddressForm()}}
                                 />
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>        <ModalAddToCart
+                    isShowing={isAddressFormShowed}
+                    hide={toggleAddressForm}
+                    cart={product}
+                    qty={"+1"}
+                >
+                </ModalAddToCart>
         </div>
     )
 }
@@ -54,6 +69,7 @@ export const ProductList = ({ label, price, stock, id, picture }) => {
     const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": 1, "picture": picture }
     const dispatch = useDispatch()
     const history = useHistory();
+    const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
 
     return (
         <div className="flex m-4 p-4 shadow-inner Cardproduct">
@@ -75,17 +91,30 @@ export const ProductList = ({ label, price, stock, id, picture }) => {
                                     height={32}
                                 />
                             </div>
-                            <div className="login rounded-2xl m-1 p-3  hover:cursor-pointer">
-                                <ShoppingCartIcon
+                            <div className="login rounded-2xl m-1 p-3  ">
+                              <button  onClick={() =>{ 
+                                        
+                                        
+                                        dispatch(add(product))
+                                    
+                                    
+                                        toggleAddressForm()}}> <ShoppingCartIcon
                                     width={32}
                                     height={32}
-                                    onClick={() => dispatch(add(product))}
-                                />
+                                   
+                                /></button> 
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <ModalAddToCart
+                    isShowing={isAddressFormShowed}
+                    hide={toggleAddressForm}
+                    cart={product}
+                    qty={"+1"}
+                >
+                </ModalAddToCart>
         </div>
     )
 }

@@ -60,7 +60,7 @@ function ShowFilters({ filters, handleFilters }) {
 
             {getFIlterPrice().max !== 10000 || getFIlterPrice().min !== 0 ?
                 <div key={"priceRange"} className="flex  showFilter shadow-inner mb-4 mr-8">
-                    <p className="font-bold p-2" >Price range: min {getFIlterPrice().min}€- max{getFIlterPrice().max}€ </p>
+                    <p className="font-bold p-2" >Prix range: min {getFIlterPrice().min}€- max{getFIlterPrice().max}€ </p>
                     <p className="font-bold p-2 deleteFilter" onClick={() => removeFilterPrice()}>X</p>
                 </div> : null
             }
