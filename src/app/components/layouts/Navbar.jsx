@@ -1,8 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon } from '@heroicons/react/outline';
-import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_HOME, URL_INSCRIPTION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { Link } from 'react-router-dom';
+// import { Link, useHistory } from 'react-router-dom';
+import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import joey from "../../assets/images/joey.jpg";
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
@@ -260,7 +261,7 @@ const ConnectionStatusButtons = () => {
                 <div className="hidden lg:block lg:ml-6">
                     <div className="flex space-x-4">
                         <Link
-                            to={URL_INSCRIPTION}
+                            to={URL_REGISTRATION}
                             className='text-gray-300 hover:bg-gray-700 hover:text-white
                             px-3 py-2 rounded-lg text-lg font-medium'>
                             <span>S'inscrire</span>
@@ -281,22 +282,22 @@ const ConnectionStatusButtons = () => {
                             <UserIcon className='bg-gray-800 p-1 mt-3 text-gray-400 w-8 h-8 m-2' />
                         </Menu.Button>
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <div className='flex flex-col'>
-                                <Menu.Item>
-                                    <Link
-                                        to={URL_INSCRIPTION}
-                                        className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
-                                        <span>S'inscrire</span>
-                                    </Link>
-                                </Menu.Item>
-                                <Menu.Item>
-                                    <Link
-                                        to={URL_LOGIN}
-                                        className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
-                                        Se connecter
-                                    </Link>
-                                </Menu.Item>
-                            </div>
+                                <div className='flex flex-col'>
+                            <Menu.Item>
+                                <Link
+                                    to={URL_REGISTRATION}
+                                    className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
+                                    <span>S'inscrire</span>
+                                </Link>
+                            </Menu.Item>
+                            <Menu.Item>
+                                <Link
+                                    to={URL_LOGIN}
+                                    className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
+                                    Se connecter
+                                </Link>
+                            </Menu.Item>
+                                </div>
 
                         </Menu.Items>
                     </Menu>
