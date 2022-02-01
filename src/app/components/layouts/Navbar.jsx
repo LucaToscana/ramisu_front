@@ -12,8 +12,7 @@ import { selectIsLogged, selectIsLoggedAdmin, signOut } from './../../shared/red
 import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations, setProfileInfo } from './../../shared/redux-store/userProfileSlice';
 import { useLocation } from 'react-router-dom'
 import { getProfile } from "../../api/backend/user";
-
-// Constants used for navigating with the navbar
+import classNames from 'classnames/bind';// Constants used for navigating with the navbar
 
 /**
  * Website navbar made with Tailwind
@@ -225,7 +224,7 @@ const ConnectionStatusButtons = () => {
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link to={URL_ACCOUNT}
-                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
+                                       className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                     >
                                         Gérer votre compte
                                     </Link>
@@ -236,7 +235,7 @@ const ConnectionStatusButtons = () => {
                                 {({ active }) => (
                                     <Link
                                         to="#"
-                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
+                                       className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                         onClick={() => {
                                             dispatch(signOut());
                                             dispatch(clearUserInformations());
