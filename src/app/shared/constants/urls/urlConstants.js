@@ -8,7 +8,7 @@ export const URL_ADMIN_HOME = '/admin'
 export const URL_ACCOUNT = '/account'
 export const URL_PROFILE = '/profile'
 export const URL_ORDERS = '/orders'
-export const URL_INSCRIPTION ='/inscription'
+export const URL_REGISTRATION ='/register'
 export const URL_PAIEMENT ='/paiement'
 export const URL_PAIEMENT_2 ='/paiementmethod'
 
