@@ -47,23 +47,23 @@ const AddressInput = ({
 
             details?.address_components?.forEach(entry => {
               if (entry.types?.[0] === "route") {
-                setFieldValue('rue', entry.long_name);
+                setFieldValue('street', entry.long_name);
               }
               if (entry.types?.[0] === "street_number") {
-                setFieldValue('numeroA', entry.long_name);
+                setFieldValue('number', entry.long_name);
 
               }
               if (entry.types?.[0] === "locality") {
-                setFieldValue('ville', entry.long_name);
+                setFieldValue('city', entry.long_name);
 
 
               }
               if (entry.types?.[0] === "country") {
-                setFieldValue('pays', entry.long_name);
+                setFieldValue('country', entry.long_name);
 
               }
               if (entry.types?.[0] === "postal_code") {
-                setFieldValue('codepostal', entry.long_name);
+                setFieldValue('postalCode', entry.long_name);
 
               }
 
