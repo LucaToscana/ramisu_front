@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_INSCRIPTION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectIsLogged, selectIsLoggedAdmin, signOut } from './../../shared/redux-store/authenticationSlice';
 import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations } from './../../shared/redux-store/userProfileSlice';
@@ -257,7 +257,7 @@ const ConnectionStatusButtons = () => {
                 <div className="hidden lg:block lg:ml-6">
                     <div className="flex space-x-4">
                         <Link
-                            to={URL_INSCRIPTION}
+                            to={URL_REGISTRATION}
                             className='text-gray-300 hover:bg-gray-700 hover:text-white
                             px-3 py-2 rounded-lg text-lg font-medium'>
                             <span>S'inscrire</span>
@@ -281,7 +281,7 @@ const ConnectionStatusButtons = () => {
                                 <div className='flex flex-col'>
                             <Menu.Item>
                                 <Link
-                                    to={URL_INSCRIPTION}
+                                    to={URL_REGISTRATION}
                                     className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
                                     <span>S'inscrire</span>
                                 </Link>
