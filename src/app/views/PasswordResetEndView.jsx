@@ -18,6 +18,7 @@ const PasswordResetEndView = ({ history }) => {
 
     const [errorLog, setErrorLog] = useState(false)
     const [loading, setLoading] = useState(true);
+    const [badToken , setBadToken] = useState(false);
     const { key } = useParams();
 
 
@@ -27,6 +28,7 @@ const PasswordResetEndView = ({ history }) => {
             .then(response => {
                 if (response.status === 200)
                     setLoading(false);
+                    setBadToken(response=="UNAUTHORIZED");
             })
             .catch((error, response) => {
                 history.push(URL_HOME);
@@ -54,9 +56,16 @@ const PasswordResetEndView = ({ history }) => {
             {loading ? < Loader /> :
 
                 <div className=''>
-                    <div className="md:flex md:justify-center">
+                    {badToken   ? 
+                  (  <div className="md:flex md:justify-center">
                         <PasswordResetForm submit={handleSetNewPassword} errorLog={errorLog} />
-                    </div>
+                    </div>)
+                    :
+                    (<div className='p-10'>
+                      
+                        <h3 className='text-center mt-25 m-10'>Ce lien n'est pas valide</h3>
+                    </div>)
+                    }
                 </div>
 
             }
