@@ -1,9 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon } from '@heroicons/react/outline';
-import { Link } from 'react-router-dom';
-// import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_INSCRIPTION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { Link, useHistory } from 'react-router-dom';
+import { URL_ACCOUNT, URL_HOME, URL_INSCRIPTION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
 import joey from "../../assets/images/joey.jpg";
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
@@ -13,7 +12,7 @@ import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations, se
 import { useLocation } from 'react-router-dom'
 import { getProfile } from "../../api/backend/user";
 import classNames from 'classnames/bind';// Constants used for navigating with the navbar
-
+import { init } from './../../shared/redux-store/cartSlice';
 /**
  * Website navbar made with Tailwind
  * 
@@ -24,7 +23,6 @@ import classNames from 'classnames/bind';// Constants used for navigating with t
 const Navbar = () => {
     const location = useLocation()    //input filter
     const dispatch = useDispatch();
-    // const history = useHistory()
 
     const [navigation, setNavigation] = useState([
         { name: 'Accueil', to: '/', current: true },
@@ -172,6 +170,7 @@ const ConnectionStatusButtons = () => {
     const isLogged = useSelector(selectIsLogged);
     const profileData = useSelector(selectProfileInfo);
     const dispatch = useDispatch();
+    const history = useHistory()
 
 
 
@@ -224,7 +223,7 @@ const ConnectionStatusButtons = () => {
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link to={URL_ACCOUNT}
-                                       className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                     >
                                         Gérer votre compte
                                     </Link>
@@ -235,12 +234,12 @@ const ConnectionStatusButtons = () => {
                                 {({ active }) => (
                                     <Link
                                         to="#"
-                                       className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                         onClick={() => {
                                             dispatch(signOut());
                                             dispatch(clearUserInformations());
                                             dispatch(init());
-
+                                            history.push(URL_HOME)
                                         }}
                                     >
                                         Se déconnecter
