@@ -131,7 +131,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
                         <div>
 
-                            <div className="grid grid-cols-4 p-2">
+                            <div className="grid grid-cols-2 p-2">
 
 
 
@@ -139,7 +139,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                 <div className="grid grid-cols-2">
                                     <div className=" mr-5">
                                         {!isEnable ?
-                                            <div className="inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" 
+                                            <div className="h-12 w-24 flex justify-center inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" 
                                             onClick={() => {
                                                 var tot = +document.getElementById("myNumberInput").value + 0
 
@@ -169,7 +169,26 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                             }
                                             }>
                                                 +1 <ShoppingCartIcon className="w-8 h-8" />
-                                            </div> : null
+                                            </div> :        <div className="col-start-3 col-span-1 ">
+                                    {errorQty === "" && isEnable ? <div className="h-12 w-24 flex justify-center  inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" onClick={() => {
+                                        var tot = document.getElementById("myNumberInput").value
+
+                                        if (isNaN(tot)) {
+
+
+                                        } else {
+                                            if (+tot !== 0) { dispatch(setQuantity([product, +tot])) }
+                                            else { dispatch(remove(product)) }
+                                            toggleAddressForm()
+                                            setModalQty(tot)
+                                            toggle(event.currentTarget)
+                                        }
+                                    }
+                                    }>
+                                        Ajouter <ShoppingCartIcon className="w-8 h-8" />
+                                    </div> : errorQty
+                                    }
+                                </div>
                                         }
                                     </div>
 
@@ -190,7 +209,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
                                             /></div>
 
-                                        <div className="pl-8 ml-8">
+                                        <div className="pl-4 ml-8">
 
 
                                             <button
@@ -220,26 +239,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
 
 
-                                <div className="col-start-3 col-span-1 ml-5">
-                                    {errorQty === "" && isEnable ? <div className="inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" onClick={() => {
-                                        var tot = document.getElementById("myNumberInput").value
-
-                                        if (isNaN(tot)) {
-
-
-                                        } else {
-                                            if (+tot !== 0) { dispatch(setQuantity([product, +tot])) }
-                                            else { dispatch(remove(product)) }
-                                            toggleAddressForm()
-                                            setModalQty(tot)
-                                            toggle(event.currentTarget)
-                                        }
-                                    }
-                                    }>
-                                        Modifier panier<ShoppingCartIcon className="w-8 h-8" />
-                                    </div> : errorQty
-                                    }
-                                </div>
+                         
 
 
                             </div>

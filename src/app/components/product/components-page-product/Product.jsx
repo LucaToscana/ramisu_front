@@ -71,7 +71,7 @@ export const Product = ({ label, price, stock, id, picture }) => {
                 isShowing={isAddressFormShowed}
                 hide={toggleAddressForm}
                 cart={product}
-                qty={quantity()+ "(+1)"}
+                qty={quantity()}
             >
             </ModalAddToCart>
         </div>
@@ -134,7 +134,7 @@ export const ProductList = ({ label, price, stock, id, picture }) => {
                 isShowing={isAddressFormShowed}
                 hide={toggleAddressForm}
                 cart={product}
-                qty={quantity()+ "(+1)"}
+                qty={quantity()}
             >
             </ModalAddToCart>
         </div>
