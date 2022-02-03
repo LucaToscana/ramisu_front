@@ -171,7 +171,7 @@ const ConnectionStatusButtons = () => {
     const isLogged = useSelector(selectIsLogged);
     const profileData = useSelector(selectProfileInfo);
     const dispatch = useDispatch();
-    const history = useHistory()
+    // const history = useHistory()
 
 
 
@@ -240,7 +240,7 @@ const ConnectionStatusButtons = () => {
                                             dispatch(signOut());
                                             dispatch(clearUserInformations());
                                             dispatch(init());
-                                            history.push(URL_HOME)
+                                            // history.push(URL_HOME)
                                         }}
                                     >
                                         Se déconnecter
