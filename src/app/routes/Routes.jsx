@@ -14,7 +14,10 @@ import {
             URL_ORDERS,
             URL_REGISTRATION,
             URL_PAIEMENT,
-            URL_PAIEMENT_2
+            URL_PAIEMENT_2,
+            URL_PRODUCT_LIBRAIRIE,
+            URL_PRODUCT_PEINTURES,
+            URL_PRODUCT_FIGURINES
         } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_USER } from "../shared/constants/rolesConstant";
