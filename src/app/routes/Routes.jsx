@@ -17,7 +17,8 @@ import {
             URL_PAIEMENT_2,
             URL_PRODUCT_LIBRAIRIE,
             URL_PRODUCT_PEINTURES,
-            URL_PRODUCT_FIGURINES
+            URL_PRODUCT_FIGURINES,
+            URL_CONTACT_US
         } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_USER } from "../shared/constants/rolesConstant";
@@ -39,6 +40,7 @@ import PaiementPayerView from "../views/PaiementPayerView";
 import ProductFigurinesView from "../views/ProductFigurinesView";
 import ProductPeinturesView from "../views/ProductPeinturesView";
 import ProductLibrairieView from "../views/ProductLibrairieView";
+import ContactView from "../views/ContactView";
 
 /**
  * Routes of the application
@@ -69,6 +71,7 @@ const Routes = () => {
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             <Route path={URL_CART} component={CartsView} />
             <Route path={URL_REGISTRATION} component={RegisterView} />
+            <PrivateRoute path={URL_CONTACT_US} roles={[ROLE_USER]}  component={ContactView} />
             <PrivateRoute path={URL_PAIEMENT}  roles={[ROLE_USER]}    component={PaiementLivraisonView}/>
             <PrivateRoute path={URL_PAIEMENT_2}roles={[ROLE_USER]}  component={PaiementPayerView}/>
 
