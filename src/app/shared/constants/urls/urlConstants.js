@@ -19,5 +19,6 @@ export const URL_CART = '/panier'
 export const URL_PRODUCT_FIGURINES ='/Figurine'
 export const URL_PRODUCT_PEINTURES ='/Peinture'
 export const URL_PRODUCT_LIBRAIRIE='/Librairie'
+export const URL_CONTACT_US='/Contact'
 
 
