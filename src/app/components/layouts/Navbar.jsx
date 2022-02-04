@@ -31,7 +31,7 @@ const Navbar = () => {
         { name: 'Figurines', to: '/Figurine', current: true },
         { name: 'Peinture', to: '/Peinture', current: true },
         { name: 'Librairie', to: '/Librairie', current: true },
-        { name: 'Contact', to: '#', current: false },])
+        { name: 'Contact', to: '/Contact', current: false },])
 
 
 
