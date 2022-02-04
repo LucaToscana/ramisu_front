@@ -7,6 +7,7 @@ import ModalExample from "../../shared/components/utils-components/Modal/ModalEx
 import useModal from "../../shared/components/utils-components/Modal/useModal";
 import ModalAddToCart from "../../shared/components/utils-components/Modal/modalAddToCart/ModalAddToCart";
 import { CheckCircleIcon, PencilIcon, XCircleIcon } from "@heroicons/react/outline";
+import ProductRelated from "./components-page-product/ProductRelated";
 
 /**
  * Component product to show details
@@ -16,7 +17,7 @@ import { CheckCircleIcon, PencilIcon, XCircleIcon } from "@heroicons/react/outli
  * @returns show details product
 
  */
-const ProductDetails = ({ label, price, description, picture, stock, id, cart, cartQuantity }) => {
+const ProductDetails = ({ label, price, description, picture, stock, id, cart, cartQuantity, productRelated }) => {
     const [quantity, setQuantityNew] = useState()
     const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": quantity, "picture": picture }
     const dispatch = useDispatch();
@@ -107,11 +108,11 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
     return (
         <>
-            <div className="sm:m-10 md:mt-10 lg:mt-20">
+            <div className=" sm:mt-10 md:mt-10 lg:mt-20">
 
 
                 <div className="border-t-2 border-gray-400 max-w-screen-xl flex flex-col lg:flex lg:flex-row">
-                    <div className="lg:w-1/2">
+                    <div className="lg:w-1/2 ">
                         <img
                             className="mt-10 mb-4 border-2 border-gray-400"
                             src={picture}
@@ -139,56 +140,56 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                 <div className="grid grid-cols-2">
                                     <div className=" mr-5">
                                         {!isEnable ?
-                                            <div className="h-12 w-24 flex justify-center inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" 
-                                            onClick={() => {
-                                                var tot = +document.getElementById("myNumberInput").value + 0
+                                            <div className="h-12 w-24 flex justify-center inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer"
+                                                onClick={() => {
+                                                    var tot = +document.getElementById("myNumberInput").value + 0
 
 
-                                                if (isNaN(tot)) {
-                                                    tot = 1
-                                                    dispatch(setQuantity([product, +tot + 0]))
+                                                    if (isNaN(tot)) {
+                                                        tot = 1
+                                                        dispatch(setQuantity([product, +tot + 0]))
+                                                    }
+                                                    if (tot === 0) {
+                                                        tot = 1
+                                                        dispatch(setQuantity([product, +tot + 0]))
+
+                                                    }
+
+                                                    if (+tot + 1 !== 0) {
+
+                                                        if (tot < stock)
+                                                            tot = + document.getElementById("myNumberInput").value + 1
+
+                                                        dispatch(setQuantity([product, +tot]))
+                                                    }
+
+                                                    toggleAddressForm()
+                                                    setModalQty(+tot)
+                                                    document.getElementById("myNumberInput").value = +tot
+
                                                 }
-                                                if (tot === 0) {
-                                                    tot = 1
-                                                    dispatch(setQuantity([product, +tot + 0]))
-
-                                                }
-
-                                                if (+tot + 1 !== 0) {
-
-                                                    if (tot < stock)
-                                                        tot = + document.getElementById("myNumberInput").value + 1
-
-                                                    dispatch(setQuantity([product, +tot]))
-                                                }
-
-                                                toggleAddressForm()
-                                                setModalQty(+tot)
-                                                document.getElementById("myNumberInput").value = +tot
-
-                                            }
-                                            }>
+                                                }>
                                                 +1 <ShoppingCartIcon className="w-8 h-8" />
-                                            </div> :        <div className="col-start-3 col-span-1 ">
-                                    {errorQty === "" && isEnable ? <div className="h-12 w-24 flex justify-center  inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" onClick={() => {
-                                        var tot = document.getElementById("myNumberInput").value
+                                            </div> : <div className="col-start-3 col-span-1 ">
+                                                {errorQty === "" && isEnable ? <div className="h-12 w-24 flex justify-center  inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" onClick={() => {
+                                                    var tot = document.getElementById("myNumberInput").value
 
-                                        if (isNaN(tot)) {
+                                                    if (isNaN(tot)) {
 
 
-                                        } else {
-                                            if (+tot !== 0) { dispatch(setQuantity([product, +tot])) }
-                                            else { dispatch(remove(product)) }
-                                            toggleAddressForm()
-                                            setModalQty(tot)
-                                            toggle(event.currentTarget)
-                                        }
-                                    }
-                                    }>
-                                        Ajouter <ShoppingCartIcon className="w-8 h-8" />
-                                    </div> : errorQty
-                                    }
-                                </div>
+                                                    } else {
+                                                        if (+tot !== 0) { dispatch(setQuantity([product, +tot])) }
+                                                        else { dispatch(remove(product)) }
+                                                        toggleAddressForm()
+                                                        setModalQty(tot)
+                                                        toggle(event.currentTarget)
+                                                    }
+                                                }
+                                                }>
+                                                    Ajouter <ShoppingCartIcon className="w-8 h-8" />
+                                                </div> : errorQty
+                                                }
+                                            </div>
                                         }
                                     </div>
 
@@ -218,37 +219,19 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                                 className={!isEnable ? styleShowBtn : styleHideBtn}  >
                                                 <PencilIcon className="h-6 w-6" />
                                             </button>
-
-
-
-
                                             <button type='button'
                                                 onClick={cancelHandler}
                                                 className={isEnable ? styleShowBtn : styleHideBtn}  >
 
                                                 <XCircleIcon className="h-6 w-6" />
                                             </button>
-
-
-
                                         </div>
                                     </div>
-
-
                                 </div>
-
-
-
-                         
-
-
                             </div>
 
-
-
+                    
                         </div>
-
-
                     </div>
 
                 </div>
@@ -259,6 +242,22 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                     qty={modalQty}
                 >
                 </ModalAddToCart>
+                <h1 className="font-bold text-xl mt-10 ml-3">   Produits liés à cet article</h1>
+
+                <div className="flex justify-around">
+
+                <div className=" flex flex-wrap w-96  md:grid grid-cols-6 justify-between w-full  lg:w-full  ">
+                                {productRelated.map((element, index) => <>
+                                    {
+                                        index <6   ?
+                                            <ProductRelated product={element} /> : null
+                                    }</>
+
+
+
+                                )}
+
+                            </div></div>
             </div>
         </>
     );

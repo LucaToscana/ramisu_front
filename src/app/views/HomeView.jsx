@@ -28,6 +28,25 @@ const HomeView = ({ history }) => {
 
     useEffect(() => {
 
+        if( !localStorage.getItem("filters")){
+
+            localStorage.setItem("filters",JSON.stringify({
+        
+                label: "",
+                price: null,
+                universe: null,
+                category: null,
+                tag: null,
+                page: 0,
+                pageSize: 9,
+                total: 0,
+                totalpage: [],
+                minPrice: 0,
+                maxPrice: 10000
+            
+            
+            }))
+        }
         if (localStorage.getItem("successPaiement")) {
 
             localStorage.removeItem("successPaiement")

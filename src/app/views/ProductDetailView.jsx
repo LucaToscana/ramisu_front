@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { productDetail } from "../api/backend/product";
+import { productDetail, productSearchCriteria,productDetailWithListRelated } from "../api/backend/product";
 import ProductDetails from "../components/product/ProductDetails"
 import { useParams } from "react-router-dom";
 import { selectCart } from '../shared/redux-store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { initFilter } from '../shared/redux-store/filterProductSlice';
+import { initFilter, selectProductFilter, setCurrentPageFilter, setTotal, universeFilter } from '../shared/redux-store/filterProductSlice';
 
 /**
  * recovers the product in databas with the id
@@ -12,26 +12,33 @@ import { initFilter } from '../shared/redux-store/filterProductSlice';
  */
 
 const ProductDetailView = () => {
+    const dispatch =useDispatch()
     const [product, setProduct] = useState([])
     const id = useParams().id
     const [cart, setCart] = useState({})
     const carts = useSelector(selectCart)
     const [cartQuantity, setCartQuantity] = useState()
+    const [productRelated,setProductRelated]=useState( [] )
+
     useEffect(() => {
 
 
         
-        productDetail(id).then(res => {
-            setProduct(res.data)
-
-
+        productDetailWithListRelated(id).then(res => {
+            setProduct(res.data.content)
+            setProductRelated(res.data.relatedContent)
             var cartFind = carts.find(x => x.id === res.data.id)
+
             if (cartFind !== undefined) {
                 setCart(cartFind)
                 setCartQuantity(cartFind.quantite)
 
             }
             else { setCart(null) }
+
+
+     
+
         }
 
         )
@@ -50,6 +57,8 @@ const ProductDetailView = () => {
                 id={product.id}
                 cart={cart}
                 cartQuantity={cartQuantity}
+                productRelated={productRelated}
+
             />
         </div>
     );

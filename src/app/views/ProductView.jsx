@@ -4,7 +4,7 @@ import { AdjustmentsIcon, ViewGridIcon, ViewListIcon } from '@heroicons/react/so
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
 import ShowFilters from '../components/product/components-page-product/ShowFilters';
 import { useDispatch } from 'react-redux';
-import { initFilter, selectProductFilter } from '../shared/redux-store/filterProductSlice';
+import { initFilter, labelFilter, selectProductFilter } from '../shared/redux-store/filterProductSlice';
 import { useSelector } from 'react-redux';
 
 
@@ -20,6 +20,9 @@ const ProductView = () => {
 
  
     useEffect(() => {
+
+        dispatch(labelFilter(""))
+
         document.getElementById("searchNavBar").value = ""
 
          }, []);
