@@ -30,3 +30,6 @@ export const URL_FILTER_TAGS = '/public/tags'
 export const URL_BACK_ADD_ORDER = 'user/addorder'
 export const URL_BACK_GET_ORDERS = '/orders'
 export const URL_PAY_ORDER = '/payment/charge'
+
+//users
+export const URL_BACK_CONTACT_US = '/public/contactus'
