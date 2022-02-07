@@ -53,6 +53,7 @@ const Navbar = () => {
                         {/* Search bar */}
                         {// <form action="/search" className="flex flex-wrap lg:flex-row" >
                         }<div className='flex flex-wrap lg:flex-row'>
+                            <h1 className='text-xl md:text-4xl text-white flex items-center w-full md:w-1/2 justify-center'>WarMarket</h1>
                             <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
                                 className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/2 xl:transition-all 
                             xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
