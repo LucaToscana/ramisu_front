@@ -13,6 +13,7 @@ import  Dashboard from "../assets/images/icones/dashboard.svg";
 import ButtonIcon from "../shared/components/buttons/ButtonIcon";
 import { Link, useHistory } from "react-router-dom";
 import {init} from '../shared/redux-store/cartSlice';
+import {clearUserInformations} from "../shared/redux-store/userProfileSlice"
 /**
  * The user page account with multiple links (cart, user infos, orders...)
  *
