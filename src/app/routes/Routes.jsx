@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route , useLocation} from "react-router-dom";
 import {
             URL_HOME,
             URL_ACCOUNT,
@@ -74,9 +74,25 @@ const Routes = () => {
             <PrivateRoute path={URL_CONTACT_US} roles={[ROLE_USER]}  component={ContactView} />
             <PrivateRoute path={URL_PAIEMENT}  roles={[ROLE_USER]}    component={PaiementLivraisonView}/>
             <PrivateRoute path={URL_PAIEMENT_2}roles={[ROLE_USER]}  component={PaiementPayerView}/>
-
+            <Route path="*">
+                <Route404 />
+            </Route>
         </Switch>
     );
 };
 
 export default Routes;
+
+const Route404 = ()=> {
+
+  let location = useLocation();
+  
+    return (
+      <div>
+        <h2 className="font-bold text-center mt-20">
+       
+          <span className="mt-5 block text-4xl">Page non trouvé !</span>
+        </h2>
+      </div>
+    );
+  }
