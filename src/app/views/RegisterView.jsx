@@ -22,14 +22,18 @@ const RegisterView = ({ history }) => {
     const recaptcha = import.meta.env.VITE_REACT_RECAPTCHA
     const { isShowing: isFormShowed, toggle: toggleForm } = useModal();
     const exit = () => {
-        toggleForm
-        history.push(URL_LOGIN)
+        toggleForm()
+       history.push(URL_LOGIN)
     }
     const handleInscription = async (values) => {
 
+
         const captchaToken = await recaptchaRef.current.executeAsync();
+        recaptchaRef.current.reset();
+
 
         const stringCapatcha = captchaToken + ""
+
 
         const registration = {
             firstName: values.firstName,
@@ -48,10 +52,13 @@ const RegisterView = ({ history }) => {
             passwordTest: values.passwordTest,
             captchaToken: stringCapatcha
         }
-        recaptchaRef.current.reset();
-        register(registration).then(res => {
+
+
+
+        await register(registration).then(res => {
             if (res.status === 200 && res.data !== 0) {
                 toggleForm()
+                recaptchaRef.current.reset();
 
 
             }
