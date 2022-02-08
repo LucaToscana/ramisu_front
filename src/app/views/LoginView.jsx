@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { signIn } from '../shared/redux-store/authenticationSlice';
 import { authenticate } from './../api/backend/account';
 import { URL_HOME, URL_PAIEMENT } from './../shared/constants/urls/urlConstants';
 import { isAuthenticated } from './../shared/services/accountServices';
 import Login from './../components/account/Login';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 /**
  * View/Page Login
@@ -13,11 +14,23 @@ import Login from './../components/account/Login';
  * @author Peter Mollet
  */
 const LoginView = ({ history }) => {
-
+    const [countError, setCountError] = useState(0)
+    const recaptchaRef = useRef(null)
+    const recaptcha = import.meta.env.VITE_REACT_RECAPTCHA
     const [errorLog, setErrorLog] = useState(false)
     const dispatch = useDispatch()
 
-    const handleLogin = (values) => {
+    const handleLogin = async(values) => {
+if(countError>3){    
+
+
+    const captchaToken = await recaptchaRef.current.executeAsync();
+    recaptchaRef.current.reset();
+
+}
+
+
+
         authenticate(values).then(res => {
             if (res.status === 200 && res.data.token) {
                 dispatch(signIn(res.data.token))
@@ -36,7 +49,9 @@ const LoginView = ({ history }) => {
                     }
 
                 }
-            }
+            }else{
+                setErrorLog(true)
+                setCountError(countError+1)}
         }).catch(() => setErrorLog(true))
     }
 
@@ -44,6 +59,13 @@ const LoginView = ({ history }) => {
         <div className=''>
             <div className="md:flex md:justify-center">
                 <Login submit={handleLogin} errorLog={errorLog} />
+                <ReCAPTCHA
+                sitekey={recaptcha}
+                ref={recaptchaRef}
+                size="invisible"
+
+
+            />
             </div>
         </div>
 

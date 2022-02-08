@@ -23,7 +23,7 @@ const RegisterView = ({ history }) => {
     const { isShowing: isFormShowed, toggle: toggleForm } = useModal();
     const exit = () => {
         toggleForm()
-       history.push(URL_LOGIN)
+         history.push(URL_LOGIN)
     }
     const handleInscription = async (values) => {
 
@@ -58,10 +58,10 @@ const RegisterView = ({ history }) => {
         await register(registration).then(res => {
             if (res.status === 200 && res.data !== 0) {
                 toggleForm()
+               
                 recaptchaRef.current.reset();
 
-
-            }
+            }else{ recaptchaRef.current.reset();}
         }).catch(() => setErrorLog(true))
     }
 
