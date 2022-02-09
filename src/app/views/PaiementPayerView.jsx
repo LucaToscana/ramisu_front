@@ -39,13 +39,6 @@ const PaiementPayerView = () => {
         <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default m-5 p-5 flex justify-around m-5'>
 
 
-            <ModalAddress
-                isShowing={isAddressFormShowed}
-                hide={toggleAddressForm}
-                title="Indiquer mon adresse"
-                submit={submit}
-            >
-            </ModalAddress>
 
             <div className='lg:w-2/3'>
                 <div className='flex border-b-2 border-gray-400 pb-4 mb-5'>

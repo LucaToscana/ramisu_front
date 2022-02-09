@@ -40,6 +40,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 .cartCard {
     box-shadow: 5px 5px 5px #A9A9A9;
+    background-color:rgba(00, 00, 00, 0.05)
 }
 
 .iconNone {
@@ -395,4 +396,103 @@ h1, h2, h3, h4, h5, h6, p {
         border: none;
         background: transparent;
       }
+/*STEEPPER*/
+      .container-stepper {
+        width: 80%;
+      }
+      
+      .step {
+        
+        padding: 10px;
+        
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        
+        background-color: transparent;
+      }
+      
+      .v-stepper {
+        position: relative;
+        
+      /*   visibility: visible; */
+      }
+      
+      
+      /* regular step */
+      .step .circle {
+        margin:15%;
+        background-color: white;
+        border: 3px solid gray;
+        border-radius: 100%;
+        width: 20px;    /* +6 for border */
+        height: 20px;
+        display: inline-block;
+      }
+      
+      .step .line {
+          top: 23px;
+        left: 12px;
+      /*   height: 120px; */
+        height: 100%;
+          
+          position: absolute;
+          border-left: 3px solid gray;
+      }
+      
+      .step.completed .circle {
+        visibility: visible;
+        background-color: #E0C01E;
+                border-color: #E0C80E;
+      }
+      
+      .step.completed .line {
+        border-left: 3px solid #E0C80E;
+      }
+      
+      .step.active .circle {
+      visibility: visible;
+      background-color: #E0C01E;
 
+      }
+      
+
+      
+     
+      .step.empty .circle {
+          visibility: hidden;
+      }
+      
+      .step.empty .line {
+      /*     visibility: hidden; */
+      /*   height: 150%; */
+        top: 0;
+        height: 150%;
+      }
+      
+      
+      .step:last-child .line {
+        border-left: 3px solid white;
+        z-index: -1; /* behind the circle to completely hide */
+      }
+            
+    
+      .content {
+        border-radius: 5%;
+        padding: 10px;
+        margin-left: 20px;
+        display: inline-block;
+        
+      }
+      .content-active {
+        border-radius: 20%;
+        padding: 10px;
+        margin-left: 20px;
+        display: inline-block;
+        background-color: #E0C01E;
+
+        color:white
+      }
+      
+      
+    
