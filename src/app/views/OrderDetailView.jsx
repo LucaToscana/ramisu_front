@@ -11,6 +11,8 @@ const ProductDetailView = () => {
     const [status, setStatus] = useState()
     const [date, setDate] = useState()
     const [address, setAddress] = useState()
+    const [profile, setProfile] = useState()
+    const [subTotal, setSubTotal] = useState()
 
 
 
@@ -38,6 +40,22 @@ const ProductDetailView = () => {
             )}
             setStatus(result.data.content.status.label)
             setDate(result.data.content.date)
+            setProfile(
+                result.data.content.usersInformation.lastName+" "+
+                result.data.content.usersInformation.firstName+" , email: "+
+                result.data.content.usersInformation.user.mail+" , telephone:  "+
+                result.data.content.usersInformation.phone
+
+            )
+
+            let products = result.data.productOrderWrappers
+            let subTotalP = 0;
+            for (let i = 0; i < products.length; i++) {
+                subTotalP += products[i].quantite * products[i].price
+            }
+        
+            setSubTotal(subTotalP)
+
         })
     }, [JSON.stringify(productsOrder)])
 
@@ -53,6 +71,8 @@ const ProductDetailView = () => {
                 status={status}
                 date={date}
                 address={address}
+                profile={profile}
+                subTotal={subTotal}
             />
         </div>
     );

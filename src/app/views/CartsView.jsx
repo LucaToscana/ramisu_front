@@ -105,15 +105,15 @@ const CartsView = () => {
                                 <tbody>
                                     <tr>
                                         <td className="text-right pr-2 font-bold text-2xl">Sous Totale:</td>
-                                        <td className='font-bold text-xl flex justify-end  mt-1'>{subTotal} €</td>
+                                        <td className='font-bold text-xl flex justify-end  mt-1'>{subTotal.toFixed(2)} €</td>
                                     </tr>
                                     <tr>
                                         <td className="text-right pr-2 font-bold text-2xl">TVA:</td>
-                                        <td className='font-bold text-xl flex justify-end  mt-1'>{subTotal * 0.2} €</td>
+                                        <td className='font-bold text-xl flex justify-end  mt-1'>{(subTotal * 0.2).toFixed(2)} €</td>
                                     </tr>
                                     <tr>
                                         <td className="text-right pr-2 font-bold text-2xl">Totale:</td>
-                                        <td className='font-bold text-xl flex justify-end mt-1'>{subTotal * 1.2} €</td>
+                                        <td className='font-bold text-xl flex justify-end mt-1'>{(subTotal * 1.2).toFixed(2)} €</td>
                                     </tr>
                                 </tbody>
                             </table>
