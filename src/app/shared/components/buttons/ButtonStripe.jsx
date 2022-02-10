@@ -10,7 +10,7 @@ import { init, selectCart } from '../../../shared/redux-store/cartSlice'
 import { useSelector } from "react-redux";
 import { isAuthenticated } from '../../../shared/services/accountServices';
 import { URL_LOGIN } from "../../constants/urls/urlConstants";
-import { addOrder } from "../../../api/backend/order";
+import { addOrder, addOrderWithAddress } from "../../../api/backend/order";
 
 
 
@@ -22,6 +22,7 @@ function ButtonStripe(props) {
 
     const am = props.amountO
     const carts = useSelector(selectCart)
+    const idaddress = localStorage.getItem("idAddress",)
 
     const history = useHistory()
     const dispatch = useDispatch();
@@ -33,6 +34,10 @@ function ButtonStripe(props) {
             if (test === "true") {
                 localStorage.removeItem('totPayer')
                 dispatch(init())
+                localStorage.removeItem('myAddress')
+                localStorage.removeItem('idAddress')
+                localStorage.removeItem('totPayer')
+
                 history.push("/")
             }
 
@@ -45,11 +50,25 @@ function ButtonStripe(props) {
     const validate = (carts) => {
 
         if (isAuthenticated()) {
-            addOrder(carts.filter(c => !(c.quantite === ""))).then(res => {
+            const addressLocalStorage = JSON.parse(localStorage.getItem("myAddress"))
+            const isMain = addressLocalStorage.isMain;
+
+            const address = {
+
+                id: idaddress,
+                number: addressLocalStorage.number,
+                street: addressLocalStorage.street,
+                additionalAddress: addressLocalStorage.additionalAddress,
+                postalCode: addressLocalStorage.postalCode,
+                city: addressLocalStorage.city,
+                country: addressLocalStorage.country,
+
+            }
+
+            addOrderWithAddress(carts.filter(c => !(c.quantite === "")), address, "domicile", isMain).then(res => {
                 if (res.data) {
 
                     localStorage.setItem("successPaiement", true)
-
 
                 }
             }
@@ -64,8 +83,9 @@ function ButtonStripe(props) {
         history.push('/')
         dispatch(init())
         toggleSuccessForm()
-
         localStorage.removeItem('myAddress')
+        localStorage.removeItem('idAddress')
+
         localStorage.removeItem('totPayer')
 
 
@@ -87,14 +107,13 @@ function ButtonStripe(props) {
 
     async function handleToken(token) {
         console.log(token);
-        await axios
-            .post("http://localhost:8080/api/payment/charge", "", {
-                headers: {
-                    token: token.id,
-                    amount: props.amountO,
+        await axios.post("http://localhost:8080/api/payment/charge", "", {
+            headers: {
+                token: token.id,
+                amount: props.amountO,
 
-                },
-            })
+            },
+        })
             .then(() => {
 
                 localStorage.setItem('totPayer', props.amountO)

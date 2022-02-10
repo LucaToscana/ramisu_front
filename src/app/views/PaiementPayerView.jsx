@@ -1,39 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from "react-redux";
 import { selectCart } from "../shared/redux-store/cartSlice";
-import useModal from '../shared/components/utils-components/Modal/useModal';
-import ModalAddress from '../shared/components/utils-components/Modal/modalAddress/ModalAddress';
-import { setLivraison, selectLivraison } from "../shared/redux-store/livraisonSlice"
-import { useDispatch } from 'react-redux';
+
 import { CheckIcon } from '@heroicons/react/solid';
 
-import { useHistory } from 'react-router-dom';
 import ButtonStripe from '../shared/components/buttons/ButtonStripe';
 import paypal from "../assets/images/paypal.png";
 import visaMaster from "../assets/images/visaMastercard.png";
-import { useEffect } from 'react';
-import { URL_HOME } from '../shared/constants/urls/urlConstants';
 import { ButtonBack } from '../shared/components/buttons/ButtonBack';
 const PaiementPayerView = () => {
-    const [methodPay, selectMethodPay] = useState("")
-    const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
-    const liv = useSelector(selectLivraison);
+
     const carts = useSelector(selectCart)
 
-    const history = useHistory();
     /*toggleddressForm*/
 
-    const dispatch = useDispatch();
-   
+
 
     let subTotal = 0;
     for (let i = 0; i < carts.length; i++) {
         subTotal += carts[i].quantite * carts[i].price
     }
-    const submit = (value) => {
-        dispatch(setLivraison(value))
-        toggleAddressForm()
-    }
+
 
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default m-5 p-5 flex justify-around m-5'>
@@ -140,20 +127,20 @@ const PaiementPayerView = () => {
 
                     <div className="lg:w-1/8  flex justify-end self-end p-1 ">
                         {localStorage.getItem('myAddress') !== null ? <> <CheckIcon className='md:w-12 h-12 iconTrue' />
-                            <p className='text-xs p-5'> A domicile:
-                                {JSON.parse(localStorage.getItem('myAddress')).numeroA + "   "
-                                    + JSON.parse(localStorage.getItem('myAddress')).rue + "   "
-                                    + JSON.parse(localStorage.getItem('myAddress')).ville + "   " + JSON.parse(localStorage.getItem('myAddress')).codepostal + "  "
-                                    + JSON.parse(localStorage.getItem('myAddress')).pays + JSON.parse(localStorage.getItem('myAddress')).complementadresse}
+                        <p className='text-xs p-5'>A domicile:  
+                                    {JSON.parse(localStorage.getItem('myAddress')).number + "   "
+                                        + JSON.parse(localStorage.getItem('myAddress')).street + "   "
+                                        + JSON.parse(localStorage.getItem('myAddress')).city + "   " + JSON.parse(localStorage.getItem('myAddress')).postalCode + "  "
+                                        + JSON.parse(localStorage.getItem('myAddress')).country + JSON.parse(localStorage.getItem('myAddress')).additionalAddress}
 
-                            </p>
+                                </p>
                         </> : null}  </div>
-                        
-                      <div className='p-5'>  <ButtonBack ></ButtonBack></div></div>
+
+                    <div className='p-5'>  <ButtonBack ></ButtonBack></div></div>
 
             </div>
 
-           
+
 
             <div></div>
         </div>

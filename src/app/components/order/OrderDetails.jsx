@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import { CheckIcon, DocumentDownloadIcon, XIcon } from '@heroicons/react/solid';
 import ProductRelated from "../product/components-page-product/ProductRelated";
+import { jsPDF } from "jspdf";
 
 
+const OrderDetails = ({ id, order, productsOrder, total, status, date, address }) => {
 
-const OrderDetails = ({ id, order, productsOrder, total, status, date }) => {
-
+    const pdf = () => {
+        const doc = new jsPDF();
+        var data = [
+            {name: "Bar", amount: 1200}, 
+            {name: "Zap", amount: 200}, 
+            {name: "Foo", amount: 320}];
+            
+          var total = data.reduce((sum, el) => sum + el.amount, 0);
+        
+          
+        
+          doc.save("table.pdf");
+        doc.save("a4.pdf"); // will save the file in the current working directory
+    }
 
     return (
 
@@ -16,7 +30,8 @@ const OrderDetails = ({ id, order, productsOrder, total, status, date }) => {
                 <div className="mt-3 grid  content-around  ">
                     <h1 className="font-bold text-2xl mt-4 pl-2">Order id: {id}</h1>
                     <h2 className="font-bold text-1xl pl-2 mt-4"> {date}</h2>
-                    <div className="flex justify-start pl-2 font-bold   mb-5">Telecharger  PDF <DocumentDownloadIcon className="h-8 w-8 p-0 p-0"></DocumentDownloadIcon></div>
+                    <div className="flex justify-start pl-2 font-bold   mb-5">Telecharger  PDF
+                        <button onClick={() => pdf()}> <DocumentDownloadIcon className="h-8 w-8 p-0 p-0" ></DocumentDownloadIcon></button></div>
 
                     <div class="container-stepper ">
                         <div className={status === "En cours de traitement" ? "step active" : "step completed"}>
@@ -147,7 +162,7 @@ const OrderDetails = ({ id, order, productsOrder, total, status, date }) => {
                         </div>
 
                         <p className="font-bold text-sm mt-4">Status: {status}</p>
-                        <p className="font-bold text-sm mt-4">Addresse: {status}</p>
+                        <p className="font-bold text-sm mt-4">Addresse: {address}</p>
 
 
 

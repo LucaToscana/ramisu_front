@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from "react-redux";
 import { selectCart } from "../shared/redux-store/cartSlice";
-import Modal from '../shared/components/utils-components/Modal/ModalExample';
 import useModal from '../shared/components/utils-components/Modal/useModal';
 import ModalAddress from '../shared/components/utils-components/Modal/modalAddress/ModalAddress';
 import { setLivraison, selectLivraison } from "../shared/redux-store/livraisonSlice"
 import { useDispatch } from 'react-redux';
-import { CheckIcon, ShoppingCartIcon, XIcon, } from '@heroicons/react/solid';
+import { CheckIcon } from '@heroicons/react/solid';
 import { useEffect } from 'react';
-import { useFormikContext } from "formik";
-import { URL_PAIEMENT_2 } from '../shared/constants/urls/urlConstants';
-import { useHistory } from "react-router-dom";
 import { ButtonToPayer } from '../shared/components/buttons/ButtonToPayer';
 import { getProfile } from '../api/backend/user'
 const PaiementLivraisonView = () => {
@@ -18,27 +14,22 @@ const PaiementLivraisonView = () => {
     const liv = useSelector(selectLivraison);
     const carts = useSelector(selectCart)
 
-    const [profile, setProfile] = useState([])
     useEffect(() => {
+        if(            localStorage.getItem("myAddress") ===null    ){
         getProfile().then(res => {
-
+            localStorage.setItem("idAddress", res.data.idaddress)
             dispatch(setLivraison({
-
-
-                numeroA: res.data.number,
-                rue: res.data.street,
-                complementadresse: res.data.additionalAddress,
-                codepostal: res.data.postalCode,
-                ville: res.data.city,
-                pays: res.data.country,
-                isMain: false
-                //   rememberMe: false
-            }))
+                number: res.data.number,
+                street: res.data.street,
+                additionalAddress: res.data.additionalAddress,
+                postalCode: res.data.postalCode,
+                city: res.data.city,
+                country: res.data.country,
+                isMain: false            }))
 
 
         })
-    }, [])
-    const history = useHistory();
+    }}, [])
 
     const dispatch = useDispatch();
 
@@ -101,10 +92,10 @@ const PaiementLivraisonView = () => {
                         <div className="lg:w-1/8  flex justify-end self-end p-1 ">
                             {localStorage.getItem('myAddress') !== null && liv !== undefined ? <> <CheckIcon className='md:w-12 h-12 iconTrue' />
                                 <p className='text-xs p-5'>
-                                    {JSON.parse(localStorage.getItem('myAddress')).numeroA + "   "
-                                        + JSON.parse(localStorage.getItem('myAddress')).rue + "   "
-                                        + JSON.parse(localStorage.getItem('myAddress')).ville + "   " + JSON.parse(localStorage.getItem('myAddress')).codepostal + "  "
-                                        + JSON.parse(localStorage.getItem('myAddress')).pays + JSON.parse(localStorage.getItem('myAddress')).complementadresse}
+                                    {JSON.parse(localStorage.getItem('myAddress')).number + "   "
+                                        + JSON.parse(localStorage.getItem('myAddress')).street + "   "
+                                        + JSON.parse(localStorage.getItem('myAddress')).city + "   " + JSON.parse(localStorage.getItem('myAddress')).postalCode + "  "
+                                        + JSON.parse(localStorage.getItem('myAddress')).country + JSON.parse(localStorage.getItem('myAddress')).additionalAddress}
 
                                 </p>
                             </> : null}  </div>
@@ -115,7 +106,7 @@ const PaiementLivraisonView = () => {
 
                     <div className='flex justify-end self-end m-2 text-sm	'>
 
-                        <button className="paiementCart h-12 w-24" onClick={toggleAddressForm}/*validate(carts)*/>Indiquer mon adresse</button>
+                        <button className="paiementCart h-12 w-24" onClick={toggleAddressForm}>Indiquer mon adresse</button>
 
                     </div>
 
@@ -182,10 +173,10 @@ const PaiementLivraisonView = () => {
                             : <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2)}€</p></div>}                    </div>
 
 
-<div className=''>   {localStorage.getItem('myAddress') !== null ? <div className='flex justify-end	 w-full p-5	'><ButtonToPayer></ButtonToPayer></div>
+                    <div className=''>   {localStorage.getItem('myAddress') !== null ? <div className='flex justify-end	 w-full p-5	'><ButtonToPayer></ButtonToPayer></div>
                         : null}
 
-</div> 
+                    </div>
                 </div>
 
 

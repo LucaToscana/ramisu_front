@@ -10,14 +10,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 var reduxAddress = {
 
-    numeroA: '',
-    rue: '',
-    complementadresse: '',
-    codepostal: '',
-    ville: '',
-    pays: '',
-    isMain: false
-}
+    number: '',
+    street: '',
+    additionalAddress: '',
+    postalCode: '',
+    city: '',
+    country: '',
+    isMain: false}
 
 
 var address = () => {

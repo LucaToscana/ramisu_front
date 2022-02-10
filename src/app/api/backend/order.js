@@ -6,6 +6,17 @@ export function addOrder(list){
     return apiBackEnd.post(URL_BACK_ADD_ORDER,list)
 }
 
+export function addOrderWithAddress(list,address,type,isMain){
+
+    const order = {
+        productsOrder:list,
+        address:address,
+        type:type,
+        isMain:isMain
+    }
+    return apiBackEnd.post(URL_BACK_ADD_ORDER,order)
+}
+
 export const getOrders = () => {
     return apiBackEnd.get(URL_BACK_GET_ORDERS)
 }

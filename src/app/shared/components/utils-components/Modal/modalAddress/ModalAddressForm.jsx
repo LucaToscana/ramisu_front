@@ -61,33 +61,33 @@ const FormModalAddress = ({ submit, errorLog }) => (
                     <div className='grid grid-cols-1 justify-items-center	'>
                         <p>
                             <label className="mb-2 text-xs">Numero</label>
-                            <Field type="text" name="numeroA"
+                            <Field type="text" name="number"
                                 component={CustomInput} className='text-xs rounded-none rounded-t-md mb-4 shadow-inner' noError /></p>
                     </div>
                     <div className='grid grid-cols-1 justify-items-stretch col-span-2 w-full	'>
                         <p><label className="mb-2 text-xs">Rue</label>
-                            <Field type='text' name='rue'
+                            <Field type='text' name='street'
                                 component={CustomInput} className='text-xs rounded-none rounded-b-md mb-4 shadow-inner' noError />
                         </p>     </div>
 
                     <div className='grid grid-cols-1 justify-items-center	'>
                         <p>
                             <label className="mb-2 text-xs">Code Postal</label>
-                            <Field type='text' name='codepostal'
+                            <Field type='text' name='postalCode'
                                 component={CustomInput} className='text-xs rounded-none rounded-b-md mb-4 shadow-inner' noError />
                         </p>
                     </div>
                     <div className='grid grid-cols-1 justify-items-center	'>
                         <p>
                             <label className="mb-2 text-xs">Ville</label>
-                            <Field type="text" name="ville"
+                            <Field type="text" name="city"
                                 component={CustomInput} className='text-xs rounded-none rounded-t-md mb-4 shadow-inner' noError />
                         </p>
                     </div>
 
                     <div className='grid grid-cols-1 justify-items-center	'>
                         <p> <label className="mb-2 text-xs">Pays</label>
-                            <Field type='text' name='pays'
+                            <Field type='text' name='country'
                                 component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner text-xs' noError />
                         </p>
                     </div>
@@ -96,7 +96,7 @@ const FormModalAddress = ({ submit, errorLog }) => (
                 <div className='grid grid-cols-1 justify-items-center	justify-items-stretch '>
 
                     <p> <label className="mb-2 text-xs">Complement Address</label>
-                        <Field type='text' name='complementadresse'
+                        <Field type='text' name='additionalAddress'
                             component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner text-xs' noError /></p>
                 </div>
 
