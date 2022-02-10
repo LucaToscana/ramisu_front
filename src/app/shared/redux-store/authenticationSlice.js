@@ -20,14 +20,14 @@ export const authenticationSlice = createSlice({
             setToken(action.payload);
             state.isLogged = true;
             state.isAdmin = isAdmin();
-            state.isAdmin = isComm();
+            state.isComm = isComm();
         },
         signOut: (state) => {
             localStorage.setItem("token","");
             sessionStorage.clear();
             state.isLogged = false;
             state.isAdmin = false;
-            state.isAdmin = false;
+            state.isComm = false;
         }
     }
 })
