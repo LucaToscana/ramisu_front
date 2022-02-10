@@ -43,7 +43,6 @@ const AccountView = () => {
   return (
     // Position of the elements below
     <div className="flex flex-col justify-center items-center m-5">
-      {displayComm && (<h1>HELLO COMMERCE</h1>)}
       {/* The box container characteristics */}
       <div className="box-border p-6 border-4 ">
         {/* Grid system of the box content */}
