@@ -1,26 +1,26 @@
 import React, { useState } from "react";
-import { CheckIcon, DocumentDownloadIcon, XIcon } from '@heroicons/react/solid';
+import { CheckIcon, DocumentDownloadIcon, XCircleIcon, XIcon } from '@heroicons/react/solid';
 import ProductRelated from "../product/components-page-product/ProductRelated";
 import { jsPDF } from "jspdf";
 import 'jspdf-autotable'
 import logo from "../../assets/images/icones/logo/warhammer-shop-logo.png";
 
 
-const OrderDetails = ({ id,  productsOrder, total, status, date, address, profile,subTotal }) => {
- 
-    const addrString = ()=>{
-    var s = new String(address);
-return  s.toLocaleUpperCase()
-}
+const OrderDetails = ({ id, productsOrder, total, status, date, address, profile, subTotal }) => {
+
+    const addrString = () => {
+        var s = new String(address);
+        return s.toLocaleUpperCase()
+    }
 
 
-const liv=()=>{
-    if(subTotal*1.2<25){return 10 +"€"}else{return "OFFERT"}
-}
+    const liv = () => {
+        if (subTotal * 1.2 < 25) { return 10 + "€" } else { return "OFFERT" }
+    }
     const pdf = () => {
-        const addressClient =address+""
+        const addressClient = address + ""
         const doc = new jsPDF();
-        doc.setFontSize(10);
+        doc.setFontSize(12);
 
         doc.text("Warhammer Market", 5, 10);
         doc.text("Siret:789456123789", 5, 15);
@@ -30,11 +30,11 @@ const liv=()=>{
         doc.text("Order: " + id, 10, 30);
         doc.text("Date: " + date, 10, 35);
         doc.text("Client: " + profile, 10, 40);
-        doc.text("Livraison: " +"(a domicile)", 10, 45);
+        doc.text("Livraison: " + "(a domicile)", 10, 45);
 
         doc.text(addrString(), 10, 50);
 
-        
+
 
 
         doc.addImage(logo, 'PNG', 85, 5, 50, 20);
@@ -62,13 +62,13 @@ const liv=()=>{
             },
             startY: 70,
         })
-        const columns2 = ["TOT HT", "TOT TVA","LIVRAISON", "TOT"];
+        const columns2 = ["TOT HT", "TOT TVA", "LIVRAISON", "TOT"];
         const rows2 = [];
 
         const row2 = {
             Totht: (subTotal).toFixed(2) + "€",
-            TotalTVA: (subTotal*0.2).toFixed(2) + "€",
-            Livraison:liv(),
+            TotalTVA: (subTotal * 0.2).toFixed(2) + "€",
+            Livraison: liv(),
             Total: total.toFixed(2) + "€",
         }
         rows2.push(Object.values(row2))
@@ -84,7 +84,7 @@ const liv=()=>{
 
 
 
-        doc.save("a4.pdf"); // will save the file in the current working directory
+        doc.save(id + "-" + date + ".pdf"); // will save the file in the current working directory
     }
 
     return (
@@ -94,93 +94,97 @@ const liv=()=>{
 
             <div className="  grid grid-cols-5 lg:flex lg:flex-row   ">
 
-                <div className="mt-3 grid  content-start  ">
+                <div className="mt-3 grid  content-start  ml-1 ">
                     <h1 className="font-bold text-2xl mt-4 pl-2">Order id: {id}</h1>
                     <h2 className="font-bold text-1xl pl-2 mt-4"> {date}</h2>
-                    <div className="flex justify-start pl-2 font-bold   mb-5">Telecharger  PDF
+                    {status !== "Annule" ? <div className="flex justify-start pl-2 font-bold   mb-5">Telecharger  PDF
                         <button onClick={() => pdf()}> <DocumentDownloadIcon className="h-8 w-8 p-0 p-0" ></DocumentDownloadIcon></button></div>
+                        : null}
 
-                    <div class="container-stepper ">
-                        <div className={status === "En cours de traitement" ? "step active" : "step completed"}>
-                            <div class="v-stepper">
-                                <div class="circle"></div>
-                                <div class="line"></div>
-                            </div>
+                    {status === "Annule" ? <div className="mt-5"><XCircleIcon className="h-8 w-8"></XCircleIcon>La commande a été annulée</div> : <>
+                        <div class="container-stepper ">
 
-                            <div className={status === "En cours de traitement" ? "content-active" : "content"}>
-                                En cours de traitement
-                            </div>
-                        </div>
-                        {status !== "En cours de traitement" ?
-                            <div className={status === "Prêt a expédier" ? "step active" : "step completed"}>
+
+                            <div className={status === "En cours de traitement" ? "step active" : "step completed"}>
                                 <div class="v-stepper">
                                     <div class="circle"></div>
                                     <div class="line"></div>
                                 </div>
 
-                                <div className={status === "Prêt a expédier" ? "content-active" : "content"}>
-                                    Prêt a expédier                           </div>
+                                <div className={status === "En cours de traitement" ? "content-active" : "content"}>
+                                    En cours de traitement
+                                </div>
                             </div>
-                            : <div className="step">
+                            {status !== "En cours de traitement" ?
+                                <div className={status === "Prêt a expédier" ? "step active" : "step completed"}>
+                                    <div class="v-stepper">
+                                        <div class="circle"></div>
+                                        <div class="line"></div>
+                                    </div>
+
+                                    <div className={status === "Prêt a expédier" ? "content-active" : "content"}>
+                                        Prêt a expédier                           </div>
+                                </div>
+                                : <div className="step">
+                                    <div class="v-stepper">
+                                        <div class="circle"></div>
+                                        <div class="line"></div>
+                                    </div>
+
+                                    <div class="content">
+                                        Prêt a expédier
+                                    </div>
+                                </div>}
+
+
+                            {status !== "En cours de traitement" && status !== "Prêt a expédier" ?
+
+
+                                <div className={status === "Livraison en cours" ? "step active" : "step completed"}>
+
+                                    <div class="v-stepper">
+                                        <div class="circle"></div>
+                                        <div class="line"></div>
+                                    </div>
+
+                                    <div className={status === "Livraison en cours" ? "content-active" : "content"}
+                                    >
+                                        Livraison en cours
+                                    </div>
+                                </div> : <div className="step">
+                                    <div class="v-stepper">
+                                        <div class="circle"></div>
+                                        <div class="line"></div>
+                                    </div>
+
+                                    <div class="content">
+                                        Livraison en cours
+                                    </div>
+                                </div>}
+
+                            {status === "Livre" ? <div class="step completed">
                                 <div class="v-stepper">
                                     <div class="circle"></div>
                                     <div class="line"></div>
                                 </div>
 
-                                <div class="content">
-                                    Prêt a expédier
-                                </div>
-                            </div>}
-
-
-                        {status !== "En cours de traitement" && status !== "Prêt a expédier" ?
-
-
-                            <div className={status === "Livraison en cours" ? "step active" : "step completed"}>
-
-                                <div class="v-stepper">
-                                    <div class="circle"></div>
-                                    <div class="line"></div>
-                                </div>
-
-                                <div className={status === "Livraison en cours" ? "content-active" : "content"}
-                                >
-                                    Livraison en cours
-                                </div>
-                            </div> : <div className="step">
-                                <div class="v-stepper">
-                                    <div class="circle"></div>
-                                    <div class="line"></div>
-                                </div>
-
-                                <div class="content">
-                                    Livraison en cours
-                                </div>
-                            </div>}
-
-                        {status === "Livre" ? <div class="step completed">
-                            <div class="v-stepper">
-                                <div class="circle"></div>
-                                <div class="line"></div>
-                            </div>
-
-                            <div class="content-active">
-                                Livré
-                            </div>
-                        </div>
-                            : <div class="step">
-                                <div class="v-stepper">
-                                    <div class="circle"></div>
-                                    <div class="line"></div>
-                                </div>
-
-                                <div class="content">
+                                <div class="content-active">
                                     Livré
                                 </div>
-                            </div>}
+                            </div>
+                                : <div class="step">
+                                    <div class="v-stepper">
+                                        <div class="circle"></div>
+                                        <div class="line"></div>
+                                    </div>
 
-                    </div>
+                                    <div class="content">
+                                        Livré
+                                    </div>
+                                </div>}
 
+                        </div>
+                    </>}
                 </div>
 
 
@@ -198,7 +202,7 @@ const liv=()=>{
 
                             {productsOrder !== undefined ? productsOrder.map(cart => <>
                                 <div className='w-full col-span-2'><p className='text-xs'> {cart.label}</p></div>
-                                <div className='w-full text-center'><p className='text-xs '> {(cart.price*1).toFixed(2)}</p></div>
+                                <div className='w-full text-center'><p className='text-xs '> {(cart.price * 1).toFixed(2)}</p></div>
                                 <div className='w-full text-center'><p className='text-xs '> {(cart.price * 1.2).toFixed(2)}</p></div>
 
                                 <div className='w-full text-center'><p className='text-xs '> {cart.quantite}</p></div></>) : null}
@@ -206,38 +210,38 @@ const liv=()=>{
 
                         <div class="grid grid-cols-3 gap-2 w-full p-3  border-t-2 border-gray-400 	">
 
-                            <div className='w-full'><p className='text-sm '> Sous-total HT</p></div>
-                            <div className='w-full text-center'><p className='text-sm '> </p></div>
-                            <div className='w-full text-center'><p className='text-sm '> {(subTotal*1).toFixed(2)}€</p></div>
+                            <div className='w-full'><p className='text-xs'> Sous-total HT</p></div>
+                            <div className='w-full text-center'><p className='text-xs '> </p></div>
+                            <div className='w-full text-center'><p className='text-xs'> {(subTotal * 1).toFixed(2)}€</p></div>
                         </div>
                         <div class="grid grid-cols-3 gap-2 w-full p-3  	">
 
-                            <div className='w-full'><p className='text-sm '> Sous-total </p></div>
-                            <div className='w-full text-center'><p className='text-sm '> </p></div>
-                            <div className='w-full text-center'><p className='text-sm '> {(subTotal * 1.2).toFixed(2)}€</p></div>
+                            <div className='w-full'><p className='text-xs '> Sous-total </p></div>
+                            <div className='w-full text-center'><p className='text-xs'> </p></div>
+                            <div className='w-full text-center'><p className='text-xs '> {(subTotal * 1.2).toFixed(2)}€</p></div>
                         </div>
                         <div class="grid grid-cols-3 gap-2 w-full p-3 	">
-                            <div className='w-full'><p className='text-sm '> Livraison</p></div>
-                            <div className='w-full text-center'><p className='text-sm '> </p></div>
-                            {(total * 1.2) < 25 ? <div className='w-full text-center'><p className='text-sm '> 10 €</p></div>
-                                : <div className='w-full text-center'><p className='text-sm '> gratuit</p></div>}
+                            <div className='w-full'><p className='text-xs'> Livraison  TTC</p></div>
+                            <div className='w-full text-center'><p className='text-xs'> </p></div>
+                            {(total * 1.2) < 25 ? <div className='w-full text-center'><p className='text-xs'> 10 €</p></div>
+                                : <div className='w-full text-center'><p className='text-xs'> gratuit</p></div>}
                         </div>
                         <div className='flex border-b-2 border-gray-400 p-4 mr-5 ml-5 mt-1 mb-1'>
                             <h1 className='flex items-end font-bold text-4xl '></h1>
                         </div>
                         <div class="grid grid-cols-3 gap-2 w-full p-3 	">
                             <div className='w-full'><h1 className='flex items-end font-bold text-1xl'>
-                                Total (TVA incluse)</h1></div>
-                            <div className='w-full text-center'><p className='text-sm font-bold  '> </p></div>
-                            {<div className='w-full text-center'><p className='text-sm font-bold '> {((total*1).toFixed(2))}€</p></div>
+                                Total (TTC)</h1></div>
+                            <div className='w-full text-center'><p className='text-xs font-bold  '> </p></div>
+                            {<div className='w-full text-center'><p className='text-xsfont-bold '> {((total * 1).toFixed(2))}€</p></div>
 
 
 
                             }
                         </div>
 
-                        <p className="font-bold text-sm mt-4">Status: {status}</p>
-                        <p className="font-bold text-sm mt-4">Addresse: {address}</p>
+                        <p className="font-bold text-xs mt-4">Status: {status}</p>
+                        <p className="font-bold text-xs mt-4">Addresse: {address}</p>
 
 
 
