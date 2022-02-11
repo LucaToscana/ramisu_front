@@ -33,3 +33,12 @@ export const URL_PAY_ORDER = '/payment/charge'
 
 //users
 export const URL_BACK_CONTACT_US = '/public/contactus'
+
+//URLs Admin
+export const URL_HELLO = '/user/hello'
+export const URL_HELLO_USER = '/user/hello-user'
+export const URL_HELLO_ADMIN = '/user/hello-admin'
+export const URL_BACK_GET_USERS = '/user/users'
+export const URL_BACK_GET_USER_BY_ID = '/user/account/'
+export const URL_BACK_UPGRADE_USER = '/user/account/roles/'
+
