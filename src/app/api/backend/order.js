@@ -18,8 +18,12 @@ export function addOrderWithAddress(list,address,type,isMain){
 }
 
 export const getOrders = () => {
-    return apiBackEnd.get(URL_BACK_GET_ORDERS)
-}
+   
+    return apiBackEnd.get(URL_BACK_GET_ORDERS, (req, res) => {
+        req.set('Access-Control-Allow-Origin', '*')
+        res.set('Access-Control-Allow-Origin', '*');
+        res.send({ "msg": "This has CORS enabled 🎈" })
+})}
 
 export const getOrdersDetails = (id) => {
     return apiBackEnd.get(URL_BACK_GET_ORDERS + `/${id}`)
