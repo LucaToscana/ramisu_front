@@ -14,11 +14,14 @@ import Login from './../components/account/Login';
  */
 const LoginView = ({ history }) => {
 
-    const [errorLog, setErrorLog] = useState(false)
+    const [errorLog, setErrorLog] = useState(false);
+    const [message, setMessage] = useState(null);
     const dispatch = useDispatch()
 
     const handleLogin = (values) => {
         authenticate(values).then(res => {
+            // debugger
+            setMessage(null)
             if (res.status === 200 && res.data.token) {
                 dispatch(signIn(res.data.token))
 
@@ -37,13 +40,22 @@ const LoginView = ({ history }) => {
 
                 }
             }
-        }).catch(() => setErrorLog(true))
+        }).catch((error) =>{ 
+            setErrorLog(true);
+            // debugger
+            if(error.response.data.message)
+            {
+                // debugger
+                setErrorLog(false);
+                setMessage(error.response.data.message)
+            }
+        })
     }
 
     return (
         <div className=''>
             <div className="md:flex md:justify-center">
-                <Login submit={handleLogin} errorLog={errorLog} />
+                <Login submit={handleLogin} errorLog={errorLog} msg={message} />
             </div>
         </div>
 
