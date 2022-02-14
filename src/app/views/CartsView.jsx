@@ -76,12 +76,15 @@ const CartsView = () => {
                                     <p className="font-bold">{cart.price} € H.T.</p>
                                 </div>
                                 <div>
-                                    <input type="number"
+                                    <input type="number" min={0}
                                         value={cart.quantite}
                                         className="w-14 mr-5 md:w-20"
                                         onChange={(e) => dispatch(setQuantity([cart, e.target.value]))} />
                                 </div>
+
                             </div>
+                            <p className="font-bold">{(cart.price*1.2).toFixed(2)} € T.T.C. *{cart.quantite} =  {(cart.price*1.2*cart.quantite).toFixed(2)} €</p>
+
                             <div className='flex justify-between'>
                                 <div className='w-1/2'>
                                     <p className='font-bold flex items-center'>En Stock {cart.stock > 0 ? <CheckIcon className='ml-2 w-6 h-6 iconTrue' /> : <XIcon className='ml-2 w-6 h-6 iconNone' />}</p>
@@ -89,7 +92,9 @@ const CartsView = () => {
                                 <div>
                                     <img src={trash} alt="" className="w-10" onClick={() => dispatch(remove(cart))} />
                                 </div>
+                                
                             </div>
+                            
                         </div>
 
                     </div>

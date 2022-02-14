@@ -32,13 +32,16 @@ const ModalAddToCart = ({ isShowing, hide,cart ,qty}) =>
                             <div className="flex items-center pb-2">
                                 <div className='w-1/2'>
                                     <p className="font-bold">{cart.price} € H.T.</p>
+
                                 </div>
                                 <div>
                                 <p className="font-bold">Quantite: {qty}</p>
                                     
                                 </div>
+
                             </div>
-                           
+                            <p className="font-bold">{(cart.price*1.2).toFixed(2)} € T.T.C. *{qty} =  {(cart.price*1.2*qty).toFixed(2)} €</p>
+
                         </div>
 
                     </div>

@@ -18,11 +18,11 @@ const PriceInput = ({ submit }) => {
                             <div className=''>
                                 <label name="min" className='p-3' >Min €</label>
 
-                                <Field id="minPrice" className='rounded-none rounded-b-md mb-4 shadow-inner' name="min" type="number" />
+                                <Field id="minPrice" className='rounded-none rounded-b-md mb-4 shadow-inner' name="min" type="number" min={0} />
                             </div>
                             <div className=''>
                                 <label name="max" className='p-3'>Max €</label>
-                                <Field id="maxPrice" className='rounded-none rounded-b-md mb-4 shadow-inner' name="max" type="number" />
+                                <Field id="maxPrice" className='rounded-none rounded-b-md mb-4 shadow-inner' name="max" type="number"  min={0}/>
                             </div>
 
                             <div className="login rounded-2xl w-1/3 p-3 hover:cursor-pointer flex justify-center">

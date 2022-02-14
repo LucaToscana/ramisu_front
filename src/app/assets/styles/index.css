@@ -494,5 +494,48 @@ h1, h2, h3, h4, h5, h6, p {
         color:white
       }
       
+      .badge {
+        padding-left: 9px;
+        padding-right: 9px;
+        -webkit-border-radius: 9px;
+        -moz-border-radius: 9px;
+        border-radius: 9px;
+      }
       
+      .label-warning[href],
+      .badge-warning[href] {
+        background-color: #c67605;
+      }
+      #lblCartCount {
+        font-size: 12px;
+        background-color: #ff0000;
+        color: #fff;
+        padding: 0 5px;
+        vertical-align: top;
+      }
+      .cart-wrapper{
+        position: relative;
+        }
+        .cart-wrapper span{
+        position: absolute;
+        top: -2px;
+        right: -2px; 
+        }
+        
+
+
+
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      
+      /* Firefox */
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
+
+
     

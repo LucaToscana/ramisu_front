@@ -13,7 +13,7 @@ import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations, se
 import { useLocation } from 'react-router-dom'
 import { getProfile } from "../../api/backend/user";
 import classNames from 'classnames/bind';// Constants used for navigating with the navbar
-import { init } from './../../shared/redux-store/cartSlice';
+import { init, selectCart } from './../../shared/redux-store/cartSlice';
 /**
  * Website navbar made with Tailwind
  * 
@@ -24,7 +24,13 @@ import { init } from './../../shared/redux-store/cartSlice';
 const Navbar = () => {
     const location = useLocation()    //input filter
     const dispatch = useDispatch();
+    const carts = useSelector(selectCart)
 
+    let qty = 0;
+
+    for (let i = 0; i < carts.length; i++) {
+        qty +=+( carts[i].quantite*1)
+    }
     const [navigation, setNavigation] = useState([
         { name: 'Accueil', to: '/', current: true },
         { name: 'Boutique', to: '/products', current: true },
@@ -119,14 +125,16 @@ const Navbar = () => {
                                     notifications, connection / registration link, profile menu burger 
                                 */}
                                 <ConnectionStatusButtons />
-                                <Link
-                                    to="/panier"
-                                >
-                                    <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
-                                </Link>
-
-
+                                <div class="cart-wrapper">
+                                    <Link
+                                        to="/panier"
+                                    >
+                                        <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                     {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                    </Link>
+                                </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -283,22 +291,22 @@ const ConnectionStatusButtons = () => {
                             <UserIcon className='bg-gray-800 p-1 mt-3 text-gray-400 w-8 h-8 m-2' />
                         </Menu.Button>
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                <div className='flex flex-col'>
-                            <Menu.Item>
-                                <Link
-                                    to={URL_REGISTRATION}
-                                    className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
-                                    <span>S'inscrire</span>
-                                </Link>
-                            </Menu.Item>
-                            <Menu.Item>
-                                <Link
-                                    to={URL_LOGIN}
-                                    className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
-                                    Se connecter
-                                </Link>
-                            </Menu.Item>
-                                </div>
+                            <div className='flex flex-col'>
+                                <Menu.Item>
+                                    <Link
+                                        to={URL_REGISTRATION}
+                                        className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
+                                        <span>S'inscrire</span>
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item>
+                                    <Link
+                                        to={URL_LOGIN}
+                                        className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
+                                        Se connecter
+                                    </Link>
+                                </Menu.Item>
+                            </div>
 
                         </Menu.Items>
                     </Menu>
