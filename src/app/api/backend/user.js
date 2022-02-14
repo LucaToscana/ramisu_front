@@ -30,32 +30,13 @@ export function contactUs(values)
     return apiBackEnd.post(URL_BACK_CONTACT_US , values);
 }
 
-// say hello
 import {    
-        URL_HELLO, 
-        URL_HELLO_USER, 
-        URL_HELLO_ADMIN,
+   
         URL_BACK_GET_USERS,
         URL_BACK_GET_USER_BY_ID,
         URL_BACK_UPGRADE_USER
     } 
 from   "../../shared/constants/urls/urlBackEnd";
-    export function hello(values)
-    {
-        return apiBackEnd.get(URL_HELLO)
-    }
-
-    export function helloUser(values)
-    {
-        return apiBackEnd.get(URL_HELLO_USER)
-    }
-
-    export function helloAdmin(values)
-    {
-        return apiBackEnd.get(URL_HELLO_ADMIN)
-    }
-
-
     export function getUsers(page, size, sort)
     {
         return apiBackEnd.get(`${URL_BACK_GET_USERS}?page=${page}&size=${size}&sort=${sort.by},${sort.direction}`)
