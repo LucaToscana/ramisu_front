@@ -1,5 +1,5 @@
 import { getToken, decodeToken } from './tokenServices';
-import {ROLE_ADMIN} from '../../shared/constants/rolesConstant'
+import {ROLE_ADMIN, ROLE_SALESMAN} from '../../shared/constants/rolesConstant'
 /**
  * To get all the roles of the current user
  * 
@@ -42,6 +42,22 @@ export function isAdmin()
         return false;
     }
 }
+
+/**
+ * To know if the user has the role of commercial
+ * 
+ * @return {boolean} true if the user is commercial
+ * @author Malek MOKRANI
+ */
+ export function isComm()
+ {
+     try{
+         return hasRole(ROLE_SALESMAN);
+     }catch(e)
+     {
+         return false;
+     }
+ }
 
 /**
  * To check if the current user is authenticated

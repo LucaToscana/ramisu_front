@@ -73,6 +73,10 @@ const Login = (props) => {
                 <h2 className="text-center font-bold uppercase md:mt-8">
                     Connexion
                 </h2>
+                {props.msg && ( <div className='text-center mt-5'>
+                                    <span class="text-red-600 text-center">{props.msg}</span> &nbsp;
+                                    <span className="hover:underline  text-sm"><a href="mailto:support@warmarket.com">support@warmarket.com</a></span>
+                                </div>)}
             </div>
             <FormLogin {...props} />
         </div>

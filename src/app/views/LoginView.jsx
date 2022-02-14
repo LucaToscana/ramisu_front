@@ -18,8 +18,56 @@ const LoginView = ({ history }) => {
     const recaptchaRef = useRef(null)
     const recaptcha = import.meta.env.VITE_REACT_RECAPTCHA
     const [errorLog, setErrorLog] = useState(false)
+
+    const [message, setMessage] = useState(null);
     const dispatch = useDispatch()
 
+
+
+    const handleLogin = async(values) => {
+        if(countError>3){    
+        
+        
+            const captchaToken = await recaptchaRef.current.executeAsync();
+            recaptchaRef.current.reset();
+        
+        }
+        
+        
+        
+                authenticate(values).then(res => {
+                    if (res.status === 200 && res.data.token) {
+                        dispatch(signIn(res.data.token))
+        
+        
+                        if (isAuthenticated) {
+        
+                            if (localStorage.getItem("testLoginPanier") !== null) {
+                                history.push(URL_PAIEMENT)
+                                localStorage.removeItem("testLoginPanier")
+        
+        
+                            }
+                            else {
+                                history.push(URL_HOME)
+                            }
+        
+                        }
+                    }else{
+                        setErrorLog(true)
+                        setCountError(countError+1)}
+                }) .catch((error) =>{ 
+                    setErrorLog(true);
+                    // debugger
+                    if(error.response.data.message)
+                    {
+                        // debugger
+                        setErrorLog(false);
+                        setMessage(error.response.data.message)
+                    }})
+            }
+        
+/*
     const handleLogin = async(values) => {
 if(countError>3){    
 
@@ -32,6 +80,8 @@ if(countError>3){
 
 
         authenticate(values).then(res => {
+            // debugger
+            setMessage(null)
             if (res.status === 200 && res.data.token) {
                 dispatch(signIn(res.data.token))
 
@@ -41,8 +91,6 @@ if(countError>3){
                     if (localStorage.getItem("testLoginPanier") !== null) {
                         history.push(URL_PAIEMENT)
                         localStorage.removeItem("testLoginPanier")
-
-
                     }
                     else {
                         history.push(URL_HOME)
@@ -52,13 +100,22 @@ if(countError>3){
             }else{
                 setErrorLog(true)
                 setCountError(countError+1)}
-        }).catch(() => setErrorLog(true))
-    }
+        })
+        .catch((error) =>{ 
+            setErrorLog(true);
+            // debugger
+            if(error.response.data.message)
+            {
+                // debugger
+                setErrorLog(false);
+                setMessage(error.response.data.message)
+            }
+        })
+    }*/
 
     return (
         <div className=''>
             <div className="md:flex md:justify-center">
-                <Login submit={handleLogin} errorLog={errorLog} />
                 <ReCAPTCHA
                 sitekey={recaptcha}
                 ref={recaptchaRef}
@@ -66,6 +123,7 @@ if(countError>3){
 
 
             />
+                <Login submit={handleLogin} errorLog={errorLog} msg={message} />
             </div>
         </div>
 

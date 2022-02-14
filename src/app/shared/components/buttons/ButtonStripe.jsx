@@ -136,6 +136,7 @@ function ButtonStripe(props) {
                 token={handleToken}
                 description="Warhammer Market"
                 image={logo}
+                billingAddress
             >
                 <button className="validateCart mt-2" disabled={am < 11 ? true : false}>Payer par CB {props.amountO} €</button>
 

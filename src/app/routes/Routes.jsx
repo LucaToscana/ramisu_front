@@ -19,10 +19,11 @@ import {
             URL_PRODUCT_PEINTURES,
             URL_PRODUCT_FIGURINES,
             URL_CONTACT_US,
-            URL_ORDER_DETAILS
+            URL_ORDER_DETAILS,
+            URL_COMM_HOME
         } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
-import { ROLE_ADMIN, ROLE_USER } from "../shared/constants/rolesConstant";
+import { ROLE_ADMIN, ROLE_SALESMAN, ROLE_USER } from "../shared/constants/rolesConstant";
 import { PrivateRoute } from "../shared/components/utils-components/PrivateRoute";
 import HomeView from "../views/HomeView";
 import LoginView from "../views/LoginView";
@@ -43,6 +44,7 @@ import ProductPeinturesView from "../views/ProductPeinturesView";
 import ProductLibrairieView from "../views/ProductLibrairieView";
 import ContactView from "../views/ContactView";
 import OrderDetailView from "../views/OrderDetailView";
+import BackOffice from "../views/BackOffice"
 
 /**
  * Routes of the application
@@ -64,6 +66,7 @@ const Routes = () => {
                 component={AdminHomeView}
                 roles={[ROLE_ADMIN]}
             />
+            <PrivateRoute path={URL_COMM_HOME} roles={[ROLE_SALESMAN]}  component={BackOffice}/>
             <PrivateRoute path={URL_ORDERS} component={OrdersView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_ORDER_DETAILS} component={OrderDetailView} roles={[ROLE_USER]} />
 
@@ -81,6 +84,8 @@ const Routes = () => {
             <Route path="*">
                 <Route404 />
             </Route>
+            
+
         </Switch>
     );
 };
