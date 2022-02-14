@@ -1,22 +1,16 @@
 import React, { useState } from 'react'
 import { useEffect, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react'
-import { hello, helloUser, helloAdmin, getUsers, getUserAccount, changeUserRoles } from '../api/backend/user';
-
+import {  getUsers, getUserAccount, changeUserRoles } from '../api/backend/user';
+import Pagination from "../components/layouts/Pagination"
 
 const AdminHomeView = () => {
 
     let [isOpen, modalIsOpen]       = useState(false);//Modal
     let [account, setuserAccount]   = useState({});
     const [usersData, setusers]     = useState([]);
-    const [pageable, setPageable]   = useState({
-                                                    current: 0,
-                                                    size: 10,
-                                                    nbrItems: 0,
-                                                    totalPages: 0,
-                                                    first: true,
-                                                    last: true
-                                                });
+    const [pageable, setPageable]   = useState({    current: 0,     size: 10,       nbrItems: 0,
+                                                    totalPages: 0,  first: true,    last: true      });
     const sort = {
                     by:'id',        // id mail status  roles date_of_creation 
                     direction:'ASC' // ASC DESC
@@ -26,10 +20,8 @@ const AdminHomeView = () => {
         getUsers(indexPage, pageable.size, sort).then(res => {
             setusers(res.data.content);
             setPageable({
-                current: res.data.number,
-                size: res.data.size,
-                nbrItems: res.data.totalElements,
-                totalPages: res.data.totalPages
+                current: res.data.number,               size: res.data.size,        totalPages: res.data.totalPages,
+                totalElements: res.data.totalElements,  first: res.data.first,      last: res.data.last
             });
         }).catch(e => {
             console.log("error", e);
@@ -45,35 +37,9 @@ const AdminHomeView = () => {
         changeUserRoles({ userID: userID, rolesID: roleID, active:active }).then(res=>loadUser(pageable.current)).catch(error=>console.error(error));
     }
 
-    const sendRequest = (event) => hello().then(            res => console.log('hello-user', res)).catch(       e =>  console.log('ERROR hello-user ',      e));
-
-    const sendUserRequest = (event) => helloUser().then(    res => console.log('hello-saileman', res)).catch(   e => console.log('ERROR hello-saileman ',   e));
-
-    const sendAdminRequest = (event) => helloAdmin().then(  res => console.log('hello-admin', res)).catch(      e => console.log('ERROR hello-admin ',      e))
-
-    const getUsersHandler = (event) => {
-        getUsers(pageable.current, pageable.size, sort).then(res => {
-            console.log(res);
-
-            setusers(res.data.content);
-
-            setPageable({
-                current: res.data.number,
-                size: res.data.size,
-                totalElements: res.data.totalElements,
-                totalPages: res.data.totalPages,
-                first: res.data.first,
-                last: res.data.last
-            });
-        }).catch(e => {
-            console.log("error", e);
-        })
-    }
-
 
     const getAccount = (elt) => {
         getUserAccount(elt.id).then(res => {
-            console.log("getUserAccount", res);
             let user = {};
             Object.assign(user, res.data);
             Object.assign(user, elt);
@@ -91,7 +57,6 @@ const AdminHomeView = () => {
 
 
     const sortHandler = (by , direction )=>{
-
         sort.by = by;
         sort.direction = direction;
         loadUser(pageable.current)
@@ -100,25 +65,9 @@ const AdminHomeView = () => {
     return (
         <div className="flex flex-col justify-between h-full">
 
-            <div>
-                <button
-                    className="p-3 m-3 bg-green-400"
-                    onClick={sendRequest}>public request</button>
-                <button
-                    className="p-3 m-3 bg-blue-200"
-                    onClick={sendUserRequest}>User request</button>
-
-                <button
-                    className="p-3 m-3 bg-red-400"
-                    onClick={sendAdminRequest}>Admin request</button>
-
-                <button
-                    className="p-3 m-3 bg-red-400"
-                    onClick={getUsersHandler}>Admin getUsers</button>
-            </div>
             {usersData != undefined && (
-                <div className='w-full h-full text-center bodyTable m-2 text-sm'>
-                    <div className='hidden md:grid md:grid-cols-6 headerTable p-2'>
+                <div className='w-full h-full text-center bodyTable m-2 text-sm '>
+                    <div className='hidden md:grid md:grid-cols-6 headerTable p-2 '>
                         <div>
                             <button onClick={(e=>sortHandler('id' , 'DESC'))}>
                                 <span className="text-white">&uArr;</span>
@@ -165,51 +114,11 @@ const AdminHomeView = () => {
                         )
                     })}
                 </div>)}
-            <Pagination pageable={pageable} requesthandler={loadUser} />
+            <Pagination pageable={pageable} callback={loadUser} />
             <ModalUser show={isOpen} closeModal={closeModal} data={account} upgradeUser={upgradeUser} />
         </div>
     );
 };
-
-
-
-
-const Pagination = (props) => {
-
-    const begin = 0;
-    const current = props.pageable.current == undefined ? 0 : parseInt(props.pageable.current);
-    const total = props.pageable.totalPages == undefined ? 0 : parseInt(props.pageable.totalPages);
-
-    const pageNumHandler = (index) => props.requesthandler(index);
-    
-
-    return (<div className='border-2'>
-        {total > 0 && (
-            <ul className='pagination'>
-                {/* {begin!=current &&
-                      (
-                        <li key={begin}  onClick={(event)=>pageNumHandler(begin)}>
-                            <div className='prev hover:cursor-pointer'><span>&lt;</span> Precedent</div>
-                        </li>
-                      )} */}
-                {Array.from(Array(total), (elt, i) => {
-                    return <li key={i + 1} onClick={(event) => pageNumHandler(i)}>
-                        <span
-                            className={`number ${current == i && 'current'} hover:cursor-pointer`}
-                        >{i + 1}</span>
-                    </li>
-
-                })}
-                {/* {current<total-1 &&
-                    (<li key={total} onClick={(event)=>pageNumHandler(total)}>
-                        <div className='next hover:cursor-pointer'>Suivant<span>&gt;</span></div>
-                    </li>)
-                } */}
-
-            </ul>)}
-
-    </div>);
-}
 
 
 import defaultAvatar from "../assets/images/default-avatar.png"
@@ -241,11 +150,18 @@ const ModalUser = (props) => {
 
     const profileChange = (event) => props.upgradeUser( props.data.id , parseInt(event.target.value) , active);
 
+
+    const popunder = {
+        backgroundColor:"black",
+        opacity: 0.75
+    }
+
     return (
         <Transition appear show={props.show} as={Fragment}>
             <Dialog
                 as="div"
-                className="fixed inset-0 z-10 overflow-y-auto h-screen bg-popunder"
+                className="fixed inset-0 z-10 overflow-y-auto h-screen"
+                style={popunder}
                 onClose={props.closeModal}>
 
                 <div className="min-h-screen px-4 text-center">
