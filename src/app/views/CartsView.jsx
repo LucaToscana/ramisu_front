@@ -7,7 +7,8 @@ import { useDispatch } from "react-redux";
 import { isAuthenticated } from '../shared/services/accountServices';
 import { URL_LOGIN } from '../shared/constants/urls/urlConstants'
 import { CheckIcon, ShoppingCartIcon, XIcon, } from '@heroicons/react/solid';
-import empty from "../assets/images/cartempty.png"
+import empty from "../assets/images/cartEmpty.png"
+
 const CartsView = () => {
     const carts = useSelector(selectCart)
 
@@ -132,9 +133,12 @@ const CartsView = () => {
 
 
             </div>:
-            <>
-          <p> Le Panier est vide</p> 
-            <img src={empty}></img></>}
+        <div className='border-2 w-full flex flex-col md:h-[400px]'>
+          <span className='mt-8 text-4xl text-center text-[#282C34]'> Le Panier est vide</span> 
+            <div className='border-2  w-32 mx-auto mt-10'>
+                <img src={empty}></img>
+            </div>
+        </div>}
         </div>
     );
 };
