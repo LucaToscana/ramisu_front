@@ -25,6 +25,7 @@ const LoginView = ({ history }) => {
 
 
     const handleLogin = async(values) => {
+        setMessage(null);
  
             await recaptchaRef.current.executeAsync().then(token=>{
                 authenticate(values).then(res => {
@@ -47,8 +48,6 @@ const LoginView = ({ history }) => {
                     }else{
                         setErrorLog(true)
               
-                        setMessage("res.data.errorMessage")
-                   
                         if(res.data.errorMessage)
                         {
                             setErrorLog(false);
