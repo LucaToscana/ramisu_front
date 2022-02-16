@@ -19,16 +19,14 @@ import ProductRelated from "./components-page-product/ProductRelated";
  */
 const ProductDetails = ({ label, price, description, picture, stock, id, cart, cartQuantity, productRelated }) => {
     const [quantity, setQuantityNew] = useState()
-    var product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": quantity, "picture": picture }
+    const product = { "id": id, "label": label, "price": price, "stock": stock, "quantite": quantity, "picture": picture }
     const dispatch = useDispatch();
     const carts = useSelector(selectCart)
+    var getQuantity = () => { if (cartQuantity !== undefined) { return cartQuantity } else { return "0" } }
     const [errorQty, setErrorQty] = useState("")
-    const { isShowing: isFormShowed, toggle: toggleForm } = useModal();
+    const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
     const [modalQty, setModalQty] = useState(0)
     const [isEnable, setEnabled] = useState(false);
-    const [isEnable2, setEnabled2] = useState(false);
-    const [customQuantity, setCustomQuantity] = useState(1)
-
     const [inputField, setInputField] = useState(undefined);
     const styleShowBtn = ' mt-2';
     const styleHideBtn = ' hidden';
@@ -71,22 +69,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
     }
 
-    const toggle2 = (target) => {
 
-
-        if (inputField == undefined) setInputField(target.parentNode.parentNode.childNodes[1].firstChild);// input Field
-        setEnabled2(!isEnable2);
-
-    }
-
-    const cancelHandler2 = (event) => {
-
-        toggle2(event.currentTarget)
-        setCustomQuantity(1)
-        setErrorQty('')
-
-
-    }
 
 
     const handleChange = event => {
@@ -146,49 +129,48 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                             <p className='font-bold flex items-center text-2xl mt-10'>En Stock({stock})
                                 {stock > 0 ? <CheckIcon className='ml-2 w-6 h-6 iconTrue' /> : <XIcon className='ml-2 w-6 h-6 iconNone' />}</p>
                         </div>
-                        <div className="mb-8">
-                            <div className='font-bold flex items-center text-2xl mt-10 w-full'>Dans le panier
-                                <div className="grid grid-cols-2 p-2">
-                                    <div className="grid grid-cols-2">
+
+                        <div>
+
+                            <div className="grid grid-cols-2 p-2">
 
 
 
-                                        <div className="ml-8 grid  grid-cols-2">
 
-                                            <div>
-                                                <input type="number"
-                                                    disabled={!isEnable}
-                                                    step={1}
-                                                    id="myNumberInput"
-                                                    min={0} max={stock}
-                                                    defaultValue={cart !== null ? cartQuantity : 0}
-                                                    className="w-14 mr-1 md:w-20"
-                                                    onInput={(event) => {
-                                                        handleChange(event.target)
-                                                    }}
-
-                                                /></div>
-
-                                            <div className="pl-4 ml-8">
-
-
-                                                <button
-                                                    onClick={(event) => toggle(event.currentTarget)}
-                                                    type='button'
-                                                    className={!isEnable ? styleShowBtn : styleHideBtn}  >
-                                                    <PencilIcon className="h-6 w-6" />
-                                                </button>
-                                                <button type='button'
-                                                    onClick={cancelHandler}
-                                                    className={isEnable ? styleShowBtn : styleHideBtn}  >
-
-                                                    <XCircleIcon className="h-6 w-6" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div><div className=" mr-5">
+                                <div className="grid grid-cols-2">
+                                    <div className=" mr-5">
                                         {!isEnable ?
-                                            null : <div className="col-start-3 col-span-1 ">
+                                            <div className="h-12 w-24 flex justify-center inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer"
+                                                onClick={() => {
+                                                    var tot = +document.getElementById("myNumberInput").value + 0
+
+
+                                                    if (isNaN(tot)) {
+                                                        tot = 1
+                                                        dispatch(setQuantity([product, +tot + 0]))
+                                                    }
+                                                    if (tot === 0) {
+                                                        tot = 1
+                                                        dispatch(setQuantity([product, +tot + 0]))
+
+                                                    }
+
+                                                    if (+tot + 1 !== 0) {
+
+                                                        if (tot < stock)
+                                                            tot = + document.getElementById("myNumberInput").value + 1
+
+                                                        dispatch(setQuantity([product, +tot]))
+                                                    }
+
+                                                    toggleAddressForm()
+                                                    setModalQty(+tot)
+                                                    document.getElementById("myNumberInput").value = +tot
+
+                                                }
+                                                }>
+                                                +1 <ShoppingCartIcon className="w-8 h-8" />
+                                            </div> : <div className="col-start-3 col-span-1 ">
                                                 {errorQty === "" && isEnable ? <div className="h-12 w-24 flex justify-center  inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" onClick={() => {
                                                     var tot = document.getElementById("myNumberInput").value
 
@@ -198,49 +180,15 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                                     } else {
                                                         if (+tot !== 0) { dispatch(setQuantity([product, +tot])) }
                                                         else { dispatch(remove(product)) }
-                                                        toggleForm()
+                                                        toggleAddressForm()
                                                         setModalQty(tot)
                                                         toggle(event.currentTarget)
                                                     }
                                                 }
                                                 }>
-                                                    Modifer <ShoppingCartIcon className="w-8 h-8" />
+                                                    Ajouter <ShoppingCartIcon className="w-8 h-8" />
                                                 </div> : errorQty
                                                 }
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div>
-                            {/*second input*/}
-                            <div className="grid grid-cols-2 p-2">
-
-
-                                <div className="grid grid-cols-2">
-                                    <div className=" mr-5">
-                                        {
-                                            <div className="h-12 w-24 flex justify-center inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer"
-                                                onClick={() => {
-
-                                                    var tot = +document.getElementById("myNumberInput").value + 0
-
-
-                                                    tot = tot * 1 + customQuantity
-                                                    dispatch(setQuantity([{ "id": id, "label": label, "price": price, "stock": stock, "quantite": tot, "picture": picture }, tot]))
-
-                                                    toggleForm()
-                                                    setModalQty(+tot)
-                                                    document.getElementById("myNumberInput").value = +tot
-
-
-
-                                                }
-                                                }>
-                                                + <ShoppingCartIcon className="w-8 h-8" />
-
                                             </div>
                                         }
                                     </div>
@@ -250,21 +198,14 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
                                         <div>
                                             <input type="number"
-                                                disabled={!isEnable2}
+                                                disabled={!isEnable}
                                                 step={1}
-                                                id="myNumberInput2"
-                                                min={1}
-                                                value={customQuantity}
+                                                id="myNumberInput"
+                                                min={0} max={stock}
+                                                defaultValue={cart !== null ? cartQuantity : 0}
                                                 className="w-14 mr-1 md:w-20"
-                                                onChange={(event) => {
-                                                    var cq = 0
-                                                    if (cart !== null) { cq = cartQuantity }
-                                                    var q = event.target.value * 1
-                                                    if ((q + cq) <= stock) {
-                                                        setCustomQuantity(+(q))
-                                                        setErrorQty('Quantité non disponible en stock(' + stock + "max)")
-
-                                                    }
+                                                onInput={(event) => {
+                                                    handleChange(event.target)
                                                 }}
 
                                             /></div>
@@ -273,14 +214,14 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
 
                                             <button
-                                                onClick={(event) => toggle2(event.currentTarget)}
+                                                onClick={(event) => toggle(event.currentTarget)}
                                                 type='button'
-                                                className={!isEnable2 ? styleShowBtn : styleHideBtn}  >
+                                                className={!isEnable ? styleShowBtn : styleHideBtn}  >
                                                 <PencilIcon className="h-6 w-6" />
                                             </button>
                                             <button type='button'
-                                                onClick={cancelHandler2}
-                                                className={isEnable2 ? styleShowBtn : styleHideBtn}  >
+                                                onClick={cancelHandler}
+                                                className={isEnable ? styleShowBtn : styleHideBtn}  >
 
                                                 <XCircleIcon className="h-6 w-6" />
                                             </button>
@@ -289,14 +230,14 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                 </div>
                             </div>
 
-
+                    
                         </div>
                     </div>
 
                 </div>
                 <ModalAddToCart
-                    isShowing={isFormShowed}
-                    hide={toggleForm}
+                    isShowing={isAddressFormShowed}
+                    hide={toggleAddressForm}
                     cart={product}
                     qty={modalQty}
                 >
@@ -305,18 +246,18 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
                 <div className="flex justify-around">
 
-                    <div className=" flex flex-wrap w-96  md:grid grid-cols-6 justify-between w-full  lg:w-full  ">
-                        {productRelated.map((element, index) => <>
-                            {
-                                index < 6 ?
-                                    <ProductRelated product={element} /> : null
-                            }</>
+                <div className=" flex flex-wrap w-96  md:grid grid-cols-6 justify-between w-full  lg:w-full  ">
+                                {productRelated.map((element, index) => <>
+                                    {
+                                        index <6   ?
+                                            <ProductRelated product={element} /> : null
+                                    }</>
 
 
 
-                        )}
+                                )}
 
-                    </div></div>
+                            </div></div>
             </div>
         </>
     );

@@ -61,8 +61,8 @@ const PaiementPayerView = () => {
 
                     <div className='flex justify-end self-end m-2 text-sm	'>
                         {<div className='flex justify-center m-5'>
-                            <ButtonStripe amountO={(subTotal * 1.2) < 25 ? (subTotal * 1.2) + 10
-                                : (subTotal * 1.2)}></ButtonStripe>                    </div>
+                            <ButtonStripe amountO={(subTotal * 1.2) < 25 ? ((subTotal * 1.2) + 10).toFixed(2)
+                                : (subTotal * 1.2).toFixed(2)}></ButtonStripe>                    </div>
 
                         }
 

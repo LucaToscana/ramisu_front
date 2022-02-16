@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { productDetail, productSearchCriteria,productDetailWithListRelated } from "../api/backend/product";
+import { productDetail, productSearchCriteria, productDetailWithListRelated } from "../api/backend/product";
 import ProductDetails from "../components/product/ProductDetails"
 import { useParams } from "react-router-dom";
 import { selectCart } from '../shared/redux-store/cartSlice';
@@ -9,18 +9,18 @@ import { initFilter, selectProductFilter, setCurrentPageFilter, setTotal, univer
 
 
 const ProductDetailView = () => {
-    const dispatch =useDispatch()
+    const dispatch = useDispatch()
     const [product, setProduct] = useState([])
     const id = useParams().id
     const [cart, setCart] = useState({})
     const carts = useSelector(selectCart)
     const [cartQuantity, setCartQuantity] = useState()
-    const [productRelated,setProductRelated]=useState( [] )
+    const [productRelated, setProductRelated] = useState([])
 
     useEffect(() => {
 
 
-        
+
         productDetailWithListRelated(id).then(res => {
             setProduct(res.data.content)
             setProductRelated(res.data.relatedContent)
@@ -34,7 +34,7 @@ const ProductDetailView = () => {
             else { setCart(null) }
 
 
-     
+
 
         }
 
