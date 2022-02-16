@@ -1,4 +1,5 @@
 import apiBackEnd from "./api.BackendWithToken";
+import apiBackEndNoToken from "./api.Backend";
 import {URL_BACK_PROFILE, URL_BACK_UPLOAD_PICTURE, URL_BACK_REMOVE_PICTURE , URL_BACK_CONTACT_US} from "../../shared/constants/urls/urlBackEnd";
 
 export function getProfile() {
@@ -27,7 +28,7 @@ export function removePicture()
 
 export function contactUs(values)
 {
-    return apiBackEnd.post(URL_BACK_CONTACT_US , values);
+    return apiBackEndNoToken.post(URL_BACK_CONTACT_US , values);
 }
 
 import {    
