@@ -25,7 +25,7 @@ const LoginView = ({ history }) => {
 
 
     const handleLogin = async(values) => {
-        if(countError>3){    
+        if(countError>2){    
         
         
             const captchaToken = await recaptchaRef.current.executeAsync();

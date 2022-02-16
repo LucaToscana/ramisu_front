@@ -15,21 +15,23 @@ const PaiementLivraisonView = () => {
     const carts = useSelector(selectCart)
 
     useEffect(() => {
-        if(            localStorage.getItem("myAddress") ===null    ){
-        getProfile().then(res => {
-            localStorage.setItem("idAddress", res.data.idaddress)
-            dispatch(setLivraison({
-                number: res.data.number,
-                street: res.data.street,
-                additionalAddress: res.data.additionalAddress,
-                postalCode: res.data.postalCode,
-                city: res.data.city,
-                country: res.data.country,
-                isMain: false            }))
+        if (localStorage.getItem("myAddress") === null) {
+            getProfile().then(res => {
+                localStorage.setItem("idAddress", res.data.idaddress)
+                dispatch(setLivraison({
+                    number: res.data.number,
+                    street: res.data.street,
+                    additionalAddress: res.data.additionalAddress,
+                    postalCode: res.data.postalCode,
+                    city: res.data.city,
+                    country: res.data.country,
+                    isMain: false
+                }))
 
 
-        })
-    }}, [])
+            })
+        }
+    }, [])
 
     const dispatch = useDispatch();
 
@@ -120,15 +122,17 @@ const PaiementLivraisonView = () => {
                 </div>
                 <div className='flex  border-b-2 border-gray-400   cartCard '>
 
-                    <div class="grid grid-cols-3 gap-2 w-full p-3 	">
+                    <div class="grid grid-cols-4 gap-2 w-full p-3 	">
                         <div className='w-full'>  <h1 className='font-bold text-1xl '> Article:</h1></div>
-                        <div className='w-full text-center'>  <h1 className='font-bold text-1xl '> prix</h1></div>
+                        <div className='w-full text-center'>  <h1 className='font-bold text-1xl '> Prix HT €</h1></div>
+                        <div className='w-full text-center'>  <h1 className='font-bold text-1xl '> Prix TTC €</h1></div>
 
-                        <div className='w-full text-center'>  <h1 className=' font-bold text-1xl '> quantite</h1></div>
+                        <div className='w-full text-center'>  <h1 className=' font-bold text-1xl '> Quantite</h1></div>
 
                         {carts.map(cart => <>
                             <div className='w-full'><p className='text-sm '> {cart.label}</p></div>
-                            <div className='w-full text-center'><p className='text-sm '> {cart.price}</p></div>
+                            <div className='w-full text-center'><p className='text-sm '> {(cart.price*1).toFixed(2)}</p></div>
+                            <div className='w-full text-center'><p className='text-sm '> {(cart.price * 1 * 1.2).toFixed(2)}</p></div>
 
                             <div className='w-full text-center'><p className='text-sm '> {cart.quantite}</p></div></>)}
                     </div>
@@ -142,24 +146,20 @@ const PaiementLivraisonView = () => {
 
                 <div className='  border-b-2 border-gray-400   cartCard '>
 
-
                     <div class="grid grid-cols-3 gap-2 w-full p-3 	">
-                        <div className='w-full'><p className='text-sm '> Sous-total</p></div>
+                        <div className='w-full'><p className='text-sm '> Sous-total HT </p></div>
                         <div className='w-full text-center'><p className='text-sm '> </p></div>
-                        <div className='w-full text-center'><p className='text-sm '> {subTotal * 1.2}</p></div>
+                        <div className='w-full text-center'><p className='text-sm '> {(subTotal * 1).toFixed(2)}€</p></div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 w-full p-3 	">
+                        <div className='w-full'><p className='text-sm '> Tot TVA </p></div>
+                        <div className='w-full text-center'><p className='text-sm '> </p></div>
+                        <div className='w-full text-center'><p className='text-sm '> {(subTotal * 0.2).toFixed(2)}€</p></div>
                     </div>
                     <div class="grid grid-cols-3 gap-2 w-full p-3 	">
                         <div className='w-full'><p className='text-sm '> Livraison</p></div>
                         <div className='w-full text-center'><p className='text-sm '> </p></div>
-                        {(subTotal * 1.2) < 25 ? <div className='w-full text-center'><p className='text-sm '> 10 €
-                        </p>
-
-
-
-
-
-
-                        </div>
+                        {(subTotal * 1.2) < 25 ? <div className='w-full text-center'><p className='text-sm '> 10 €</p></div>
                             : <div className='w-full text-center'><p className='text-sm '> gratuit</p></div>}
                     </div>
                     <div className='flex border-b-2 border-gray-400 p-4 mr-5 ml-5 mt-1 mb-1'>
@@ -169,8 +169,8 @@ const PaiementLivraisonView = () => {
                         <div className='w-full'><h1 className='flex items-end font-bold text-1xl'>
                             Total (TVA incluse)</h1></div>
                         <div className='w-full text-center'><p className='text-sm font-bold  '> </p></div>
-                        {(subTotal * 1.2) < 25 ? <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2) + 10}€</p></div>
-                            : <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2)}€</p></div>}                    </div>
+                        {(subTotal * 1.2) < 25 ? <div className='w-full text-center'><p className='text-sm font-bold '> {((subTotal * 1.2) + 10).toFixed(2)}€</p></div>
+                            : <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2).toFixed(2)}€</p></div>}                    </div>
 
 
                     <div className=''>   {localStorage.getItem('myAddress') !== null ? <div className='flex justify-end	 w-full p-5	'><ButtonToPayer></ButtonToPayer></div>

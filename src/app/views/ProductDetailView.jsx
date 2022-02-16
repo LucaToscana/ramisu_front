@@ -6,10 +6,7 @@ import { selectCart } from '../shared/redux-store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { initFilter, selectProductFilter, setCurrentPageFilter, setTotal, universeFilter } from '../shared/redux-store/filterProductSlice';
 
-/**
- * recovers the product in databas with the id
- * @author Brahim TALLA
- */
+
 
 const ProductDetailView = () => {
     const dispatch =useDispatch()
@@ -27,12 +24,12 @@ const ProductDetailView = () => {
         productDetailWithListRelated(id).then(res => {
             setProduct(res.data.content)
             setProductRelated(res.data.relatedContent)
-            var cartFind = carts.find(x => x.id === res.data.id)
+
+            var cartFind = carts.find(x => x.id === res.data.content.id)
 
             if (cartFind !== undefined) {
                 setCart(cartFind)
                 setCartQuantity(cartFind.quantite)
-
             }
             else { setCart(null) }
 
