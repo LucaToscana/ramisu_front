@@ -78,7 +78,7 @@ const Routes = () => {
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             <Route path={URL_CART} component={CartsView} />
             <Route path={URL_REGISTRATION} component={RegisterView} />
-            <PrivateRoute path={URL_CONTACT_US} roles={[ROLE_USER]}  component={ContactView} />
+            <Route path={URL_CONTACT_US} roles={[ROLE_USER]}  component={ContactView} />
             <PrivateRoute path={URL_PAIEMENT}  roles={[ROLE_USER]}    component={PaiementLivraisonView}/>
             <PrivateRoute path={URL_PAIEMENT_2}roles={[ROLE_USER]}  component={PaiementPayerView}/>
             <Route path="*">

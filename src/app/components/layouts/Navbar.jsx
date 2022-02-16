@@ -125,7 +125,7 @@ const Navbar = () => {
                                     notifications, connection / registration link, profile menu burger 
                                 */}
                                 <ConnectionStatusButtons />
-                                <div class="cart-wrapper">
+                                <div className="cart-wrapper">
                                     <Link
                                         to="/panier"
                                     >

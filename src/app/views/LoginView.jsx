@@ -14,7 +14,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
  * @author Peter Mollet
  */
 const LoginView = ({ history }) => {
-    const [countError, setCountError] = useState(0)
+
     const recaptchaRef = useRef(null)
     const recaptcha = import.meta.env.VITE_REACT_RECAPTCHA
     const [errorLog, setErrorLog] = useState(false)
@@ -25,17 +25,11 @@ const LoginView = ({ history }) => {
 
 
     const handleLogin = async(values) => {
-        if(countError>2){    
-        
-        
-            const captchaToken = await recaptchaRef.current.executeAsync();
-            recaptchaRef.current.reset();
-        
-        }
-        
-        
-        
+        setMessage(null);
+ 
+            await recaptchaRef.current.executeAsync().then(token=>{
                 authenticate(values).then(res => {
+                    
                     if (res.status === 200 && res.data.token) {
                         dispatch(signIn(res.data.token))
         
@@ -44,9 +38,7 @@ const LoginView = ({ history }) => {
         
                             if (localStorage.getItem("testLoginPanier") !== null) {
                                 history.push(URL_PAIEMENT)
-                                localStorage.removeItem("testLoginPanier")
-        
-        
+                                localStorage.removeItem("testLoginPanier");
                             }
                             else {
                                 history.push(URL_HOME)
@@ -55,75 +47,34 @@ const LoginView = ({ history }) => {
                         }
                     }else{
                         setErrorLog(true)
-                        setCountError(countError+1)}
+              
+                        if(res.data.errorMessage)
+                        {
+                            setErrorLog(false);
+                            setMessage(res.data.errorMessage)
+                        }
+                    
+                    }
                 }) .catch((error) =>{ 
                     setErrorLog(true);
                     // debugger
-                    if(error.response.data.message)
-                    {
-                        // debugger
-                        setErrorLog(false);
-                        setMessage(error.response.data.message)
-                    }})
+                  })
+            })
+            recaptchaRef.current.reset();
             }
         
-/*
-    const handleLogin = async(values) => {
-if(countError>3){    
-
-
-    const captchaToken = await recaptchaRef.current.executeAsync();
-    recaptchaRef.current.reset();
-
-}
-
-
-
-        authenticate(values).then(res => {
-            // debugger
-            setMessage(null)
-            if (res.status === 200 && res.data.token) {
-                dispatch(signIn(res.data.token))
-
-
-                if (isAuthenticated) {
-
-                    if (localStorage.getItem("testLoginPanier") !== null) {
-                        history.push(URL_PAIEMENT)
-                        localStorage.removeItem("testLoginPanier")
-                    }
-                    else {
-                        history.push(URL_HOME)
-                    }
-
-                }
-            }else{
-                setErrorLog(true)
-                setCountError(countError+1)}
-        })
-        .catch((error) =>{ 
-            setErrorLog(true);
-            // debugger
-            if(error.response.data.message)
-            {
-                // debugger
-                setErrorLog(false);
-                setMessage(error.response.data.message)
-            }
-        })
-    }*/
 
     return (
         <div className=''>
             <div className="md:flex md:justify-center">
                 <ReCAPTCHA
-                sitekey={recaptcha}
-                ref={recaptchaRef}
-                size="invisible"
-
-
-            />
-                <Login submit={handleLogin} errorLog={errorLog} msg={message} />
+                            sitekey={recaptcha}
+                            ref={recaptchaRef}
+                            size="invisible" />
+                <Login 
+                            submit={handleLogin} 
+                            errorLog={errorLog} 
+                            msg={message} />
             </div>
         </div>
 

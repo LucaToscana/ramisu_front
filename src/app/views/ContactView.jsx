@@ -1,41 +1,48 @@
 
-import React, { useState } from 'react'
-import { Formik, Form, Field } from 'formik';
+import React, { useState, useRef } from 'react'
+import { Formik } from 'formik';
 import * as Yup from 'yup'
-import { useEffect } from 'react';
 import { contactUs } from '../api/backend/user';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+
 const ContactView = ()=>
 {
-
-    const initObj = {subject:'', message:''};
+    const initObj = {email:'', message:''};
     const validator = Yup.object().shape({
-                        subject:  Yup.string().required("Required input"),
-                        message: Yup.string().required("Veuillez saisir votre message").min(5, "Doit contenir au moins 5 caractères").max(1024, "Doit contenir maximum de 1024 charactères")
-                    });
+                                            email   :   Yup.string().email("L'email n'est pas valide"),
+                                            message :   Yup.string()
+                                                            .required("Veuillez saisir votre message")
+                                                            .min(5, "Doit contenir au moins 5 caractères")
+                                                            .max(1024, "Doit contenir maximum de 1024 charactères")
+                                        });
 
     const [msgLen , setMgsLen] = useState(0);
-    const [status , setStatus] = useState(0);
+    const [status , setStatus] = useState(false);// initial false /  sended true
     const [feedback , setFeedback] = useState("");
 
+    const recaptchaRef = useRef(null)
+    const recaptcha = import.meta.env.VITE_REACT_RECAPTCHA
 
-        useEffect(()=>{
-            document.getElementById("selector").selectedIndex = 0;
-        },[]);
-
-
-
-    const submitHandler = (values)=>
+    const submitHandler = async (values)=>
     {
-        setStatus(true);
-        setFeedback("Envoi de votre message");
-        contactUs(values).then(res=>{
-            setFeedback("Merci pour vote message, nous vous reponderons très prochainement.");
-            // console.log("response" , res);
-        });
-        
+         await recaptchaRef.current.executeAsync().then(token=>{
+            values.captchaToken = token;
+            setStatus(true);
+            setFeedback("Envoi de votre message");
+            contactUs(values).then(res=>setFeedback("Merci pour vote message, nous vous reponderons très prochainement."));
+         });
     }
 
+   
+
     return (<div className='bg-white'>
+
+            <ReCAPTCHA
+                sitekey={recaptcha}
+                ref={recaptchaRef}
+                size="invisible"  />
+
                 <h2 className='text-center mt-5 p-5'>Nous contacter</h2>
                 {status ? (<h2 className="text-center">{feedback}</h2>) : ( 
                 <Formik
@@ -44,22 +51,11 @@ const ContactView = ()=>
                     onSubmit={submitHandler}>
                           {({ values, handleSubmit ,  handleChange, errors }) => (
                         <form className='md:w-1/2 m-8 flex flex-col p-10 bg-white  items-center md:border-2 md:shadow-2xl m-auto' > 
-                            <div className='w-full'>
-                                <label>Sujet</label>
-                            </div>
-                                <select id="selector" name="subject" className='rounded w-full' value={values.subject}   onChange={handleChange}>
-                                    <option value="default">Choisir un sujet</option>
-                                    <option value="askuser">Une question à propos de votre compte utilisateur</option>
-                                    <option value="askcomm">Une question d'ordre commercial</option>
-                                    <option value="askadm">Vous avez constaté un bug sur le site</option>
-                                </select>
-                                {errors.subject!=undefined &&
-                                    <div className="text-red-900">
-                                            {errors.subject}
-                                    </div>
-                                    }
+                          
+                                
+                          
                                 <div className='w-full mt-5'>
-                                <label>Votre message</label>
+                                <label className='italic'>Votre message</label>
                                 {errors.message!=undefined &&
                                     <div className="text-red-900">
                                             {errors.message}
@@ -68,15 +64,29 @@ const ContactView = ()=>
                             </div>
                                 <textarea   value={values.message} 
                                             name="message" 
-                                            placeholder="Write something.." 
+                                            placeholder="Saisir ici votre message.." 
                                             className='h-[200px] mt-1 rounded w-full' 
                                             onChange={e=>{
                                                     handleChange(e);
-                                                    console.log(e.currentTarget.value.length);
                                                     setMgsLen(e.currentTarget.value.length);
                                                 }
                                             }></textarea>
                                 {msgLen>5 && (<span className='text-sm text-gray-600 text-center'>{msgLen}  / 1024<br/>caractères maximum</span>)}
+                                <div className='w-full'>
+                                <label className='italic'>Votre Adress Email</label>
+                                        <input type="email" name="email" placeholder='Votre Email' className='w-full' required   onChange={e=>{
+                                                    handleChange(e)}}
+                                                    onKeyDown={(event)=>{
+                                                        if (event.key =="Enter"){
+                                                            event.preventDefault();
+                                                            submitHandler(values)}
+                                                    }} />
+                                        {errors.email!=undefined &&
+                                    <div className="text-red-900 w-full">
+                                            {errors.email}
+                                    </div>
+                                    }
+                                 </div>  
                                 <div className='w-full flex justify-end'>
                                 <input  type="button" 
                                         onClick={handleSubmit} 
