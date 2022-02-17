@@ -54,111 +54,122 @@ const Navbar = () => {
         <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
             {({ open }) => (
                 <>
-                    <div className="max-w-7xl mx-auto px-4 lg:px-6 pt-2 ">
+                    <div className='lg:flex items-center'>
+                        <div className='lg:block hidden h-auto'>
+                            {/* Website logo */}
+                            <div className="h-full">
+                                <img
+                                    className='w-full max-h-24'
+                                    src={logo}
+                                    alt="Warhammer shop logo"
+                                />
+                            </div>
+                        </div>
 
-                        {/* Search bar */}
-                        {// <form action="/search" className="flex flex-wrap lg:flex-row" >
-                        }<div className='flex flex-wrap lg:flex-row'>
-                            <h1 className='text-xl md:text-4xl text-white flex items-center w-full md:w-1/2 justify-center'>WarMarket</h1>
-                            <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
-                                className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/2 xl:transition-all 
-                            xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
-                            dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"
-                            /></div>
-                        {  // </form>
-                        }
-                        <div className="relative flex items-center justify-between h-16">
-                            <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
+                        <div className='text-center items-center justify-center'>
 
-                                {/* Mobile menu button*/}
-                                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                                    <span className="sr-only">Ouvrir menu</span>
-                                    {open ? (
-                                        <XIcon className="block h-6 w-6" aria-hidden="true" />
-                                    ) : (
-                                        <MenuIcon className="block h-6 w-6" aria-hidden="true" />
-                                    )}
-                                </Disclosure.Button>
+                            <div className="max-w-7xl px-4 pt-2">
 
+                                {/* Search bar */}
+                                {// <form action="/search" className="flex flex-wrap lg:flex-row" >
+                                }<div className='flex flex-wrap lg:flex-row'>
+                                    {/* <h1 className='text-xl md:text-4xl text-white flex items-center w-full md:w-1/2 justify-center'>WarMarket</h1> */}
+                                    <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
+                                        className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/6 xl:transition-all 
+                                    xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
+                                    dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"
+                                    /></div>
+                                {  // </form>
+                                }
+                                <div className="relative flex items-center justify-between h-16">
+                                    <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
+
+                                        {/* Mobile menu button*/}
+                                        <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                                            <span className="sr-only">Ouvrir menu</span>
+                                            {open ? (
+                                                <XIcon className="block h-6 w-6" aria-hidden="true" />
+                                            ) : (
+                                                <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                                            )}
+                                        </Disclosure.Button>
+
+                                    </div>
+
+                                    <div className="flex-1 flex items-center lg:items-stretch mr-3">
+
+                                        {/* Website logo */}
+                                        <div className="block lg:hidden h-16 min-w-max mx-auto">
+                                            <img
+                                                className="h-full w-auto"
+                                                src={logo}
+                                                alt="Warhammer shop logo"
+                                            />
+                                        </div>
+
+                                        {/* Link to other parts of website */}
+                                        <div className="hidden lg:block my-auto w-full">
+                                            <div className="flex justify-between">
+                                                {navigation.map((item) => (
+                                                    <Link
+                                                        key={item.name}
+                                                        to={item.to}
+                                                        className={classNames(
+                                                            item.to == location.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                            'px-3 py-2 rounded-lg text-lg font-medium'
+                                                        )}
+                                                        aria-current={item.to == location.pathname ? 'page' : undefined}
+                                                    >
+                                                        {item.name}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Right part of navbar - widgets */}
+                                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 lg:static lg:inset-auto lg:ml-6 lg:pr-0">
+
+                                        {/* Display depending if the user is connected or not :
+                                            notifications, connection / registration link, profile menu burger 
+                                        */}
+                                        <ConnectionStatusButtons />
+                                        <div className="cart-wrapper">
+                                            <Link
+                                                to="/panier"
+                                            >
+                                                <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                            {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                            </Link>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
 
-                            <div className="flex-1 flex items-center justify-center lg:items-stretch lg:justify-start">
-
-                                {/* Website logo */}
-                                <div className="flex-shrink-0 flex items-center">
-                                    <img
-                                        className="block lg:hidden h-8 w-auto"
-                                        src={logo}
-                                        alt="Warhammer shop logo"
-                                    />
-                                    <img
-                                        className="hidden lg:block h-8 w-auto"
-                                        src={logo}
-                                        alt="Warhammer shop logo"
-                                    />
-                                </div>
-
-                                {/* Link to other parts of website */}
-                                <div className="hidden lg:block lg:ml-6">
-                                    <div className="flex space-x-4">
-                                        {navigation.map((item) => (
+                            <Disclosure.Panel className="lg:hidden">
+                                <div className="px-2 pt-2 pb-3 space-y-1">
+                                    {navigation.map((item) => (
+                                        <Disclosure.Button
+                                            key={item.name}
+                                            className={classNames(
+                                                item.to == location.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                'block px-3 py-2 rounded-lg text-base font-medium'
+                                            )}
+                                        >
                                             <Link
                                                 key={item.name}
                                                 to={item.to}
-                                                className={classNames(
-                                                    item.to == location.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                                    'px-3 py-2 rounded-lg text-lg font-medium'
-                                                )}
-                                                aria-current={item.to == location.pathname ? 'page' : undefined}
                                             >
                                                 {item.name}
                                             </Link>
-                                        ))}
-                                    </div>
+
+                                        </Disclosure.Button>
+                                    ))}
                                 </div>
-                            </div>
-
-                            {/* Right part of navbar - widgets */}
-                            <div className="absolute inset-y-0 right-0 flex items-center pr-2 lg:static lg:inset-auto lg:ml-6 lg:pr-0">
-
-                                {/* Display depending if the user is connected or not :
-                                    notifications, connection / registration link, profile menu burger 
-                                */}
-                                <ConnectionStatusButtons />
-                                <div className="cart-wrapper">
-                                    <Link
-                                        to="/panier"
-                                    >
-                                        <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
-                                     {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
-                                    </Link>
-                                </div>
-                            </div>
-
+                            </Disclosure.Panel>
                         </div>
                     </div>
-
-                    <Disclosure.Panel className="lg:hidden">
-                        <div className="px-2 pt-2 pb-3 space-y-1">
-                            {navigation.map((item) => (
-                                <Disclosure.Button
-                                    key={item.name}
-                                    className={classNames(
-                                        item.to == location.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                        'block px-3 py-2 rounded-lg text-base font-medium'
-                                    )}
-                                >
-                                    <Link
-                                        key={item.name}
-                                        to={item.to}
-                                    >
-                                        {item.name}
-                                    </Link>
-
-                                </Disclosure.Button>
-                            ))}
-                        </div>
-                    </Disclosure.Panel>
                 </>
             )}
         </Disclosure>
@@ -266,9 +277,9 @@ const ConnectionStatusButtons = () => {
 
         /* Displayed buttons if the user is not connected */
         return (
-            <div>
+            <div className='w-full'>
                 <div className="hidden lg:block lg:ml-6">
-                    <div className="flex space-x-4">
+                    <div className="flex justify-between">
                         <Link
                             to={URL_REGISTRATION}
                             className='text-gray-300 hover:bg-gray-700 hover:text-white
@@ -279,7 +290,7 @@ const ConnectionStatusButtons = () => {
                         <Link
                             to={URL_LOGIN}
                             className='text-gray-300 hover:bg-gray-700 hover:text-white
-                            px-3 py-2 rounded-lg text-lg font-medium'>
+                            px-3 py-2 rounded-lg text-lg font-medium whitespace-nowrap'>
                             Se connecter
                         </Link>
                     </div>
