@@ -66,7 +66,7 @@ const Navbar = () => {
                             </div>
                         </div>
 
-                        <div className='text-center items-center justify-center'>
+                        <div className='text-center items-center justify-center mx-auto'>
 
                             <div className="max-w-7xl px-4 pt-2">
 
@@ -75,7 +75,7 @@ const Navbar = () => {
                                 }<div className='flex flex-wrap lg:flex-row'>
                                     {/* <h1 className='text-xl md:text-4xl text-white flex items-center w-full md:w-1/2 justify-center'>WarMarket</h1> */}
                                     <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
-                                        className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/6 xl:transition-all 
+                                        className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg xl:transition-all 
                                     xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
                                     dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"
                                     /></div>
@@ -109,7 +109,7 @@ const Navbar = () => {
 
                                         {/* Link to other parts of website */}
                                         <div className="hidden lg:block my-auto w-full">
-                                            <div className="flex justify-between">
+                                            <div className="flex justify-between xl:space-x-4">
                                                 {navigation.map((item) => (
                                                     <Link
                                                         key={item.name}
