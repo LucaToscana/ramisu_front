@@ -16,8 +16,12 @@ const SideBarFilters = ({ filters, handleFilters }) => {
     const [tags, setTags] = useState([]);
 
     const handelPriceRande = (values) => {
-        dispatch(setPriceRange(values))
+        
+        if (+values.min <= +values.max) {
 
+            dispatch(setPriceRange(values))
+
+        }
     }
 
     // Allows to recover data in back
@@ -75,12 +79,12 @@ const SideBarFilters = ({ filters, handleFilters }) => {
             <SelectFilter title="Univers">
                 {listUniverses}
             </SelectFilter>
-            {window.location.pathname!==URL_PRODUCT_PEINTURES  &&
-            window.location.pathname!==URL_PRODUCT_FIGURINES &&
-            window.location.pathname!==URL_PRODUCT_LIBRAIRIE
-            ?      <SelectFilter title="Catégories">
-                {listCategories}
-            </SelectFilter>:null}
+            {window.location.pathname !== URL_PRODUCT_PEINTURES &&
+                window.location.pathname !== URL_PRODUCT_FIGURINES &&
+                window.location.pathname !== URL_PRODUCT_LIBRAIRIE
+                ? <SelectFilter title="Catégories">
+                    {listCategories}
+                </SelectFilter> : <div className='w-48'></div>}
             <SelectFilter title="Tags">
                 {listTags}
             </SelectFilter>

@@ -10,11 +10,6 @@ import { useSelector } from 'react-redux';
 
 
 
-/**
- * Creation of productView for the listing of products + pagination + filter
- * 
- * @author Jeremy Dejonghe
- */
 const ProductView = () => {
     const dispatch = useDispatch()
 
@@ -128,15 +123,16 @@ const ProductView = () => {
             </div>
 
             <div className="lg:flex">
-                <div className="hidden lg:flex lg:flex-col w-1/2 filter lg:m-5">
+                <div className="hidden lg:grid w-52 filter lg:m-5 p-1">
                     <SideBarFilters
                         handleFilters={handleFilters}
                         filters={filters}
                     />
                 </div>
+                <div className='w-full'>
                 <ListProducts
                     show={show}
-                />
+                /></div>
             </div>
 
         </div>

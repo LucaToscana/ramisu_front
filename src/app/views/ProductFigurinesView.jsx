@@ -119,8 +119,8 @@ const ProductFigurinesView = () => {
                 </div>
             </div>
 
-            <div className="lg:flex">
-                <div className="hidden lg:flex lg:flex-col w-1/2 filter lg:m-5">
+            <div className="lg:flex w-full">
+                <div className="hidden lg:grid  filter lg:m-5 p-1">
                     <SideBarFilters
                         handleFilters={handleFilters}
                         filters={filters}

@@ -61,8 +61,8 @@ const PaiementPayerView = () => {
 
                     <div className='flex justify-end self-end m-2 text-sm	'>
                         {<div className='flex justify-center m-5'>
-                            <ButtonStripe amountO={(subTotal * 1.2) < 25 ? (subTotal * 1.2) + 10
-                                : (subTotal * 1.2)}></ButtonStripe>                    </div>
+                            <ButtonStripe amountO={(subTotal * 1.2) < 25 ? ((subTotal * 1.2) + 10).toFixed(2)
+                                : (subTotal * 1.2).toFixed(2)}></ButtonStripe>                    </div>
 
                         }
 
@@ -78,15 +78,17 @@ const PaiementPayerView = () => {
                 </div>
                 <div className='flex  border-b-2 border-gray-400   cartCard '>
 
-                    <div class="grid grid-cols-3 gap-2 w-full p-3 	">
+                    <div class="grid grid-cols-4 gap-2 w-full p-3 	">
                         <div className='w-full'>  <h1 className='font-bold text-1xl '> Article:</h1></div>
-                        <div className='w-full text-center'>  <h1 className='font-bold text-1xl '> prix</h1></div>
+                        <div className='w-full text-center'>  <h1 className='font-bold text-1xl '> Prix HT €</h1></div>
+                        <div className='w-full text-center'>  <h1 className='font-bold text-1xl '> Prix TTC €</h1></div>
 
-                        <div className='w-full text-center'>  <h1 className=' font-bold text-1xl '> quantite</h1></div>
+                        <div className='w-full text-center'>  <h1 className=' font-bold text-1xl '> Quantite</h1></div>
 
                         {carts.map(cart => <>
                             <div className='w-full'><p className='text-sm '> {cart.label}</p></div>
-                            <div className='w-full text-center'><p className='text-sm '> {cart.price}</p></div>
+                            <div className='w-full text-center'><p className='text-sm '> {(cart.price*1).toFixed(2)}</p></div>
+                            <div className='w-full text-center'><p className='text-sm '> {(cart.price*1*1.2).toFixed(2)}</p></div>
 
                             <div className='w-full text-center'><p className='text-sm '> {cart.quantite}</p></div></>)}
                     </div>
@@ -102,9 +104,14 @@ const PaiementPayerView = () => {
 
 
                     <div class="grid grid-cols-3 gap-2 w-full p-3 	">
-                        <div className='w-full'><p className='text-sm '> Sous-total</p></div>
+                        <div className='w-full'><p className='text-sm '> Sous-total HT </p></div>
                         <div className='w-full text-center'><p className='text-sm '> </p></div>
-                        <div className='w-full text-center'><p className='text-sm '> {subTotal * 1.2}</p></div>
+                        <div className='w-full text-center'><p className='text-sm '> {(subTotal * 1).toFixed(2)}€</p></div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 w-full p-3 	">
+                        <div className='w-full'><p className='text-sm '> Tot TVA </p></div>
+                        <div className='w-full text-center'><p className='text-sm '> </p></div>
+                        <div className='w-full text-center'><p className='text-sm '> {(subTotal * 0.2).toFixed(2)}€</p></div>
                     </div>
                     <div class="grid grid-cols-3 gap-2 w-full p-3 	">
                         <div className='w-full'><p className='text-sm '> Livraison</p></div>
@@ -123,7 +130,7 @@ const PaiementPayerView = () => {
 
 
 
-                        </> : <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2)}€</p></div>}                    </div>
+                        </> : <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2).toFixed(2)}€</p></div>}                    </div>
 
                     <div className="lg:w-1/8  flex justify-end self-end p-1 ">
                         {localStorage.getItem('myAddress') !== null ? <> <CheckIcon className='md:w-12 h-12 iconTrue' />

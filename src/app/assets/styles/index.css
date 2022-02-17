@@ -40,9 +40,12 @@ h1, h2, h3, h4, h5, h6, p {
 
 .cartCard {
     box-shadow: 5px 5px 5px #A9A9A9;
+    background-color:rgba(00, 00, 00, 0.00)
+}
+.cartCard2 {
+    box-shadow: 5px 5px 5px #A9A9A9;
     background-color:rgba(00, 00, 00, 0.05)
 }
-
 .iconNone {
     color: #EB0707;
 }

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { isAuthenticated } from '../shared/services/accountServices';
 import { URL_LOGIN } from '../shared/constants/urls/urlConstants'
 import { CheckIcon, ShoppingCartIcon, XIcon, } from '@heroicons/react/solid';
+import empty from "../assets/images/cartEmpty.png"
 
 const CartsView = () => {
     const carts = useSelector(selectCart)
@@ -54,8 +55,8 @@ const CartsView = () => {
 
     return (
         <div className='flex justify-around m-5'>
-            <div className=''>
-            
+         {subTotal!==0?   <div className=''>
+
                 <div className='flex border-b-2 border-gray-400 pb-4'>
                     <ShoppingCartIcon className='w-10 h-10' />
                     <h1 className='flex items-end font-bold text-2xl ml-4'>Panier</h1>
@@ -83,7 +84,7 @@ const CartsView = () => {
                                 </div>
 
                             </div>
-                            <p className="font-bold">{(cart.price*1.2).toFixed(2)} € T.T.C. *{cart.quantite} =  {(cart.price*1.2*cart.quantite).toFixed(2)} €</p>
+                            <p className="font-bold">{(cart.price * 1.2).toFixed(2)} € T.T.C. *{cart.quantite} =  {(cart.price * 1.2 * cart.quantite).toFixed(2)} €</p>
 
                             <div className='flex justify-between'>
                                 <div className='w-1/2'>
@@ -92,9 +93,9 @@ const CartsView = () => {
                                 <div>
                                     <img src={trash} alt="" className="w-10" onClick={() => dispatch(remove(cart))} />
                                 </div>
-                                
+
                             </div>
-                            
+
                         </div>
 
                     </div>
@@ -124,14 +125,20 @@ const CartsView = () => {
                             </table>
                             <div className='flex justify-end'>
                                 <button className="clearCart mt-2 mr-2" onClick={() => dispatch(init())}>Vider</button>
-                                <button className="validateCart mt-2" onClick={() => { pushToPiement() }}>Payer</button>
-                            </div>
+                                {subTotal !== 0 ? <button className="validateCart mt-2" onClick={() => { pushToPiement() }}>Payer</button>
+                                    : null}   </div>
                         </div>
                     </div>
                 }
 
 
+            </div>:
+        <div className='border-2 w-full flex flex-col md:h-[400px]'>
+          <span className='mt-8 text-4xl text-center text-[#282C34]'> Le Panier est vide</span> 
+            <div className='border-2  w-32 mx-auto mt-10'>
+                <img src={empty}></img>
             </div>
+        </div>}
         </div>
     );
 };

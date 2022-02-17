@@ -1,43 +1,40 @@
 import React, { useEffect, useState } from 'react'
-import { productDetail, productSearchCriteria,productDetailWithListRelated } from "../api/backend/product";
+import { productDetail, productSearchCriteria, productDetailWithListRelated } from "../api/backend/product";
 import ProductDetails from "../components/product/ProductDetails"
 import { useParams } from "react-router-dom";
 import { selectCart } from '../shared/redux-store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { initFilter, selectProductFilter, setCurrentPageFilter, setTotal, universeFilter } from '../shared/redux-store/filterProductSlice';
 
-/**
- * recovers the product in databas with the id
- * @author Brahim TALLA
- */
+
 
 const ProductDetailView = () => {
-    const dispatch =useDispatch()
+    const dispatch = useDispatch()
     const [product, setProduct] = useState([])
     const id = useParams().id
     const [cart, setCart] = useState({})
     const carts = useSelector(selectCart)
     const [cartQuantity, setCartQuantity] = useState()
-    const [productRelated,setProductRelated]=useState( [] )
+    const [productRelated, setProductRelated] = useState([])
 
     useEffect(() => {
 
 
-        
+
         productDetailWithListRelated(id).then(res => {
             setProduct(res.data.content)
             setProductRelated(res.data.relatedContent)
-            var cartFind = carts.find(x => x.id === res.data.id)
+
+            var cartFind = carts.find(x => x.id === res.data.content.id)
 
             if (cartFind !== undefined) {
                 setCart(cartFind)
                 setCartQuantity(cartFind.quantite)
-
             }
             else { setCart(null) }
 
 
-     
+
 
         }
 

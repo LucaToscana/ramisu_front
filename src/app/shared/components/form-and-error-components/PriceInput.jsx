@@ -15,17 +15,17 @@ const PriceInput = ({ submit }) => {
                 {({ isSubmitting }) => (
                     <div className='m-3'>
                         <Form >
-                            <div className=''>
+                            <div className='grid grid-cols-1'>
                                 <label name="min" className='p-3' >Min €</label>
 
-                                <Field id="minPrice" className='rounded-none rounded-b-md mb-4 shadow-inner' name="min" type="number" min={0} />
+                                <Field id="minPrice" className='w-28 rounded-none rounded-b-md mb-4 shadow-inner' name="min" type="number" min={0} />
                             </div>
-                            <div className=''>
+                            <div className='grid grid-cols-1'>
                                 <label name="max" className='p-3'>Max €</label>
-                                <Field id="maxPrice" className='rounded-none rounded-b-md mb-4 shadow-inner' name="max" type="number"  min={0}/>
+                                <Field id="maxPrice" className='w-28 rounded-none rounded-b-md mb-4 shadow-inner' name="max" type="number"  min={0}/>
                             </div>
 
-                            <div className="login rounded-2xl w-1/3 p-3 hover:cursor-pointer flex justify-center">
+                            <div className="login rounded-2xl w-1/2 p-3 hover:cursor-pointer flex justify-center">
                                 <button className='self-center' type="submit">Filtrer</button>
                             </div>
 
