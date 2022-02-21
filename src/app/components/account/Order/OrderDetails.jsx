@@ -199,18 +199,18 @@ const OrderDetails = ({ id, productsOrder, total, status, date, address, profile
                                         subTotal: subTotal
                                     }
                                 }}>
-                                    <button className="w-full"><div className="mt-8 font-bold grid grid-cols-3  "
+                                    <button className="w-full ml-2"><div className="mt-8 font-bold   "
 
                                     >
 
 
-                                        <div className="col-span-2"> Voulez-vous faire un retour?
-                                        
-                                        <div>Or  annuler une commande?</div>
-                                        <div>Contactez-nous!</div>
+                                        <div > <p className="mb-2">Voulez-vous faire un retour?</p>
+
+                                            <p className="mb-2">Or  annuler une commande?</p>
+                                            <p className="mb-2">Contactez-nous!
+                                            </p> <div className="mt-5 flex justify-center ">  <SwitchHorizontalIcon className="w-8 h-8"></SwitchHorizontalIcon></div>
                                         </div>
 
-                                        <div className="mt-5">  <SwitchHorizontalIcon className="w-8 h-8"></SwitchHorizontalIcon></div>
 
 
                                     </div></button></Link>

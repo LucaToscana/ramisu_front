@@ -12,7 +12,7 @@ const OrderDetailsTable = ({  productsOrder, total, status,  address, subTotal }
      
 
 
-                    <div className='  border-b-2 border-gray-400 cartCard2 h-full p-5 ml-5 mt-5 text-xs lg:text-sm'>
+                    <div className='grid content-between  border-b-2 border-gray-400 cartCard2 h-full p-5 ml-5 mt-5 text-xs lg:text-sm'>
                         <div class="grid grid-cols-5 gap-4 w-full p-1 	">
                             <div className='w-full col-span-2'>  <h1 className='font-bold text-1xl '> Article</h1></div>
                             <div className='w-full text-center'>  <h1 className='font-bold text-1xl '> Prix HT €</h1></div>
