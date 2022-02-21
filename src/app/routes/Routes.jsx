@@ -20,7 +20,8 @@ import {
             URL_PRODUCT_FIGURINES,
             URL_CONTACT_US,
             URL_ORDER_DETAILS,
-            URL_COMM_HOME
+            URL_COMM_HOME,
+            URL_ORDER_RETURN
         } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_SALESMAN, ROLE_USER } from "../shared/constants/rolesConstant";
@@ -45,6 +46,7 @@ import ProductLibrairieView from "../views/ProductLibrairieView";
 import ContactView from "../views/ContactView";
 import OrderDetailView from "../views/OrderDetailView";
 import BackOffice from "../views/BackOffice"
+import RetourView from "../views/RetourView";
 
 /**
  * Routes of the application
@@ -69,7 +71,12 @@ const Routes = () => {
             <PrivateRoute path={URL_COMM_HOME} roles={[ROLE_SALESMAN]}  component={BackOffice}/>
             <PrivateRoute path={URL_ORDERS} component={OrdersView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_ORDER_DETAILS} component={OrderDetailView} roles={[ROLE_USER]} />
+            <PrivateRoute path={URL_ORDER_RETURN} component={RetourView} roles={[ROLE_USER]} />
 
+
+
+
+            
             <Route exact path={URL_PRODUCT} component={ProductView} />
             <Route exact path={URL_PRODUCT_FIGURINES} component={ProductFigurinesView} />
             <Route exact path={URL_PRODUCT_PEINTURES} component={ProductPeinturesView} />

@@ -13,7 +13,7 @@ export const URL_ORDER_DETAILS = '/order/detail/:id'
 export const URL_REGISTRATION ='/register'
 export const URL_PAIEMENT ='/paiement'
 export const URL_PAIEMENT_2 ='/paiementmethod'
-
+export const URL_ORDER_RETURN ='/order-return'
 // PRODUCT URLS
 export const URL_PRODUCTS_DETAILS = '/produits/detail/:id'
 export const URL_PRODUCT = '/products'

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import { getOrderDetailsWithListProduct } from '../api/backend/order';
-import OrderDetails from '../components/order/OrderDetails';
+import OrderDetails from '../components/account/Order/OrderDetails';
 
 
 

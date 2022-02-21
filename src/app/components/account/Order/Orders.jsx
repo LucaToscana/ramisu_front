@@ -12,11 +12,18 @@ function Orders({ order, showModal }) {
             <div className='p-2'>{order.date}</div>
             <div className='p-2'>{order.status.label}</div>
             <div className='p-2'>{order.total} € TTC</div>
-            <div className='grid grid-cols-2'><button><SearchCircleIcon className=' ml-16 h-8 w-8 '
+           
+           
+            <div className='grid grid-cols-2  '>
+                
+                <button className='  h-8 w-8 '><SearchCircleIcon 
              onClick={() => showModal(order.id)}></SearchCircleIcon>  </button> 
-          <div className='detailOrder ' onClick={() => {
+
+
+
+         <button  className='  h-8 w-full '><div className='detailOrder ' onClick={() => {
                     history.push(`/order/detail/${order.id}`)
-                }} > Détails</div>
+                }} > Détails</div></button> 
             </div>
         </div>
     )

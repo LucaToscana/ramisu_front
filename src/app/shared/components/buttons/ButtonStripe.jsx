@@ -10,7 +10,7 @@ import { init, selectCart } from '../../../shared/redux-store/cartSlice'
 import { useSelector } from "react-redux";
 import { isAuthenticated } from '../../../shared/services/accountServices';
 import { URL_LOGIN } from "../../constants/urls/urlConstants";
-import { addOrder, addOrderWithAddress } from "../../../api/backend/order";
+import {addOrderWithAddress } from "../../../api/backend/order";
 
 
 
@@ -136,7 +136,7 @@ function ButtonStripe(props) {
                 token={handleToken}
                 description="Warhammer Market"
                 image={logo}
-             //   billingAddress
+            //   billingAddress
             >
                 <button className="validateCart mt-2" disabled={am < 11 ? true : false}>Payer par CB {props.amountO} €</button>
 
