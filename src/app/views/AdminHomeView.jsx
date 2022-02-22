@@ -68,16 +68,7 @@ const AdminHomeView = () => {
             {usersData != undefined && (
                 <div className='w-full h-full text-center bodyTable m-2 text-sm '>
                     <div className='hidden md:grid md:grid-cols-6 headerTable p-2 '>
-                        <div>
-                            <button onClick={(e=>sortHandler('id' , 'DESC'))}>
-                                <span className="text-white">&uArr;</span>
-                            </button>
-                            User ID
-                            <button onClick={(e=>sortHandler('id' , 'ASC'))}>
-                                <span className="text-white">&dArr;</span>
-                            </button>    
-                        </div>
-                        <div>
+                      <div>
                             <button onClick={(e=>sortHandler('mail' , 'DESC'))}>
                                 <span className="text-white">&uArr;</span>
                             </button>
@@ -102,8 +93,7 @@ const AdminHomeView = () => {
                     {usersData.map(elt => {
                         return (
                             <div key={elt.id} className="text-left flex flex-col md:grid md:grid-cols-6 m-2 border-2">
-                                <div className='text-center'>{elt.id}</div>
-                                <div  className='md:text-left text-center'>{elt.mail}</div>
+                                <div  className='pl-3 md:text-left text-center'>{elt.mail}</div>
                                 <div className={elt.active ? 'text-center' : 'text-center text-red-900 bold'}>{elt.active ? "Actif" : "Désactivé"}</div>
                                 <div className="text-center md:text-left">Role{elt.roles.length>1 && ('s') } : [{elt.roles}]</div>
                                 <div className='text-center'>Créé le {elt.dateOfCreation.split("T")[0].split("-").reverse().join("-")}</div>
