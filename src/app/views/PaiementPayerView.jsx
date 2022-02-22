@@ -9,15 +9,15 @@ import ButtonStripe from '../shared/components/buttons/ButtonStripe';
 import paypal from "../assets/images/paypal.png";
 import visaMaster from "../assets/images/visaMastercard.png";
 import { ButtonBack } from '../shared/components/buttons/ButtonBack';
-import { Elements } from '@stripe/react-stripe-js';
-import InjectedCheckoutForm from '../shared/components/stripe/CheckoutForm';
+import useModal from '../shared/components/utils-components/Modal/useModal';
+import ModalPayCB from '../shared/components/utils-components/Modal/ModalPayCB';
+
+
 const PaiementPayerView = () => {
     const stripePromise = loadStripe(import.meta.env.VITE_REACT_STRIPE_API_KEY);
+    const { isShowing: isFormShowed, toggle: toggle } = useModal();
 
     const carts = useSelector(selectCart)
-
-    /*toggleddressForm*/
-
 
 
     let subTotal = 0;
@@ -25,14 +25,22 @@ const PaiementPayerView = () => {
         subTotal += carts[i].quantite * carts[i].price
     }
 
-
+    const  totalToPay = () => {
+        if ((subTotal * 1.2) < 25) { return ((subTotal * 1.2) + 10).toFixed(2) } else {
+            return (subTotal * 1.2).toFixed(2)
+        }
+    }
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default m-5 p-5 flex justify-around m-5'>
+            <ModalPayCB
+                isShowing={isFormShowed}
+                hide={toggle}
+                title="payer par CB"
+                tot={totalToPay()}
+                stripePromise={stripePromise}
+            >
+            </ModalPayCB>
 
-<Elements stripe={stripePromise}>
-      <InjectedCheckoutForm   totToPay={(subTotal * 1.2) < 25 ? ((subTotal * 1.2) + 10).toFixed(2)
-                                : (subTotal * 1.2).toFixed(2)} />
-    </Elements>
             <div className='lg:w-2/3'>
                 <div className='flex border-b-2 border-gray-400 pb-4 mb-5'>
                     <h1 className='flex  font-bold text-4xl ml-4'>Paiement</h1>
@@ -66,7 +74,12 @@ const PaiementPayerView = () => {
 
 
                     <div className='flex justify-end self-end m-2 text-sm	'>
-                        {<div className='flex justify-center m-5'>
+
+                        {<div className='flex justify-center m-3 w-full'>
+                            <div className='flex justify-end self-end m-2 text-sm w-full	'>
+                                <button className="validateCart h-24 " onClick={toggle}>Pay {(subTotal * 1.2) < 25 ? ((subTotal * 1.2) + 10).toFixed(2)
+                                    : (subTotal * 1.2).toFixed(2)}€</button>
+                            </div>
                             <ButtonStripe amountO={(subTotal * 1.2) < 25 ? ((subTotal * 1.2) + 10).toFixed(2)
                                 : (subTotal * 1.2).toFixed(2)}></ButtonStripe>                    </div>
 
@@ -83,7 +96,7 @@ const PaiementPayerView = () => {
                         Récapitulatif d’achat</h1>
                 </div>
 
-                
+
                 <div className='flex  border-b-2 border-gray-400   cartCard '>
 
                     <div class="grid grid-cols-4 gap-2 w-full p-3 	">
