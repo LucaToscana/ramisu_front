@@ -246,9 +246,10 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
          
 <h1 className="font-bold text-xl mt-10 ml-3">   Produits liés à cet article</h1>
 
-                <div className="flex justify-around">
+<div className="flex justify-around mb-10">
 
-                    <div className=" flex flex-wrap w-96  md:grid grid-cols-6 justify-between w-full  lg:w-full  ">
+<div className=" flex flex-wrap   md:grid grid-cols-6 justify-between w-full  lg:w-full  ">
+
                         {productRelated.map((element, index) => <>
                             {
                                 index < 6 ?

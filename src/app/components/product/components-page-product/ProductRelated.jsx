@@ -14,7 +14,7 @@ export const ProductRelated = ({ product }) => {
 
 
     return (
-        <div className=" mt-5 mb-5 w-1/3 p-1 md:w-full">
+        <div className=" mt-5 mb-5 w-1/3 p-1 min-w-1/2 min-w-[100%]">
             <img src={product.picture} alt="" className=" hover:cursor-pointer    w-full md: h-2/3  " onClick={() => {
                 let text = window.location.pathname;
                 let result = text.substring(0, 17);
