@@ -114,7 +114,6 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
                     </button>
                 </li>
             </ul>
-            <button className="btn btn-primary" onClick={() => history.push(URL_CART)}>Panier</button>
 
             </>}
         </div>

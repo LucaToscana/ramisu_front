@@ -234,7 +234,7 @@ const OrderDetails = ({ id, productsOrder, total, status, date, address, profile
 
 
             <div className="grid justify-items-center">
-                <div className=" mt-10 flex flex-wrap w-96  md:grid grid-cols-6 justify-between w-full  lg:w-full  ">
+                <div className=" mt-10 flex flex-wrap   md:grid grid-cols-6 justify-around w-full  lg:w-full  ">
                     {productsOrder !== undefined ? productsOrder.map((element, index) => <>
                         {
                             index < 100 ?

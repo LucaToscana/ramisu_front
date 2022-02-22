@@ -44,7 +44,7 @@ const ProductDetailView = () => {
 
     }, [id, cartQuantity, cart])
     return (
-        <div className="flex items-center justify-center md:m-10">
+        <div className="flex items-center justify-center   mb-8 md:m-10">
             <ProductDetails
                 picture={product.picture}
                 label={product.label}

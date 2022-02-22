@@ -9,7 +9,7 @@ import Facebook from './../../shared/components/logos/Facebook';
 
 function Footer() {
     return (
-        <footer className="mt-8">
+        <footer className="">
             <div className="footer sm:flex sm:flex-col sm:items-center sm:p-2 md:flex md:flex-row md:items-start">
                 <div className="p-2 md:w-1/2">
                     <div className="p-2">

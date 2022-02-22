@@ -71,7 +71,7 @@ const RetourView = (props) => {
                         ref={recaptchaRef}
                         size="invisible" />
 
-                <h2 className='font-bold text-center mt-5 p-5 text-white text-3xl'>Voulez-vous faire un retour or  annuler une commande?   Contactez-nous!</h2>
+                <h2 className='font-bold text-center mt-5 p-1 text-white text-3xl'>Voulez-vous faire un retour or  annuler une commande?   Contactez-nous!</h2>
                 <h2 className='font-bold text-center text-white text-2xl mb-3'> warhammer.market@gmail.com</h2>
 
                 {status ? (<h2 className="text-center">{feedback}</h2>) : (
@@ -87,11 +87,7 @@ const RetourView = (props) => {
                                                 <div className='w-full mt-5'>
 
                                                         <label className='italic'>ORDER: {props.location.state.orderId} /  {props.location.state.date}</label>
-                                                        {errors.message != undefined &&
-                                                                <div className="text-red-900">
-                                                                        {errors.message}
-                                                                </div>
-                                                        }
+
 
                                                         <div className='mt-5 mb-8'>
                                                                 <OrderDetailsTable productsOrder={productsOrder} total={total} status={statusOrder} address={address} subTotal={subTotal} />
@@ -106,8 +102,13 @@ const RetourView = (props) => {
                                                                 setMgsLen(e.currentTarget.value.length);
                                                         }
                                                         }></textarea>
-                                                {msgLen > 5 && (<span className='text-sm text-gray-600 text-center'>{msgLen}  / 1024<br />caractères maximum</span>)}
-
+                                                <span className='text-sm text-gray-600 text-center'>{msgLen}  / 1024<br />caractères maximum</span>
+                                                {errors.message != undefined ?
+                                                        <div className="text-red-900">
+                                                                {errors.message}
+                                                        </div>
+                                                        : <div className="h-6">
+                                                        </div>}
                                                 <div className='w-full flex justify-end'>
                                                         <input type="button"
                                                                 onClick={handleSubmit}
