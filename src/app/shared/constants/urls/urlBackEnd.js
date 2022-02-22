@@ -8,7 +8,9 @@ export const URL_BACK_REMOVE_PICTURE = '/public/removePictureProfile'
 export const URL_BACK_RESET_PASSWORD_START = '/public/passwordresetstart'
 export const URL_BACK_CHECK_TOKEN_VALIDITY = '/public/passwordresetcheck'
 export const URL_BACK_RESET_PASSWORD_END = '/public/passwordresetend/'
-
+export const URL_BACK_UPDATE_PSW = '/public/changePSW'
+export const URL_BACK_USER_PASSWORD_REQUEST = '/public/requestChangePSW'
+export const URL_BACK_USER_PWS_TOKEN_VALIDITY = '/public/userPasswordCheck/'
 
 // PRODUCT BACK-END URLS
 export const URL_BACK_PRODUCTS = '/public/products'
