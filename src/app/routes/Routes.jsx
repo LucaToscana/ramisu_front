@@ -20,7 +20,8 @@ import {
             URL_PRODUCT_FIGURINES,
             URL_CONTACT_US,
             URL_ORDER_DETAILS,
-            URL_COMM_HOME
+            URL_COMM_HOME,
+            URL_PSW_HANDLING
         } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_SALESMAN, ROLE_USER } from "../shared/constants/rolesConstant";
@@ -45,6 +46,7 @@ import ProductLibrairieView from "../views/ProductLibrairieView";
 import ContactView from "../views/ContactView";
 import OrderDetailView from "../views/OrderDetailView";
 import BackOffice from "../views/BackOffice"
+import PasswordHandling from "../views/PasswordHandling";
 
 /**
  * Routes of the application
@@ -61,14 +63,12 @@ const Routes = () => {
             <Route path={URL_PASSWORD_RESET_END} component={PasswordResetEndView}/>
             <PrivateRoute path={URL_ACCOUNT} component={AccountView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_PROFILE} component={ProfileView} roles={[ROLE_USER]} />
-            <PrivateRoute
-                path={URL_ADMIN_HOME}
-                component={AdminHomeView}
-                roles={[ROLE_ADMIN]}
-            />
+            <PrivateRoute path={URL_ADMIN_HOME} component={AdminHomeView} roles={[ROLE_ADMIN]} />
             <PrivateRoute path={URL_COMM_HOME} roles={[ROLE_SALESMAN]}  component={BackOffice}/>
             <PrivateRoute path={URL_ORDERS} component={OrdersView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_ORDER_DETAILS} component={OrderDetailView} roles={[ROLE_USER]} />
+            <PrivateRoute path={URL_PSW_HANDLING} component={PasswordHandling} roles={[ROLE_USER]} />
+      
 
             <Route exact path={URL_PRODUCT} component={ProductView} />
             <Route exact path={URL_PRODUCT_FIGURINES} component={ProductFigurinesView} />
