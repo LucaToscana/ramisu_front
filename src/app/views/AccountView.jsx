@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch , useSelector} from "react-redux";
 import { signOut , selectIsLoggedAdmin, selectIsLoggedComm} from "../shared/redux-store/authenticationSlice";
-import { URL_CART, URL_HOME, URL_PROFILE, URL_ADMIN_HOME , URL_COMM_HOME} from "../shared/constants/urls/urlConstants";
+import { URL_CART, URL_HOME, URL_PROFILE, URL_ADMIN_HOME , URL_COMM_HOME, URL_PSW_HANDLING} from "../shared/constants/urls/urlConstants";
 import boxes from "../assets/images/icones/box.svg";
 import userProfile from "../assets/images/icones/user.svg";
 import shoppingCart from "../assets/images/icones/cart.svg";
@@ -34,7 +34,7 @@ const AccountView = () => {
     { name: "Panier", href: URL_CART, image: shoppingCart },
     { name: "Favoris", href: "#", image: heart },
     { name: "Moyens de paiement", href: "#", image: creditCard },
-    { name: "Gestion du mot de passe", href: "#", image: key },
+    { name: "Gestion du mot de passe", href: URL_PSW_HANDLING, image: key },
     { name: "Tableau de bord", href: URL_ADMIN_HOME, image: Dashboard },
     { name: "Espace commercial", href: URL_COMM_HOME, image:ecommerce }
     
