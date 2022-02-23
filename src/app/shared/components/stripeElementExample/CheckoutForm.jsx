@@ -5,6 +5,7 @@ import CardSection from "./CardSection";
 import axios from "axios";
 import { accountLogin } from "../../services/accountServices";
 
+
 class CheckoutForm extends React.Component {
     constructor(props) {
         super(props);
@@ -80,6 +81,7 @@ class CheckoutForm extends React.Component {
         }
 
         const card = elements.getElement(CardElement);
+        console.log(card)
         const result = await stripe.createToken(card);
         if (result.error) {
             console.log(result.error.message);
@@ -97,6 +99,21 @@ class CheckoutForm extends React.Component {
     render() {
         return (
             <div className="w-full">
+
+
+
+
+
+
+
+
+<div>
+
+
+    
+</div>
+
+
                 <div class="product-info ">
                     <h4 className="product-price ">Tot: {this.state.totP}€</h4>
                 </div>

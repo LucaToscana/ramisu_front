@@ -1,7 +1,6 @@
 import { Elements } from "@stripe/react-stripe-js";
 import React from "react";
 import ReactDOM from "react-dom";
-import InjectedCheckoutForm from "../../stripe/CheckoutForm";
 import logo from "../../../../assets/images/icones/logo/warhammer-shop-logo.png";
 
 const ModalPayCB = ({ isShowing, hide, tot, stripePromise }) =>

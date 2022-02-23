@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 import { selectCart } from "../shared/redux-store/cartSlice";
 
@@ -10,13 +10,15 @@ import paypal from "../assets/images/paypal.png";
 import visaMaster from "../assets/images/visaMastercard.png";
 import { ButtonBack } from '../shared/components/buttons/ButtonBack';
 import useModal from '../shared/components/utils-components/Modal/useModal';
-import ModalPayCB from '../shared/components/utils-components/Modal/ModalPayCB';
+import ModalPayCBWarahmmerMarket from '../shared/components/utils-components/Modal/modalCB/ModalPayCBWarahmmerMarket';
+import axios from 'axios';
 
 
 const PaiementPayerView = () => {
     const stripePromise = loadStripe(import.meta.env.VITE_REACT_STRIPE_API_KEY);
     const { isShowing: isFormShowed, toggle: toggle } = useModal();
-
+    const [remember, setRemember] = useState(false)
+const [errorPay,setErrorPay]=useState("")
     const carts = useSelector(selectCart)
 
 
@@ -25,21 +27,79 @@ const PaiementPayerView = () => {
         subTotal += carts[i].quantite * carts[i].price
     }
 
-    const  totalToPay = () => {
+    const totalToPay = () => {
         if ((subTotal * 1.2) < 25) { return ((subTotal * 1.2) + 10).toFixed(2) } else {
             return (subTotal * 1.2).toFixed(2)
         }
     }
+    const handleTokenSavePayement = (token) => {
+        console.log(token);
+        axios.post("http://localhost:8080/api/payment/new-customer", "", {
+            headers: {
+                token: token.id,
+                mail: accountLogin(),
+
+            },
+        })
+            .then((res) => {
+
+                return res
+            })
+            .catch((error) => {
+                alert(error);
+            });
+    }
+
+    const handleSubmit = (values) => {
+        const a = JSON.parse(values)
+        a.amount = totalToPay()
+        if (!remember) {
+            axios.post("http://localhost:8080/api/payment/one-times-pay", a
+            )
+            .then((res) => {
+
+                alert(res.data+"one-times-pay")
+                setErrorPay(res.data)
+            })
+            .catch((error) => {
+                alert(error);
+            });
+        } else {
+
+            axios.post("http://localhost:8080/api/payment/new-customer-and-pay", a
+            )
+            .then((res) => {
+
+                alert(res.data+"new-customer-and-pay")
+            })
+            .catch((error) => {
+                alert(error);
+            });
+
+
+
+        }
+
+    }
+
+
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default m-5 p-5 flex justify-around m-5'>
-            <ModalPayCB
+            {remember + "ddddddddddddddddddddd"}
+            <ModalPayCBWarahmmerMarket
                 isShowing={isFormShowed}
-                hide={toggle}
+                hide={
+                    toggle}
                 title="payer par CB"
                 tot={totalToPay()}
                 stripePromise={stripePromise}
+                submit={handleSubmit}
+                remember={() => setRemember(!remember)}
+                isRemember={remember}
+                errorPay={errorPay}
+
             >
-            </ModalPayCB>
+            </ModalPayCBWarahmmerMarket>
 
             <div className='lg:w-2/3'>
                 <div className='flex border-b-2 border-gray-400 pb-4 mb-5'>
