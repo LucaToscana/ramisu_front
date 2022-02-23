@@ -1,6 +1,14 @@
 import apiBackEnd from "./api.BackendWithToken";
 import apiBackEndNoToken from "./api.Backend";
-import {URL_BACK_PROFILE, URL_BACK_UPLOAD_PICTURE, URL_BACK_REMOVE_PICTURE , URL_BACK_CONTACT_US} from "../../shared/constants/urls/urlBackEnd";
+import {
+        URL_BACK_PROFILE, 
+        URL_BACK_UPLOAD_PICTURE, 
+        URL_BACK_REMOVE_PICTURE , 
+        URL_BACK_CONTACT_US, 
+        URL_BACK_UPDATE_PSW,
+        URL_BACK_USER_PASSWORD_REQUEST,
+        URL_BACK_USER_PWS_TOKEN_VALIDITY
+    } from "../../shared/constants/urls/urlBackEnd";
 
 export function getProfile() {
     return apiBackEnd.get(URL_BACK_PROFILE)
@@ -30,6 +38,31 @@ export function contactUs(values)
 {
     return apiBackEndNoToken.post(URL_BACK_CONTACT_US , values);
 }
+
+export function updatePassword(values)
+{
+    return  apiBackEnd.put(URL_BACK_UPDATE_PSW, values);
+}
+
+
+/*
+*       Authenticated User send request for changing password
+*/
+export function requestChangePSW()
+{
+    return apiBackEnd.get(URL_BACK_USER_PASSWORD_REQUEST)
+}
+
+/**
+ *      Valid request password change
+ * 
+ */
+ export function requestValidChangePSW(key)
+ {
+     const url = URL_BACK_USER_PWS_TOKEN_VALIDITY+key;
+     return apiBackEnd.get(url)
+ }
+ 
 
 import {    
    
