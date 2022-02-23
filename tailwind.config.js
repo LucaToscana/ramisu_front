@@ -32,7 +32,10 @@ module.exports = {
           'orange': '#C28F2C',
           'green': '#AEA70A',
         },
-      }
+      },
+      boxShadow: {
+        custom: "inset 0 0 12px rgba(218, 255, 255, 0.36)",
+      },
     }
   },
   variants: [

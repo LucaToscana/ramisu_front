@@ -71,14 +71,15 @@ const Navbar = () => {
                             <div className="max-w-7xl px-4 pt-2">
 
                                 {/* Search bar */}
-                                {// <form action="/search" className="flex flex-wrap lg:flex-row" >
-                                }<div className='flex flex-wrap lg:flex-row'>
-                                    {/* <h1 className='text-xl md:text-4xl text-white flex items-center w-full md:w-1/2 justify-center'>WarMarket</h1> */}
+                                <div className='flex border border-gray-300 shadow-custom rounded-sm items-center max-w-lg mx-auto'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="white">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                    </svg>
                                     <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
-                                        className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg xl:transition-all 
-                                    xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
-                                    dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"
-                                    /></div>
+                                        className="w-full h-12 px-4 text-lg text-gray-300 bg-transparent xl:transition-all
+                                    xl:duration-300  lg:h-10 focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary focus:ring-opacity-40"
+                                    />
+                                </div>
                                 {  // </form>
                                 }
                                 <div className="relative flex items-center justify-between h-16">
