@@ -71,7 +71,7 @@ const ModalSuccessPay = ({ isShowing, hide }) =>
               margin: auto;
               border-radius: 5px;
               max-width: 500px;
-              width: 80%;
+              width: 1500%;
               padding: 1rem;
             }
 

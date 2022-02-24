@@ -5,42 +5,39 @@ import logo from "../../../../../assets/images/icones/logo/warhammer-shop-logo.p
 
 import StripeInput from "../../../stripeInput/StripeInput";
 
-const ModalPayCBWarahmmerMarket = ({ isShowing, hide, tot, stripePromise,submit,remember,isRemember,errorPay }) =>
-    isShowing
-        ? ReactDOM.createPortal(
-            <>
-                <div className="modal-overlay">
-                    <div className="modal-wrapper">
-                        <div className="modal">
-                           <div className="flex justify-end"> <button
-                                    type="button"
-                                    className="modal-close-button"
-                                    onClick={hide}
-                                >
-                                    <span>&times;</span>
-                                    
-                                </button></div>
-                            <div className="modal-header">
-                                <div className="modal-body items-center justify-center text-center">
-                                   
+const ModalPayCBWarahmmerMarket = ({ isShowing, hide, tot, submit, remember, isRemember, errorPay }) =>
+  isShowing
+    ? ReactDOM.createPortal(
+      <>
+        <div className="modal-overlay">
+          <div className="modal-wrapper">
+            <div className="modal">
+              <div className="flex justify-end"> <button
+                type="button"
+                className="modal-close-button"
+                onClick={hide}
+              >
+                <span>&times;</span>
+
+              </button></div>
+              <div className="flex  items-center justify-center text-center"> <img src={logo} className="h-24"></img>
+              </div>
+              <div className="flex  items-center justify-center text-center">
+
+                {<div className="self-center p-3">
+
+                  <StripeInput tot={tot} submit={submit} tot={tot} remember={remember} isRemember={isRemember} errorPay={errorPay}></StripeInput>
 
 
-                                </div>
-                            </div>                       
 
-                            <div className="  items-center justify-center text-center"> 
-                            {<div className="self-center p-3">
-                                        <img src={logo} className="h-24"></img>
-
-                                        <StripeInput  tot={tot} stripePromise={stripePromise} submit={submit} tot={tot} remember ={remember}isRemember={isRemember} errorPay={errorPay}></StripeInput>
-                                    </div>}
-                          </div>
-                        </div>
-                    </div>
-                </div>
+                </div>}
+              </div>
+            </div>
+          </div>
+        </div>
 
 
-                <style jsx="true">{`
+        <style jsx="true">{`
             .modal-overlay {
               position: fixed;
               top: 0;
@@ -74,7 +71,7 @@ const ModalPayCBWarahmmerMarket = ({ isShowing, hide, tot, stripePromise,submit,
               max-width: 150%;
               width: 80%;
               padding: 1rem;
-              background-color: rgba(250, 290, 230, 1);
+              background-color: rgba(350, 350, 350, 1);
 
             }
 
@@ -94,9 +91,9 @@ const ModalPayCBWarahmmerMarket = ({ isShowing, hide, tot, stripePromise,submit,
               background: transparent;
             }
           `}</style>
-            </>,
-            document.body
-        )
-        : null;
+      </>,
+      document.body
+    )
+    : null;
 
 export default ModalPayCBWarahmmerMarket;

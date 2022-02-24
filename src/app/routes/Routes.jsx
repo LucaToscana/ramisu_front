@@ -22,7 +22,8 @@ import {
             URL_ORDER_DETAILS,
             URL_COMM_HOME,
             URL_ORDER_RETURN,
-            URL_PSW_HANDLING
+            URL_PSW_HANDLING,
+            URL_USER_PAY_METOD
         } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_SALESMAN, ROLE_USER } from "../shared/constants/rolesConstant";
@@ -49,6 +50,7 @@ import OrderDetailView from "../views/OrderDetailView";
 import BackOffice from "../views/BackOffice"
 import RetourView from "../views/RetourView";
 import PasswordHandling from "../views/PasswordHandling";
+import PaiementMetodView from "../views/PaiementMetodView";
 
 /**
  * Routes of the application
@@ -88,6 +90,9 @@ const Routes = () => {
             <Route path={URL_CONTACT_US} roles={[ROLE_USER]}  component={ContactView} />
             <PrivateRoute path={URL_PAIEMENT}  roles={[ROLE_USER]}    component={PaiementLivraisonView}/>
             <PrivateRoute path={URL_PAIEMENT_2}roles={[ROLE_USER]}  component={PaiementPayerView}/>
+
+            <PrivateRoute path={URL_USER_PAY_METOD} roles ={[ROLE_USER]} component={PaiementMetodView}/>
+            
             <Route path="*">
                 <Route404 />
             </Route>

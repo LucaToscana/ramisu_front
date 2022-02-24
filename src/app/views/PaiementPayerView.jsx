@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
-import { useSelector } from "react-redux";
-import { selectCart } from "../shared/redux-store/cartSlice";
-
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { init, selectCart } from "../shared/redux-store/cartSlice";
 import { CheckIcon } from '@heroicons/react/solid';
-import { loadStripe } from "@stripe/stripe-js";
-
-import ButtonStripe from '../shared/components/buttons/ButtonStripe';
 import paypal from "../assets/images/paypal.png";
 import visaMaster from "../assets/images/visaMastercard.png";
 import { ButtonBack } from '../shared/components/buttons/ButtonBack';
 import useModal from '../shared/components/utils-components/Modal/useModal';
 import ModalPayCBWarahmmerMarket from '../shared/components/utils-components/Modal/modalCB/ModalPayCBWarahmmerMarket';
-import axios from 'axios';
+import ModalSuccessPay from '../shared/components/utils-components/Modal/ModalSuccessPay';
+import { isAuthenticated } from '../shared/services/accountServices';
+import { addOrderWithAddress, newCustomerAndPay, payOneTimes } from '../api/backend/order';
+import { useHistory } from 'react-router-dom';
 
 
 const PaiementPayerView = () => {
-    const stripePromise = loadStripe(import.meta.env.VITE_REACT_STRIPE_API_KEY);
     const { isShowing: isFormShowed, toggle: toggle } = useModal();
+    const { isShowing: isSuccessFormShowed, toggle: toggleSuccessForm } = useModal();
     const [remember, setRemember] = useState(false)
-const [errorPay,setErrorPay]=useState("")
+    const [errorPay, setErrorPay] = useState("")
     const carts = useSelector(selectCart)
-
+    const idaddress = localStorage.getItem("idAddress",)
+    const dispatch = useDispatch();
+    const history = useHistory()
 
     let subTotal = 0;
     for (let i = 0; i < carts.length; i++) {
@@ -32,49 +33,78 @@ const [errorPay,setErrorPay]=useState("")
             return (subTotal * 1.2).toFixed(2)
         }
     }
-    const handleTokenSavePayement = (token) => {
-        console.log(token);
-        axios.post("http://localhost:8080/api/payment/new-customer", "", {
-            headers: {
-                token: token.id,
-                mail: accountLogin(),
 
-            },
-        })
-            .then((res) => {
 
-                return res
-            })
-            .catch((error) => {
-                alert(error);
-            });
+    useEffect(() => {
+        if (performance.navigation.type === 1) {
+
+            var test = localStorage.getItem("successPaiement")
+            if (test === "true") {
+                localStorage.removeItem('totPayer')
+                dispatch(init())
+                localStorage.removeItem('myAddress')
+                localStorage.removeItem('idAddress')
+                localStorage.removeItem('totPayer')
+
+                history.push("/")
+            }
+
+            console.log("This page is reloaded");
+        } else {
+            console.log("This page is not reloaded");
+        }
+    }, []);
+
+    const closeSuccess = () => setTimeout(function () { deleteAndRefresh() }, 6000);
+
+    const hideSuccess = () => {
+
+        history.push('/')
+        dispatch(init())
+        toggleSuccessForm()
+        localStorage.removeItem('myAddress')
+        localStorage.removeItem('idAddress')
+        localStorage.removeItem('totPayer')
+
+    }
+    const hideClear = () => {
+
+
+        toggle()
+        setErrorPay('')
+        setRemember(false)
     }
 
-    const handleSubmit = (values) => {
-        const a = JSON.parse(values)
-        a.amount = totalToPay()
-        if (!remember) {
-            axios.post("http://localhost:8080/api/payment/one-times-pay", a
-            )
-            .then((res) => {
 
-                alert(res.data+"one-times-pay")
-                setErrorPay(res.data)
-            })
-            .catch((error) => {
-                alert(error);
-            });
+    const deleteAndRefresh = () => {
+        dispatch(init())
+        localStorage.removeItem('totPayer')
+        history.push('/')
+    }
+  
+
+ 
+
+    const handleSubmit = (values) => {
+        values.amount = totalToPay()
+        if (!remember) {
+            payOneTimes(values)
+                .then((res) => {
+                    setErrorPay(res.data)
+                    finishOrder(res.data)
+
+                })
+                .catch((error) => {
+                });
         } else {
 
-            axios.post("http://localhost:8080/api/payment/new-customer-and-pay", a
-            )
-            .then((res) => {
-
-                alert(res.data+"new-customer-and-pay")
-            })
-            .catch((error) => {
-                alert(error);
-            });
+            newCustomerAndPay(values)
+                .then((res) => {
+                    setErrorPay(res.data)
+                    finishOrder(res.data)
+                })
+                .catch((error) => {
+                });
 
 
 
@@ -83,23 +113,69 @@ const [errorPay,setErrorPay]=useState("")
     }
 
 
+    function finishOrder(test) {
+        if (test === "succeeded") {
+            localStorage.setItem('totPayer', totalToPay())
+            validate(carts)
+            toggle()
+            setTimeout(function () { toggleSuccessForm() }, 1000);
+            closeSuccess()
+        }
+    }
+
+    const validate = (carts) => {
+        if (isAuthenticated()) {
+            const addressLocalStorage = JSON.parse(localStorage.getItem("myAddress"))
+            const isMain = addressLocalStorage.isMain;
+
+            const address = {
+
+                id: idaddress,
+                number: addressLocalStorage.number,
+                street: addressLocalStorage.street,
+                additionalAddress: addressLocalStorage.additionalAddress,
+                postalCode: addressLocalStorage.postalCode,
+                city: addressLocalStorage.city,
+                country: addressLocalStorage.country,
+
+            }
+
+            addOrderWithAddress(carts.filter(c => !(c.quantite === "")), address, "domicile", isMain).then(res => {
+                if (res.data) {
+                    localStorage.setItem("successPaiement", true)
+
+                }
+            }
+            )
+        } else {
+            history.push(URL_LOGIN)
+        }
+    }
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default m-5 p-5 flex justify-around m-5'>
-            {remember + "ddddddddddddddddddddd"}
+
             <ModalPayCBWarahmmerMarket
                 isShowing={isFormShowed}
-                hide={
-                    toggle}
+                hide={() =>
+                    hideClear()}
                 title="payer par CB"
                 tot={totalToPay()}
-                stripePromise={stripePromise}
                 submit={handleSubmit}
-                remember={() => setRemember(!remember)}
+                remember={() => {
+                    setRemember(!remember)
+                    if (remember) { setErrorPay('') }
+                }}
                 isRemember={remember}
                 errorPay={errorPay}
 
             >
             </ModalPayCBWarahmmerMarket>
+            <ModalSuccessPay
+                isShowing={isSuccessFormShowed}
+                hide={hideSuccess}
+                title="SUCCESS"
+            >
+            </ModalSuccessPay>
 
             <div className='lg:w-2/3'>
                 <div className='flex border-b-2 border-gray-400 pb-4 mb-5'>
@@ -140,8 +216,8 @@ const [errorPay,setErrorPay]=useState("")
                                 <button className="validateCart h-24 " onClick={toggle}>Pay {(subTotal * 1.2) < 25 ? ((subTotal * 1.2) + 10).toFixed(2)
                                     : (subTotal * 1.2).toFixed(2)}€</button>
                             </div>
-                            <ButtonStripe amountO={(subTotal * 1.2) < 25 ? ((subTotal * 1.2) + 10).toFixed(2)
-                                : (subTotal * 1.2).toFixed(2)}></ButtonStripe>                    </div>
+
+                        </div>
 
                         }
 
