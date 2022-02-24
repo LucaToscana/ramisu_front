@@ -57,18 +57,18 @@ const ProfileView = () => {
                             <fieldset className=''>
 
                                 <FormRow    label="Nom&nbsp;:&nbsp;"
-                                            formName="firstName"
+                                            formName="lastName"
                                             value={userInfo.first}
                                             onSubmit={handleSubmit}
                                             setFieldValue={setFieldValue}
-                                            error={errors['firstName']}/>
+                                            error={errors['lastName']}/>
 
                                 <FormRow label="Prénom&nbsp;:&nbsp;"
-                                            formName="lastName"
+                                            formName="firstName"
                                             value={userInfo.lastName}
                                             onSubmit={handleSubmit}
                                             setFieldValue={setFieldValue}
-                                            error={errors['lastName']}/>
+                                            error={errors['firstName']}/>
 
                                 <FormRow label="Tél&nbsp;:&nbsp;"
                                         formName="phone"

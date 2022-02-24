@@ -32,12 +32,12 @@ const RegistrationFrom = ({ submit, errorLog }) => (
         <Form className='m-8'>
             <div className='rounded-md shadow-sm -space-y-px'>
                 <label className="mb-2">Nom</label>
-                <Field type="text" name="firstName"
+                <Field type="text" name="lastName"
                     component={CustomInput} className='rounded-none rounded-t-md mb-4 shadow-inner'  noError/>
 
 
                 <label className="mb-2">Prenom</label>
-                <Field type='text' name='lastName'
+                <Field type='text' name='firstName'
                     component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner'  noError/>
 
 
