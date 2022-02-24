@@ -40,6 +40,7 @@ const Navbar = () => {
         { name: 'Contact', to: '/Contact', current: false },])
     
     const [show, setShow] = React.useState();
+    // onClick={() => setShow(!show)}
 
 
 
@@ -57,39 +58,52 @@ const Navbar = () => {
             {({ open }) => (
                 <>
                     <div className='lg:flex items-center'>
-                        <div className='lg:block hidden h-auto'>
+                        <div className='lg:block hidden ml-10 min-w-max'>
                             {/* Website logo */}
-                            <div className="h-full">
+                            <div className="">
                                 <img
-                                    className='w-full max-h-24'
+                                    className='max-h-24'
                                     src={logo}
                                     alt="Warhammer shop logo"
                                 />
                             </div>
                         </div>
 
-                        <div className='text-center items-center justify-center mx-auto'>
+                        <div className='text-center items-center justify-center w-full'>
 
-                            <div className="max-w-7xl px-4 pt-2">
+                            <div className="max-w-7xl px-4 pt-2 mx-auto">
 
                                 {/* Search bar */}
-                                <div className={show ? 'flex border border-gray-300 shadow-custom rounded-sm items-center max-w-lg mx-auto' : 'flex border border-gray-300 shadow-custom rounded-sm items-center mx-auto w-min'}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="white"
-                                        onClick={() => setShow(!show)}
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                    </svg>
-                                    <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
-                                        className={show ? 'w-full h-12 px-4 text-lg text-white bg-transparent transition-all duration-300 opacity-100 lg:h-10' : 'w-0 opacity-0 transition-all duration-300 h-0'}
-                                        onAnimationEnd={() => {debugger
-                                            document.getElementById("searchNavBar").classList.add("hidden")
-                                        }}
-                                        hidden={false}
-                                    />
+                                <div className={'flex mx-auto mb-2'}>
+
+                                    <div className={'flex border border-gray-300 shadow-custom rounded-sm items-center w-full mx-10 md:mx-48 lg:mx-10'}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="#C3A758" >
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                        </svg>
+                                        <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
+                                            className={'w-full h-full px-4 text-lg text-white bg-transparent showSearchInpunt'}
+                                        />
+                                    </div>
+
+                                    {/* Right part of navbar - widgets */}
+                                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 pt-20 lg:static lg:inset-auto lg:ml-6 lg:pr-0 lg:pt-0">
+                                        {/* Display depending if the user is connected or not :
+                                            notifications, connection / registration link, profile menu burger 
+                                        */}
+                                        <ConnectionStatusButtons />
+                                        <div className="cart-wrapper">
+                                            <Link to="/panier" >
+                                                <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                                {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                            </Link>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 {  // </form>
                                 }
-                                <div className="relative flex items-center justify-between h-16">
+                                <hr className='border-1 border-custom-orange' />
+                                <div className="relative flex items-center justify-between h-16 mx-10 xl:mx-32">
                                     <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
 
                                         {/* Mobile menu button*/}
@@ -132,23 +146,6 @@ const Navbar = () => {
                                                     </Link>
                                                 ))}
                                             </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Right part of navbar - widgets */}
-                                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 lg:static lg:inset-auto lg:ml-6 lg:pr-0">
-
-                                        {/* Display depending if the user is connected or not :
-                                            notifications, connection / registration link, profile menu burger 
-                                        */}
-                                        <ConnectionStatusButtons />
-                                        <div className="cart-wrapper">
-                                            <Link
-                                                to="/panier"
-                                            >
-                                                <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
-                                            {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
-                                            </Link>
                                         </div>
                                     </div>
 
@@ -200,6 +197,7 @@ const ConnectionStatusButtons = () => {
     const profileData = useSelector(selectProfileInfo);
     const dispatch = useDispatch();
     // const history = useHistory()
+    const [show, setShow] = React.useState();
 
 
 
@@ -304,31 +302,28 @@ const ConnectionStatusButtons = () => {
                     </div>
                 </div>
                 <div className="lg:hidden block">
-                    <Menu as="div"
-                        className="relative">
-                        <Menu.Button>
-                            <UserIcon className='bg-gray-800 p-1 mt-3 text-gray-400 w-8 h-8 m-2' />
-                        </Menu.Button>
-                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <button onClick={() => setShow(!show)}>
+                            <UserIcon className='bg-custom-orange rounded-full p-1 mt-3 text-gray-800 w-8 h-8 m-2' />
+                        </button>
+
+                        {show? (<ul className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <div className='flex flex-col'>
-                                <Menu.Item>
+                                <li>
                                     <Link
                                         to={URL_REGISTRATION}
                                         className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
                                         <span>S'inscrire</span>
                                     </Link>
-                                </Menu.Item>
-                                <Menu.Item>
+                                </li>
+                                <li>
                                     <Link
                                         to={URL_LOGIN}
                                         className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
                                         Se connecter
                                     </Link>
-                                </Menu.Item>
+                                </li>
                             </div>
-
-                        </Menu.Items>
-                    </Menu>
+                        </ul>) : (<div />)}
 
                 </div>
             </div>)
