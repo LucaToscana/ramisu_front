@@ -34,7 +34,8 @@ module.exports = {
         },
       },
       boxShadow: {
-        custom: "inset 0 0 12px rgba(218, 255, 255, 0.36)",
+        searchBar: "inset 0 0 12px rgba(218, 255, 255, 0.36)",
+        hamburger: "0 0 24px #fff",
       },
     }
   },

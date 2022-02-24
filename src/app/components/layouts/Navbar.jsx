@@ -77,7 +77,7 @@ const Navbar = () => {
                                 <div className={'flex mx-auto mb-2'}>
 
                                     <div className='lg:block hidden w-full'>
-                                        <div className={'flex border border-gray-300 shadow-custom rounded-sm items-center w-full mx-10 md:mx-48 lg:mx-10'}>
+                                        <div className={'flex border border-gray-300 shadow-searchBar rounded-sm items-center w-full mx-10 md:mx-48 lg:mx-10'}>
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="#C3A758" >
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                                             </svg>
@@ -105,16 +105,22 @@ const Navbar = () => {
                                 {  // </form>
                                 }
                                 <hr className='border-1 border-custom-orange' />
-                                <div className="relative flex items-center justify-between h-16 mx-10 xl:mx-32">
+                                <div className="relative flex items-center justify-between h-16 mx-0 sm:mx-10 xl:mx-32">
                                     <div className="inset-y-0 left-0 flex items-center lg:hidden">
 
                                         {/* Mobile menu button*/}
-                                        <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                                        <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-lg bg-custom-orange text-black hover:text-custom-orange hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                                             <span className="sr-only">Ouvrir menu</span>
                                             {open ? (
-                                                <XIcon className="block h-6 w-6" aria-hidden="true" />
+                                                <div>
+                                                    <XIcon className="block absolute h-6 w-6 mt-0.5 opacity-25" aria-hidden="true" />
+                                                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                                                </div>
                                             ) : (
-                                                <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                                                <div>
+                                                    <MenuIcon className="block absolute h-6 w-6 mt-0.5 opacity-25" aria-hidden="true" />
+                                                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                                                </div>
                                             )}
                                         </Disclosure.Button>
 
@@ -236,19 +242,19 @@ const ConnectionStatusButtons = () => {
                 {/* Notification bell icon */}
                 <button
                     type="button"
-                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white sm:ml-7"
                 >
                     <span className="sr-only">Voir les notifications</span>
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
                 {/* User burger menu */}
-                <Menu as="div" className="ml-3 relative">
+                <Menu as="div" className="ml-3">
                     <div>
-                        <Menu.Button className="bg-gray-800 flex text-lg rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <Menu.Button className="bg-gray-800 flex text-lg rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8">
                             <span className="sr-only">Ouvrir le menu utilisateur</span>
                             <img
-                                className="p-1 h-8 w-8 rounded-full bg-white  object-contain"
+                                className="p-0.5 h-8 w-8 rounded-full bg-white object-contain"
                                 src={getuserPicture(profileData.avatar)}
                                 alt=""
                             />
@@ -263,7 +269,7 @@ const ConnectionStatusButtons = () => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="absolute -ml-24 z-50 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link to={URL_ACCOUNT}
