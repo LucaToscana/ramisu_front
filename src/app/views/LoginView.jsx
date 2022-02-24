@@ -30,9 +30,10 @@ const LoginView = ({ history }) => {
             await recaptchaRef.current.executeAsync().then(token=>{
                 authenticate(values).then(res => {
                     
+                    debugger
                     if (res.status === 200 && res.data.token) {
                         dispatch(signIn(res.data.token))
-        
+                        
         
                         if (isAuthenticated) {
         

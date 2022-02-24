@@ -31,7 +31,7 @@ const PasswordResetEndView = ({ history }) => {
                     setBadToken(response.data=="UNAUTHORIZED");
             })
             .catch((error, response) => {
-                history.push(URL_HOME);
+                 history.push(URL_HOME);
             })
     })
 
@@ -46,7 +46,7 @@ const PasswordResetEndView = ({ history }) => {
         resetPasswordEnd(passwordReset).then(response => {
             if (response.status === 200) {
                 toast.success("Mot de passe réinitialisé")
-                history.push(URL_HOME)
+                 history.push(URL_HOME)
             }
         }).catch(() => setErrorLog(true))
     }
