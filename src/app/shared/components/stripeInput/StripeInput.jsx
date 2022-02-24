@@ -38,7 +38,7 @@ const ccValidator = value => {
   return /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(value);
 };
 
-export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay ,cards}) => {
+export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay, cards }) => {
   const {
     getCardImageProps,
     getCardNumberProps,
@@ -48,6 +48,9 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay 
     meta,
     wrapperProps
   } = usePaymentInputs();
+
+
+
 
   const locationMetod = () => {
     const test = window.location.pathname
@@ -60,8 +63,16 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay 
 
   return (
     <div className="flex justify-center" style={{ maxWidth: 800 }}>
-      <div className="">
-        <div className="h-24  mt-10 lg:w-96 text-xs lg:pl-40 ">{errorPay}</div>
+      <div className="text-center">
+        <h1 className="font-bold m-2">AUTORISATION DE VOTRE CARTE DE CRÉDIT:</h1>
+        <p className="mb-5 text-xs">
+          Il n'est pas rare qu'une demande d'autorisation de carte de crédit soit refusée une ou deux fois avant que la carte soit finalement autorisée. Nous vous transmettrons un courriel en cas de difficulté lors de l'autorisation de votre carte de crédit.</p>
+        <div className="h-48 lg:h-32  mt-10 lg:w-full text-mds  ">
+      
+        {locationMetod() ?    <h1 className="font-bold text-2xl m-2">AJOUTER UN MOYEN DE PAIEMENT</h1>:null}
+
+
+          {errorPay === 3 ? <p className="text-red-500 text-sm">Vous avez atteint  la limite de cartes enregistrées, supprimez un ancien mode de paiement pour enregistrer une nouvelle carte</p> : null}</div>
         {!locationMetod() ? <div><p className="font-bold trxt-2xl">Tot a payer : {tot}€</p></div> : null}
         <Formik
           // validationSchema={}
@@ -71,7 +82,7 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay 
             email: email(),
             cardNumber: "",
             cvc: "",
-            zip: "",
+           // zip: "",
             expiryDate: "",
             amount: ""
           }}
@@ -84,19 +95,19 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay 
 
                   <div className="column is-four-fifths">
                     <div className="field">
-                      <label className="label">Email</label>
-                      <div className="control has-icons-left">
-                        <Field
+                      <label className="label"><h1 className="font-bold">Email</h1></label>
+                      <div className="control has-icons-left ">
+                    <p >   <Field
                           className={
                             isNil(formikProps.errors.cardHolder)
-                              ? `rounded-none rounded-b-md mb-4 shadow-inner input `
-                              : `rounded-none rounded-b-md mb-4 shadow-inner input `
+                              ? `rounded-none rounded-b-md mb-4 shadow-inner input bg-yellow-200 `
+                              : `rounded-none rounded-b-md mb-4 shadow-inner input bg-yellow-200`
                           }
                           name="email"
                           placeholder="email@email.com"
                           type="text"
-                        //  disabled
-                        />
+                         disabled
+                        /></p> 
                         <span className="icon is-large is-left">
                           <i className="fas fa-user" />
                         </span>
@@ -112,20 +123,22 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay 
 
                   <div className="column is-four-fifths">
                     <div className="field">
-                      <label className="label">cardHolder</label>
+                      <label className="label"><h1 className="font-bold">Proprietaire CB</h1></label>
                       <div className="control has-icons-left">
-                        <Field
+                      <p>  <Field
+
+                         disabled={errorPay === 3 ?  true:false}
                           validate={validateName}
                           className={
                             isNil(formikProps.errors.cardHolder)
                               ? `rounded-none rounded-b-md mb-4 shadow-inner input `
-                              : `rounded-none rounded-b-md mb-4 shadow-inner input  bg-red-200`
+                              : `rounded-none rounded-b-md mb-4 shadow-inner input  border-2 border-red-700`
                           }
                           name="cardHolder"
                           placeholder="Pippo Inzaghi"
                           type="text"
                         // onChange={handleChange}
-                        />
+                        /></p>
                         <span className="icon is-large is-left">
                           <i className="fas fa-user" />
                         </span>
@@ -140,12 +153,14 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay 
                   </div>
 
 
-                  {!isUS ? (
+                  {/*!isUS ? (
                     <div className="column is-one-fifth">
                       <div className="field">
                         <label className="label">Zip / Postal Code</label>
                         <div className="control has-icons-left">
                           <Field
+                                                   disabled={errorPay === 3 ?  true:false}
+
                             // validate={validateNaßßme}
                             className={
                               isNil(formikProps.errors.zip)
@@ -166,20 +181,22 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay 
                         <p className="help is-danger">{formikProps.errors.zip}</p>
                       ) : null}
                     </div>
-                  ) : null}
+                      ) : null*/}
                 </div>
 
-                <div className="column is-full">
-                  <div className="field">
-                    <div> <label className="label">Credit Card Details</label></div>
-                    <PaymentInputsWrapper
+                <div className="">
+                  <div className="">
+                    <div> <label className="label"><h1 className="font-bold">Credit Card Details</h1></label></div>
+                  <p>  <PaymentInputsWrapper 
+
                       {...wrapperProps}
-                      styles={gt(width, 600) ? stylish2 : stylish}
+                      styles={gt(width, 700) ? stylish2 : stylish}
                     >
                       <svg {...getCardImageProps({ images })} />
                       <Field name="cardNumber">
                         {({ field }) => (
-                          <input
+                          <input                                              disabled={errorPay === 3 ?  true:false}
+                          className=""
                             {...getCardNumberProps({
                               onChange: field.onChange,
                               onBlur: field.onBlur
@@ -189,7 +206,8 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay 
                       </Field>
                       <Field name="expiryDate">
                         {({ field }) => (
-                          <input
+                          <input                                              disabled={errorPay === 3 ?  true:false}
+
                             {...getExpiryDateProps({
                               onChange: field.onChange,
                               onBlur: field.onBlur
@@ -199,7 +217,8 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay 
                       </Field>
                       <Field name="cvc">
                         {({ field }) => (
-                          <input
+                          <input                                              disabled={errorPay === 3 ?  true:false}
+
                             {...getCVCProps({
                               onChange: field.onChange,
                               onBlur: field.onBlur
@@ -207,19 +226,8 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay 
                           />
                         )}
                       </Field>
-                      {isUS ? (
-                        <Field>
-                          {({ field }) => (
-                            <input
-                              {...getZIPProps({
-                                onChange: field.onChange,
-                                onBlur: field.onBlur
-                              })}
-                            />
-                          )}
-                        </Field>
-                      ) : null}
-                    </PaymentInputsWrapper>
+                  
+                    </PaymentInputsWrapper></p>
                   </div>
                 </div>
 
@@ -235,13 +243,15 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay 
 
 
                   : null}
-                  {cards}
-                {errorPay==="" ? <div className="">
-                  <button className="validateCart" type="submit">
+                {cards}
+                {errorPay !== 3
+                
+                ? <div className="">
+                  <button className="validateCart " type="submit">
                     {!locationMetod() ? "Payer" : "Save Card"}
                   </button>
                 </div> : null}</Form>
-              {  //<Debug />
+              {//  <Debug />
 
               }
 

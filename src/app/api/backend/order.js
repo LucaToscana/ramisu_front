@@ -1,5 +1,5 @@
 import apiBackEnd from "./api.BackendWithToken";
-import {URL_BACK_ADD_ORDER, URL_BACK_GET_ORDERS, URL_BACK_GET_ORDER_DETAILS, URL_CUSTOMER_CARDS, URL_NEW_CUSTOMER, URL_NEW_CUSTOMER_AND_PAY, URL_PAY_ONE_TIMES, URL_PAY_ORDER} from "../../shared/constants/urls/urlBackEnd";
+import {URL_BACK_ADD_ORDER, URL_BACK_GET_ORDERS, URL_BACK_GET_ORDER_DETAILS, URL_CUSTOMER_CARDS, URL_DELETE_CARD, URL_NEW_CUSTOMER, URL_NEW_CUSTOMER_AND_PAY, URL_PAY_ONE_TIMES, URL_PAY_ORDER} from "../../shared/constants/urls/urlBackEnd";
 import axios from "axios";
 
 export function addOrder(list){
@@ -43,4 +43,9 @@ export const newCustomer=(values)=>{
 
 export const allCustomerCards=()=>{
     return apiBackEnd.get(URL_CUSTOMER_CARDS)
+}
+
+export const deleteCard=(value)=>{
+    const card = {cardStripe:value}
+    return apiBackEnd.post(URL_DELETE_CARD ,card)
 }

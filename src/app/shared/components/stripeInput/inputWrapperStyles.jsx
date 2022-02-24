@@ -13,7 +13,7 @@ export const stylish = {
       /* border: 2px solid green; */
       border-radius: 1rem;
       
-      width: 100%;
+      width: 80%;
     `,
     inputWrapper: {
       base: css`
@@ -65,7 +65,8 @@ export const stylish2 = {
   inputWrapper: {
     base: css`
       border-radius: 1rem;
-    `
+      width: 100%;
+      `
   },
   fieldWrapper: {
     base: css`
