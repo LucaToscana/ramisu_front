@@ -71,22 +71,24 @@ const Navbar = () => {
 
                         <div className='text-center items-center justify-center w-full'>
 
-                            <div className="max-w-7xl px-4 pt-2 mx-auto">
+                            <div className="max-w-7xl px-4 mt-1 lg:mt-5 mx-auto">
 
                                 {/* Search bar */}
                                 <div className={'flex mx-auto mb-2'}>
 
-                                    <div className={'flex border border-gray-300 shadow-custom rounded-sm items-center w-full mx-10 md:mx-48 lg:mx-10'}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="#C3A758" >
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                                        </svg>
-                                        <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
-                                            className={'w-full h-full px-4 text-lg text-white bg-transparent showSearchInpunt'}
-                                        />
+                                    <div className='lg:block hidden w-full'>
+                                        <div className={'flex border border-gray-300 shadow-custom rounded-sm items-center w-full mx-10 md:mx-48 lg:mx-10'}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="#C3A758" >
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                            </svg>
+                                            <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
+                                                className={'w-full h-full text-lg text-white bg-transparent'}
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* Right part of navbar - widgets */}
-                                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 pt-20 lg:static lg:inset-auto lg:ml-6 lg:pr-0 lg:pt-0">
+                                    <div className="items-center hidden lg:flex mx-6">
                                         {/* Display depending if the user is connected or not :
                                             notifications, connection / registration link, profile menu burger 
                                         */}
@@ -104,7 +106,7 @@ const Navbar = () => {
                                 }
                                 <hr className='border-1 border-custom-orange' />
                                 <div className="relative flex items-center justify-between h-16 mx-10 xl:mx-32">
-                                    <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
+                                    <div className="inset-y-0 left-0 flex items-center lg:hidden">
 
                                         {/* Mobile menu button*/}
                                         <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
@@ -121,12 +123,28 @@ const Navbar = () => {
                                     <div className="flex-1 flex items-center lg:items-stretch mr-3">
 
                                         {/* Website logo */}
-                                        <div className="block lg:hidden h-16 min-w-max mx-auto">
-                                            <img
-                                                className="h-full w-auto"
-                                                src={logo}
-                                                alt="Warhammer shop logo"
-                                            />
+                                        <div className='block lg:hidden w-full'>
+                                            <div className="h-16 min-w-max">
+                                                <img
+                                                    className="h-full w-auto mx-auto"
+                                                    src={logo}
+                                                    alt="Warhammer shop logo"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        {/* Right part of navbar - widgets */}
+                                        <div className="flex items-center pr-2 lg:hidden">
+                                            {/* Display depending if the user is connected or not :
+                                                notifications, connection / registration link, profile menu burger 
+                                            */}
+                                            <ConnectionStatusButtons />
+                                            <div className="cart-wrapper">
+                                                <Link to="/panier" >
+                                                    <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                                    {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                                </Link>
+                                            </div>
                                         </div>
 
                                         {/* Link to other parts of website */}
@@ -282,7 +300,7 @@ const ConnectionStatusButtons = () => {
 
         /* Displayed buttons if the user is not connected */
         return (
-            <div className='w-full'>
+            <div>
                 <div className="hidden lg:block lg:ml-6">
                     <div className="flex justify-between">
                         <Link
