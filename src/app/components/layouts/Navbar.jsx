@@ -197,7 +197,6 @@ const ConnectionStatusButtons = () => {
     const profileData = useSelector(selectProfileInfo);
     const dispatch = useDispatch();
     // const history = useHistory()
-    const [show, setShow] = React.useState();
 
 
 
@@ -302,28 +301,31 @@ const ConnectionStatusButtons = () => {
                     </div>
                 </div>
                 <div className="lg:hidden block">
-                        <button onClick={() => setShow(!show)}>
+                    <Menu as="div"
+                        className="relative">
+                        <Menu.Button>
                             <UserIcon className='bg-custom-orange rounded-full p-1 mt-3 text-gray-800 w-8 h-8 m-2' />
-                        </button>
-
-                        {show? (<ul className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        </Menu.Button>
+                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <div className='flex flex-col'>
-                                <li>
+                                <Menu.Item>
                                     <Link
                                         to={URL_REGISTRATION}
                                         className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
                                         <span>S'inscrire</span>
                                     </Link>
-                                </li>
-                                <li>
+                                </Menu.Item>
+                                <Menu.Item>
                                     <Link
                                         to={URL_LOGIN}
                                         className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
                                         Se connecter
                                     </Link>
-                                </li>
+                                </Menu.Item>
                             </div>
-                        </ul>) : (<div />)}
+
+                        </Menu.Items>
+                    </Menu>
 
                 </div>
             </div>)
