@@ -11,7 +11,7 @@ function Orders({ order, showModal }) {
             <div className='p-2'>{order.id}</div>
             <div className='p-2'>{order.date}</div>
             <div className='p-2'>{order.status.label}</div>
-            <div className='p-2'>{order.total} € TTC</div>
+            <div className='p-2'>{(order.total*1).toFixed(2)} € TTC</div>
            
            
             <div className='grid grid-cols-2  '>

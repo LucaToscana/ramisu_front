@@ -87,7 +87,7 @@ const PaiementMetodView = () => {
 
 
     if (loaded === false) {
-        return <div class="mt-16  mb-16 grid grid-cols-1">
+        return <div  style={{ height: 700 }} class="h-full  grid grid-cols-1">
             <div class=" flex justify-center items-center">
                 <div class="animate-spin"><CreditCardIcon className="w-24 h-24  " ></CreditCardIcon></div>
             </div>
@@ -100,13 +100,15 @@ const PaiementMetodView = () => {
                 ref={recaptchaRef}
                 size="invisible" />
             <div className='flex  flex-wrap items-center justify-center self-center'>
-                <div className='m-5 '><div className='grid grid-cols-2 w-96 text-sm'><div><img src={visaMastercard} className='w-1/2 m-8 '></img></div><div> <h1 className="font-bold m-2">MÉTHODE ACCEPTÉE</h1><p className='w-48'>
+                <div className='m-2 '><div className='grid grid-cols-2 w-80 text-sm'><div><img src={visaMastercard} className='w-1/2 m-4 '></img></div><div> <h1 className="font-bold ">MÉTHODE ACCEPTÉE</h1>
+                <p className='text-xs lg:w-48  mt-4'>
                     WarhammerMarket France accepte actuellement  Visa, MasterCard en cas de ventes sur Internet et par téléphone.
-                </p></div></div> <div className='ml-5 mt-8'>
+                </p></div></div>
+                 <div className='m-3 mt-8'>
 
                         <CardCreditLines cards={cardsList()} size={cards.length} isFormShowed={isFormShowed} deletCard={setDeletCart} toggle={toggle} confirmDelet={deletCardButton} ></CardCreditLines>     </div>    </div>
                 <div className='w-0 lg:w-24  '>     </div>
-                <div className='p-5 mt-5'> <StripeInput tot={0} submit={handleSubmit} tot={0} errorPay={cardsLimit()} ></StripeInput></div>
+                <div className='p-5 mt-5 '> <StripeInput tot={0} submit={handleSubmit} tot={0} errorPay={cardsLimit()} ></StripeInput></div>
             </div>
 
         </div>)

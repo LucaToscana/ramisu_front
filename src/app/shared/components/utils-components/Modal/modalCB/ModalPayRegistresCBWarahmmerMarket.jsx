@@ -5,18 +5,19 @@ import logo from "../../../../../assets/images/icones/logo/warhammer-shop-logo.p
 
 import StripeInput from "../../../stripeInput/StripeInput";
 import war from '../../../../../assets/images/war1.png'
+import CardCreditLinesOrder from "../../../stripeInput/CardCreditLinesOrder";
 
-const ModalPayCBWarahmmerMarket = ({ isShowing, hide, tot, submit, remember, isRemember, errorPay }) =>
+const ModalPayRegistresCBWarahmmerMarket = ({ isShowing, hide, toggle, cards, tot ,submit}) =>
   isShowing
     ? ReactDOM.createPortal(
       <>
         <div className="modal-overlay"  >
           <div className="modal-wrapper w-full  " >
-            <div className="modal w-full "  style={{
-                backgroundImage: `url(${war})`,
-                backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
-                backgroundSize: 'cover',
-        }}>
+            <div className="modal w-full " style={{
+              backgroundImage: `url(${war})`,
+              backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+              backgroundSize: 'cover',
+            }}>
               <div className="flex justify-end"> <button
                 type="button"
                 className="modal-close-button"
@@ -31,7 +32,7 @@ const ModalPayCBWarahmmerMarket = ({ isShowing, hide, tot, submit, remember, isR
 
                 {<div className="self-center ">
 
-                  <StripeInput tot={tot} submit={submit} tot={tot} remember={remember} isRemember={isRemember} errorPay={errorPay}></StripeInput>
+                  <CardCreditLinesOrder cards={cards} size={cards.length} isFormShowed={isShowing} toggle={toggle}  tot={tot} submit={submit} ></CardCreditLinesOrder>
 
 
 
@@ -101,4 +102,4 @@ const ModalPayCBWarahmmerMarket = ({ isShowing, hide, tot, submit, remember, isR
     )
     : null;
 
-export default ModalPayCBWarahmmerMarket;
+export default ModalPayRegistresCBWarahmmerMarket;

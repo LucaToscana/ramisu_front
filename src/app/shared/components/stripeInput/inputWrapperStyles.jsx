@@ -13,7 +13,7 @@ export const stylish = {
       /* border: 2px solid green; */
       border-radius: 1rem;
       
-      width: 80%;
+      width: 90%;
     `,
     inputWrapper: {
       base: css`
@@ -45,7 +45,8 @@ export const stylish = {
       width: 8rem;
     `,
     expiryDate: css`
-      width: 3rem;
+      width: 4rem;
+      margin-right: 0.50rem;
       margin-left: 0.50rem;
       
     `,
@@ -65,7 +66,6 @@ export const stylish2 = {
   inputWrapper: {
     base: css`
       border-radius: 1rem;
-      width: 100%;
       `
   },
   fieldWrapper: {
@@ -95,6 +95,7 @@ export const stylish2 = {
       /* border-radius: 1rem; */
       font-size: 0.9rem;
       height: 1.25rem;
+      
     `,
     errored: css`
       color: maroon;
@@ -124,6 +125,7 @@ export const styles = {
   inputWrapper: {
     base: css`
       border-radius: 1rem;
+      
     `
   },
   fieldWrapper: {

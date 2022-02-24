@@ -9,19 +9,32 @@ import useModal from '../shared/components/utils-components/Modal/useModal';
 import ModalPayCBWarahmmerMarket from '../shared/components/utils-components/Modal/modalCB/ModalPayCBWarahmmerMarket';
 import ModalSuccessPay from '../shared/components/utils-components/Modal/ModalSuccessPay';
 import { isAuthenticated } from '../shared/services/accountServices';
-import { addOrderWithAddress, newCustomerAndPay, payOneTimes } from '../api/backend/order';
+import { addOrderWithAddress, allCustomerCards, newCustomerAndPay, payOneTimes, payWithRegistredCard } from '../api/backend/order';
 import { useHistory } from 'react-router-dom';
+import ModalPayRegistresCBWarahmmerMarket from '../shared/components/utils-components/Modal/modalCB/ModalPayRegistresCBWarahmmerMarket';
 
 
 const PaiementPayerView = () => {
+    
+
+    const { isShowing: isFormRegistredShowed, toggle: toggleRegistred } = useModal();
+
     const { isShowing: isFormShowed, toggle: toggle } = useModal();
     const { isShowing: isSuccessFormShowed, toggle: toggleSuccessForm } = useModal();
+    const [cards, setCards] = useState([])
+    const [cardClient, setCardClient] = useState("")
+
     const [remember, setRemember] = useState(false)
     const [errorPay, setErrorPay] = useState("")
     const carts = useSelector(selectCart)
     const idaddress = localStorage.getItem("idAddress",)
     const dispatch = useDispatch();
     const history = useHistory()
+
+    const cardsList = () => {
+        return cards
+
+    }
 
     let subTotal = 0;
     for (let i = 0; i < carts.length; i++) {
@@ -33,7 +46,7 @@ const PaiementPayerView = () => {
             return (subTotal * 1.2).toFixed(2)
         }
     }
-
+    
 
     useEffect(() => {
         if (performance.navigation.type === 1) {
@@ -51,8 +64,24 @@ const PaiementPayerView = () => {
 
             console.log("This page is reloaded");
         } else {
+
+               
+        
+
+
             console.log("This page is not reloaded");
         }
+
+if(cards===null){}
+        console.log('stripe')
+        allCustomerCards().then((res) => {
+            //setErrorPay()
+            setCards(res.data.listCards)
+        })
+            .catch((error) => {
+            })
+
+
     }, []);
 
     const closeSuccess = () => setTimeout(function () { deleteAndRefresh() }, 6000);
@@ -74,16 +103,37 @@ const PaiementPayerView = () => {
         setErrorPay('')
         setRemember(false)
     }
+    const hideClearRegistred = () => {
 
+
+        toggleRegistred()
+        setErrorPay('')
+    }
 
     const deleteAndRefresh = () => {
         dispatch(init())
         localStorage.removeItem('totPayer')
         history.push('/')
     }
-  
+    
+    const handleSubmitRegistred = (values) => {
+        if(values!==""){
+           payWithRegistredCard(values,totalToPay())
+                .then((res) => {
+                    setErrorPay(res.data)
+                    finishOrder(res.data)
 
- 
+                })
+                .catch((error) => {
+                });
+        
+
+
+        }}
+
+    
+
+
 
     const handleSubmit = (values) => {
         values.amount = totalToPay()
@@ -101,6 +151,7 @@ const PaiementPayerView = () => {
             newCustomerAndPay(values)
                 .then((res) => {
                     setErrorPay(res.data)
+
                     finishOrder(res.data)
                 })
                 .catch((error) => {
@@ -117,8 +168,9 @@ const PaiementPayerView = () => {
         if (test === "succeeded") {
             localStorage.setItem('totPayer', totalToPay())
             validate(carts)
-            toggle()
-            setTimeout(function () { toggleSuccessForm() }, 1000);
+          if(isFormShowed) { toggle()}
+          if(isFormRegistredShowed){toggleRegistred()}
+            setTimeout(function () { toggleSuccessForm() }, 2000);
             closeSuccess()
         }
     }
@@ -170,6 +222,22 @@ const PaiementPayerView = () => {
 
             >
             </ModalPayCBWarahmmerMarket>
+
+            <ModalPayRegistresCBWarahmmerMarket
+                isShowing={isFormRegistredShowed}
+                hide={() =>
+                    hideClearRegistred()}
+                title="payer par CB"
+                tot={totalToPay()}
+                submit={handleSubmitRegistred}
+                cards={cardsList()}
+                errorPay={errorPay}
+                submit={handleSubmitRegistred}
+
+
+            >
+            </ModalPayRegistresCBWarahmmerMarket>
+
             <ModalSuccessPay
                 isShowing={isSuccessFormShowed}
                 hide={hideSuccess}
@@ -185,14 +253,17 @@ const PaiementPayerView = () => {
                 <div className='flex border-b-2 border-gray-400 pb-4'>
                     <h1 className='flex font-bold text-2xl ml-4'>Paiement par paypal</h1>
                 </div>
-                <div className='flex justify-between  border-b-2 border-gray-400 mt-5   cartCard '>
-                    <div className='self-center h-full'>  <img src={paypal} height={200} width={200}></img>  </div>    <p className="text-sm mt-10 pb-10 self-center">
+                <div className='flex  justify-around   border-b-2 border-gray-400 mt-5   cartCard '>
+                    <div className='self-center h-full'>  <img src={paypal} height={150} width={150}></img>  </div>    <p className="text-sm mt-10 pb-10 self-center w-24  lg:w-96">
                         Vous pouvez valider le paiement avec paypal
                     </p>
 
-                    <div className='flex justify-end self-end m-2 text-sm	'>
-                        <button className="paiementCart h-12 w-24" onClick={() => alert("button paypal")/*validate(carts)*/}>Paypal</button>
-                    </div>
+                    <div className='grid grid-cols-1 text-sm	'>
+
+                        <div className='flex justify-center m-3 w-full pr-5'>
+                            <div className='flex justify-end self-end m-2 text-xs w-full	'>
+                                <button className="paiementCart h-12 w-24" onClick={() => alert("button paypal")/*validate(carts)*/}>Paypal</button>
+                            </div></div></div>
                 </div>
 
 
@@ -200,8 +271,13 @@ const PaiementPayerView = () => {
                 <div className='flex border-b-2 border-gray-400 pb-4 mt-5 '>
                     <h1 className='flex items-end font-bold text-2xl ml-4'>Paiement par carte </h1>
                 </div>
-                <div className='flex justify-between  border-b-2 border-gray-400 mt-5   cartCard '>
-                    <div className='self-center h-full m-4 '>  <img src={visaMaster} height={130} width={130}></img>  </div>    <p className="text-sm mt-10 pb-10 self-center">
+                <div className='flex justify-around  border-b-2 border-gray-400 mt-5   cartCard '>
+                    <div className='self-center h-full m-4 '>  <img src={visaMaster} height={130} width={130}></img>  </div>
+
+
+
+
+                    <p className="text-sm mt-10 pb-10 self-center w-24  lg:w-96">
                         Vous pouvez valider le paiement avec Visa or Mastercard
                     </p>
 
@@ -209,12 +285,21 @@ const PaiementPayerView = () => {
 
 
 
-                    <div className='flex justify-end self-end m-2 text-sm	'>
+                    <div className='grid grid-cols-1 text-sm	'>
 
-                        {<div className='flex justify-center m-3 w-full'>
-                            <div className='flex justify-end self-end m-2 text-sm w-full	'>
-                                <button className="validateCart h-24 " onClick={toggle}>Pay {(subTotal * 1.2) < 25 ? ((subTotal * 1.2) + 10).toFixed(2)
-                                    : (subTotal * 1.2).toFixed(2)}€</button>
+                        <div className='flex justify-center m-3 w-full pr-5'>
+                            <div className='flex  justify-end self-end m-2 text-xs w-full	'>
+                                <button className="paiementCart h-12 w-24" onClick={toggle}> Nouvelle carte </button>
+                            </div>
+
+                        </div>
+
+
+
+
+                        {<div className='flex justify-center m-3 w-full pr-5'>
+                            <div className='flex  justify-end self-end m-2 text-xs w-full	'>
+                                <button className="paiementCart h-12 w-24" onClick={toggleRegistred}>Cartes enregistrées</button>
                             </div>
 
                         </div>

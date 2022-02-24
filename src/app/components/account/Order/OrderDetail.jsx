@@ -57,7 +57,7 @@ function OrderDetail({ orderId, modalIsOpen, setModalIsOpen }) {
                                                 quantité : {order.quantite}
                                             </p>
                                             <p className="text-gray-700 text-base">
-                                                prix : {order.price} € H.T.
+                                                prix : {(order.price*1).toFixed(2)} € H.T.
                                             </p>
                                         </div>
                                     </div>

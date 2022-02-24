@@ -72,7 +72,7 @@ const RetourView = (props) => {
                         size="invisible" />
 
                 <h2 className='font-bold text-center mt-5 p-1 text-white text-3xl'>Voulez-vous faire un retour or  annuler une commande?   Contactez-nous!</h2>
-                <h2 className='font-bold text-center text-white text-2xl mb-3'> warhammer.market@gmail.com</h2>
+                <h2 className='font-bold text-center text-white text-1xl mb-3'> warhammer.market@gmail.com</h2>
 
                 {status ? (<h2 className="text-center">{feedback}</h2>) : (
                         <Formik

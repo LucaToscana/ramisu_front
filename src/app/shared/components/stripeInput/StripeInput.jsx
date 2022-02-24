@@ -62,18 +62,29 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
   const { height, width } = useWindowDimensions();
 
   return (
-    <div className="flex justify-center" style={{ maxWidth: 800 }}>
+    <div className="flex justify-center  text-sm p-2 bg-white rounded-lg border shadow-md " style={{ maxWidth: 800 }}>
       <div className="text-center">
         <h1 className="font-bold m-2">AUTORISATION DE VOTRE CARTE DE CRÉDIT:</h1>
-        <p className="mb-5 text-xs">
-          Il n'est pas rare qu'une demande d'autorisation de carte de crédit soit refusée une ou deux fois avant que la carte soit finalement autorisée. Nous vous transmettrons un courriel en cas de difficulté lors de l'autorisation de votre carte de crédit.</p>
+        <p className="mb-5 text-sm">
+          Il n'est pas rare qu'une demande d'autorisation de carte de crédit soit refusée une ou deux fois avant que la carte soit finalement autorisée.</p>
+        <p className="mb-5 text-sm">
+          Nous vous transmettrons un courriel en cas de difficulté lors de l'autorisation de votre carte de crédit.</p>
+
         <div className="h-48 lg:h-32  mt-10 lg:w-full text-mds  ">
-      
-        {locationMetod() ?    <h1 className="font-bold text-2xl m-2">AJOUTER UN MOYEN DE PAIEMENT</h1>:null}
 
 
-          {errorPay === 3 ? <p className="text-red-500 text-sm">Vous avez atteint  la limite de cartes enregistrées, supprimez un ancien mode de paiement pour enregistrer une nouvelle carte</p> : null}</div>
-        {!locationMetod() ? <div><p className="font-bold trxt-2xl">Tot a payer : {tot}€</p></div> : null}
+
+          {errorPay === 3 ? <><p className="text-red-500 text-sm">Vous avez atteint  la limite de cartes enregistrées,</p>
+            <p className="text-red-500 text-sm"> supprimez un ancien mode de paiement pour enregistrer une nouvelle carte</p></> : null}
+
+          {!locationMetod() ? <div><p className="text-red-500 text-sm ">  {errorPay}</p></div> : null}
+        </div>
+
+
+
+        {!locationMetod() ? <div><p className="font-bold text-3xl">Tot a payer : {tot}€</p></div> : null}
+        {locationMetod() ? <h1 className="font-bold text-2xl m-2">AJOUTER UN MOYEN DE PAIEMENT</h1> : null}
+
         <Formik
           // validationSchema={}
           enableReinitialize={true}
@@ -82,7 +93,7 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
             email: email(),
             cardNumber: "",
             cvc: "",
-           // zip: "",
+            // zip: "",
             expiryDate: "",
             amount: ""
           }}
@@ -91,23 +102,23 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
           render={formikProps => (
             <React.Fragment>
               <Form>
-                <div className="stripe-form">
+                <div className="">
 
-                  <div className="column is-four-fifths">
-                    <div className="field">
-                      <label className="label"><h1 className="font-bold">Email</h1></label>
-                      <div className="control has-icons-left ">
-                    <p >   <Field
+                  <div className="">
+                    <div className="">
+                      <label className=""><h1 className="font-bold">Email</h1></label>
+                      <div className="flex justify-center ">
+                        <p >   <Field
                           className={
                             isNil(formikProps.errors.cardHolder)
-                              ? `rounded-none rounded-b-md mb-4 shadow-inner input bg-yellow-200 `
-                              : `rounded-none rounded-b-md mb-4 shadow-inner input bg-yellow-200`
+                              ? `rounded-none rounded-b-md mb-4 shadow-inner input bg-yellow-200 lg:w-96 `
+                              : `rounded-none rounded-b-md mb-4 shadow-inner input bg-yellow-200  lg:w-96`
                           }
                           name="email"
                           placeholder="email@email.com"
                           type="text"
-                         disabled
-                        /></p> 
+                          disabled noError
+                        /></p>
                         <span className="icon is-large is-left">
                           <i className="fas fa-user" />
                         </span>
@@ -121,18 +132,18 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
                     </div>
                   </div>
 
-                  <div className="column is-four-fifths">
-                    <div className="field">
+                  <div className="flex justify-center ">
+                    <div className="">
                       <label className="label"><h1 className="font-bold">Proprietaire CB</h1></label>
                       <div className="control has-icons-left">
-                      <p>  <Field
+                        <p>  <Field
 
-                         disabled={errorPay === 3 ?  true:false}
+                          disabled={errorPay === 3 ? true : false}
                           validate={validateName}
                           className={
                             isNil(formikProps.errors.cardHolder)
-                              ? `rounded-none rounded-b-md mb-4 shadow-inner input `
-                              : `rounded-none rounded-b-md mb-4 shadow-inner input  border-2 border-red-700`
+                              ? `rounded-none rounded-b-md mb-4 shadow-inner input  lg:w-96`
+                              : `rounded-none rounded-b-md mb-4 shadow-inner input  border-red-700 lg:w-96`
                           }
                           name="cardHolder"
                           placeholder="Pippo Inzaghi"
@@ -143,51 +154,21 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
                           <i className="fas fa-user" />
                         </span>
                       </div>
-                      {formikProps.errors.cardHolder &&
+                      <div className="h-12">   {formikProps.errors.cardHolder &&
                         formikProps.touched.cardHolder ? (
-                        <p className="help is-danger">
+                        <p className=" ">
                           {formikProps.errors.cardHolder}
                         </p>
-                      ) : null}
+                      ) : <p className=""></p>}</div>
                     </div>
                   </div>
 
-
-                  {/*!isUS ? (
-                    <div className="column is-one-fifth">
-                      <div className="field">
-                        <label className="label">Zip / Postal Code</label>
-                        <div className="control has-icons-left">
-                          <Field
-                                                   disabled={errorPay === 3 ?  true:false}
-
-                            // validate={validateNaßßme}
-                            className={
-                              isNil(formikProps.errors.zip)
-                                ? `rounded-none rounded-b-md mb-4 shadow-inner input `
-                                : `rounded-none rounded-b-md mb-4 shadow-inner input`
-                            }
-                            name="zip"
-                            placeholder="12345"
-                            type="text"
-                          // onChange={handleChange}
-                          />
-                          <span className="icon is-large is-left">
-                            <i className="fas fa-map-marker-alt" />
-                          </span>
-                        </div>
-                      </div>
-                      {formikProps.errors.zip && formikProps.touched.zip ? (
-                        <p className="help is-danger">{formikProps.errors.zip}</p>
-                      ) : null}
-                    </div>
-                      ) : null*/}
                 </div>
 
-                <div className="">
+                <div className="h-24">
                   <div className="">
                     <div> <label className="label"><h1 className="font-bold">Credit Card Details</h1></label></div>
-                  <p>  <PaymentInputsWrapper 
+                    <p>  <PaymentInputsWrapper
 
                       {...wrapperProps}
                       styles={gt(width, 700) ? stylish2 : stylish}
@@ -195,8 +176,8 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
                       <svg {...getCardImageProps({ images })} />
                       <Field name="cardNumber">
                         {({ field }) => (
-                          <input                                              disabled={errorPay === 3 ?  true:false}
-                          className=""
+                          <input disabled={errorPay === 3 ? true : false}
+                            className=""
                             {...getCardNumberProps({
                               onChange: field.onChange,
                               onBlur: field.onBlur
@@ -206,7 +187,7 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
                       </Field>
                       <Field name="expiryDate">
                         {({ field }) => (
-                          <input                                              disabled={errorPay === 3 ?  true:false}
+                          <input disabled={errorPay === 3 ? true : false}
 
                             {...getExpiryDateProps({
                               onChange: field.onChange,
@@ -217,7 +198,7 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
                       </Field>
                       <Field name="cvc">
                         {({ field }) => (
-                          <input                                              disabled={errorPay === 3 ?  true:false}
+                          <input disabled={errorPay === 3 ? true : false}
 
                             {...getCVCProps({
                               onChange: field.onChange,
@@ -226,7 +207,7 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
                           />
                         )}
                       </Field>
-                  
+
                     </PaymentInputsWrapper></p>
                   </div>
                 </div>
@@ -236,8 +217,8 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
 
                     remember()
 
-                  }} className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2" type="checkbox" defaultChecked={isRemember} id="flexCheckChecked" />
-                  <label htmlFor="rememberMe" className="m-0 text-gray-400 text-sm">
+                  }} className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left ml-5" type="checkbox" defaultChecked={isRemember} id="flexCheckChecked" />
+                  <label htmlFor="rememberMe" className="m-0 text-gray-400 text-sm ml-5">
                     Mémorisez pour mes futurs achats
                   </label></div>
 
@@ -245,12 +226,12 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
                   : null}
                 {cards}
                 {errorPay !== 3
-                
-                ? <div className="">
-                  <button className="validateCart " type="submit">
-                    {!locationMetod() ? "Payer" : "Save Card"}
-                  </button>
-                </div> : null}</Form>
+
+                  ? <div className="mb-10">
+                    <button className="validateCart " type="submit">
+                      {!locationMetod() ? "Payer" : "Save Card"}
+                    </button>
+                  </div> : null}</Form>
               {//  <Debug />
 
               }

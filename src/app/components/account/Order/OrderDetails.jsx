@@ -221,7 +221,7 @@ const OrderDetails = ({ id, productsOrder, total, status, date, address, profile
 
 
 
-                <div className="  col-span-4 p-3 mt-10 ml-12 lg:w-full ">
+                <div className="text-xs  col-span-4 p-3 mt-10 ml-16 pl-8 lg:w-full ">
                     <OrderDetailsTable productsOrder={productsOrder} total={total} status={status} address={address} subTotal={subTotal} />
 
 
