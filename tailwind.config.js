@@ -33,10 +33,6 @@ module.exports = {
           'green': '#AEA70A',
         },
       },
-      boxShadow: {
-        searchBar: "inset 0 0 12px rgba(218, 255, 255, 0.36)",
-        hamburger: "0 0 24px #fff",
-      },
     }
   },
   variants: [
