@@ -19,7 +19,7 @@ const CardCreditLines = ( props ) => {
 
 <div className='h-full'>
             <div className="  p-4 max-w-md bg-white rounded-lg border shadow-md sm:p-2 dark:bg-gray-800 dark:border-gray-700">
-             <p className='font-bold text-2xl'>List Cards {props.size}/3 </p>
+             <p className='font-bold text-2xl'>Liste des cartes enregistrées {props.size}/3 </p>
           
                 <div className=" ">
                     <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">

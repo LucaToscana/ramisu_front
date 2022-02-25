@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { init, selectCart } from "../shared/redux-store/cartSlice";
-import { CheckIcon } from '@heroicons/react/solid';
+import { CheckIcon, CollectionIcon, CreditCardIcon } from '@heroicons/react/solid';
 import paypal from "../assets/images/paypal.png";
 import visaMaster from "../assets/images/visaMastercard.png";
 import { ButtonBack } from '../shared/components/buttons/ButtonBack';
@@ -277,19 +277,22 @@ if(cards===null){}
 
 
 
-                    <p className="text-sm mt-10 pb-10 self-center w-24  lg:w-96">
-                        Vous pouvez valider le paiement avec Visa or Mastercard
+                <p className="text-sm  self-center w-16  lg:w-96">
+                        Vous pouvez valider le paiement avec                   Visa or Mastercard
+
                     </p>
+                  
+
+                 
 
 
-
-
-
-                    <div className='grid grid-cols-1 text-sm	'>
+                    <div className='grid grid-cols-1 text-s'>
 
                         <div className='flex justify-center m-3 w-full pr-5'>
-                            <div className='flex  justify-end self-end m-2 text-xs w-full	'>
-                                <button className="paiementCart h-12 w-24" onClick={toggle}> Nouvelle carte </button>
+                            <div className='flex  justify-end self-end m-2 text-xs w-full		'>
+                                <button className="paiementCart  lg:w-36 md:w-36" onClick={toggle}>   <div className=" grid grid-cols-3 tewt-center"><p className=" text-xs col-span-1 mt-1 pl-2">NOUVELLE CART</p><div className='w-1'></div>
+                                <CreditCardIcon className="lg:w-7 w-6 m-1 ml-2 "></CreditCardIcon></div> </button>
+                             
                             </div>
 
                         </div>
@@ -299,7 +302,8 @@ if(cards===null){}
 
                         {<div className='flex justify-center m-3 w-full pr-5'>
                             <div className='flex  justify-end self-end m-2 text-xs w-full	'>
-                                <button className="paiementCart h-12 w-24" onClick={toggleRegistred}>Cartes enregistrées</button>
+                                <button className="paiementCart  lg:w-36 md:w-36" onClick={toggleRegistred}> <div className=" grid grid-cols-3"><p className=" text-xs col-span-1 mt-1 pl-2">MES CARTES</p><div className='w-1'></div>
+                                <CollectionIcon className="lg:w-7 w-6 m-1 ml-2 "></CollectionIcon></div> </button>
                             </div>
 
                         </div>

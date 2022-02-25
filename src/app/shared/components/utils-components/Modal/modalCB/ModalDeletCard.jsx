@@ -1,4 +1,4 @@
-import { BadgeCheckIcon, CheckIcon } from "@heroicons/react/solid";
+import { BadgeCheckIcon, CheckIcon, TrashIcon, XIcon } from "@heroicons/react/solid";
 import React from "react";
 import ReactDOM from "react-dom";
 import logo from "../../../../../assets/images/icones/logo/warhammer-shop-logo.png";
@@ -12,10 +12,10 @@ const ModalDeletCard = ({ isShowing, hide, submit, brand, expiryDate,last4,confi
   isShowing
     ? ReactDOM.createPortal(
       <>
-        <div className="modal-overlay">
+        <div className="modal-overlay ">
           <div className="modal-wrapper">
             <div className="modal p-5">
-              <div className="modal-header"> <p className="font-extrabold text-2xl text-center	">Confirmez-vous la suppression du mode de paiement suivant ?</p>
+              <div className="modal-header"> <p className="font-extrabold text-2xl text-center w-full	">Confirmez-vous la suppression du mode de paiement suivant ?</p>
 
                 <button
                   type="button"
@@ -25,9 +25,9 @@ const ModalDeletCard = ({ isShowing, hide, submit, brand, expiryDate,last4,confi
                   <span>&times;</span>
                 </button>
               </div>
-              <div className="modal-body items-center justify-center text-center">
+              <div className="modal-body items-center justify-center text-center mt-5">
 
-                <div className="flex items-center space-x-5 m-5 p-2  border-2 border-red-700">
+                <div className="flex items-center space-x-5 m-5 p-2  border-2 border-red-700 mb-10 mt-10 ">
                   <div className="flex-shrink-0">
                     {brand === 'Visa' ? <img className=' w-12' src={visa} /> : <img className='w-12' src={mastercard} />}                           </div>
                   <div className="flex-1 min-w-0">
@@ -39,9 +39,9 @@ const ModalDeletCard = ({ isShowing, hide, submit, brand, expiryDate,last4,confi
                   </div>
                  
                 </div>
-                <div className="grid grid-cols-2"> <div>  <button type="button"
-                  onClick={confirm} className="deletCards w-24"> retirer</button>  </div>    <div> <button type="button"
-                    onClick={hide} className="validateCart w-24 bg-red-500"> annuller</button></div> </div>
+                <div className="grid grid-cols-2  mt-5"> <div>  <button type="button"
+                  onClick={confirm} className="deletCards "> <div className="grid grid-cols-5"><p className="text-xl col-span-4 mt-1">RETIRER </p> <TrashIcon className="w-6 m-1"></TrashIcon></div></button>  </div>    <div> <button type="button"
+                    onClick={hide} className="validateCart  bg-red-500"><div className="grid grid-cols-5"><p className="text-xl col-span-4 mt-1">ANNULLER </p> <XIcon className="w-6 m-1"></XIcon></div></button></div> </div>
 
 
               </div>

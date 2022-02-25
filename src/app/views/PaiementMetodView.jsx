@@ -87,9 +87,9 @@ const PaiementMetodView = () => {
 
 
     if (loaded === false) {
-        return <div  style={{ height: 700 }} class="h-full  grid grid-cols-1">
+        return <div style={{ height: 700 }} class="h-full  grid grid-cols-1">
             <div class=" flex justify-center items-center">
-                <div class="animate-spin"><CreditCardIcon className="w-24 h-24  " ></CreditCardIcon></div>
+                <div class="animate-spin"><CreditCardIcon className="w-48 h-48  " ></CreditCardIcon></div>
             </div>
         </div>
     } else
@@ -99,16 +99,27 @@ const PaiementMetodView = () => {
                 sitekey={recaptcha}
                 ref={recaptchaRef}
                 size="invisible" />
-            <div className='flex  flex-wrap items-center justify-center self-center'>
-                <div className='m-2 '><div className='grid grid-cols-2 w-80 text-sm'><div><img src={visaMastercard} className='w-1/2 m-4 '></img></div><div> <h1 className="font-bold ">MÉTHODE ACCEPTÉE</h1>
-                <p className='text-xs lg:w-48  mt-4'>
-                    WarhammerMarket France accepte actuellement  Visa, MasterCard en cas de ventes sur Internet et par téléphone.
-                </p></div></div>
-                 <div className='m-3 mt-8'>
+            <div className='flex  flex-wrap items-beetwen justify-center self-center '>
+                
+                <div className=' grid grid-cols-1 mt-6  '>
+                     <div className='grid grid-cols-2 w-80 text-sm ml-14	'><div><img src={visaMastercard} className='w-1/2 m-4 '></img></div><div>
+                     <h1 className="font-bold ">MÉTHODE ACCEPTÉE</h1>
+                    <p className='text-xs lg:w-48  mt-4 text-justify	'>
+                        WarhammerMarket France accepte actuellement  Visa, MasterCard en cas de ventes sur Internet et par téléphone.
+                    </p></div>
+
+                </div>
+                <div className='w-96 text-justify ml-10	'>  <h1 className="font-bold m-2 text-sm text-center">AUTORISATION DE VOTRE CARTE DE CRÉDIT:</h1>
+                        <p className="mb-5 text-sm p-2 ">
+                            Il n'est pas rare qu'une demande d'autorisation de carte de crédit soit refusée une ou deux fois avant que la carte soit finalement autorisée.</p>
+                        <p className="mb-5 text-sm p-2">
+                            Nous vous transmettrons un courriel en cas de difficulté lors de l'autorisation de votre carte de crédit.</p>
+                    </div>
+                    <div className='m-3 mt-8'>
 
                         <CardCreditLines cards={cardsList()} size={cards.length} isFormShowed={isFormShowed} deletCard={setDeletCart} toggle={toggle} confirmDelet={deletCardButton} ></CardCreditLines>     </div>    </div>
                 <div className='w-0 lg:w-24  '>     </div>
-                <div className='p-5 mt-5 '> <StripeInput tot={0} submit={handleSubmit} tot={0} errorPay={cardsLimit()} ></StripeInput></div>
+                <div className='p-5  '> <StripeInput tot={0} submit={handleSubmit} tot={0} errorPay={cardsLimit()} ></StripeInput></div>
             </div>
 
         </div>)

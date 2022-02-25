@@ -11,6 +11,7 @@ import { stylish, stylish2 } from "./inputWrapperStyles";
 import useWindowDimensions from "./windowDimensions";
 import { accountLogin } from "../../services/accountServices";
 import { URL_USER_PAY_METOD } from "../../constants/urls/urlConstants";
+import { CreditCardIcon } from "@heroicons/react/solid";
 
 const validateName = value => {
   //validate for only middle Initial
@@ -62,24 +63,10 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
   const { height, width } = useWindowDimensions();
 
   return (
-    <div className="flex justify-center  text-sm p-2 bg-white rounded-lg border shadow-md " style={{ maxWidth: 800 }}>
+    <div className="flex justify-center  text-sm p-2 bg-white rounded-lg border shadow-md lg:p-5 " style={{ maxWidth: 800 }}>
       <div className="text-center">
-        <h1 className="font-bold m-2">AUTORISATION DE VOTRE CARTE DE CRÉDIT:</h1>
-        <p className="mb-5 text-sm">
-          Il n'est pas rare qu'une demande d'autorisation de carte de crédit soit refusée une ou deux fois avant que la carte soit finalement autorisée.</p>
-        <p className="mb-5 text-sm">
-          Nous vous transmettrons un courriel en cas de difficulté lors de l'autorisation de votre carte de crédit.</p>
-
-        <div className="h-48 lg:h-32  mt-10 lg:w-full text-mds  ">
-
-
-
-          {errorPay === 3 ? <><p className="text-red-500 text-sm">Vous avez atteint  la limite de cartes enregistrées,</p>
-            <p className="text-red-500 text-sm"> supprimez un ancien mode de paiement pour enregistrer une nouvelle carte</p></> : null}
-
-          {!locationMetod() ? <div><p className="text-red-500 text-sm ">  {errorPay}</p></div> : null}
-        </div>
-
+      
+  
 
 
         {!locationMetod() ? <div><p className="font-bold text-3xl">Tot a payer : {tot}€</p></div> : null}
@@ -229,7 +216,8 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
 
                   ? <div className="mb-10">
                     <button className="validateCart " type="submit">
-                      {!locationMetod() ? "Payer" : "Save Card"}
+                      {!locationMetod() ?<p>Payer
+                      </p> :<div className="grid grid-cols-5"><p className="text-xl col-span-4 mt-1">ENREGISTRER </p> <CreditCardIcon className="w-7 m-1"></CreditCardIcon></div>}
                     </button>
                   </div> : null}</Form>
               {//  <Debug />
@@ -238,8 +226,18 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
 
             </React.Fragment>
           )}
-        />
+        />      <div className="h-48 lg:h-32  mt-10 lg:w-full text-mds  ">
+
+
+
+        {errorPay === 3 ? <><p className="text-red-500 text-sm">Vous avez atteint  la limite de cartes enregistrées,</p>
+          <p className="text-red-500 text-sm"> supprimez un ancien mode de paiement pour enregistrer une nouvelle carte</p></> : null}
+
+        {!locationMetod() ? <div><p className="text-red-500 text-sm ">  {errorPay}</p></div> : null}
       </div>
+
+      </div>
+      
     </div>
   );
 }
