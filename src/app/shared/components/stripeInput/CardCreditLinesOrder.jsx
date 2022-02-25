@@ -29,7 +29,7 @@ const CardCreditLinesOrder = (props) => {
                         Nous vous transmettrons un courriel en cas de difficulté lors de l'autorisation de votre carte de crédit.</p></div>
                 {<div><p className="font-bold text-3xl mb-8">Tot a payer : {props.tot}€</p></div>}
                 <div className=" ">
-                    <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700 mb-10">
+                    <ul role="list" className="divide-y border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-lg divide-gray-200 dark:divide-gray-700 mb-10 pl-5 pr-5">
 
                         {props.cards !== null ? props.cards.map((element, index) => <>  <li class="py-3 sm:py-4">
                             <div className="flex items-center space-x-8">
