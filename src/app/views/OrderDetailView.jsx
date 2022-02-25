@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import { getOrderDetailsWithListProduct } from '../api/backend/order';
-import OrderDetails from '../components/order/OrderDetails';
+import OrderDetails from '../components/account/Order/OrderDetails';
 
+import war from '../assets/images/war1.png'
 
 
 const ProductDetailView = () => {
@@ -63,6 +64,7 @@ const ProductDetailView = () => {
 
 
     return (
+        
         <div className="flex items-center justify-center md:m-10">
             <OrderDetails id={id}
                 order={order}

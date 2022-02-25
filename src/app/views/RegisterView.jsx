@@ -67,7 +67,7 @@ const RegisterView = ({ history }) => {
 
     return (
 
-        <div className="md:flex md:justify-center">
+        <div className="md:flex md:justify-center pb-8">
             <ReCAPTCHA
                 sitekey={recaptcha}
                 ref={recaptchaRef}

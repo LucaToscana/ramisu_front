@@ -108,8 +108,8 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
     return (
         <>
-            <div className=" sm:mt-10 md:mt-10 lg:mt-20">
-
+            <div className=" w-full  sm:mt-10 md:mt-10 lg:mt-20">
+<div className="flex flex-wrap w-full justify-around"  >
 
                 <div className="border-t-2 border-gray-400 max-w-screen-xl flex flex-col lg:flex lg:flex-row">
                     <div className="lg:w-1/2 ">
@@ -230,7 +230,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                 </div>
                             </div>
 
-                    
+
                         </div>
                     </div>
 
@@ -242,22 +242,25 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                     qty={modalQty}
                 >
                 </ModalAddToCart>
-                <h1 className="font-bold text-xl mt-10 ml-3">   Produits liés à cet article</h1>
+</div>
+         
+<h1 className="font-bold text-xl mt-10 ml-3">   Produits liés à cet article</h1>
 
-                <div className="flex justify-around">
+<div className="flex justify-around mb-10">
 
-                <div className=" flex flex-wrap w-96  md:grid grid-cols-6 justify-between w-full  lg:w-full  ">
-                                {productRelated.map((element, index) => <>
-                                    {
-                                        index <6   ?
-                                            <ProductRelated product={element} /> : null
-                                    }</>
+<div className=" flex flex-wrap   md:grid grid-cols-6 justify-between w-full  lg:w-full  ">
+
+                        {productRelated.map((element, index) => <>
+                            {
+                                index < 6 ?
+                                    <ProductRelated product={element} /> : null
+                            }</>
 
 
 
-                                )}
+                        )}
 
-                            </div></div>
+                    </div></div>
             </div>
         </>
     );

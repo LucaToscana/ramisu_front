@@ -43,3 +43,10 @@ export const URL_BACK_GET_USERS = '/user/users'
 export const URL_BACK_GET_USER_BY_ID = '/user/account/'
 export const URL_BACK_UPGRADE_USER = '/user/account/roles/'
 
+//urls Payer
+export const URL_PAY_ONE_TIMES ='/payment/one-times-pay'
+export const URL_NEW_CUSTOMER_AND_PAY = '/payment/new-customer-and-pay'
+export const URL_NEW_CUSTOMER ='/payment/new-customer'
+export const URL_CUSTOMER_CARDS ='/payment/customer-cards'
+export const URL_DELETE_CARD ='/payment/delete-customer-card'
+export const URL_PAY_REGISTRED_CARD ='/payment/registred-card-pay'

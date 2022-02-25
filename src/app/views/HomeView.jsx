@@ -86,7 +86,7 @@ const HomeView = ({ history }) => {
 
     return (
 
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default pb-8">
             <div className='text-primary-500 font-extrabold'>
                 {loadingRandom ? < Loader /> :
                     <>
