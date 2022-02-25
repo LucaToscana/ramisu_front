@@ -7,6 +7,7 @@ import ModalAddToCart from '../../../shared/components/utils-components/Modal/mo
 import useModal from '../../../shared/components/utils-components/Modal/useModal';
 import { useSelector } from 'react-redux';
 
+import ButtonFavorite from '../../../shared/components/buttons/ButtonFavorite';
     
 
 /**
@@ -44,12 +45,7 @@ export const Product = ({ label, price, stock, id, picture }) => {
                             <p className="font-bold text-white">{price} €</p>
                         </div>
                         <div className="flex">
-                            <div className="login rounded-2xl m-1 p-3">
-                                <HeartIcon
-                                    width={32}
-                                    height={32}
-                                />
-                            </div>
+                           <ButtonFavorite />
                             <div className="login rounded-2xl m-1 p-3 hover:cursor-pointer">
                                 <ShoppingCartIcon
                                     width={32}
