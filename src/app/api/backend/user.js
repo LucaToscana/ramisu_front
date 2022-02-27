@@ -81,7 +81,7 @@ export function getFavorites()
 
 export function removeFavorite(id_product)
 {
-    return apiBackEnd.delete(URL_BACK_RM_FAV, {id:id_product});
+    return apiBackEnd.post(URL_BACK_RM_FAV, {id:id_product});
 }
 
 import {    
