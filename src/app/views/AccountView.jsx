@@ -15,7 +15,7 @@ import ecommerce from "../assets/images/icones/ecommerce.svg";
 import { Link, useHistory } from "react-router-dom";
 import {init} from '../shared/redux-store/cartSlice';
 import { clearUserInformations } from '../shared/redux-store/userProfileSlice';
-
+import {clearFavData} from '../shared/redux-store/favoritesSlice';
 /**
  * The user page account with multiple links (cart, user infos, orders...)
  *
@@ -79,6 +79,7 @@ const DisconnectionLink = () => {
         dispatch(signOut());
         dispatch(clearUserInformations());
         dispatch(init());
+        dispatch(clearFavData());
         history.push(URL_HOME);
       }}
     >
