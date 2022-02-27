@@ -25,7 +25,11 @@ import {selectorFavState, fetchFav, clearFavData} from '../../shared/redux-store
 const Navbar = () => {
     const location = useLocation()    //input filter
     const dispatch = useDispatch();
-    const carts = useSelector(selectCart)
+    const carts = useSelector(selectCart);
+
+  
+   
+  
 
     let qty = 0;
 
@@ -214,14 +218,15 @@ const ConnectionStatusButtons = () => {
 
     const isLogged = useSelector(selectIsLogged);
     const profileData = useSelector(selectProfileInfo);
+    const favState = useSelector(selectorFavState); 
+  
     const dispatch = useDispatch();
   
 
     if (isLogged) {
 
-        const favState = useSelector(selectorFavState); 
+       
         if(favState=='idle')dispatch(fetchFav())
-
 
       
 
