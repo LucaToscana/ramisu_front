@@ -4,6 +4,9 @@ import React from 'react';
 import { useDispatch , useSelector } from 'react-redux';
 import  {fetchFav, selectorFav} from '../shared/redux-store/favoritesSlice';
 import { useHistory } from 'react-router-dom';
+import {  HeartIcon, XIcon, CheckIcon } from '@heroicons/react/solid';
+import trash from "../assets/images/icones/trash.png";
+import {removeFavorite} from '../api/backend/user'
 const Wishlist = (props)=>{
 
 
@@ -11,37 +14,57 @@ const Wishlist = (props)=>{
   const favorites = useSelector(selectorFav);
   const history = useHistory();
 
-    const clickHandler = (event)=>
+    const removeFav = (id)=>
     {
-        console.log(event);
+      removeFavorite(id).then((res)=>{
+        
         dispatch(fetchFav())
+        
+      })
     }
 
 
-    return (<div className='text-2xl text-center mt-32'>
-                <h2>Produit Favoris</h2>
-              
+    return (<div className='text-xl text-center mt-8 w-1/2 m-auto'>
+          <div className='flex border-b-2 border-gray-400 pb-4'>
+               <HeartIcon  className='w-10 h-10 text-[#c67605]' />
+               <h1 className='flex items-end font-bold text-2xl ml-4 items-center'>Favoris</h1>
+                </div>
                 {
                   favorites.length>0 ?  
                     favorites.map(elt=>{
                       return (
+                        <div key={elt.id} className="flex cartCard mt-4 p-4 w-full">
+                        <div className="pr-5">
+                          <div>
+                              <img  className='hover:cursor-pointer' 
+                                    src={elt.picture} 
+                                    width="100px"onClick={() => {  
+                                                    history.push(`/produits/detail/${elt.id}`) }} />
+                          </div>
+                        </div>
                         <div className='border-2 m-1 p-1 border-gray-300' key={elt.id}>
-                          <div>id : {elt.id}</div>
-                          <div>{elt.label}</div>
+                        
                           <div>{elt.label}</div>
                           <div>{elt.price}&nbsp;€</div>
-                          <div>
-                            <img className='hover:cursor-pointer' src={elt.picture} width="100px"onClick={() => {  history.push(`/produits/detail/${elt.id}`) }} />
+                          <div className='w-1/2'>
+                              <p className='font-bold flex items-center'>
+                                En Stock {elt.stock > 0 
+                                ? 
+                                <CheckIcon className='ml-2 w-6 h-6 iconTrue' /> 
+                                : 
+                                <XIcon className='ml-2 w-6 h-6 iconNone' />}
+                              </p>
                           </div>
-                          <div>
-                            <button className="p-1 m-1 bg-gray-300">trash</button>
+                          <div className='hover:cursor-pointer'>
+                              <button onClick={(event)=>{ removeFav(elt.id) }} className="p-1 m-1 bg-gray-300">Supprimer des favoris</button>
                           </div>
+                        </div>
                         </div>
                       )
                     }) 
                     :
                     (
-                      <h3>Vous n'avez aucun produit favoris</h3>
+                      <h3 className='mt-16  font-bold text-2xl '>Vous n'avez ajouté aucun produit à vos favoris</h3>
                     ) 
                 }
                   
