@@ -62,31 +62,49 @@ export function requestChangePSW()
      const url = URL_BACK_USER_PWS_TOKEN_VALIDITY+key;
      return apiBackEnd.get(url)
  }
+
+
+
+/**
+*  
+**/
+
+export function addFavorite(id_product) {
+    return apiBackEnd.post('/public/user/addFavorite/',{id:id_product});
+}
  
+export function getFavorites()
+{
+    return apiBackEnd.get('/public/user/getFavorites/');
+}
+
+export function removeFavorite(id_product)
+{
+    return apiBackEnd.delete('/public/user/removeFavorite/', {id:id_product});
+}
 
 import {    
-   
-        URL_BACK_GET_USERS,
-        URL_BACK_GET_USER_BY_ID,
-        URL_BACK_UPGRADE_USER
-    } 
+            URL_BACK_GET_USERS,
+            URL_BACK_GET_USER_BY_ID,
+            URL_BACK_UPGRADE_USER
+        } 
 from   "../../shared/constants/urls/urlBackEnd";
-    export function getUsers(page, size, sort)
-    {
-        return apiBackEnd.get(`${URL_BACK_GET_USERS}?page=${page}&size=${size}&sort=${sort.by},${sort.direction}`)
-        // return apiBackEnd.get(`${URL_BACK_GET_USERS}?page=${page}&size=${size}&sort=id,ASC`)
-    }
+
+export function getUsers(page, size, sort)
+{
+    return apiBackEnd.get(`${URL_BACK_GET_USERS}?page=${page}&size=${size}&sort=${sort.by},${sort.direction}`)
+}
 
 
-    export function getUserAccount(userID)
-    {
-        return apiBackEnd.get(`${URL_BACK_GET_USER_BY_ID}${userID}`)
-    }
+export function getUserAccount(userID)
+{
+    return apiBackEnd.get(`${URL_BACK_GET_USER_BY_ID}${userID}`)
+}
 
-    export function changeUserRoles(params)
-    {
-        return  apiBackEnd.put(URL_BACK_UPGRADE_USER, params)
-    }
+export function changeUserRoles(params)
+{
+    return  apiBackEnd.put(URL_BACK_UPGRADE_USER, params)
+}
 
     
 
