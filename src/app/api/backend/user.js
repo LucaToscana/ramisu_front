@@ -7,7 +7,10 @@ import {
         URL_BACK_CONTACT_US, 
         URL_BACK_UPDATE_PSW,
         URL_BACK_USER_PASSWORD_REQUEST,
-        URL_BACK_USER_PWS_TOKEN_VALIDITY
+        URL_BACK_USER_PWS_TOKEN_VALIDITY,
+        URL_BACK_ADD_FAV,
+        URL_BACK_GET_FAV,
+        URL_BACK_RM_FAV
     } from "../../shared/constants/urls/urlBackEnd";
 
 export function getProfile() {
@@ -63,24 +66,22 @@ export function requestChangePSW()
      return apiBackEnd.get(url)
  }
 
-
-
 /**
 *  
 **/
 
 export function addFavorite(id_product) {
-    return apiBackEnd.post('/public/user/addFavorite/',{id:id_product});
+    return apiBackEnd.post(URL_BACK_ADD_FAV ,{id:id_product});
 }
  
 export function getFavorites()
 {
-    return apiBackEnd.get('/public/user/getFavorites/');
+    return apiBackEnd.get(URL_BACK_GET_FAV);
 }
 
 export function removeFavorite(id_product)
 {
-    return apiBackEnd.delete('/public/user/removeFavorite/', {id:id_product});
+    return apiBackEnd.delete(URL_BACK_RM_FAV, {id:id_product});
 }
 
 import {    
