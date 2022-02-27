@@ -45,7 +45,7 @@ export const Product = ({ label, price, stock, id, picture }) => {
                             <p className="font-bold text-white">{price} €</p>
                         </div>
                         <div className="flex">
-                           <ButtonFavorite />
+                           <ButtonFavorite id={id} />
                             <div className="login rounded-2xl m-1 p-3 hover:cursor-pointer">
                                 <ShoppingCartIcon
                                     width={32}
