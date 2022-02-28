@@ -7,7 +7,6 @@ import ProductHomePageCard from '../components/product/ProductHomePageCard';
 import Loader from './../shared/components/utils-components/Loader';
 import handleHttpError from './../shared/components/form-and-error-components/HandleHttpError';
 import apiBackEnd from '../api/backend/api.Backend';
-import TWCarousel from '..\components\layouts\TWCarousel';
 
 
 /**
@@ -84,6 +83,12 @@ const HomeView = ({ history }) => {
                 handleHttpError(error)
             })
     }, [])
+
+    render(){
+        return (
+            <iframe src={TWCarousel.html}></iframe>
+        );
+     }
 
     return (
 
