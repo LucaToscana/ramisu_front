@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import {  HeartIcon, XIcon, CheckIcon } from '@heroicons/react/solid';
 import trash from "../assets/images/icones/trash.png";
 import {removeFavorite} from '../api/backend/user'
+import ButtonFavorite from '../shared/components/buttons/ButtonFavorite';
 const Wishlist = (props)=>{
 
 
@@ -55,10 +56,10 @@ const Wishlist = (props)=>{
                                 <XIcon className='ml-2 w-6 h-6 iconNone' />}
                               </p>
                           </div>
-                          <div className='hover:cursor-pointer'>
-                              <button onClick={(event)=>{ removeFav(elt.id) }} className="p-1 m-1 bg-gray-300">Supprimer des favoris</button>
+                          <div className=''>
                           </div>
                         </div>
+                            <ButtonFavorite id={elt.id} onClick={(event)=>{ removeFav(elt.id) }} />
                         </div>
                       )
                     }) 
