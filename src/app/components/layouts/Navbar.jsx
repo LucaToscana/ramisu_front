@@ -9,9 +9,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
 import { labelFilter } from '../../shared/redux-store/filterProductSlice';
 import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
-import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations, setProfileInfo } from './../../shared/redux-store/userProfileSlice';
+import { selectProfileInfo, getuserPicture, fetchProfile, clearUserInformations, selectProfileStatus} from './../../shared/redux-store/userProfileSlice';
 import { useLocation } from 'react-router-dom'
-import { getProfile } from "../../api/backend/user";
 import classNames from 'classnames/bind';// Constants used for navigating with the navbar
 import { init, selectCart } from './../../shared/redux-store/cartSlice';
 import {selectorFavState, fetchFav, clearFavData} from '../../shared/redux-store/favoritesSlice';
@@ -26,10 +25,6 @@ const Navbar = () => {
     const location = useLocation()    //input filter
     const dispatch = useDispatch();
     const carts = useSelector(selectCart);
-
-  
-   
-  
 
     let qty = 0;
 
@@ -216,29 +211,21 @@ export default Navbar
  */
 const ConnectionStatusButtons = () => {
 
+    const dispatch = useDispatch();
     const isLogged = useSelector(selectIsLogged);
     const profileData = useSelector(selectProfileInfo);
+    const profileStatus = useSelector(selectProfileStatus);
+    
     const favState = useSelector(selectorFavState); 
-  
-    const dispatch = useDispatch();
+    
   
 
     if (isLogged) {
 
        
         if(favState=='idle')dispatch(fetchFav())
-
+        if(profileStatus=='idle')dispatch(fetchProfile())
       
-
-        if (profileData.updated === false) {
-            getProfile().then((response) => {
-                dispatch(setProfileInfo(response.data));
-                dispatch(isUpdated(true))
-            }).catch(e => {
-                console.error("error edite profile", e)
-            });
-        }
-
 
         /* Connected user buttons and menu */
         return (
