@@ -53,7 +53,7 @@ const CardCreditLinesOrder = (props) => {
 
                                         }} className="h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600
                                          focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left ml-5"
-                                          type="checkbox" checked={selectCard === element.cardStripe ? true : false} id="flexCheckChecked"  />
+                                            type="checkbox" checked={selectCard === element.cardStripe ? true : false} id="flexCheckChecked" />
                                     </div>
                                 </div>
                             </div>
@@ -62,11 +62,11 @@ const CardCreditLinesOrder = (props) => {
                     </ul>
 
                 </div>
-<div className='h-24'>
+                <div className='h-24'>
 
-             {selectCard!=="" ?  <button className='validateCart' onClick={()=>props.submit(selectCard)}>Payer!</button>
+                    {selectCard !== "" ? <button className='validateCart animate-wiggle' onClick={() => props.submit(selectCard)}>Payer!</button>
 
-                                    :null}</div>
+                        : null}</div>
 
 
             </div>

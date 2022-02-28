@@ -1,5 +1,4 @@
 import apiBackEnd from "./api.BackendWithToken";
-import apiBackEndNoToken from "./api.Backend";
 import {
         URL_BACK_PROFILE, 
         URL_BACK_UPLOAD_PICTURE, 
@@ -22,10 +21,7 @@ export function updateProfile(values)
 
 export function uploadPicture(data)
 {
-    return apiBackEnd.post(URL_BACK_UPLOAD_PICTURE, data , {
-        headers: {
-        'Content-Type': 'multipart/form-data'
-        }});
+    return apiBackEnd.post(URL_BACK_UPLOAD_PICTURE, data);
 }
 
 
@@ -36,7 +32,7 @@ export function removePicture()
 
 export function contactUs(values)
 {
-    return apiBackEndNoToken.post(URL_BACK_CONTACT_US , values);
+    return apiBackEnd.post(URL_BACK_CONTACT_US , values);
 }
 
 export function updatePassword(values)

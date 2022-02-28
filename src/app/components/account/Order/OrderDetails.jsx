@@ -7,9 +7,10 @@ import logo from "../../../assets/images/icones/logo/warhammer-shop-logo.png";
 import { Link } from "react-router-dom";
 import { URL_ORDER_RETURN } from "../../../shared/constants/urls/urlConstants";
 import OrderDetailsTable from "./OrderDetailsTable";
+import { accountLogin } from "../../../shared/services/accountServices";
 
 
-const OrderDetails = ({ id, productsOrder, total, status, date, address, profile, subTotal }) => {
+const OrderDetails = ({ id, productsOrder, total, status, date, address, profile, subTotal,mailOrder }) => {
 
 
     const addrString = () => {
@@ -186,7 +187,7 @@ const OrderDetails = ({ id, productsOrder, total, status, date, address, profile
                                         Livré
                                     </div>
                                 </div>}
-                            {status !== "Annule" ?
+                            {status !== "Annule" && mailOrder===accountLogin() ?
                                 <Link to={{
                                     pathname: URL_ORDER_RETURN,
                                     state: {

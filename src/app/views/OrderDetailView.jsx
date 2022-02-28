@@ -14,6 +14,7 @@ const ProductDetailView = () => {
     const [address, setAddress] = useState()
     const [profile, setProfile] = useState()
     const [subTotal, setSubTotal] = useState()
+    const [mailOrder, setMailOrder] = useState()
 
 
 
@@ -48,7 +49,7 @@ const ProductDetailView = () => {
                 result.data.content.usersInformation.phone
 
             )
-
+            setMailOrder(result.data.content.usersInformation.user.mail)
             let products = result.data.productOrderWrappers
             let subTotalP = 0;
             for (let i = 0; i < products.length; i++) {
@@ -75,6 +76,7 @@ const ProductDetailView = () => {
                 address={address}
                 profile={profile}
                 subTotal={subTotal}
+                mailOrder={mailOrder}
             />
         </div>
     );

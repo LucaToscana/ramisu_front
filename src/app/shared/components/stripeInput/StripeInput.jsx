@@ -65,8 +65,8 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
   return (
     <div className="flex justify-center  text-sm p-2 bg-white rounded-lg border shadow-md lg:p-5 " style={{ maxWidth: 800 }}>
       <div className="text-center">
-      
-  
+
+
 
 
         {!locationMetod() ? <div><p className="font-bold text-3xl">Tot a payer : {tot}€</p></div> : null}
@@ -133,7 +133,7 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
                               : `rounded-none rounded-b-md mb-4 shadow-inner input  border-red-700 lg:w-96`
                           }
                           name="cardHolder"
-                          placeholder="Pippo Inzaghi"
+                          placeholder="Jane Doe"
                           type="text"
                         // onChange={handleChange}
                         /></p>
@@ -211,16 +211,25 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
 
 
                   : null}
-                {cards}
-                {errorPay !== 3
+              <div className="h-24">  {errorPay !== 3 &&
+                  formikProps.touched.cardNumber === true
+                  && 
+                  formikProps.touched.cardHolder === true 
+                  &&
+                  formikProps.touched.cvc === true 
+                  &&
+                  formikProps.isValid===true
+                  &&
+                  !meta.error
 
-                  ? <div className="mb-10">
-                    <button className="validateCart " type="submit">
-                      {!locationMetod() ?<p>Payer
-                      </p> :<div className="grid grid-cols-5"><p className="text-xl col-span-4 mt-1">ENREGISTRER </p> <CreditCardIcon className="w-7 m-1"></CreditCardIcon></div>}
+                
+                  ? <div className="mb-10 ">
+                    <button className="validateCart animate-wiggle " type="submit">
+                      {!locationMetod() ? <p>Payer
+                      </p> : <div className="grid grid-cols-5"><p className="text-xl col-span-4 mt-1">ENREGISTRER </p> <CreditCardIcon className="w-7 m-1"></CreditCardIcon></div>}
                     </button>
-                  </div> : null}</Form>
-              {//  <Debug />
+                  </div> : null} </div></Form>
+              {//<Debug />
 
               }
 
@@ -230,14 +239,14 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
 
 
 
-        {errorPay === 3 ? <><p className="text-red-500 text-sm">Vous avez atteint  la limite de cartes enregistrées,</p>
-          <p className="text-red-500 text-sm"> supprimez un ancien mode de paiement pour enregistrer une nouvelle carte</p></> : null}
+          {errorPay === 3 ? <><p className="text-red-500 text-sm">Vous avez atteint  la limite de cartes enregistrées,</p>
+            <p className="text-red-500 text-sm"> supprimez un ancien mode de paiement pour enregistrer une nouvelle carte</p></> : null}
 
-        {!locationMetod() ? <div><p className="text-red-500 text-sm ">  {errorPay}</p></div> : null}
+          {!locationMetod() ? <div><p className="text-red-500 text-sm ">  {errorPay}</p></div> : null}
+        </div>
+
       </div>
 
-      </div>
-      
     </div>
   );
 }
