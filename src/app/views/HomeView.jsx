@@ -84,11 +84,12 @@ const HomeView = ({ history }) => {
             })
     }, [])
 
-    render(){
-        return (
-            <iframe src={TWCarousel.html}></iframe>
-        );
-     }
+    // render(){
+    //     return (
+    //         <iframe src={TWCarousel.html}></iframe>
+    //     );
+    //  }
+    // ...
 
     return (
 
