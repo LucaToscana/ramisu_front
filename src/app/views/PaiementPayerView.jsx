@@ -15,7 +15,7 @@ import ModalPayRegistresCBWarahmmerMarket from '../shared/components/utils-compo
 
 
 const PaiementPayerView = () => {
-    
+
 
     const { isShowing: isFormRegistredShowed, toggle: toggleRegistred } = useModal();
 
@@ -46,7 +46,7 @@ const PaiementPayerView = () => {
             return (subTotal * 1.2).toFixed(2)
         }
     }
-    
+
 
     useEffect(() => {
         if (performance.navigation.type === 1) {
@@ -65,14 +65,14 @@ const PaiementPayerView = () => {
             console.log("This page is reloaded");
         } else {
 
-               
-        
+
+
 
 
             console.log("This page is not reloaded");
         }
 
-if(cards===null){}
+        if (cards === null) { }
         console.log('stripe')
         allCustomerCards().then((res) => {
             //setErrorPay()
@@ -115,10 +115,10 @@ if(cards===null){}
         localStorage.removeItem('totPayer')
         history.push('/')
     }
-    
+
     const handleSubmitRegistred = (values) => {
-        if(values!==""){
-           payWithRegistredCard(values,totalToPay())
+        if (values !== "") {
+            payWithRegistredCard(values, totalToPay())
                 .then((res) => {
                     setErrorPay(res.data)
                     finishOrder(res.data)
@@ -126,12 +126,13 @@ if(cards===null){}
                 })
                 .catch((error) => {
                 });
-        
 
 
-        }}
 
-    
+        }
+    }
+
+
 
 
 
@@ -168,8 +169,8 @@ if(cards===null){}
         if (test === "succeeded") {
             localStorage.setItem('totPayer', totalToPay())
             validate(carts)
-          if(isFormShowed) { toggle()}
-          if(isFormRegistredShowed){toggleRegistred()}
+            if (isFormShowed) { toggle() }
+            if (isFormRegistredShowed) { toggleRegistred() }
             setTimeout(function () { toggleSuccessForm() }, 2000);
             closeSuccess()
         }
@@ -277,22 +278,22 @@ if(cards===null){}
 
 
 
-                <p className="text-sm  self-center w-16  lg:w-96">
+                    <p className="text-sm  self-center w-16  lg:w-96">
                         Vous pouvez valider le paiement avec                   Visa or Mastercard
 
                     </p>
-                  
 
-                 
+
+
 
 
                     <div className='grid grid-cols-1 text-s'>
 
                         <div className='flex justify-center m-3 w-full pr-5'>
                             <div className='flex  justify-end self-end m-2 text-xs w-full		'>
-                                <button className="paiementCart  lg:w-36 md:w-36" onClick={toggle}>   <div className=" grid grid-cols-3 tewt-center"><p className=" text-xs col-span-1 mt-1 pl-2">NOUVELLE CART</p><div className='w-1'></div>
-                                <CreditCardIcon className="lg:w-7 w-6 m-1 ml-2 "></CreditCardIcon></div> </button>
-                             
+                                <button className="paiementCart  lg:w-36 md:w-36" onClick={toggle}>   <div className=" grid grid-cols-3 "><p className=" text-xs col-span-1 mt-1 pl-2">NOUVELLE CART</p><div className='w-1'></div>
+                                    <CreditCardIcon className="lg:w-7 w-6 m-1 ml-2 "></CreditCardIcon></div> </button>
+
                             </div>
 
                         </div>
@@ -300,15 +301,16 @@ if(cards===null){}
 
 
 
-                        {<div className='flex justify-center m-3 w-full pr-5'>
+                        {cardsList().length > 0 ? <div className='flex justify-center m-3 w-full pr-5'>
                             <div className='flex  justify-end self-end m-2 text-xs w-full	'>
-                                <button className="paiementCart  lg:w-36 md:w-36" onClick={toggleRegistred}> <div className=" grid grid-cols-3"><p className=" text-xs col-span-1 mt-1 pl-2">MES CARTES</p><div className='w-1'></div>
-                                <CollectionIcon className="lg:w-7 w-6 m-1 ml-2 "></CollectionIcon></div> </button>
+                                <button className="paiementCart  lg:w-36 md:w-36" onClick={toggleRegistred}> <div className=" grid grid-cols-3"><p className=" text-xs col-span-1 mt-1 pl-2">MES CARTES</p>
+                                    <div className='w-1'></div>
+                                    <CollectionIcon className="lg:w-7 w-6 m-1 ml-2 "></CollectionIcon></div> </button>
                             </div>
 
                         </div>
 
-                        }
+                            : null}
 
                     </div>
 

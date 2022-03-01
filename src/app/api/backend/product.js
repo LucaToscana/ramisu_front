@@ -1,4 +1,4 @@
-import apiBackEnd from "./api.Backend";
+import apiBackEnd from "./api.BackendWithToken"
 import {URL_BACK_PRODUCT_DETAIL,URL_BACK_PRODUCT_DETAIL_RELATED,
      URL_BACK_PRODUCTS, URL_BACK_TOTAL_PRODUCTS, URL_BACK_GET_NUMBER_OF_PRODUCTS_BY_FIELD, 
      URL_BACK_PRODUCTS_SEARCH_CRITERIA} from "../../shared/constants/urls/urlBackEnd";

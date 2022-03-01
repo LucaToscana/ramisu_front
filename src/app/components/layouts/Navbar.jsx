@@ -57,7 +57,7 @@ const Navbar = () => {
         <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
             {({ open }) => (
                 <>
-                    <div className='lg:flex items-center'>
+                    <div className='lg:flex items-center pb-2'>
                         <div className='lg:block hidden ml-10 min-w-max'>
                             {/* Website logo */}
                             <div className="">
@@ -95,7 +95,7 @@ const Navbar = () => {
                                         <ConnectionStatusButtons />
                                         <div className="cart-wrapper">
                                             <Link to="/panier" >
-                                                <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                                <ShoppingCartIcon className='bg-transparent p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-10 h-10 m-2' />
                                                 {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
                                             </Link>
                                         </div>
@@ -147,7 +147,7 @@ const Navbar = () => {
                                             <ConnectionStatusButtons />
                                             <div className="cart-wrapper">
                                                 <Link to="/panier" >
-                                                    <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                                    <ShoppingCartIcon className='bg-transparent p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
                                                     {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
                                                 </Link>
                                             </div>
@@ -240,14 +240,14 @@ const ConnectionStatusButtons = () => {
         return (
             <>
                 {/* Notification bell icon */}
-                <button
+             <div  className='animate-wiggle'>   <button
                     type="button"
-                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white sm:ml-7"
+                    className="bg-transparent	p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white sm:ml-7"
                 >
-                    <span className="sr-only">Voir les notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    <span className="sr-only bg-transparent	">Voir les notifications</span>
+                    <BellIcon className="h-6 w-6 bg-transparent" aria-hidden="true" />
                 </button>
-
+                </div>
                 {/* User burger menu */}
                 <Menu as="div" className="ml-3">
                     <div>

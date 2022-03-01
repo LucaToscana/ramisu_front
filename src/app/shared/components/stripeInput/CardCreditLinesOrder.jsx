@@ -29,7 +29,7 @@ const CardCreditLinesOrder = (props) => {
                         Nous vous transmettrons un courriel en cas de difficulté lors de l'autorisation de votre carte de crédit.</p></div>
                 {<div><p className="font-bold text-3xl mb-8">Tot a payer : {props.tot}€</p></div>}
                 <div className=" ">
-                    <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700 mb-10">
+                    <ul role="list" className="divide-y border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-lg divide-gray-200 dark:divide-gray-700 mb-10 pl-5 pr-5">
 
                         {props.cards !== null ? props.cards.map((element, index) => <>  <li class="py-3 sm:py-4">
                             <div className="flex items-center space-x-8">
@@ -53,7 +53,7 @@ const CardCreditLinesOrder = (props) => {
 
                                         }} className="h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600
                                          focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left ml-5"
-                                          type="checkbox" checked={selectCard === element.cardStripe ? true : false} id="flexCheckChecked"  />
+                                            type="checkbox" checked={selectCard === element.cardStripe ? true : false} id="flexCheckChecked" />
                                     </div>
                                 </div>
                             </div>
@@ -62,11 +62,11 @@ const CardCreditLinesOrder = (props) => {
                     </ul>
 
                 </div>
-<div className='h-24'>
+                <div className='h-24'>
 
-             {selectCard!=="" ?  <button className='validateCart' onClick={()=>props.submit(selectCard)}>Payer!</button>
+                    {selectCard !== "" ? <button className='validateCart animate-wiggle' onClick={() => props.submit(selectCard)}>Payer!</button>
 
-                                    :null}</div>
+                        : null}</div>
 
 
             </div>

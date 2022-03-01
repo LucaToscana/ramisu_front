@@ -1,4 +1,4 @@
-import apiBackEnd from "./api.Backend";
+import apiBackEnd from "./api.BackendWithToken"
 import { URL_FILTER_CATEGORIES, URL_FILTER_UNIVERSES, URL_FILTER_TAGS } from "../../shared/constants/urls/urlBackEnd";
 
 
