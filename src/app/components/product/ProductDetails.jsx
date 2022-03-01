@@ -8,6 +8,7 @@ import useModal from "../../shared/components/utils-components/Modal/useModal";
 import ModalAddToCart from "../../shared/components/utils-components/Modal/modalAddToCart/ModalAddToCart";
 import { CheckCircleIcon, PencilIcon, XCircleIcon } from "@heroicons/react/outline";
 import ProductRelated from "./components-page-product/ProductRelated";
+import ButtonFavorite from "../../shared/components/buttons/ButtonFavorite";
 
 /**
  * Component product to show details
@@ -121,7 +122,10 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                     </div>
                     <div className="lg:w-1/2 ml-10 ">
                         <div>
-                            <h1 className="font-bold text-3xl mt-10">{label}</h1>
+                            <div className="flex ">
+                                <h1 className="font-bold text-3xl mt-10">{label}</h1>
+                                <ButtonFavorite id={id}/>
+                            </div>
                             <h2 className="font-bold text-2xl mt-10">Prix: {price} € H.T.</h2>
                             <p className="text-xl mt-10 pb-10 border-b-2 border-gray-400">{description}</p>
                         </div>
