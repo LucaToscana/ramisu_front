@@ -55,9 +55,11 @@ const ButtonFavorite = ({ id }) => {
     return (<div>
                 {!isLogged ? (<></>) : (
                 <div className={getDivStyle()}>
+                    <button  title={toggle ? "Parmi vos produits favoris" : "Ajouter au favoris"} >
                     <HeartIcon  width={32} height={32} 
-                                onClick={clickHandler} 
+                                onClick={clickHandler}
                                 className={toggle ? "text-white " : "text-black"} />
+                    </button>
                 </div>)}
             </div>);
 }
