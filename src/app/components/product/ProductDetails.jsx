@@ -8,6 +8,7 @@ import useModal from "../../shared/components/utils-components/Modal/useModal";
 import ModalAddToCart from "../../shared/components/utils-components/Modal/modalAddToCart/ModalAddToCart";
 import { CheckCircleIcon, PencilIcon, XCircleIcon } from "@heroicons/react/outline";
 import ProductRelated from "./components-page-product/ProductRelated";
+import ButtonFavorite from "../../shared/components/buttons/ButtonFavorite";
 
 /**
  * Component product to show details
@@ -121,13 +122,22 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                     </div>
                     <div className="lg:w-1/2 ml-10 ">
                         <div>
+                        <div className="flex justify-end">
                             <h1 className="font-bold text-3xl mt-10">{label}</h1>
+                            <div className="mt-8">
+                                <ButtonFavorite id={id} />
+                            </div>
+                        </div>
+                                                     
                             <h2 className="font-bold text-2xl mt-10">Prix: {price} € H.T.</h2>
                             <p className="text-xl mt-10 pb-10 border-b-2 border-gray-400">{description}</p>
                         </div>
                         <div>
-                            <p className='font-bold flex items-center text-2xl mt-10'>En Stock({stock})
+                            <p className='font-bold flex items-center text-2xl mt-10'>
+                            En Stock({stock})
                                 {stock > 0 ? <CheckIcon className='ml-2 w-6 h-6 iconTrue' /> : <XIcon className='ml-2 w-6 h-6 iconNone' />}</p>
+                                
+                           
                         </div>
 
                         <div>
@@ -170,7 +180,9 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                                 }
                                                 }>
                                                 +1 <ShoppingCartIcon className="w-8 h-8" />
+                                                
                                             </div> : <div className="col-start-3 col-span-1 ">
+                                                
                                                 {errorQty === "" && isEnable ? <div className="h-12 w-24 flex justify-center  inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" onClick={() => {
                                                     var tot = document.getElementById("myNumberInput").value
 
@@ -192,7 +204,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                             </div>
                                         }
                                     </div>
-
+                                  
 
                                     <div className="ml-8 grid  grid-cols-2">
 

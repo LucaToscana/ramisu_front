@@ -38,6 +38,13 @@ export const URL_PAY_ORDER = '/payment/charge'
 //users
 export const URL_BACK_CONTACT_US = '/public/contactus'
 
+
+
+export const URL_BACK_ADD_FAV = '/user/addFavorite/'
+export const URL_BACK_GET_FAV = '/user/getFavorites/'
+export const URL_BACK_RM_FAV = '/user/removeFavorite/'
+
+
 //URLs Admin
 export const URL_BACK_GET_USERS = '/admin/users'
 export const URL_BACK_GET_USER_BY_ID = '/admin/account/'

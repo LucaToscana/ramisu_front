@@ -4,6 +4,7 @@ import cartsReducer from './cartSlice'
 import livraisonReducer from './livraisonSlice'
 import filterProductReducer from './filterProductSlice';
 import userInfo from './userProfileSlice'
+import favoriteReducer  from './favoritesSlice';
 
 /**
  * To configure the store redux. 
@@ -12,10 +13,11 @@ import userInfo from './userProfileSlice'
  */
  export const store = configureStore({
 	reducer: {
-		auth: authenticationReducer,
-		carts: cartsReducer,
-		livraison: livraisonReducer,
+		auth		: authenticationReducer,
+		carts		: cartsReducer,
+		livraison	: livraisonReducer,
 		filterProducts:filterProductReducer,
-		userInfo	: userInfo
+		userInfo	: userInfo,
+		fav 		: favoriteReducer
 	},
 });

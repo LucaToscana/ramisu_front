@@ -1,4 +1,6 @@
 import apiBackEnd from "./api.BackendWithToken"
+import apiBackEndNoToken from "./api.Backend"
+
 import { URL_FILTER_CATEGORIES, URL_FILTER_UNIVERSES, URL_FILTER_TAGS } from "../../shared/constants/urls/urlBackEnd";
 
 
@@ -9,15 +11,15 @@ import { URL_FILTER_CATEGORIES, URL_FILTER_UNIVERSES, URL_FILTER_TAGS } from "..
  */
 export const getAllCategories = () => {
 
-    return apiBackEnd.get(URL_FILTER_CATEGORIES);
+    return apiBackEndNoToken.get(URL_FILTER_CATEGORIES);
 };
 
 export const getAllUniverses = () => {
 
-    return apiBackEnd.get(URL_FILTER_UNIVERSES);
+    return apiBackEndNoToken.get(URL_FILTER_UNIVERSES);
 };
 
 export const getAllTags = () => {
 
-    return apiBackEnd.get(URL_FILTER_TAGS);
+    return apiBackEndNoToken.get(URL_FILTER_TAGS);
 };
