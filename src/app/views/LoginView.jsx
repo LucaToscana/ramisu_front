@@ -67,7 +67,7 @@ const LoginView = ({ history }) => {
 
     return (
         <div className=''>
-            <div className="md:flex md:justify-center">
+            <div className="pb-10 md:flex md:justify-center">
                 <ReCAPTCHA
                             sitekey={recaptcha}
                             ref={recaptchaRef}
