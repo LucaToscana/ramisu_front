@@ -102,12 +102,9 @@ export const ProductList = ({ label, price, stock, id, picture }) => {
                             <p className="font-bold text-white">{price} €</p>
                         </div>
                         <div className="flex">
-                            <div className="login rounded-2xl m-1 p-3">
-                                <HeartIcon
-                                    width={32}
-                                    height={32}
-                                />
-                            </div>
+                           
+                            <ButtonFavorite id={id} />
+                           
                             <div className="login rounded-2xl m-1 p-3  ">
                                 <button onClick={() => {
 
