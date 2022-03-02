@@ -57,7 +57,7 @@ const Navbar = () => {
                             {/* Website logo */}
                             <div className="">
                                 <a href="/"><img
-                                    className='max-h-24'
+                                    className='max-h-24 '
                                     src={logo}
                                     alt="Warhammer shop logo"
                                 /></a>
@@ -135,7 +135,7 @@ const Navbar = () => {
                                             <div className="h-16 min-w-max">
                                                 <a href="/">
                                                     <img
-                                                        className="h-full w-auto mx-auto"
+                                                        className="h-full w-auto mx-auto hidden sm:block"
                                                         src={logo}
                                                         alt="Warhammer shop logo"
                                                     />
