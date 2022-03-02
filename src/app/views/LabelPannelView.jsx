@@ -3,10 +3,10 @@ import React from "react";
 /**
  * The Panel of Universes, Categories and ?? Tags ?? controle
  *
- * @returns the UniversPanelView page
+ * @returns the LabelPannelView page
  */
 
-const UniversPanelView = () => {
+const LabelPannelView = () => {
 
   return (
     // Position of the elements below
@@ -47,4 +47,4 @@ const UniversPanelView = () => {
   );
 };
 
-export default UniversPanelView;
+export default LabelPannelView;

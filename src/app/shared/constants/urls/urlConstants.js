@@ -16,7 +16,7 @@ export const URL_PAIEMENT_2 ='/paiementmethod'
 export const URL_ORDER_RETURN ='/order-return'
 export const URL_PSW_HANDLING = '/psw-change/'
 export const URL_USER_PAY_METOD  = '/user-paiement-metod'
-export const URL_PANNEL = '/pannel'
+export const URL_LABEL_PANNEL = '/label-pannel'
 export const URL_WISHLIST  = '/wishlist'
 
 
