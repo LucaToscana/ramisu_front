@@ -13,7 +13,7 @@ import { createSlice } from '@reduxjs/toolkit';
 }
 
 export const authenticationSlice = createSlice({
-    name: 'auth',
+    name: 'AUTHORITIES_KEY',
     initialState,
     reducers: {
         signIn: (state, action) => {

@@ -1,18 +1,16 @@
-import apiBackEnd from "./api.Backend";
+import apiBackEnd from "./api.BackendWithToken"
+import apiBackEndNoToken from "./api.Backend"
+
 import {URL_BACK_PRODUCT_DETAIL,URL_BACK_PRODUCT_DETAIL_RELATED,
      URL_BACK_PRODUCTS, URL_BACK_TOTAL_PRODUCTS, URL_BACK_GET_NUMBER_OF_PRODUCTS_BY_FIELD, 
      URL_BACK_PRODUCTS_SEARCH_CRITERIA} from "../../shared/constants/urls/urlBackEnd";
 
-/**
- * Instance axios to the BACKEND
- *
- *@author Brahim TALLA
- */
+
 export function productDetail(id) {
-    return apiBackEnd.get(URL_BACK_PRODUCT_DETAIL+`${id}`)
+    return apiBackEndNoToken.get(URL_BACK_PRODUCT_DETAIL+`${id}`)
 }
 export function productDetailWithListRelated(id) {
-    return apiBackEnd.get(URL_BACK_PRODUCT_DETAIL_RELATED+`${id}`)
+    return apiBackEndNoToken.get(URL_BACK_PRODUCT_DETAIL_RELATED+`${id}`)
 }
 
 /**
@@ -22,12 +20,12 @@ export function productDetailWithListRelated(id) {
  */
 export const getProducts = (page) => {
 
-    return apiBackEnd.get(URL_BACK_PRODUCTS + "?page=" + page + "&size=10");
+    return apiBackEndNoToken.get(URL_BACK_PRODUCTS + "?page=" + page + "&size=10");
 };
 
 export const getTotalProducts = () => {
 
-    return apiBackEnd.get(URL_BACK_TOTAL_PRODUCTS);
+    return apiBackEndNoToken.get(URL_BACK_TOTAL_PRODUCTS);
 };
 
 
@@ -42,7 +40,7 @@ export const getTotalProducts = () => {
  * @author Cecile
  */
 export function getNumberOfProductsByField(field, numberOfResult) {
-    return apiBackEnd.get(`${URL_BACK_GET_NUMBER_OF_PRODUCTS_BY_FIELD}${field}/${numberOfResult}`)
+    return apiBackEndNoToken.get(`${URL_BACK_GET_NUMBER_OF_PRODUCTS_BY_FIELD}${field}/${numberOfResult}`)
 }
 
 
@@ -52,14 +50,6 @@ export function getNumberOfProductsByField(field, numberOfResult) {
  *@author luca-t
  */
  export function productSearchCriteria(value,currentPage) {
-  /*  private String label;
-    private int price;
-    private List<String> universe;
-    private List<String> category;
-*/
-  /*  var ciao = {label :value,
-    price:null,
-universe: null,
-category:null}*/
-    return apiBackEnd.post('/public/products/search/',value,currentPage)
+
+    return apiBackEndNoToken.post('/public/products/search/',value,currentPage)
 }

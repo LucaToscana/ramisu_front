@@ -22,23 +22,23 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
 
     const pagesList = () => {
         var p = []
-        for (let i = 0; i <= totalPages.length-1; i++) {
+        for (let i = 0; i <= totalPages.length - 1; i++) {
             p.push(i);
         }
         return p
     }
 
     useEffect(() => {
-    }, [JSON.stringify(totalPages),currentPage, setCurrentPage ]);
+    }, [JSON.stringify(totalPages), currentPage, setCurrentPage]);
 
     const handleClick = (number) => {
         setCurrentPage(parseInt(number));
         dispatch(setCurrentPageFilter(parseInt(number)))
     };
 
-  
+
     const renderPageNumber = () => pagesList().map((number) => {
-        if (number<=maxPageNumberLimit) {
+        if (number <= maxPageNumberLimit) {
             return (
                 <li key={number}
                     id={number}
@@ -57,28 +57,28 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
 
         dispatch(setCurrentPageFilter(+page + 1))
         setCurrentPage(currentPage + 1);
-/*
-        if (currentPage + 1 > maxPageNumberLimit) {
-            setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
-            setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
-        };*/
+        /*
+                if (currentPage + 1 > maxPageNumberLimit) {
+                    setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
+                    setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
+                };*/
     };
 
     const prevPage = () => {
         dispatch(setCurrentPageFilter(+page - 1))
 
         setCurrentPage(currentPage - 1);
-/*
-        if ((currentPage - 1) % pageNumberLimit === 0) {
-            setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
-            setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
-        };*/
+        /*
+                if ((currentPage - 1) % pageNumberLimit === 0) {
+                    setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
+                    setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
+                };*/
     };
 
     let pageIncrementBtn = null;
-   /* if (totalPages.length > maxPageNumberLimit) {
-        pageIncrementBtn = <li className="inline-block rounded-full w-12 h-10 p-1 border-2 border-white  hover:bg-blue-500" onClick={nextPage}>&hellip;</li>
-    }*/
+    /* if (totalPages.length > maxPageNumberLimit) {
+         pageIncrementBtn = <li className="inline-block rounded-full w-12 h-10 p-1 border-2 border-white  hover:bg-blue-500" onClick={nextPage}>&hellip;</li>
+     }*/
 
     let pageDecrementBtn = null;
     /*if (minPageNumberLimit >= 1) {
@@ -89,31 +89,31 @@ const PaginationProduct = ({ currentPage, setCurrentPage }) => {
 
     return (
         <div className=''>
-  {total===0?null:<>
-            <ul className=" flex justify-center m-5 text-black text-center ">
-                <li className="rounded-full w-24 h-10 bg-gray-500 hover:bg-blue-500 hover:cursor-pointer ">
-                    <button
-                        onClick={prevPage}
-                          disabled={currentPage === totalPages[0] ? true : false}
-                        className="w-24 h-10 "
-                    >
-                        Précédent
-                    </button>
-                </li>
-                {pageDecrementBtn}
-                <div > {renderPageNumber()}</div>
-                {pageIncrementBtn}
+            {total === 0 ? null : <>
+                <ul className=" flex justify-center m-5 text-black text-center ">
+                    {currentPage !== totalPages[0] ? <li className="rounded-full w-24 h-10 bg-gray-500 hover:bg-blue-500 hover:cursor-pointer ">
+                        <button
+                            onClick={prevPage}
+                            disabled={currentPage === totalPages[0] ? true : false}
+                            className="w-24 h-10 "
+                        >
+                            Précédent
+                        </button>
+                    </li> : null}
+                    {pageDecrementBtn}
+                    <div > {renderPageNumber()}</div>
+                    {pageIncrementBtn}
 
-                <li className="inline-block rounded-full w-24 h-10 bg-gray-500 hover:bg-blue-500 hover:cursor-pointer ">
-                    <button
-                        onClick={nextPage}
-                          disabled={currentPage === totalPages[totalPages.length - 1] ? true : false}
-                        className="w-24 h-10 "
-                    >
-                        Suivant
-                    </button>
-                </li>
-            </ul>
+                    {currentPage !== totalPages[totalPages.length - 1] ? <li className="inline-block rounded-full w-24 h-10 bg-gray-500 hover:bg-blue-500 hover:cursor-pointer ">
+                        <button
+                            onClick={nextPage}
+                            disabled={currentPage === totalPages[totalPages.length - 1] ? true : false}
+                            className="w-24 h-10 "
+                        >
+                            Suivant
+                        </button>
+                    </li> : null}
+                </ul>
 
             </>}
         </div>

@@ -12,12 +12,12 @@ const ModalPayRegistresCBWarahmmerMarket = ({ isShowing, hide, toggle, cards, to
     ? ReactDOM.createPortal(
       <>
         <div className="modal-overlay"  >
-          <div className="modal-wrapper w-full  " >
-            <div className="modal w-full " style={{
+          <div className="modal-wrapper w-full"  style={{
               backgroundImage: `url(${war})`,
               backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
               backgroundSize: 'cover',
-            }}>
+            }}  >
+            <div className="modal w-full ">
               <div className="flex justify-end"> <button
                 type="button"
                 className="modal-close-button"
@@ -77,7 +77,7 @@ const ModalPayRegistresCBWarahmmerMarket = ({ isShowing, hide, toggle, cards, to
               max-width: 150%;
               width: 80%;
               padding: 1rem;
-              background-color: rgba(350, 350, 350, 1);
+              background-color: rgba(350, 350, 350, 0);
 
             }
 

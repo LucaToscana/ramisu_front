@@ -5,15 +5,15 @@ import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
 import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
-import joey from "../../assets/images/joey.jpg";
+
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
 import { labelFilter } from '../../shared/redux-store/filterProductSlice';
-import { selectIsLogged, selectIsLoggedAdmin, signOut } from './../../shared/redux-store/authenticationSlice';
-import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations, setProfileInfo } from './../../shared/redux-store/userProfileSlice';
+import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
+import { selectProfileInfo, getuserPicture, fetchProfile, clearUserInformations, selectProfileStatus} from './../../shared/redux-store/userProfileSlice';
 import { useLocation } from 'react-router-dom'
-import { getProfile } from "../../api/backend/user";
 import classNames from 'classnames/bind';// Constants used for navigating with the navbar
 import { init, selectCart } from './../../shared/redux-store/cartSlice';
+import {selectorFavState, fetchFav, clearFavData} from '../../shared/redux-store/favoritesSlice';
 /**
  * Website navbar made with Tailwind
  * 
@@ -24,30 +24,22 @@ import { init, selectCart } from './../../shared/redux-store/cartSlice';
 const Navbar = () => {
     const location = useLocation()    //input filter
     const dispatch = useDispatch();
-    const carts = useSelector(selectCart)
+    const carts = useSelector(selectCart);
 
     let qty = 0;
 
     for (let i = 0; i < carts.length; i++) {
-        qty +=+( carts[i].quantite*1)
+        qty += carts[i].quantite*1
     }
     const [navigation, setNavigation] = useState([
-        { name: 'Accueil', to: '/', current: true },
-        { name: 'Boutique', to: '/products', current: true },
-        { name: 'Figurines', to: '/Figurine', current: true },
-        { name: 'Peinture', to: '/Peinture', current: true },
-        { name: 'Librairie', to: '/Librairie', current: true },
-        { name: 'Contact', to: '/Contact', current: false },])
+        { name: 'Accueil',      to: '/', current: true },
+        { name: 'Boutique',     to: '/products',    current: false },
+        { name: 'Figurines',    to: '/Figurine',    current: false },
+        { name: 'Peinture',     to: '/Peinture',    current: false },
+        { name: 'Librairie',    to: '/Librairie',   current: false },
+        { name: 'Contact',      to: '/Contact',     current: false },])
     
     const [show, setShow] = React.useState();
-    // onClick={() => setShow(!show)}
-
-
-
-
-
-
-
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -57,15 +49,15 @@ const Navbar = () => {
         <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
             {({ open }) => (
                 <>
-                    <div className='lg:flex items-center'>
+                    <div className='lg:flex items-center pb-2'>
                         <div className='lg:block hidden ml-10 min-w-max'>
                             {/* Website logo */}
                             <div className="">
-                                <img
+                                <a href="/"><img
                                     className='max-h-24'
                                     src={logo}
                                     alt="Warhammer shop logo"
-                                />
+                                /></a>
                             </div>
                         </div>
 
@@ -95,7 +87,7 @@ const Navbar = () => {
                                         <ConnectionStatusButtons />
                                         <div className="cart-wrapper">
                                             <Link to="/panier" >
-                                                <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                                <ShoppingCartIcon className='bg-transparent p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-10 h-10 m-2' />
                                                 {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
                                             </Link>
                                         </div>
@@ -131,11 +123,13 @@ const Navbar = () => {
                                         {/* Website logo */}
                                         <div className='block lg:hidden w-full'>
                                             <div className="h-16 min-w-max">
-                                                <img
-                                                    className="h-full w-auto mx-auto"
-                                                    src={logo}
-                                                    alt="Warhammer shop logo"
-                                                />
+                                                <a href="/">
+                                                    <img
+                                                        className="h-full w-auto mx-auto"
+                                                        src={logo}
+                                                        alt="Warhammer shop logo"
+                                                    />
+                                                </a>
                                             </div>
                                         </div>
 
@@ -147,7 +141,7 @@ const Navbar = () => {
                                             <ConnectionStatusButtons />
                                             <div className="cart-wrapper">
                                                 <Link to="/panier" >
-                                                    <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                                    <ShoppingCartIcon className='bg-transparent p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
                                                     {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
                                                 </Link>
                                             </div>
@@ -217,37 +211,34 @@ export default Navbar
  */
 const ConnectionStatusButtons = () => {
 
+    const dispatch = useDispatch();
     const isLogged = useSelector(selectIsLogged);
     const profileData = useSelector(selectProfileInfo);
-    const dispatch = useDispatch();
-    // const history = useHistory()
-
-
+    const profileStatus = useSelector(selectProfileStatus);
+    
+    const favState = useSelector(selectorFavState); 
+    
+  
 
     if (isLogged) {
 
-        if (profileData.updated === false) {
-            getProfile().then((response) => {
-                dispatch(setProfileInfo(response.data));
-                dispatch(isUpdated(true))
-            }).catch(e => {
-                console.error("error edite profile", e)
-            });
-        }
-
+       
+        if(favState=='idle')dispatch(fetchFav())
+        if(profileStatus=='idle')dispatch(fetchProfile())
+      
 
         /* Connected user buttons and menu */
         return (
             <>
                 {/* Notification bell icon */}
-                <button
+             <div  className='animate-wiggle'>   <button
                     type="button"
-                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white sm:ml-7"
+                    className="bg-transparent	p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white sm:ml-7"
                 >
-                    <span className="sr-only">Voir les notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    <span className="sr-only bg-transparent	">Voir les notifications</span>
+                    <BellIcon className="h-6 w-6 bg-transparent" aria-hidden="true" />
                 </button>
-
+                </div>
                 {/* User burger menu */}
                 <Menu as="div" className="ml-3">
                     <div>
@@ -288,6 +279,7 @@ const ConnectionStatusButtons = () => {
                                         onClick={() => {
                                             dispatch(signOut());
                                             dispatch(clearUserInformations());
+                                            dispatch(clearFavData());
                                             dispatch(init());
                                             // history.push(URL_HOME)
                                         }}

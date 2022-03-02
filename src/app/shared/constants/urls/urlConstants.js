@@ -17,6 +17,9 @@ export const URL_ORDER_RETURN ='/order-return'
 export const URL_PSW_HANDLING = '/psw-change/'
 export const URL_USER_PAY_METOD  = '/user-paiement-metod'
 export const URL_PANNEL = '/pannel'
+export const URL_WISHLIST  = '/wishlist'
+
+
 
 // PRODUCT URLS
 export const URL_PRODUCTS_DETAILS = '/produits/detail/:id'
