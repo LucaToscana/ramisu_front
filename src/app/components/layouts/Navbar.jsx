@@ -1,9 +1,9 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon } from '@heroicons/react/outline';
+import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon , HeartIcon} from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN , URL_CART ,URL_WISHLIST} from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
 
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
@@ -24,20 +24,23 @@ import {selectorFavState, fetchFav, clearFavData} from '../../shared/redux-store
 const Navbar = () => {
     const location = useLocation()    //input filter
     const dispatch = useDispatch();
+    const isLogged = useSelector(selectIsLogged);
+ 
     const carts = useSelector(selectCart);
 
-    let qty = 0;
 
-    for (let i = 0; i < carts.length; i++) {
-        qty += carts[i].quantite*1
-    }
-    const [navigation, setNavigation] = useState([
-        { name: 'Accueil',      to: '/', current: true },
-        { name: 'Boutique',     to: '/products',    current: false },
-        { name: 'Figurines',    to: '/Figurine',    current: false },
-        { name: 'Peinture',     to: '/Peinture',    current: false },
-        { name: 'Librairie',    to: '/Librairie',   current: false },
-        { name: 'Contact',      to: '/Contact',     current: false },])
+    const qty  =carts.reduce((acc, elt)=>  acc + elt.quantite,0);
+   
+    const [navigation, setNavigation] = useState(
+        [
+            { name: 'Accueil',      to: '/',            current: true   },
+            { name: 'Boutique',     to: '/products',    current: false  },
+            { name: 'Figurines',    to: '/Figurine',    current: false  },
+            { name: 'Peinture',     to: '/Peinture',    current: false  },
+            { name: 'Librairie',    to: '/Librairie',   current: false  },
+            { name: 'Contact',      to: '/Contact',     current: false  }
+        ]
+    );
     
     const [show, setShow] = React.useState();
 
@@ -85,9 +88,16 @@ const Navbar = () => {
                                             notifications, connection / registration link, profile menu burger 
                                         */}
                                         <ConnectionStatusButtons />
+                                        {isLogged && (
+                                        <div className='ml-3'>
+                                        <Link to={URL_WISHLIST} >
+                                            <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
+                                        </Link>
+                                        </div>
+                                        )}
                                         <div className="cart-wrapper">
-                                            <Link to="/panier" >
-                                                <ShoppingCartIcon className='bg-transparent p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-10 h-10 m-2' />
+                                             <Link to={URL_CART} >
+                                                <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
                                                 {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
                                             </Link>
                                         </div>
@@ -139,9 +149,16 @@ const Navbar = () => {
                                                 notifications, connection / registration link, profile menu burger 
                                             */}
                                             <ConnectionStatusButtons />
+                                            {isLogged && (
+                                                <div className='ml-3'>
+                                                <Link to={URL_WISHLIST} >
+                                                    <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
+                                                </Link>
+                                                </div>
+                                                )}
                                             <div className="cart-wrapper">
-                                                <Link to="/panier" >
-                                                    <ShoppingCartIcon className='bg-transparent p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                                <Link to={URL_CART} >
+                                                    <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
                                                     {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
                                                 </Link>
                                             </div>
