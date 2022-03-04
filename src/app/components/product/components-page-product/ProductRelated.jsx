@@ -20,7 +20,6 @@ export const ProductRelated = ({ product }) => {
                 let result = text.substring(0, 17);
                 if (result === "/produits/detail/") {
                     history.push(`/produits/detail/${product.id}`)
-                    window.location.reload()
                 }
                 else { history.push(`/produits/detail/${product.id}`) }
 

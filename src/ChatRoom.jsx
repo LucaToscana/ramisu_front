@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import {over} from 'stompjs';
 import SockJS from 'sockjs-client';
+import { accountLogin, isAuthenticated } from './app/shared/services/accountServices';
+import { getToken } from './app/shared/services/tokenServices';
 
 var stompClient =null;
+const token = ()=>{if(isAuthenticated===true){return localStorage.getItem('token')}else{return localStorage.getItem('token')}}
+const login = ()=>{if(isAuthenticated===true){return  accountLogin()}else{return accountLogin()}}  
+
+
+
 const ChatRoom = () => {
     const [privateChats, setPrivateChats] = useState(new Map());     
     const [publicChats, setPublicChats] = useState([]); 
     const [tab,setTab] =useState("CHATROOM");
     const [userData, setUserData] = useState({
-        username: '',
+        username: login(),
         receivername: '',
         connected: false,
         message: ''
@@ -17,6 +24,7 @@ const ChatRoom = () => {
       console.log(userData);
 
     }, [userData]);
+
 /*let sock = new SockJS("http://localhost:8080/stomp");
 // Create a new StompClient object with the WebSocket endpoint
 let client = stompClient.over(sock);
@@ -48,13 +56,16 @@ client.connect({'username': 'Jimbob', 'password': 'pass'}, frame => {
     const connect =()=>{
         var Sock = new WebSocket("ws://localhost:8080/ws");
         stompClient = over(Sock);
-        stompClient.connect({'mail':"lucatscn@gmail.com",'password':"LucaLuca00+"},onConnected, onError);
+        stompClient.connect({'token':token()},onConnected, onError);
     }
 
     const onConnected = () => {
         setUserData({...userData,"connected": true});
         stompClient.subscribe('/chatroom/public', onMessageReceived);
+        stompClient.subscribe("/notifications/messages", onMessageReceived);
         stompClient.subscribe('/user/'+userData.username+'/private', onPrivateMessage);
+        stompClient.subscribe('/user/'+userData.username+'/notifications/private-messages', onPrivateMessage);
+
         userJoin();
     }
 
@@ -68,31 +79,50 @@ client.connect({'username': 'Jimbob', 'password': 'pass'}, frame => {
 
     const onMessageReceived = (payload)=>{
         var payloadData = JSON.parse(payload.body);
+        console.log(JSON.stringify(payloadData))
         switch(payloadData.status){
             case "JOIN":
                 if(!privateChats.get(payloadData.senderName)){
                     privateChats.set(payloadData.senderName,[]);
                     setPrivateChats(new Map(privateChats));
+
                 }
                 break;
-            case "MESSAGE":
+            case "MESSAGE"||"NOTIFICATION":
+
+
+            console.log(payloadData)
                 publicChats.push(payloadData);
                 setPublicChats([...publicChats]);
+                localStorage.setItem("notification",JSON.stringify(privateChats))
+
                 break;
         }
     }
     
     const onPrivateMessage = (payload)=>{
         console.log(payload);
+        console.log(JSON.stringify(payloadData))
+
         var payloadData = JSON.parse(payload.body);
         if(privateChats.get(payloadData.senderName)){
             privateChats.get(payloadData.senderName).push(payloadData);
             setPrivateChats(new Map(privateChats));
+            localStorage.setItem("notificationLength",privateChats.get(payloadData.senderName))
+            var not= []
+            privateChats.get(payloadData.senderName).forEach(element => {
+                not.push(element)
+            });
+            localStorage.setItem("notificationLength",privateChats.get(payloadData.senderName).length)
+            localStorage.setItem("notification",JSON.stringify(not))
+
         }else{
             let list =[];
             list.push(payloadData);
             privateChats.set(payloadData.senderName,list);
             setPrivateChats(new Map(privateChats));
+            localStorage.setItem("notification",JSON.stringify( privateChats.get(payloadData.senderName)))
+
         }
     }
 
@@ -130,9 +160,13 @@ client.connect({'username': 'Jimbob', 'password': 'pass'}, frame => {
           if(userData.username !== tab){
             privateChats.get(tab).push(chatMessage);
             setPrivateChats(new Map(privateChats));
+            localStorage.setItem("notification",JSON.stringify(privateChats))
+
           }
           stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
           setUserData({...userData,"message": ""});
+          localStorage.setItem("notification",JSON.stringify(privateChats))
+
         }
     }
 
@@ -196,8 +230,8 @@ client.connect({'username': 'Jimbob', 'password': 'pass'}, frame => {
                 id="user-name"
                 placeholder="Enter your name"
                 name="userName"
-                value={userData.username}
-                onChange={handleUsername}
+                value={login()}
+                readOnly // onChange={handleUsername}
                 margin="normal"
               />
               <button type="button" onClick={registerUser}>
