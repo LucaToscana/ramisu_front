@@ -6,9 +6,8 @@ import PaginationProduct from './PaginationProduct';
 import { Products } from './Products';
 
 
+const ListProducts = ({ displayGrid }) => {
 
-
-const ListProducts = ({ show }) => {
     const filter = useSelector(selectProductFilter)
     const dispatch = useDispatch()
     const pageRedux = useSelector(selectPage)
@@ -16,31 +15,25 @@ const ListProducts = ({ show }) => {
     const [currentPage, setCurrentPage] = useState(pageRedux);
     const page = useSelector(selectPage)
 
-
-
-
     useEffect(() => {
-
 
         productSearchCriteria(filter).
             then(response => {
                 if (response.data.content !== null) {
                     if (response.data.content.length === 0) {
                         dispatch(setCurrentPageFilter(page - 1))
-
                     }
                     setProducts(response.data.content);
                     dispatch(setTotal(response.data.totalElements))
                     setCurrentPage(filter.page)
-
                 }
             })
-    }, [JSON.stringify(filter),show]);
+    }, [JSON.stringify(filter),displayGrid]);
 
     return (
         <div>
             {products.length===0?"aucun produit trouvé":null}
-            <div className={show ? 
+            <div className={displayGrid ? 
                                 "md:grid md:grid-cols-2 lg:grid-cols-3 sm:w-auto flex flex-col justify-center items-center"
                                 :
                                 "flex flex-col justify-center items-center"}>
@@ -54,7 +47,7 @@ const ListProducts = ({ show }) => {
                             stock={product.stock}
                             picture={product.picture}
                             universe={product.universe}
-                            displayGrid={show}
+                            displayGrid={displayGrid}
                         />
                     );
                 })}
