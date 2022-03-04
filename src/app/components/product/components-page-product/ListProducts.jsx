@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {  productSearchCriteria } from '../../../api/backend/product';
 import { selectPage, selectProductFilter,  setCurrentPageFilter, setTotal } from '../../../shared/redux-store/filterProductSlice';
 import PaginationProduct from './PaginationProduct';
-import { Product, ProductList } from './Product';
+import { Products } from './Products';
 
 
 
@@ -46,7 +46,7 @@ const ListProducts = ({ show }) => {
                                 "flex flex-col justify-center items-center"}>
                 {products.map(product => {
                     return (
-                        <Product
+                        <Products
                             key={product.id}
                             label={product.label}
                             price={product.price}
