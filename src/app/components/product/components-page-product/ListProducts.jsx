@@ -40,7 +40,10 @@ const ListProducts = ({ show }) => {
     return (
         <div>
             {products.length===0?"aucun produit trouvé":null}
-            {show ? <div className="md:grid md:grid-cols-2 lg:grid-cols-3  sm:w-100">
+            <div className={show ? 
+                                "md:grid md:grid-cols-2 lg:grid-cols-3 sm:w-auto flex flex-col justify-center items-center"
+                                :
+                                "flex flex-col justify-center items-center"}>
                 {products.map(product => {
                     return (
                         <Product
@@ -50,23 +53,13 @@ const ListProducts = ({ show }) => {
                             id={product.id}
                             stock={product.stock}
                             picture={product.picture}
+                            universe={product.universe}
+                            displayGrid={show}
                         />
                     );
                 })}
-            </div> : <div className="md:grid md:grid-cols-2 lg:grid-cols-3  sm:w-100">
-                {products.map(product => {
-                    return (
-                        <ProductList
-                            key={product.id}
-                            label={product.label}
-                            price={product.price}
-                            id={product.id}
-                            stock={product.stock}
-                            picture={product.picture}
-                        />
-                    );
-                })}
-            </div>}
+            
+           </div>
             <PaginationProduct
                 setCurrentPage={setCurrentPage}
                 currentPage={currentPage}
