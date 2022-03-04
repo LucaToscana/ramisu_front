@@ -34,15 +34,15 @@ export const Products = ({ label, price, stock, id, picture, universe, displayGr
     return (
         <div className={displayGrid 
                             ?
-                        "md:p-4 Cardproduct w-11/12"
+                        "p-4 m-2 Cardproduct md:w-11/12 w-full"
                             :
-                        "p-2 m-4 Cardproduct w-full max-w-screen-sm"
+                        "p-4 m-4 Cardproduct w-full max-w-screen-lg"
                         }>
             <div className="">
             
                         <div className={displayGrid 
                                             ? 
-                                        'bg-white p-0 md:p2 flex flex-col md:block items-center block'
+                                        'bg-white p-2 md:p2 flex flex-row md:flex-col md:block items-center justify-between block'
                                             :
                                         'bg-white p-2 flex items-center justify-between block' }>
                             <img src={picture}
@@ -50,17 +50,14 @@ export const Products = ({ label, price, stock, id, picture, universe, displayGr
                                 className={
                                             displayGrid 
                                                     ? 
-                                            "md:w-full sm:w-20 hover:cursor-pointer mr-1"
+                                            "w-20 h-20 md:w-full md:h-full hover:cursor-pointer mr-4"
                                                 : 
-                                            "w-20 h-20 mr-4"
+                                            "w-20 h-20 mr-4 hover:cursor-pointer "
                                         }
                                 onClick={() => history.push(`/produits/detail/${id}`)} />
                             
                             
-                            <div className={ displayGrid ? 
-                                                'clip-path productCard p-4 w-full overflow-hidden'
-                                            :
-                                                'clip-path productCard flex-1 w-full overflow-hidden'}>
+                            <div className='clip-path productCard p-4 flex-1 w-full overflow-hidden'>
 
                                 {universe != undefined && (<span className='block text-center mt-3 text-xl'>{universe.label}</span>)}
 
@@ -68,6 +65,7 @@ export const Products = ({ label, price, stock, id, picture, universe, displayGr
                                 <h2 className="m-2 text-center font-bold truncate">{label}</h2>
 
                                 <div className="flex justify-evenly items-center w-100 mb-2">
+
                                     <div className="price justify-start rounded-2xl p-3">
                                         <p className="font-bold text-white">{price} € H.T.</p>
                                     </div>
@@ -75,13 +73,10 @@ export const Products = ({ label, price, stock, id, picture, universe, displayGr
                                     <div className="flex">
                                         <ButtonFavorite id={id} />
                                         <div className="login rounded-xl m-1 p-3 hover:cursor-pointer">
-                                            <ShoppingCartIcon
-                                                width={32}
-                                                height={32}
-                                                onClick={() => {
-                                                    dispatch(add(product))
-                                                    toggleAddressForm()
-                                                }} />
+                                            <ShoppingCartIcon   width={32}   height={32}
+                                                                onClick={() => {
+                                                                    dispatch(add(product))
+                                                                    toggleAddressForm() }} />
                                         </div>
 
                                     </div>
