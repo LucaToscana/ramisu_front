@@ -5,7 +5,8 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { URL_HOME } from './../../shared/constants/urls/urlConstants';
 import { signOut } from '../../shared/redux-store/authenticationSlice';
-
+import { clearUserInformations } from '../../shared/redux-store/userProfileSlice';
+import { clearFavData } from '../../shared/redux-store/favoritesSlice';
 /**
  * Component to automatically handle deconnection after a certain time
  * 
@@ -20,7 +21,9 @@ const IdleTimerCustom = () => {
 
     const handleOnIdle = () => {
         toast.warn("Idle timed out")
-        dispatch(signOut())
+        dispatch(signOut());
+        dispatch(clearUserInformations());  
+        dispatch(clearFavData());
         history.push(URL_HOME)
     }
 

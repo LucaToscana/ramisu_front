@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch , useSelector} from "react-redux";
 import { signOut , selectIsLoggedAdmin, selectIsLoggedComm} from "../shared/redux-store/authenticationSlice";
-import { URL_CART, URL_HOME, URL_PROFILE, URL_ADMIN_HOME , URL_COMM_HOME, URL_PSW_HANDLING} from "../shared/constants/urls/urlConstants";
+import { URL_CART, URL_HOME, URL_PROFILE, URL_ADMIN_HOME , URL_COMM_HOME, URL_PSW_HANDLING, URL_USER_PAY_METOD, URL_WISHLIST} from "../shared/constants/urls/urlConstants";
 import boxes from "../assets/images/icones/box.svg";
 import userProfile from "../assets/images/icones/user.svg";
 import shoppingCart from "../assets/images/icones/cart.svg";
@@ -15,7 +15,7 @@ import ecommerce from "../assets/images/icones/ecommerce.svg";
 import { Link, useHistory } from "react-router-dom";
 import {init} from '../shared/redux-store/cartSlice';
 import { clearUserInformations } from '../shared/redux-store/userProfileSlice';
-
+import {clearFavData} from '../shared/redux-store/favoritesSlice';
 /**
  * The user page account with multiple links (cart, user infos, orders...)
  *
@@ -32,8 +32,8 @@ const AccountView = () => {
     { name: "Commandes", href: `/orders`, image: boxes },
     { name: "Données du compte", href: URL_PROFILE, image: userProfile },
     { name: "Panier", href: URL_CART, image: shoppingCart },
-    { name: "Favoris", href: "#", image: heart },
-    { name: "Moyens de paiement", href: "#", image: creditCard },
+    { name: "Favoris", href: URL_WISHLIST, image: heart },
+    { name: "Moyens de paiement", href: URL_USER_PAY_METOD, image: creditCard },
     { name: "Gestion du mot de passe", href: URL_PSW_HANDLING, image: key },
     { name: "Tableau de bord", href: URL_ADMIN_HOME, image: Dashboard },
     { name: "Espace commercial", href: URL_COMM_HOME, image:ecommerce }
@@ -42,7 +42,7 @@ const AccountView = () => {
 
   return (
     // Position of the elements below
-    <div className="flex flex-col justify-center items-center m-5">
+    <div  className="flex flex-col justify-center items-center m-5">
       {/* The box container characteristics */}
       <div className="box-border p-6 border-4 ">
         {/* Grid system of the box content */}
@@ -79,6 +79,7 @@ const DisconnectionLink = () => {
         dispatch(signOut());
         dispatch(clearUserInformations());
         dispatch(init());
+        dispatch(clearFavData());
         history.push(URL_HOME);
       }}
     >

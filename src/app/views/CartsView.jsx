@@ -15,6 +15,7 @@ const CartsView = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     let subTotal = 0;
+   let length =  +carts.length*1
     for (let i = 0; i < carts.length; i++) {
         subTotal += carts[i].quantite * carts[i].price
     }
@@ -55,7 +56,14 @@ const CartsView = () => {
 
     return (
         <div className='flex justify-around m-5'>
-         {subTotal!==0?   <div className=''>
+ <div className='grid grid-cols-1'>
+{subTotal===0 ?  <div className='border-2 w-full flex flex-col md:h-[400px]'>
+          <span className='mt-8 text-4xl text-center text-[#282C34]'> Le Panier est vide</span> 
+            <div className='border-2  w-32 mx-auto mt-10'>
+                <img src={empty}></img>
+            </div>
+        </div>:null}
+         {subTotal!==0 || length>0?   <div className=''>
 
                 <div className='flex border-b-2 border-gray-400 pb-4'>
                     <ShoppingCartIcon className='w-10 h-10' />
@@ -71,7 +79,7 @@ const CartsView = () => {
                                 onClick={() => history.push(`/produits/detail/${cart.id}`)} />
                         </div>
                         <div className="w-full flex flex-col place-content-evenly">
-                            <h2 className="font-semibold">{cart.label}</h2>
+                            <h2 className="font-semibold lg:w-120">{cart.label}</h2>
                             <div className="flex items-center pb-2">
                                 <div className='w-1/2'>
                                     <p className="font-bold">{cart.price} € H.T.</p>
@@ -133,13 +141,8 @@ const CartsView = () => {
 
 
             </div>:
-        <div className='border-2 w-full flex flex-col md:h-[400px]'>
-          <span className='mt-8 text-4xl text-center text-[#282C34]'> Le Panier est vide</span> 
-            <div className='border-2  w-32 mx-auto mt-10'>
-                <img src={empty}></img>
-            </div>
-        </div>}
-        </div>
+      null}
+        </div></div>
     );
 };
 

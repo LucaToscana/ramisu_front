@@ -30,7 +30,6 @@ const LoginView = ({ history }) => {
             await recaptchaRef.current.executeAsync().then(token=>{
                 authenticate(values).then(res => {
                     
-                    debugger
                     if (res.status === 200 && res.data.token) {
                         dispatch(signIn(res.data.token))
                         
@@ -67,7 +66,7 @@ const LoginView = ({ history }) => {
 
     return (
         <div className=''>
-            <div className="md:flex md:justify-center">
+            <div className="pb-10 md:flex md:justify-center">
                 <ReCAPTCHA
                             sitekey={recaptcha}
                             ref={recaptchaRef}

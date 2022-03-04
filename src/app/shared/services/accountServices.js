@@ -8,7 +8,7 @@ import {ROLE_ADMIN, ROLE_SALESMAN} from '../../shared/constants/rolesConstant'
  */
 export function accountRoles() {
     const payload = decodeToken()
-    return payload.auth.split(",")
+    return payload.AUTHORITIES_KEY.split(",")
 }
 
 /**
@@ -23,6 +23,7 @@ export function accountLogin(){
 }
 
 export function hasRole(role) {
+  
     return accountRoles().includes(role)
 }
 
@@ -70,7 +71,7 @@ export function isAuthenticated() {
     try{
         const token = getToken()
         const payload = decodeToken()
-        const roles = payload.auth.split(",")
+        const roles = payload.AUTHORITIES_KEY.split(",")
         const expirationDate = payload.exp
         const login = payload.sub
         const dateNow = new Date();

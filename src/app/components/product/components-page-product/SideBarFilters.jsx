@@ -27,11 +27,16 @@ const SideBarFilters = ({ filters, handleFilters }) => {
     // Allows to recover data in back
     useEffect(() => {
         //   dispatch( initFilter())
-        axios.all([getAllCategories(), getAllUniverses(), getAllTags()]).then(responses => {
-            setCategories(responses[0].data);
-            setUniverses(responses[1].data);
-            setTags(responses[2].data);
-        })
+        getAllCategories().then(responses => {
+            setCategories(responses.data)})
+
+            getAllUniverses().then(responses => {
+                setUniverses(responses.data)})
+
+                
+                getAllTags().then(responses => {
+                    setTags(responses.data)})
+        
 
     }, []);
 

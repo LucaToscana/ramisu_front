@@ -3,7 +3,20 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {
+    extend: {  keyframes: {
+      wiggle: {
+          '0%, 100%': {
+              transform: 'rotate(-3deg)'
+          },
+          '50%': {
+              transform: 'rotate(3deg)'
+          },
+      }
+  },
+  animation: {
+      wiggle: 'wiggle 0.4s ease-in-out infinite',
+  
+},
       colors:{
         primary:{
           '100': '#b3d9ff',
@@ -32,7 +45,7 @@ module.exports = {
           'orange': '#C28F2C',
           'green': '#AEA70A',
         },
-      }
+      },
     }
   },
   variants: [
@@ -51,5 +64,6 @@ module.exports = {
   ],
   plugins: [
     require('@tailwindcss/forms'),
+    require('tw-elements/dist/plugin'),
   ],
 }

@@ -36,7 +36,7 @@ const ContactView = ()=>
 
    
 
-    return (<div className='bg-white'>
+    return (<div className='bg-white  pb-8'>
 
             <ReCAPTCHA
                 sitekey={recaptcha}

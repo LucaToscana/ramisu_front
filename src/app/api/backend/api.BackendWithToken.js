@@ -19,6 +19,7 @@ export default apiBackEnd;
  */
 apiBackEnd.interceptors.request.use( request => {
     request.headers['Authorization'] = `Bearer ${ getToken() }`;
+    
     return request;
 })
 

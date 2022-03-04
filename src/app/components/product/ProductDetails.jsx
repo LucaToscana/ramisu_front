@@ -8,6 +8,7 @@ import useModal from "../../shared/components/utils-components/Modal/useModal";
 import ModalAddToCart from "../../shared/components/utils-components/Modal/modalAddToCart/ModalAddToCart";
 import { CheckCircleIcon, PencilIcon, XCircleIcon } from "@heroicons/react/outline";
 import ProductRelated from "./components-page-product/ProductRelated";
+import ButtonFavorite from "../../shared/components/buttons/ButtonFavorite";
 
 /**
  * Component product to show details
@@ -108,8 +109,8 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
     return (
         <>
-            <div className=" sm:mt-10 md:mt-10 lg:mt-20">
-
+            <div className=" w-full  sm:mt-10 md:mt-10 lg:mt-20">
+<div className="flex flex-wrap w-full justify-around"  >
 
                 <div className="border-t-2 border-gray-400 max-w-screen-xl flex flex-col lg:flex lg:flex-row">
                     <div className="lg:w-1/2 ">
@@ -121,13 +122,22 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                     </div>
                     <div className="lg:w-1/2 ml-10 ">
                         <div>
+                        <div className="flex justify-end">
                             <h1 className="font-bold text-3xl mt-10">{label}</h1>
+                            <div className="mt-8">
+                                <ButtonFavorite id={id} />
+                            </div>
+                        </div>
+                                                     
                             <h2 className="font-bold text-2xl mt-10">Prix: {price} € H.T.</h2>
                             <p className="text-xl mt-10 pb-10 border-b-2 border-gray-400">{description}</p>
                         </div>
                         <div>
-                            <p className='font-bold flex items-center text-2xl mt-10'>En Stock({stock})
+                            <p className='font-bold flex items-center text-2xl mt-10'>
+                            En Stock({stock})
                                 {stock > 0 ? <CheckIcon className='ml-2 w-6 h-6 iconTrue' /> : <XIcon className='ml-2 w-6 h-6 iconNone' />}</p>
+                                
+                           
                         </div>
 
                         <div>
@@ -170,7 +180,9 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                                 }
                                                 }>
                                                 +1 <ShoppingCartIcon className="w-8 h-8" />
+                                                
                                             </div> : <div className="col-start-3 col-span-1 ">
+                                                
                                                 {errorQty === "" && isEnable ? <div className="h-12 w-24 flex justify-center  inline-flex rounded-xl items-center  content-center  login text-sm hover:cursor-pointer" onClick={() => {
                                                     var tot = document.getElementById("myNumberInput").value
 
@@ -192,7 +204,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                             </div>
                                         }
                                     </div>
-
+                                  
 
                                     <div className="ml-8 grid  grid-cols-2">
 
@@ -230,7 +242,7 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                                 </div>
                             </div>
 
-                    
+
                         </div>
                     </div>
 
@@ -242,22 +254,25 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
                     qty={modalQty}
                 >
                 </ModalAddToCart>
-                <h1 className="font-bold text-xl mt-10 ml-3">   Produits liés à cet article</h1>
+</div>
+         
+<h1 className="font-bold text-xl mt-10 ml-3">   Produits liés à cet article</h1>
 
-                <div className="flex justify-around">
+<div className="flex justify-around mb-10">
 
-                <div className=" flex flex-wrap w-96  md:grid grid-cols-6 justify-between w-full  lg:w-full  ">
-                                {productRelated.map((element, index) => <>
-                                    {
-                                        index <6   ?
-                                            <ProductRelated product={element} /> : null
-                                    }</>
+<div className=" flex flex-wrap   md:grid grid-cols-6 justify-between w-full  lg:w-full  ">
+
+                        {productRelated.map((element, index) => <>
+                            {
+                                index < 6 ?
+                                    <ProductRelated product={element} /> : null
+                            }</>
 
 
 
-                                )}
+                        )}
 
-                            </div></div>
+                    </div></div>
             </div>
         </>
     );

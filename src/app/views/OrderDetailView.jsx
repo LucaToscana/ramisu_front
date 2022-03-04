@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import { getOrderDetailsWithListProduct } from '../api/backend/order';
-import OrderDetails from '../components/order/OrderDetails';
+import OrderDetails from '../components/account/Order/OrderDetails';
 
+import war from '../assets/images/war1.png'
 
 
 const ProductDetailView = () => {
@@ -13,6 +14,7 @@ const ProductDetailView = () => {
     const [address, setAddress] = useState()
     const [profile, setProfile] = useState()
     const [subTotal, setSubTotal] = useState()
+    const [mailOrder, setMailOrder] = useState()
 
 
 
@@ -47,7 +49,7 @@ const ProductDetailView = () => {
                 result.data.content.usersInformation.phone
 
             )
-
+            setMailOrder(result.data.content.usersInformation.user.mail)
             let products = result.data.productOrderWrappers
             let subTotalP = 0;
             for (let i = 0; i < products.length; i++) {
@@ -63,6 +65,7 @@ const ProductDetailView = () => {
 
 
     return (
+        
         <div className="flex items-center justify-center md:m-10">
             <OrderDetails id={id}
                 order={order}
@@ -73,6 +76,7 @@ const ProductDetailView = () => {
                 address={address}
                 profile={profile}
                 subTotal={subTotal}
+                mailOrder={mailOrder}
             />
         </div>
     );

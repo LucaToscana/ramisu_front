@@ -26,6 +26,7 @@ export const cartSlice = createSlice({
             localStorage.setItem("cart",JSON.stringify(state.cart))
         },
         setQuantity(state, {payload} ){
+            if(payload[1]===""){payload[1]=0}
             if(payload[1]<=payload[0].stock){
                 if(  state.cart[state.cart.findIndex(c => c.id === payload[0].id)]!==undefined){
                 state.cart[state.cart.findIndex(c => c.id === payload[0].id)].quantite=payload[1]

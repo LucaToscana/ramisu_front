@@ -20,37 +20,37 @@ import { URL_PASSWORD_RESET_START } from '../../shared/constants/urls/urlConstan
 const FormLogin = ({ submit, errorLog }) => (
     <Formik initialValues={defaulValuesLogin} onSubmit={submit} validationSchema={schemaFormLogin}>
         <Form className='m-8'>
-            <div className='rounded-md shadow-sm -space-y-px'>
+            <p>     <div className='rounded-md shadow-sm -space-y-px'>
                 <label className="mb-2">Mail</label>
-                <Field type="text" name="mail" 
+                <Field type="text" name="mail"
                     component={CustomInput} className='rounded-none rounded-t-md mb-4 shadow-inner' noError />
                 <label className="mb-2">Mot de passe</label>
-                <Field type='password' name='password' 
+                <Field type='password' name='password'
                     component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner' noError />
             </div>
 
-            <div className="flex flex-col justify-between">
-                <div className="flex">
-                    <Field name='rememberMe' component={CustomCheckbox} value={true} />
-                    <label htmlFor="rememberMe" className="m-0 text-gray-400">Se souvenir de moi</label>
+                <div className="flex flex-col justify-between">
+                    <div className="flex">
+                        <Field name='rememberMe' component={CustomCheckbox} value={true} />
+                        <label htmlFor="rememberMe" className="m-0 text-gray-400">Se souvenir de moi</label>
+                    </div>
+
+                    <div className="text-center mb-8 mt-4">
+                        <Link to={URL_PASSWORD_RESET_START} >
+                            <span className=' font-medium underline' >
+                                Mot de passe oublié ?
+                            </span>
+                        </Link>
+                    </div>
                 </div>
 
-                <div className="text-center mb-8 mt-4">
-                    <Link to={URL_PASSWORD_RESET_START} >
-                        <span className=' font-medium underline' >
-                            Mot de passe oublié ?
-                        </span>
-                    </Link>
+                <div className="flex justify-center">
+                    <button type="submit" className="rounded-xl login font-bold">
+                        Se connecter
+                    </button>
                 </div>
-            </div>
-
-            <div className="flex justify-center">
-                <button type="submit" className="rounded-xl login font-bold">
-                    Se connecter
-                </button>
-            </div>
-            {errorLog && <ErrorMessSmall middle message="Identifiants incorrect(s)" />}
-        </Form>
+                {errorLog && <ErrorMessSmall middle message="Identifiants incorrect(s)" />}
+            </p>      </Form>
     </Formik>
 )
 
@@ -73,10 +73,10 @@ const Login = (props) => {
                 <h2 className="text-center font-bold uppercase md:mt-8">
                     Connexion
                 </h2>
-                {props.msg && ( <div className='text-center mt-5'>
-                                    <span className="text-red-600 text-center">{props.msg}</span> &nbsp;
-                                    <span className="hover:underline  text-sm"><a href="mailto:support@warmarket.com">support@warmarket.com</a></span>
-                                </div>)}
+                {props.msg && (<div className='text-center mt-5'>
+                    <p>   <span className="text-red-600 text-center">{props.msg}</span> &nbsp;
+                        <span className="hover:underline  text-sm"><a href="mailto:support@warmarket.com">support@warmarket.com</a></span></p>
+                </div>)}
             </div>
             <FormLogin {...props} />
         </div>

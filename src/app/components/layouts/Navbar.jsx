@@ -1,19 +1,19 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon } from '@heroicons/react/outline';
+import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon , HeartIcon} from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN , URL_CART ,URL_WISHLIST} from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
-import joey from "../../assets/images/joey.jpg";
+
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
 import { labelFilter } from '../../shared/redux-store/filterProductSlice';
-import { selectIsLogged, selectIsLoggedAdmin, signOut } from './../../shared/redux-store/authenticationSlice';
-import { selectProfileInfo, getuserPicture, isUpdated, clearUserInformations, setProfileInfo } from './../../shared/redux-store/userProfileSlice';
+import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
+import { selectProfileInfo, getuserPicture, fetchProfile, clearUserInformations, selectProfileStatus} from './../../shared/redux-store/userProfileSlice';
 import { useLocation } from 'react-router-dom'
-import { getProfile } from "../../api/backend/user";
 import classNames from 'classnames/bind';// Constants used for navigating with the navbar
 import { init, selectCart } from './../../shared/redux-store/cartSlice';
+import {selectorFavState, fetchFav, clearFavData} from '../../shared/redux-store/favoritesSlice';
 /**
  * Website navbar made with Tailwind
  * 
@@ -24,27 +24,25 @@ import { init, selectCart } from './../../shared/redux-store/cartSlice';
 const Navbar = () => {
     const location = useLocation()    //input filter
     const dispatch = useDispatch();
-    const carts = useSelector(selectCart)
-
-    let qty = 0;
-
-    for (let i = 0; i < carts.length; i++) {
-        qty +=+( carts[i].quantite*1)
-    }
-    const [navigation, setNavigation] = useState([
-        { name: 'Accueil', to: '/', current: true },
-        { name: 'Boutique', to: '/products', current: true },
-        { name: 'Figurines', to: '/Figurine', current: true },
-        { name: 'Peinture', to: '/Peinture', current: true },
-        { name: 'Librairie', to: '/Librairie', current: true },
-        { name: 'Contact', to: '/Contact', current: false },])
+    const isLogged = useSelector(selectIsLogged);
+ 
+    const carts = useSelector(selectCart);
 
 
-
-
-
-
-
+    const qty  =carts.reduce((acc, elt)=>  acc + elt.quantite,0);
+   
+    const [navigation, setNavigation] = useState(
+        [
+            { name: 'Accueil',      to: '/',            current: true   },
+            { name: 'Boutique',     to: '/products',    current: false  },
+            { name: 'Figurines',    to: '/Figurine',    current: false  },
+            { name: 'Peinture',     to: '/Peinture',    current: false  },
+            { name: 'Librairie',    to: '/Librairie',   current: false  },
+            { name: 'Contact',      to: '/Contact',     current: false  }
+        ]
+    );
+    
+    const [show, setShow] = React.useState();
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -54,111 +52,164 @@ const Navbar = () => {
         <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
             {({ open }) => (
                 <>
-                    <div className="max-w-7xl mx-auto px-4 lg:px-6 pt-2 ">
+                    <div className='lg:flex items-center pb-2'>
+                        <div className='lg:block hidden ml-10 min-w-max'>
+                            {/* Website logo */}
+                            <div className="">
+                                <a href="/"><img
+                                    className='max-h-24 '
+                                    src={logo}
+                                    alt="Warhammer shop logo"
+                                /></a>
+                            </div>
+                        </div>
 
-                        {/* Search bar */}
-                        {// <form action="/search" className="flex flex-wrap lg:flex-row" >
-                        }<div className='flex flex-wrap lg:flex-row'>
-                            <h1 className='text-xl md:text-4xl text-white flex items-center w-full md:w-1/2 justify-center'>WarMarket</h1>
-                            <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
-                                className="items-center w-full max-w-lg mx-auto h-12 px-4 text-lg text-gray-700 bg-white border border-gray-300 rounded-lg lg:w-1/2 xl:transition-all 
-                            xl:duration-300  lg:h-10 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-teal-500 
-                            dark:focus:border-teal-500 focus:outline-none focus:ring focus:ring-primary dark:placeholder-gray-400 focus:ring-opacity-40"
-                            /></div>
-                        {  // </form>
-                        }
-                        <div className="relative flex items-center justify-between h-16">
-                            <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
+                        <div className='text-center items-center justify-center w-full'>
 
-                                {/* Mobile menu button*/}
-                                <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                                    <span className="sr-only">Ouvrir menu</span>
-                                    {open ? (
-                                        <XIcon className="block h-6 w-6" aria-hidden="true" />
-                                    ) : (
-                                        <MenuIcon className="block h-6 w-6" aria-hidden="true" />
-                                    )}
-                                </Disclosure.Button>
+                            <div className="max-w-7xl px-4 mt-1 lg:mt-5 mx-auto">
 
+                                {/* Search bar */}
+                                <div className={'flex mx-auto mb-2'}>
+
+                                    <div className='lg:block hidden w-full'>
+                                        <div className={'flex border border-gray-300 shadow-searchBar rounded-sm items-center w-full mx-10 md:mx-48 lg:mx-10'}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="#C3A758" >
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                            </svg>
+                                            <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
+                                                className={'w-full h-full text-lg text-white bg-transparent'}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Right part of navbar - widgets */}
+                                    <div className="items-center hidden lg:flex mx-6">
+                                        {/* Display depending if the user is connected or not :
+                                            notifications, connection / registration link, profile menu burger 
+                                        */}
+                                        <ConnectionStatusButtons />
+                                        {isLogged && (
+                                        <div className='ml-3'>
+                                        <Link to={URL_WISHLIST} >
+                                            <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
+                                        </Link>
+                                        </div>
+                                        )}
+                                        <div className="cart-wrapper">
+                                             <Link to={URL_CART} >
+                                                <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                                {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                            </Link>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {  // </form>
+                                }
+                                <hr className='border-1 border-custom-orange' />
+                                <div className="relative flex items-center justify-between h-16 mx-0 sm:mx-10 xl:mx-32">
+                                    <div className="inset-y-0 left-0 flex items-center lg:hidden">
+
+                                        {/* Mobile menu button*/}
+                                        <Disclosure.Button className="inline-flex items-center justify-center p-2 rounded-lg bg-custom-orange text-black hover:text-custom-orange hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                                            <span className="sr-only">Ouvrir menu</span>
+                                            {open ? (
+                                                <div>
+                                                    <XIcon className="block absolute h-6 w-6 mt-0.5 opacity-25" aria-hidden="true" />
+                                                    <XIcon className="block h-6 w-6" aria-hidden="true" />
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <MenuIcon className="block absolute h-6 w-6 mt-0.5 opacity-25" aria-hidden="true" />
+                                                    <MenuIcon className="block h-6 w-6" aria-hidden="true" />
+                                                </div>
+                                            )}
+                                        </Disclosure.Button>
+
+                                    </div>
+
+                                    <div className="flex-1 flex items-center lg:items-stretch mr-3">
+
+                                        {/* Website logo */}
+                                        <div className='block lg:hidden w-full'>
+                                            <div className="h-16 min-w-max">
+                                                <a href="/">
+                                                    <img
+                                                        className="h-full w-auto mx-auto hidden sm:block"
+                                                        src={logo}
+                                                        alt="Warhammer shop logo"
+                                                    />
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        {/* Right part of navbar - widgets */}
+                                        <div className="flex items-center pr-2 lg:hidden">
+                                            {/* Display depending if the user is connected or not :
+                                                notifications, connection / registration link, profile menu burger 
+                                            */}
+                                            <ConnectionStatusButtons />
+                                            {isLogged && (
+                                                <div className='ml-3'>
+                                                <Link to={URL_WISHLIST} >
+                                                    <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
+                                                </Link>
+                                                </div>
+                                                )}
+                                            <div className="cart-wrapper">
+                                                <Link to={URL_CART} >
+                                                    <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
+                                                    {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                                </Link>
+                                            </div>
+                                        </div>
+
+                                        {/* Link to other parts of website */}
+                                        <div className="hidden lg:block my-auto w-full">
+                                            <div className="flex justify-between xl:space-x-4">
+                                                {navigation.map((item) => (
+                                                    <Link
+                                                        key={item.name}
+                                                        to={item.to}
+                                                        className={classNames(
+                                                            item.to == location.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                            'px-3 py-2 rounded-lg text-lg font-medium'
+                                                        )}
+                                                        aria-current={item.to == location.pathname ? 'page' : undefined}
+                                                    >
+                                                        {item.name}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
 
-                            <div className="flex-1 flex items-center justify-center lg:items-stretch lg:justify-start">
-
-                                {/* Website logo */}
-                                <div className="flex-shrink-0 flex items-center">
-                                    <img
-                                        className="block lg:hidden h-8 w-auto"
-                                        src={logo}
-                                        alt="Warhammer shop logo"
-                                    />
-                                    <img
-                                        className="hidden lg:block h-8 w-auto"
-                                        src={logo}
-                                        alt="Warhammer shop logo"
-                                    />
-                                </div>
-
-                                {/* Link to other parts of website */}
-                                <div className="hidden lg:block lg:ml-6">
-                                    <div className="flex space-x-4">
-                                        {navigation.map((item) => (
+                            <Disclosure.Panel className="lg:hidden">
+                                <div className="px-2 pt-2 pb-3 space-y-1">
+                                    {navigation.map((item) => (
+                                        <Disclosure.Button
+                                            key={item.name}
+                                            className={classNames(
+                                                item.to == location.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                                'block px-3 py-2 rounded-lg text-base font-medium'
+                                            )}
+                                        >
                                             <Link
                                                 key={item.name}
                                                 to={item.to}
-                                                className={classNames(
-                                                    item.to == location.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                                    'px-3 py-2 rounded-lg text-lg font-medium'
-                                                )}
-                                                aria-current={item.to == location.pathname ? 'page' : undefined}
                                             >
                                                 {item.name}
                                             </Link>
-                                        ))}
-                                    </div>
+
+                                        </Disclosure.Button>
+                                    ))}
                                 </div>
-                            </div>
-
-                            {/* Right part of navbar - widgets */}
-                            <div className="absolute inset-y-0 right-0 flex items-center pr-2 lg:static lg:inset-auto lg:ml-6 lg:pr-0">
-
-                                {/* Display depending if the user is connected or not :
-                                    notifications, connection / registration link, profile menu burger 
-                                */}
-                                <ConnectionStatusButtons />
-                                <div className="cart-wrapper">
-                                    <Link
-                                        to="/panier"
-                                    >
-                                        <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
-                                     {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
-                                    </Link>
-                                </div>
-                            </div>
-
+                            </Disclosure.Panel>
                         </div>
                     </div>
-
-                    <Disclosure.Panel className="lg:hidden">
-                        <div className="px-2 pt-2 pb-3 space-y-1">
-                            {navigation.map((item) => (
-                                <Disclosure.Button
-                                    key={item.name}
-                                    className={classNames(
-                                        item.to == location.pathname ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                        'block px-3 py-2 rounded-lg text-base font-medium'
-                                    )}
-                                >
-                                    <Link
-                                        key={item.name}
-                                        to={item.to}
-                                    >
-                                        {item.name}
-                                    </Link>
-
-                                </Disclosure.Button>
-                            ))}
-                        </div>
-                    </Disclosure.Panel>
                 </>
             )}
         </Disclosure>
@@ -177,44 +228,41 @@ export default Navbar
  */
 const ConnectionStatusButtons = () => {
 
+    const dispatch = useDispatch();
     const isLogged = useSelector(selectIsLogged);
     const profileData = useSelector(selectProfileInfo);
-    const dispatch = useDispatch();
-    // const history = useHistory()
-
-
+    const profileStatus = useSelector(selectProfileStatus);
+    
+    const favState = useSelector(selectorFavState); 
+    
+  
 
     if (isLogged) {
 
-        if (profileData.updated === false) {
-            getProfile().then((response) => {
-                dispatch(setProfileInfo(response.data));
-                dispatch(isUpdated(true))
-            }).catch(e => {
-                console.error("error edite profile", e)
-            });
-        }
-
+       
+        if(favState=='idle')dispatch(fetchFav())
+        if(profileStatus=='idle')dispatch(fetchProfile())
+      
 
         /* Connected user buttons and menu */
         return (
             <>
                 {/* Notification bell icon */}
-                <button
+             <div  className='animate-wiggle'>   <button
                     type="button"
-                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    className="bg-transparent	p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white sm:ml-7"
                 >
-                    <span className="sr-only">Voir les notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    <span className="sr-only bg-transparent	">Voir les notifications</span>
+                    <BellIcon className="h-6 w-6 bg-transparent" aria-hidden="true" />
                 </button>
-
+                </div>
                 {/* User burger menu */}
-                <Menu as="div" className="ml-3 relative">
+                <Menu as="div" className="ml-3">
                     <div>
-                        <Menu.Button className="bg-gray-800 flex text-lg rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                        <Menu.Button className="bg-gray-800 flex text-lg rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8">
                             <span className="sr-only">Ouvrir le menu utilisateur</span>
                             <img
-                                className="p-1 h-8 w-8 rounded-full bg-white  object-contain"
+                                className="p-0.5 h-8 w-8 rounded-full bg-white object-contain"
                                 src={getuserPicture(profileData.avatar)}
                                 alt=""
                             />
@@ -229,7 +277,7 @@ const ConnectionStatusButtons = () => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                     >
-                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Items className="absolute -ml-24 z-50 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <Menu.Item>
                                 {({ active }) => (
                                     <Link to={URL_ACCOUNT}
@@ -248,6 +296,7 @@ const ConnectionStatusButtons = () => {
                                         onClick={() => {
                                             dispatch(signOut());
                                             dispatch(clearUserInformations());
+                                            dispatch(clearFavData());
                                             dispatch(init());
                                             // history.push(URL_HOME)
                                         }}
@@ -268,7 +317,7 @@ const ConnectionStatusButtons = () => {
         return (
             <div>
                 <div className="hidden lg:block lg:ml-6">
-                    <div className="flex space-x-4">
+                    <div className="flex justify-between">
                         <Link
                             to={URL_REGISTRATION}
                             className='text-gray-300 hover:bg-gray-700 hover:text-white
@@ -279,7 +328,7 @@ const ConnectionStatusButtons = () => {
                         <Link
                             to={URL_LOGIN}
                             className='text-gray-300 hover:bg-gray-700 hover:text-white
-                            px-3 py-2 rounded-lg text-lg font-medium'>
+                            px-3 py-2 rounded-lg text-lg font-medium whitespace-nowrap'>
                             Se connecter
                         </Link>
                     </div>
@@ -288,7 +337,7 @@ const ConnectionStatusButtons = () => {
                     <Menu as="div"
                         className="relative">
                         <Menu.Button>
-                            <UserIcon className='bg-gray-800 p-1 mt-3 text-gray-400 w-8 h-8 m-2' />
+                            <UserIcon className='bg-custom-orange rounded-full p-1 mt-3 text-gray-800 w-8 h-8 m-2' />
                         </Menu.Button>
                         <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             <div className='flex flex-col'>
