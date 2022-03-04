@@ -262,11 +262,11 @@ const ProductDetails = ({ label, price, description, picture, stock, id, cart, c
 
 <div className=" flex flex-wrap   md:grid grid-cols-6 justify-between w-full  lg:w-full  ">
 
-                        {productRelated.map((element, index) => <>
+                        {
+                            productRelated.map((element, index) => 
                             {
-                                index < 6 ?
-                                    <ProductRelated product={element} /> : null
-                            }</>
+                                if(index < 6)return  <ProductRelated product={element} key={index} /> ;
+                            }
 
 
 
