@@ -6,7 +6,7 @@ import {uploadPicture , removePicture}  from '../api/backend/user';
 
 
 import { useSelector, useDispatch } from 'react-redux';
-import { selectProfileInfo, getuserPicture, setProfileInfo } from '../shared/redux-store/userProfileSlice';
+import { selectProfileInfo, getuserPicture, setProfileInfo, fetchProfile } from '../shared/redux-store/userProfileSlice';
 import { Formik, Form, Field, useFormikContext } from 'formik';
 import { schemaFormProfileUpdate } from '../shared/constants/formik-yup/yup/yupUser';
 import { PlusCircleIcon, PencilIcon, UserIcon, CheckCircleIcon, RefreshIcon, XCircleIcon } from '@heroicons/react/solid'
@@ -20,6 +20,10 @@ const ProfileView = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const userInfo = useSelector(selectProfileInfo);
+
+    useEffect(()=>{
+        dispatch(fetchProfile());
+    },[]);
    
     const submitHandler = (values)=>{
       
