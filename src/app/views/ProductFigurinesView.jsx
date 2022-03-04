@@ -126,9 +126,11 @@ const ProductFigurinesView = () => {
                         filters={filters}
                     />
                 </div>
+                <div className='w-full'>
                 <ListProducts
                     show={show}
                 />
+                </div>
             </div>
 
         </div>
