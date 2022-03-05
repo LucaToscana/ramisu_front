@@ -6,7 +6,7 @@ import ShowFilters from '../components/product/components-page-product/ShowFilte
 import { useDispatch } from 'react-redux';
 import { initFilter, labelFilter, selectProductFilter } from '../shared/redux-store/filterProductSlice';
 import { useSelector } from 'react-redux';
-import SwitchLayout from '../components/product/components-page-product/SwitchLayout';
+import LayoutSwitcher from '../components/product/components-page-product/LayoutSwitcher';
 
 
 
@@ -81,7 +81,7 @@ const ProductView = () => {
                     <p>{"total products:  " + JSON.parse(localStorage.getItem("filters")).total}</p>
                 </div>
 
-                    <SwitchLayout callback={setLayout} />
+                    <LayoutSwitcher callback={setLayout} />
 
             </div>
 

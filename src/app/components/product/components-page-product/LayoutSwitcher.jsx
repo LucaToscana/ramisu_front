@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import {ViewGridIcon, ViewListIcon } from '@heroicons/react/solid';
-const  SwitchLayout = ({callback})=>{
+const  LayoutSwitcher = ({callback})=>{
 
     const [active, setActive] = useState(true);
 
@@ -23,4 +23,4 @@ const  SwitchLayout = ({callback})=>{
 }
 
 
-export default SwitchLayout;
+export default LayoutSwitcher;
