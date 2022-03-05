@@ -22,38 +22,23 @@ const ProductView = () => {
         }, []);
      
     const filterStore = useSelector(selectProductFilter);
-    const getFIlter = () => {
+    const getFilter = () => {
 
-        let f = []
+        let array = []
 
-        if (filterStore.tag !== null) {
-
-            for (let i = 0; i <= filterStore.tag.length - 1; i++) {
-                f.push(filterStore.tag[i]);
-            }
-        }
-        if (filterStore.universe !== null) {
-
-            for (let i = 0; i <= filterStore.universe.length - 1; i++) {
-                f.push(filterStore.universe[i]);
-            }
-        }
-
-        if (filterStore.category !== null) {
-
-            for (let i = 0; i <= filterStore.category.length - 1; i++) {
-                f.push(filterStore.category[i]);
-            }
-        }
-
-
-        return f
+            if (filterStore.category !== null)   array.push(filterStore.slice());
+            
+            if (filterStore.universe !== null)   array.push(filterStore.universe.slice());
+            
+            if (filterStore.tag !== null)        array.push(filterStore.tag.slice());
+            
+        return array;
 
     }
 
     // Creation of a state for products
     const [openModal, setOpenModal] = useState(false);
-    const [filters, setFilters] = useState(getFIlter());
+    const [filters, setFilters] = useState(getFilter());
     const [displayGrid, setLayout] = useState(true);
 
 
