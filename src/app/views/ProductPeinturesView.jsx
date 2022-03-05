@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import ListProducts from '../components/product/components-page-product/ListProducts';
+import ProductsList from '../components/product/components-page-product/ProductsList';
 import { AdjustmentsIcon, ViewGridIcon, ViewListIcon } from '@heroicons/react/solid';
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
 import ShowFilters from '../components/product/components-page-product/ShowFilters';
-import { initFilter, initFilterByPage, selectProductFilter } from '../shared/redux-store/filterProductSlice';
-import { Prompt } from 'react-router'
+import {  initFilterByPage, selectProductFilter } from '../shared/redux-store/filterProductSlice';
+
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -129,7 +129,7 @@ const dispatch = useDispatch()
                     />
                 </div>
                 <div className='w-full'>
-                <ListProducts
+                <ProductsList
                     show={show}
                 />
                 </div>

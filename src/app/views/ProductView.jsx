@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import ListProducts from './../components/product/components-page-product/ListProducts';
+import ProductsList from '../components/product/components-page-product/ProductsList';
 import { AdjustmentsIcon } from '@heroicons/react/solid';
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
 import ShowFilters from '../components/product/components-page-product/ShowFilters';
@@ -90,7 +90,7 @@ const ProductView = () => {
                     <SideBarFilters handleFilters={handleFilters} filters={filters} />
                 </div>
                 <div className='w-full'>
-                    <ListProducts   displayGrid={displayGrid} /></div>
+                    <ProductsList   displayGrid={displayGrid} /></div>
             </div>
 
         </div>

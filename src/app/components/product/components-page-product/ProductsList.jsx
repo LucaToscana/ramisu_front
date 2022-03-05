@@ -6,7 +6,7 @@ import PaginationProduct from './PaginationProduct';
 import { Products } from './Products';
 
 
-const ListProducts = ({ displayGrid }) => {
+const ProductsList = ({ displayGrid }) => {
 
     const filter = useSelector(selectProductFilter)
     const dispatch = useDispatch()
@@ -61,4 +61,4 @@ const ListProducts = ({ displayGrid }) => {
     )
 }
 
-export default ListProducts;
+export default ProductsList;
