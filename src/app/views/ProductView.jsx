@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import ListProducts from './../components/product/components-page-product/ListProducts';
-import { AdjustmentsIcon, ViewGridIcon, ViewListIcon } from '@heroicons/react/solid';
+import { AdjustmentsIcon } from '@heroicons/react/solid';
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
 import ShowFilters from '../components/product/components-page-product/ShowFilters';
 import { useDispatch } from 'react-redux';
 import { initFilter, labelFilter, selectProductFilter } from '../shared/redux-store/filterProductSlice';
 import { useSelector } from 'react-redux';
-
+import SwitchLayout from '../components/product/components-page-product/SwitchLayout';
 
 
 
@@ -19,7 +19,7 @@ const ProductView = () => {
         dispatch(labelFilter(""));
         document.getElementById("searchNavBar").value = ""
 
-         }, []);
+        }, []);
      
     const filterStore = useSelector(selectProductFilter);
     const getFIlter = () => {
@@ -95,18 +95,9 @@ const ProductView = () => {
                 <div className="flex justify-center self-center m-2 ">
                     <p>{"total products:  " + JSON.parse(localStorage.getItem("filters")).total}</p>
                 </div>
-                
-                <div className="hidden md:block bg-gray-200 text-sm text-gray-500 leading-none border-2 border-gray-200 rounded-full inline-flex">
 
-                    <button onClick={() => setLayout(true)} className={`inline-flex items-center transition-colors duration-300 ease-in focus:outline-none  focus:text-blue-400 rounded-l-full px-4 py-2 ${displayGrid ? "active" : ""}`} id="grid">
-                        <ViewGridIcon width={32}  height={32} />
-                    </button>
-                
-                    <button onClick={() => setLayout(false)} className={`inline-flex items-center transition-colors duration-300 ease-in focus:outline-none  focus:text-blue-400 rounded-l-full px-4 py-2 ${displayGrid ? "" : "active"}`} id="list">
-                        <ViewListIcon width={32} height={32} />
-                    </button>
-                
-                </div>
+                    <SwitchLayout callback={setLayout} />
+
             </div>
 
             <div className="lg:flex">
@@ -122,3 +113,4 @@ const ProductView = () => {
 };
 
 export default ProductView;
+
