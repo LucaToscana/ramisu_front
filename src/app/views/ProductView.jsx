@@ -26,7 +26,7 @@ const ProductView = () => {
 
         let array = []
 
-            if (filterStore.category !== null)   array.push(filterStore.slice());
+            if (filterStore.category !== null)   array.push(filterStore.category.slice());
             
             if (filterStore.universe !== null)   array.push(filterStore.universe.slice());
             
