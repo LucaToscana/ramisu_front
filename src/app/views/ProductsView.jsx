@@ -2,22 +2,27 @@ import React, { useEffect, useState } from 'react';
 import ProductsList from '../components/product/components-page-product/ProductsList';
 import { AdjustmentsIcon } from '@heroicons/react/solid';
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
-import ShowFilters from '../components/product/components-page-product/ShowFilters';
+import FiltersTag from '../components/product/components-page-product/FiltersTag';
 import { useDispatch } from 'react-redux';
 import { initFilterByPage, labelFilter, selectProductFilter } from '../shared/redux-store/filterProductSlice';
 import { useSelector } from 'react-redux';
 import LayoutSwitcher from '../components/product/components-page-product/LayoutSwitcher';
 import { useLocation } from 'react-router-dom';
-import { URL_PRODUCT, URL_PRODUCT_LIBRAIRIE, URL_PRODUCT_PEINTURES } from '../shared/constants/urls/urlConstants';
+import { URL_PRODUCT, URL_PRODUCT_LIBRAIRIE } from '../shared/constants/urls/urlConstants';
 
 
 
 const ProductsView = () => {
     const dispatch = useDispatch()
     const location = useLocation();
- 
+    const [openModal, setOpenModal] = useState(false);
+    const [filters, setFilters] = useState([]);
+    const [displayGrid, setLayout] = useState(true);
+
+    const filterStore = useSelector(selectProductFilter);
     useEffect(() => {
-        document.getElementById("searchNavBar").value = ""
+
+        document.getElementById("searchNavBar").value = "";
 
             switch (location.pathname) 
             {
@@ -25,20 +30,17 @@ const ProductsView = () => {
                     dispatch(labelFilter(""));
                 break;
                 case URL_PRODUCT_LIBRAIRIE :
-                
                     dispatch(initFilterByPage("Livre"));
                 break;
                 default : 
-                    // peinture | figurine
                     dispatch(initFilterByPage(location.pathname.slice(1)));
-    
             }
 
         }, [location]);
      
-    const filterStore = useSelector(selectProductFilter);
-    const getFilter = () => {
-
+  
+    const getFilters = () => {
+      
         let array = []
 
             if (filterStore.category !== null)   array.push(filterStore.category.slice());
@@ -48,16 +50,12 @@ const ProductsView = () => {
             if (filterStore.tag !== null)        array.push(filterStore.tag.slice());
             
         return array;
-
     }
 
-    // Creation of a state for products
-    const [openModal, setOpenModal] = useState(false);
-    const [filters, setFilters] = useState(getFilter());
-    const [displayGrid, setLayout] = useState(true);
-
+   
 
     const handleFilters = (label) => {
+       
         if (filters.includes(label)) {
             setFilters(filter => [...filter].filter((filter) => filter !== label))
         } else {
@@ -69,12 +67,13 @@ const ProductsView = () => {
 
     return (
         <div>
-            <ShowFilters    filters={filters}   handleFilters={handleFilters}/>
+            <FiltersTag  handleFilters={handleFilters} getFilters={getFilters}/>
+
                 <div className="flex justify-between lg:justify-end m-4">
                     
                     <div className="pl-2 pr-2 filterButton w-2/5 flex justify-between items-center lg:hidden" onClick={() => setOpenModal(!openModal)}>
                         <button className="font-bold">Filtre</button>
-                        <AdjustmentsIcon    className="transform rotate-90" width={32} height={32}  />
+                        <AdjustmentsIcon className="transform rotate-90" width={32} height={32}  />
                     </div>
                 
                 {
