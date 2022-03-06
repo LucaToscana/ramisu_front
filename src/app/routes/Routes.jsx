@@ -35,7 +35,7 @@ import PasswordResetStartView from "../views/PasswordResetStartView";
 import PasswordResetEndView from "../views/PasswordResetEndView";
 import AccountView from "../views/AccountView";
 import AdminHomeView from "../views/AdminHomeView";
-import ProductView from "../views/ProductView";
+import ProductsView from "../views/ProductsView";
 import ProductDetailView from "../views/ProductDetailView";
 import CartsView from "../views/CartsView";
 import ProfileView from "../views/ProfileView";
@@ -43,9 +43,6 @@ import OrdersView from "../views/OrdersView";
 import RegisterView from "../views/RegisterView";
 import PaiementLivraisonView from "../views/PaiementLivraisonView";
 import PaiementPayerView from "../views/PaiementPayerView";
-import ProductFigurinesView from "../views/ProductFigurinesView";
-import ProductPeinturesView from "../views/ProductPeinturesView";
-import ProductLibrairieView from "../views/ProductLibrairieView";
 import ContactView from "../views/ContactView";
 import OrderDetailView from "../views/OrderDetailView";
 import BackOffice from "../views/BackOffice"
@@ -77,10 +74,10 @@ const Routes = () => {
             <PrivateRoute path={URL_WISHLIST} component={Wishlist} roles={[ROLE_USER]} />
             
             
-            <Route exact path={URL_PRODUCT} component={ProductView} />
-            <Route exact path={URL_PRODUCT_FIGURINES} component={ProductView} />
-            <Route exact path={URL_PRODUCT_PEINTURES} component={ProductView} />
-            <Route exact path={URL_PRODUCT_LIBRAIRIE} component={ProductView} />
+            <Route exact path={URL_PRODUCT} component={ProductsView} />
+            <Route exact path={URL_PRODUCT_FIGURINES} component={ProductsView} />
+            <Route exact path={URL_PRODUCT_PEINTURES} component={ProductsView} />
+            <Route exact path={URL_PRODUCT_LIBRAIRIE} component={ProductsView} />
 
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             <Route path={URL_CART} component={CartsView} />

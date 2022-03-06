@@ -4,22 +4,37 @@ import { AdjustmentsIcon } from '@heroicons/react/solid';
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
 import ShowFilters from '../components/product/components-page-product/ShowFilters';
 import { useDispatch } from 'react-redux';
-import { initFilter, labelFilter, selectProductFilter } from '../shared/redux-store/filterProductSlice';
+import { initFilterByPage, labelFilter, selectProductFilter } from '../shared/redux-store/filterProductSlice';
 import { useSelector } from 'react-redux';
 import LayoutSwitcher from '../components/product/components-page-product/LayoutSwitcher';
+import { useLocation } from 'react-router-dom';
+import { URL_PRODUCT, URL_PRODUCT_LIBRAIRIE, URL_PRODUCT_PEINTURES } from '../shared/constants/urls/urlConstants';
 
 
 
-const ProductView = () => {
+const ProductsView = () => {
     const dispatch = useDispatch()
-
+    const location = useLocation();
  
     useEffect(() => {
-
-        dispatch(labelFilter(""));
         document.getElementById("searchNavBar").value = ""
 
-        }, []);
+            switch (location.pathname) 
+            {
+                case URL_PRODUCT :
+                    dispatch(labelFilter(""));
+                break;
+                case URL_PRODUCT_LIBRAIRIE :
+                
+                    dispatch(initFilterByPage("Livre"));
+                break;
+                default : 
+                    // peinture | figurine
+                    dispatch(initFilterByPage(location.pathname.slice(1)));
+    
+            }
+
+        }, [location]);
      
     const filterStore = useSelector(selectProductFilter);
     const getFilter = () => {
@@ -97,5 +112,5 @@ const ProductView = () => {
     );
 };
 
-export default ProductView;
+export default ProductsView;
 
