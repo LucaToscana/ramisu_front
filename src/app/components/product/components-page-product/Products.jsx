@@ -42,7 +42,7 @@ export const Products = ({ label, price, stock, id, picture, universe, displayGr
             
                         <div className={displayGrid 
                                             ? 
-                                        'bg-white p-2 md:p2 flex flex-row md:flex-col md:block items-center justify-between block'
+                                        'bg-white p-2 md:p2 md:flex-col md:block'
                                             :
                                         'bg-white p-2 flex items-center justify-between block' }>
                             <img src={picture}
@@ -50,7 +50,7 @@ export const Products = ({ label, price, stock, id, picture, universe, displayGr
                                 className={
                                             displayGrid 
                                                     ? 
-                                            "w-20 h-20 md:w-full md:h-full hover:cursor-pointer mr-4"
+                                            "w-full hover:cursor-pointer mr-4"
                                                 : 
                                             "w-20 h-20 mr-4 hover:cursor-pointer "
                                         }
