@@ -34,7 +34,7 @@ const ProductsList = ({ displayGrid }) => {
         <div>
             {products.length===0?"aucun produit trouvé":null}
             <div className={displayGrid ? 
-                                "md:grid md:grid-cols-2 lg:grid-cols-3 sm:w-auto flex flex-col justify-center items-center"
+                                "md:grid md:grid-cols-2 lg:grid-cols-3 sm:w-auto"
                                 :
                                 "flex flex-col justify-center items-center"}>
                 {products.map(product => {
