@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {  productSearchCriteria } from '../../../api/backend/product';
-import { selectPage, selectProductFilter,  setCurrentPageFilter, setTotal } from '../../../shared/redux-store/filterProductSlice';
-import PaginationProduct from './PaginationProduct';
+import { selectPage, selectProductFilter,  setCurrentPageFilter, setTotal  } from '../../../shared/redux-store/filterProductSlice';
+import Pagination from '../../layouts/Pagination'
 import { Products } from './Products';
 
 
@@ -14,6 +14,7 @@ const ProductsList = ({ displayGrid }) => {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(pageRedux);
     const page = useSelector(selectPage)
+    const [pageable , setPageble] = useState(null);
 
     useEffect(() => {
 
@@ -25,10 +26,26 @@ const ProductsList = ({ displayGrid }) => {
                     }
                     setProducts(response.data.content);
                     dispatch(setTotal(response.data.totalElements))
-                    setCurrentPage(filter.page)
+                    setCurrentPage(filter.page);
+                    
+                    setPageble({
+                        current:filter.page,
+                        size:filter.pageSize,
+                        totalPages:filter.totalpage.length,
+                        first:filter.page==0,
+                        last:filter.page==filter.totalpage.length-1
+        
+                    });
                 }
             })
     }, [JSON.stringify(filter),displayGrid]);
+
+
+    const clickPagination = (pageNum)=>{
+       
+      
+        dispatch(setCurrentPageFilter(pageNum));
+    }
 
     return (
         <div>
@@ -53,10 +70,13 @@ const ProductsList = ({ displayGrid }) => {
                 })}
             
            </div>
-            <PaginationProduct
-                setCurrentPage={setCurrentPage}
-                currentPage={currentPage}
-            />
+           <div className='my-10 '>
+
+            {
+                pageable && (<Pagination    pageable={pageable} 
+                                            callback={clickPagination} />)
+            }
+            </div>
         </div>
     )
 }
