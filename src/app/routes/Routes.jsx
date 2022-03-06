@@ -78,9 +78,9 @@ const Routes = () => {
             
             
             <Route exact path={URL_PRODUCT} component={ProductView} />
-            <Route exact path={URL_PRODUCT_FIGURINES} component={ProductFigurinesView} />
-            <Route exact path={URL_PRODUCT_PEINTURES} component={ProductPeinturesView} />
-            <Route exact path={URL_PRODUCT_LIBRAIRIE} component={ProductLibrairieView} />
+            <Route exact path={URL_PRODUCT_FIGURINES} component={ProductView} />
+            <Route exact path={URL_PRODUCT_PEINTURES} component={ProductView} />
+            <Route exact path={URL_PRODUCT_LIBRAIRIE} component={ProductView} />
 
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             <Route path={URL_CART} component={CartsView} />
