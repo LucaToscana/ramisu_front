@@ -91,7 +91,7 @@ const HomeView = ({ history }) => {
     return (
 
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default pb-8">
-                
+        
             <div id="carouselExampleIndicators" class="carousel slide relative" data-bs-ride="carousel">
                 <div class="carousel-indicators absolute right-0 bottom-30 left-0 flex justify-center p-0 mb-4">
                 <button
