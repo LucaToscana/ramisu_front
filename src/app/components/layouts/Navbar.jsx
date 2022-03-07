@@ -1,10 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon , HeartIcon} from '@heroicons/react/outline';
-import { Link } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
 import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN , URL_CART ,URL_WISHLIST, URL_USER_PAY_METOD, URL_ORDERS} from './../../shared/constants/urls/urlConstants';
-import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon } from '@heroicons/react/outline';
 import { Link, useHistory } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -17,7 +15,7 @@ import { useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind';// Constants used for navigating with the navbar
 import { init, selectCart } from './../../shared/redux-store/cartSlice';
 import { selectorFavState, fetchFav, clearFavData } from '../../shared/redux-store/favoritesSlice';
-import { deleteNotificationStore, isOpenNotification, isOpenNotificationStore, selectNotifications, selectTotalNotifications } from '../../shared/redux-store/webSocketSlice';
+import { deleteNotificationStore, isOpenNotification, isOpenNotificationStore, selectNotifications } from '../../shared/redux-store/webSocketSlice';
 import useModal from '../../shared/components/utils-components/Modal/useModal';
 import ModalNotifications from '../../shared/components/utils-components/Modal/ModalNotifications';
 /**
