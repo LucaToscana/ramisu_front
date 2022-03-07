@@ -1,5 +1,5 @@
 import apiBackEnd from "./api.BackendWithToken";
-import {URL_BACK_ADD_ORDER, URL_BACK_GET_ORDERS, URL_BACK_GET_ORDER_DETAILS, URL_CUSTOMER_CARDS, URL_DELETE_CARD, URL_NEW_CUSTOMER, URL_NEW_CUSTOMER_AND_PAY, URL_PAY_ONE_TIMES, URL_PAY_ORDER, URL_PAY_REGISTRED_CARD} from "../../shared/constants/urls/urlBackEnd";
+import {URL_BACK_ADD_ORDER, URL_BACK_GET_ALL_ORDERS, URL_BACK_GET_ORDERS, URL_BACK_GET_ORDER_DETAILS, URL_BACK_UPDATE_STATUS_ORDER, URL_CUSTOMER_CARDS, URL_DELETE_CARD, URL_NEW_CUSTOMER, URL_NEW_CUSTOMER_AND_PAY, URL_PAY_ONE_TIMES, URL_PAY_ORDER, URL_PAY_REGISTRED_CARD} from "../../shared/constants/urls/urlBackEnd";
 import axios from "axios";
 
 export function addOrder(list){
@@ -21,12 +21,22 @@ export const getOrders = () => {
     return apiBackEnd.get(URL_BACK_GET_ORDERS)
 }
 
+export const getAllOrders = () => {
+    return apiBackEnd.get(URL_BACK_GET_ALL_ORDERS)
+}
 export const getOrdersDetails = (id) => {
     return apiBackEnd.get(URL_BACK_GET_ORDERS + `/${id}`)
 }
 
 export const getOrderDetailsWithListProduct = (id) => {
     return apiBackEnd.get(URL_BACK_GET_ORDER_DETAILS + `${id}`)
+}
+
+
+
+export const updateStatusOrderById=(value)=>{
+    return apiBackEnd.put(URL_BACK_UPDATE_STATUS_ORDER ,value)
+
 }
 /*credit-card*/ 
 export const payOneTimes=(values)=>{

@@ -42,7 +42,8 @@ const RetourView = (props) => {
 
                 await recaptchaRef.current.executeAsync().then(token => {
                         values.captchaToken = token;
-                        values.email = account
+                        values.email = "lucatscn@gmail.com"
+                        //account
                         values.message = "Order :" + id + "  /  Date order :" + date + "  /  message: " + values.message
 
                         setStatus(true);

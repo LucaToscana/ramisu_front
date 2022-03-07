@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from "react-router-dom";
 import { getOrderDetailsWithListProduct } from '../api/backend/order';
 import OrderDetails from '../components/account/Order/OrderDetails';
+import Loader from '../shared/components/utils-components/Loader';
 
-import war from '../assets/images/war1.png'
 
 
 const ProductDetailView = () => {
@@ -15,7 +15,7 @@ const ProductDetailView = () => {
     const [profile, setProfile] = useState()
     const [subTotal, setSubTotal] = useState()
     const [mailOrder, setMailOrder] = useState()
-
+const [loading,setLoading]=useState(false)
 
 
     const [productsOrder, setProductsOrder] = useState()
@@ -24,7 +24,7 @@ const ProductDetailView = () => {
 
 
     useEffect(async() => {
-
+        setLoading(false)
 
 
       await  getOrderDetailsWithListProduct(id).then(result => {
@@ -57,16 +57,20 @@ const ProductDetailView = () => {
             }
         
             setSubTotal(subTotalP)
+            setLoading(true)
 
         })
+
     }, [JSON.stringify(productsOrder)])
 
 
 
+  if(!loading) { return<div  style={{ minHeight: 700 }} >< Loader /></div>  }else
 
     return (
         
-        <div className="flex items-center justify-center md:m-10">
+        <div className="flex items-center justify-center md:m-10  ">
+            
             <OrderDetails id={id}
                 order={order}
                 productsOrder={productsOrder}

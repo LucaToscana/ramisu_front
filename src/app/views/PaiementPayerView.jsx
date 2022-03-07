@@ -233,9 +233,6 @@ const PaiementPayerView = () => {
                 submit={handleSubmitRegistred}
                 cards={cardsList()}
                 errorPay={errorPay}
-                submit={handleSubmitRegistred}
-
-
             >
             </ModalPayRegistresCBWarahmmerMarket>
 
@@ -255,10 +252,13 @@ const PaiementPayerView = () => {
                     <h1 className='flex font-bold text-2xl ml-4'>Paiement par paypal</h1>
                 </div>
                 <div className='flex  justify-around   border-b-2 border-gray-400 mt-5   cartCard '>
-                    <div className='self-center h-full'>  <img src={paypal} height={150} width={150}></img>  </div>    <p className="text-sm mt-10 pb-10 self-center w-24  lg:w-96">
+                    <div className='self-center h-full'>  <img src={paypal} height={150} width={150}></img>  </div> 
+                    
+                    
+                    <div> <p className="text-sm mt-10 pb-10 self-center w-24  lg:w-96  md:w-96">
                         Vous pouvez valider le paiement avec paypal
                     </p>
-
+                    </div>  
                     <div className='grid grid-cols-1 text-sm	'>
 
                         <div className='flex justify-center m-3 w-full pr-5'>
@@ -278,7 +278,7 @@ const PaiementPayerView = () => {
 
 
 
-                    <p className="text-sm  self-center w-16  lg:w-96">
+                    <p className="lg:text-lg text-sm  self-center hidden  md:block md:w-36 lg:w-80">
                         Vous pouvez valider le paiement avec                   Visa or Mastercard
 
                     </p>
@@ -287,11 +287,11 @@ const PaiementPayerView = () => {
 
 
 
-                    <div className='grid grid-cols-1 text-s'>
+                    <div className='grid grid-cols-1 mobile:w-56 lg:w-96 '>
 
                         <div className='flex justify-center m-3 w-full pr-5'>
                             <div className='flex  justify-end self-end m-2 text-xs w-full		'>
-                                <button className="paiementCart  lg:w-36 md:w-36" onClick={toggle}>   <div className=" grid grid-cols-3 "><p className=" text-xs col-span-1 mt-1 pl-2">NOUVELLE CART</p><div className='w-1'></div>
+                                <button className="paiementCart  lg:w-64 md:w-32" onClick={toggle}>   <div className=" grid grid-cols-4 "><p className="lg:text-lg  lg:text:md col-span-2 lg:col-span-3  mt-1 pl-2  mobile:text-xs">NOUVELLE  CART</p><div className='w-1 lg:hidden'></div>
                                     <CreditCardIcon className="lg:w-7 w-6 m-1 ml-2 "></CreditCardIcon></div> </button>
 
                             </div>
@@ -301,10 +301,10 @@ const PaiementPayerView = () => {
 
 
 
-                        {cardsList().length > 0 ? <div className='flex justify-center m-3 w-full pr-5'>
-                            <div className='flex  justify-end self-end m-2 text-xs w-full	'>
-                                <button className="paiementCart  lg:w-36 md:w-36" onClick={toggleRegistred}> <div className=" grid grid-cols-3"><p className=" text-xs col-span-1 mt-1 pl-2">MES CARTES</p>
-                                    <div className='w-1'></div>
+                        {cardsList().length > 0 ? <div className='flex justify-center m-3 w-full  pr-5'>
+                            <div className='flex  justify-end  self-end m-2 text-xs w-full	'>
+                                <button className="paiementCart  lg:w-64 md:w-32" onClick={toggleRegistred}> <div className=" grid grid-cols-4  "><p className="lg:text-lg text-xs lg:text:md col-span-2 lg:col-span-3  mt-1 pl-2  mobile:text-xs">MES CARTES</p>
+                                    <div className='w-1 lg:hidden'></div>
                                     <CollectionIcon className="lg:w-7 w-6 m-1 ml-2 "></CollectionIcon></div> </button>
                             </div>
 
