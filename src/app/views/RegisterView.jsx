@@ -27,35 +27,11 @@ const RegisterView = ({ history }) => {
     }
     const handleInscription = async (values) => {
 
-
         const captchaToken = await recaptchaRef.current.executeAsync();
-        recaptchaRef.current.reset();
+        
+        const registration = Object.assign({}, values, { captchaToken: captchaToken});
 
-
-        const stringCapatcha = captchaToken + ""
-
-
-        const registration = {
-            firstName: values.firstName,
-            lastName: values.lastName,
-            birthdate: values.birthdate,
-            mail: values.mail,
-            adresse: values.adresse,
-            number: values.number,
-            street: values.street,
-            additionalAddress: values.additionalAddress,
-            postalCode: values.postalCode,
-            city: values.city,
-            country: values.country,
-            phone: values.phone,
-            password: values.password,
-            passwordTest: values.passwordTest,
-            captchaToken: stringCapatcha
-        }
-
-
-
-        await register(registration).then(res => {
+        register(registration).then(res => {
             if (res.status === 200 && res.data !== 0) {
                 toggleForm()
                
