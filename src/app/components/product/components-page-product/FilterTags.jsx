@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom'
 import { URL_PRODUCT, URL_PRODUCT_FIGURINES, URL_PRODUCT_LIBRAIRIE, URL_PRODUCT_PEINTURES } from '../../../shared/constants/urls/urlConstants'
 import { removeFilter, setPriceRange } from '../../../shared/redux-store/filterProductSlice'
 
-function FiltersTag({ getFilters, handleFilters }) {
+function FilterTags({ getFilters, handleFilters }) {
     
     const dispatch = useDispatch()
     const location = useLocation();
@@ -61,4 +61,4 @@ function FiltersTag({ getFilters, handleFilters }) {
     )
 }
 
-export default FiltersTag
+export default FilterTags

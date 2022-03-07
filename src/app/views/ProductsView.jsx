@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ProductsList from '../components/product/components-page-product/ProductsList';
 import { AdjustmentsIcon } from '@heroicons/react/solid';
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
-import FiltersTag from '../components/product/components-page-product/FiltersTag';
+import FilterTags from '../components/product/components-page-product/FilterTags';
 import { useDispatch } from 'react-redux';
 import { initFilterByPage, labelFilter, selectProductFilter } from '../shared/redux-store/filterProductSlice';
 import { useSelector } from 'react-redux';
@@ -67,7 +67,7 @@ const ProductsView = () => {
 
     return (
         <div>
-            <FiltersTag  handleFilters={handleFilters} getFilters={getFilters}/>
+            <FilterTags  handleFilters={handleFilters} getFilters={getFilters}/>
 
                 <div className="flex justify-between lg:justify-end m-4">
                     
