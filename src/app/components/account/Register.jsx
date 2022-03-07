@@ -162,7 +162,7 @@ const RegistrationFrom = ({ submit, errorLog }) => (
  * 
  * @author Luca Toscana
  */
-const RegisterView = (props) => {
+const Register = (props) => {
 
 
 
@@ -179,4 +179,4 @@ const RegisterView = (props) => {
     );
 };
 
-export default RegisterView;
+export default Register;
