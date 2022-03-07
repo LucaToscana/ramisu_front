@@ -31,7 +31,10 @@ export const URL_FILTER_TAGS = '/public/tags'
 //order
 export const URL_BACK_ADD_ORDER = 'user/addorder'
 export const URL_BACK_GET_ORDERS = '/orders'
+export const URL_BACK_GET_ALL_ORDERS = '/all-orders'
+
 export const URL_BACK_GET_ORDER_DETAILS = '/orders/details/'
+export const URL_BACK_UPDATE_STATUS_ORDER ='/orders/update-status'
 
 export const URL_PAY_ORDER = '/payment/charge'
 

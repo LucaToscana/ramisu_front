@@ -1,19 +1,22 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon } from '@heroicons/react/outline';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN } from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN, URL_USER_PAY_METOD, URL_ORDERS } from './../../shared/constants/urls/urlConstants';
 import { useSelector, useDispatch } from 'react-redux';
 
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
 import { labelFilter } from '../../shared/redux-store/filterProductSlice';
 import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
-import { selectProfileInfo, getuserPicture, fetchProfile, clearUserInformations, selectProfileStatus} from './../../shared/redux-store/userProfileSlice';
+import { selectProfileInfo, getuserPicture, fetchProfile, clearUserInformations, selectProfileStatus } from './../../shared/redux-store/userProfileSlice';
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind';// Constants used for navigating with the navbar
 import { init, selectCart } from './../../shared/redux-store/cartSlice';
-import {selectorFavState, fetchFav, clearFavData} from '../../shared/redux-store/favoritesSlice';
+import { selectorFavState, fetchFav, clearFavData } from '../../shared/redux-store/favoritesSlice';
+import { deleteNotificationStore, isOpenNotification, isOpenNotificationStore, selectNotifications, selectTotalNotifications } from '../../shared/redux-store/webSocketSlice';
+import useModal from '../../shared/components/utils-components/Modal/useModal';
+import ModalNotifications from '../../shared/components/utils-components/Modal/ModalNotifications';
 /**
  * Website navbar made with Tailwind
  * 
@@ -26,19 +29,25 @@ const Navbar = () => {
     const dispatch = useDispatch();
     const carts = useSelector(selectCart);
 
+
+
+
+
+
+
     let qty = 0;
 
     for (let i = 0; i < carts.length; i++) {
-        qty += carts[i].quantite*1
+        qty += carts[i].quantite * 1
     }
     const [navigation, setNavigation] = useState([
-        { name: 'Accueil',      to: '/', current: true },
-        { name: 'Boutique',     to: '/products',    current: false },
-        { name: 'Figurines',    to: '/Figurine',    current: false },
-        { name: 'Peinture',     to: '/Peinture',    current: false },
-        { name: 'Librairie',    to: '/Librairie',   current: false },
-        { name: 'Contact',      to: '/Contact',     current: false },])
-    
+        { name: 'Accueil', to: '/', current: true },
+        { name: 'Boutique', to: '/products', current: false },
+        { name: 'Figurines', to: '/Figurine', current: false },
+        { name: 'Peinture', to: '/Peinture', current: false },
+        { name: 'Librairie', to: '/Librairie', current: false },
+        { name: 'Contact', to: '/Contact', current: false },])
+
     const [show, setShow] = React.useState();
 
     function classNames(...classes) {
@@ -71,7 +80,7 @@ const Navbar = () => {
                                     <div className='lg:block hidden w-full'>
                                         <div className={'flex border border-gray-300 shadow-searchBar rounded-sm items-center w-full mx-10 md:mx-48 lg:mx-10'}>
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="#C3A758" >
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                             </svg>
                                             <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
                                                 className={'w-full h-full text-lg text-white bg-transparent'}
@@ -88,7 +97,7 @@ const Navbar = () => {
                                         <div className="cart-wrapper">
                                             <Link to="/panier" >
                                                 <ShoppingCartIcon className='bg-transparent p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-10 h-10 m-2' />
-                                                {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                                {qty >= 1 ? <span className='badge badge-warning' id='lblCartCount'> {qty}</span> : null}
                                             </Link>
                                         </div>
                                     </div>
@@ -142,7 +151,7 @@ const Navbar = () => {
                                             <div className="cart-wrapper">
                                                 <Link to="/panier" >
                                                     <ShoppingCartIcon className='bg-transparent p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
-                                                    {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                                    {qty >= 1 ? <span className='badge badge-warning' id='lblCartCount'> {qty}</span> : null}
                                                 </Link>
                                             </div>
                                         </div>
@@ -210,35 +219,80 @@ export default Navbar
  * @author Cecile
  */
 const ConnectionStatusButtons = () => {
-
+    const history = useHistory()
     const dispatch = useDispatch();
     const isLogged = useSelector(selectIsLogged);
     const profileData = useSelector(selectProfileInfo);
     const profileStatus = useSelector(selectProfileStatus);
-    
-    const favState = useSelector(selectorFavState); 
-    
-  
+    const notifications = useSelector(selectNotifications)
+
+    const favState = useSelector(selectorFavState);
+    const { isShowing: isModalShowed, toggle: toggle } = useModal();
+    const isOpenModalNotification = useSelector(isOpenNotification)
+
+    let notificationLength = () => { try { return notifications.length } catch { return 0 } }
+
+    const hideNotfication = () => {
+        toggle
+        dispatch(isOpenNotificationStore())
+    }
+
+
+    const deleteNotification = (value) => {
+
+        dispatch(deleteNotificationStore(value))
+
+    }
+
+
+    const pushHistory = (value, id) => {
+        toggle
+        dispatch(isOpenNotificationStore())
+        if (value === "Un nouveau moyen de paiement a été enregistré") {
+            history.push(URL_USER_PAY_METOD)
+        }
+        if (value === "Vous venez d'envoyer une nouvelle commande !") {
+            history.push(URL_ORDERS)
+        }
+        if (value === "Le statut d'une commande vient de changer !") {
+            if (location.pathname === `/order/detail/${id}`) { window.location.reload() }
+
+            if (id !== 0 && id !== undefined) {
+                history.push(`/order/detail/${id}`)
+            }
+        }
+
+    }
 
     if (isLogged) {
 
-       
-        if(favState=='idle')dispatch(fetchFav())
-        if(profileStatus=='idle')dispatch(fetchProfile())
-      
+
+        if (favState == 'idle') dispatch(fetchFav())
+        if (profileStatus == 'idle') dispatch(fetchProfile())
+
 
         /* Connected user buttons and menu */
         return (
             <>
+                <ModalNotifications
+                    isShowing={isOpenModalNotification}
+                    hide={hideNotfication}
+                    title="Notifications"
+                    notifications={notifications}
+                    deleteOne={deleteNotification}
+                    pushHistory={pushHistory}
+                ></ModalNotifications>
                 {/* Notification bell icon */}
-             <div  className='animate-wiggle'>   <button
-                    type="button"
-                    className="bg-transparent	p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white sm:ml-7"
-                >
-                    <span className="sr-only bg-transparent	">Voir les notifications</span>
-                    <BellIcon className="h-6 w-6 bg-transparent" aria-hidden="true" />
-                </button>
-                </div>
+                <div className="cart-wrapper" onClick={() => { { notifications.length !== 0 && dispatch(isOpenNotificationStore()) } }}>
+                    <div className={notificationLength() > 0 ? 'animate-wiggle' : ''}>   <button
+                        type="button"
+                        className="bg-transparent	p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-transparent focus:ring-transparent sm:ml-7"
+                    >
+                        <span className="sr-only bg-transparent	">Voir les notifications</span>
+                        <BellIcon className="h-8 w-8 bg-transparent" aria-hidden="true" />
+                        {notificationLength() !== 0 ? <span className='badge badge-warning animate-wiggle' id='lblCartCount'>{notificationLength()}</span> : null}
+                    </button>
+                    </div></div>
                 {/* User burger menu */}
                 <Menu as="div" className="ml-3">
                     <div>

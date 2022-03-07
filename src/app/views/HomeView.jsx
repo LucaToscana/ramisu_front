@@ -7,7 +7,6 @@ import ProductHomePageCard from '../components/product/ProductHomePageCard';
 import Loader from './../shared/components/utils-components/Loader';
 import handleHttpError from './../shared/components/form-and-error-components/HandleHttpError';
 import apiBackEnd from '../api/backend/api.Backend';
-import ChatRoom from '../../ChatRoom';
 
 
 /**
@@ -30,7 +29,6 @@ const HomeView = ({ history }) => {
     useEffect(() => {
 
         if( !localStorage.getItem("filters")){
-
             localStorage.setItem("filters",JSON.stringify({
         
                 label: "",
@@ -89,7 +87,7 @@ const HomeView = ({ history }) => {
 
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default pb-8">
             <div className='text-primary-500 font-extrabold'>
-                <ChatRoom></ChatRoom>
+             
                 {loadingRandom ? < Loader /> :
                     <>
                         <div className="text-center pb-2">

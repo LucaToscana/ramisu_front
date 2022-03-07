@@ -1,12 +1,15 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Routes from './Routes';
 import { selectIsLogged } from './../shared/redux-store/authenticationSlice';
 import Navbar from './../components/layouts/Navbar';
 import IdleTimerCustom from './../components/account/IdleTimerCustom';
 import Footer from './../components/layouts/Footer';
+import useModal from '../shared/components/utils-components/Modal/useModal';
+import { deleteNotificationStore, isOpenNotification, selectTotalNotifications } from '../shared/redux-store/webSocketSlice';
+import ModalNotifications from '../shared/components/utils-components/Modal/ModalNotifications';
 
 const contextClass = {
     success: "bg-green-600",
@@ -25,8 +28,10 @@ const contextClass = {
  */
 const RoutesWithNavigation = () => {
 
+
     const isLogged = useSelector(selectIsLogged)
 
+    
     return (
         <BrowserRouter>
             <div className="h-full flex flex-col">
@@ -44,6 +49,7 @@ const RoutesWithNavigation = () => {
                     position="bottom-left"
                     autoClose={3000}
                 />
+             
             </div>
         </BrowserRouter>
     );

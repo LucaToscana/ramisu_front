@@ -4,7 +4,6 @@ import { AdjustmentsIcon, ViewGridIcon, ViewListIcon } from '@heroicons/react/so
 import SideBarFilters from '../components/product/components-page-product/SideBarFilters';
 import ShowFilters from '../components/product/components-page-product/ShowFilters';
 import { initFilter, initFilterByPage, selectProductFilter } from '../shared/redux-store/filterProductSlice';
-import { Prompt } from 'react-router'
 
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';

@@ -12,7 +12,9 @@ import { useSelector } from 'react-redux';
 
 const ProductView = () => {
     const dispatch = useDispatch()
-
+   // Creation of a state for products
+   const [openModal, setOpenModal] = useState(false);
+   const [show, setShow] = useState(true);
  
     useEffect(() => {
 
@@ -52,10 +54,8 @@ const ProductView = () => {
 
     }
 
-    // Creation of a state for products
-    const [openModal, setOpenModal] = useState(false);
     const [filters, setFilters] = useState(getFIlter());
-    const [show, setShow] = useState(true);
+
 
 
     const handleFilters = (label) => {

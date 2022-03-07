@@ -3,9 +3,8 @@ import { CheckIcon, XIcon, ShoppingCartIcon, RefreshIcon } from '@heroicons/reac
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove, selectCart, setQuantity } from '../../shared/redux-store/cartSlice';
 import { useState } from "react";
-import ModalExample from "../../shared/components/utils-components/Modal/ModalExample";
 import useModal from "../../shared/components/utils-components/Modal/useModal";
-import ModalAddToCart from "../../shared/components/utils-components/Modal/modalAddToCart/ModalAddToCart";
+import ModalAddToCart from "../../shared/components/utils-components/Modal/ModalAddToCart";
 import { CheckCircleIcon, PencilIcon, XCircleIcon } from "@heroicons/react/outline";
 import ProductRelated from "./components-page-product/ProductRelated";
 import ButtonFavorite from "../../shared/components/buttons/ButtonFavorite";
