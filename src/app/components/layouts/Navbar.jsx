@@ -19,6 +19,7 @@ import { deleteNotificationStore, isOpenNotification, isOpenNotificationStore, s
 import useModal from '../../shared/components/utils-components/Modal/useModal';
 import ModalNotifications from '../../shared/components/utils-components/Modal/ModalNotifications';
 import { deleteNotificationByDate } from '../../api/backend/user';
+import { MESSAGE_NEW_ORDER, MESSAGE_SAVE_CARD, MESSAGE_STATUS_ORDER ,MESSAGE_DELETE_CARD} from '../../shared/constants/messageConstant';
 /**
  * Website navbar made with Tailwind
  * 
@@ -261,13 +262,13 @@ const ConnectionStatusButtons = () => {
     const pushHistory = (value, id) => {
         toggle
         dispatch(isOpenNotificationStore())
-        if (value === "Un nouveau moyen de paiement a été enregistré") {
+        if (value === MESSAGE_SAVE_CARD || value === MESSAGE_DELETE_CARD) {
             history.push(URL_USER_PAY_METOD)
         }
-        if (value === "Vous venez d'envoyer une nouvelle commande !") {
+        if (value === MESSAGE_NEW_ORDER) {
             history.push(URL_ORDERS)
         }
-        if (value === "Le statut d'une commande vient de changer !") {
+        if (value === MESSAGE_STATUS_ORDER) {
             if (location.pathname === `/order/detail/${id}`) { window.location.reload() }
 
             if (id !== 0 && id !== undefined) {
