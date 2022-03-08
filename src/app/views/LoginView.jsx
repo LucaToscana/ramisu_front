@@ -39,7 +39,7 @@ const LoginView = ({ history }) => {
                             if (localStorage.getItem("testLoginPanier") !== null) {
                                 history.push(URL_PAIEMENT)
                                 localStorage.removeItem("testLoginPanier");
-                                window.location.reload()
+                             //   window.location.reload()
 
                             }
                             else { 
@@ -49,7 +49,7 @@ const LoginView = ({ history }) => {
                               }
                           
                                 history.push(URL_HOME)
-                                window.location.reload()
+                             //   window.location.reload()
 
                             }
         
