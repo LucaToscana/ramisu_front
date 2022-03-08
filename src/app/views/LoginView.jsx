@@ -39,9 +39,18 @@ const LoginView = ({ history }) => {
                             if (localStorage.getItem("testLoginPanier") !== null) {
                                 history.push(URL_PAIEMENT)
                                 localStorage.removeItem("testLoginPanier");
+                                window.location.reload()
+
                             }
-                            else {
+                            else { 
+                                 if (localStorage.getItem('notification') === null) {
+                                const notification = [];
+                                localStorage.setItem('notification', JSON.stringify(notification))
+                              }
+                          
                                 history.push(URL_HOME)
+                                window.location.reload()
+
                             }
         
                         }

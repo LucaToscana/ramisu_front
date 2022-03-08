@@ -60,3 +60,7 @@ export const URL_NEW_CUSTOMER ='/user/payment/new-customer'
 export const URL_CUSTOMER_CARDS ='/user/payment/customer-cards'
 export const URL_DELETE_CARD ='/user/payment/delete-customer-card'
 export const URL_PAY_REGISTRED_CARD ='/user/payment/registred-card-pay'
+
+//notification
+export const URL_BACK_DELETE_NOTIFICATION_BY_DATE = '/user/delete-notification-user/'
+export const URL_BACK_SEND_USER_NOTIFICATION =  "/user/sendAllUserNotification"

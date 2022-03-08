@@ -5,11 +5,19 @@ import { getToken } from '../services/tokenServices';
 import { useDispatch } from 'react-redux';
 import { onPrivateMessageStore, onPrivateNotificationStore } from '../redux-store/webSocketSlice';
 import useModal from '../components/utils-components/Modal/useModal';
+import { sendAllNotificationByUser } from '../../api/backend/user';
 
-var stompClient = null;
+var Sock = new WebSocket("ws://localhost:8080/ws");
+var stompClient = over(Sock);
+
+//var stompClient = null;
 
 const token = () => { if (isAuthenticated() === true) { return getToken() } else { return 'null' } }
 const login = () => { if (isAuthenticated() === true) { return accountLogin() } else { return 'null' } }
+
+
+
+
 
 const WebSocketConnection = (props) => {
   const { isShowing: isModalShowed, toggle: toggle } = useModal();
@@ -28,16 +36,14 @@ const WebSocketConnection = (props) => {
 
 
   useEffect(() => {
-    if (localStorage.getItem('notification') === null) {
-
-      const notification = [];
-      localStorage.setItem('notification', JSON.stringify(notification))
+  
+    if (isAuthenticated() === true && userData.connected === false ) {
+      connect() 
     }
+    
+    
 
-
-    if (isAuthenticated() === true && userData.connected === false) {
-      connect()
-    }
+    
     console.log(userData);
   }, [userData]);
 
@@ -48,9 +54,13 @@ const WebSocketConnection = (props) => {
     var Sock = new WebSocket("ws://localhost:8080/ws");
     stompClient = over(Sock);
     stompClient.connect({ 'token': token() }, onConnected, onError);
+    setTimeout(function () {
+      console.log("connect WS"+userData);
+      sendAllNotificationByUser()
+    }, 1000);
   }
 
-  const onConnected = () => {
+   const onConnected = () => {
     setUserData({ ...userData, "connected": true });
     // stompClient.subscribe('/chatroom/public', onMessageReceived);--- chat produit? 
     // stompClient.subscribe("/notifications/messages", onMessageReceived);   --- example: for new  article notify all client

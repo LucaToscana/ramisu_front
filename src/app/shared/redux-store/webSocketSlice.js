@@ -34,15 +34,24 @@ export const webSocketSlice = createSlice({
     name: 'webSocket',
     initialState: initialState,
     reducers: {
-        initFilter(state) {
+        initWS(state) {
 
 
         },
         isOpenNotificationStore(state) {
             state.isOpenNotification = !state.isOpenNotification
         },
-        deleteNotificationStore(state, payload) {
-            state.notifications.splice(payload, 1)
+        deleteNotificationStore(state, { payload }) {
+            var newState = []
+            var id = +(state.notifications.length - (payload + 1))
+            var notif = state.notifications[id]
+            if (notif.idorder !== undefined && notif.idorder !== null && notif.idorder !== 0) {
+                newState = state.notifications.filter(not => not.idorder !== notif.idorder)
+                state.notifications = newState
+            }
+            else {
+                newState = state.notifications.splice(id, 1)
+            }
             localStorage.setItem("notification", JSON.stringify(state.notifications))
             if (totNotifications() === 0) {
                 state.isOpenNotification = false
@@ -58,9 +67,23 @@ export const webSocketSlice = createSlice({
 
         }, onPrivateNotificationStore(state, payload) {
             if (payload.payload.status === "NOTIFICATION") {
-                state.notifications.push(payload.payload);
-                localStorage.setItem("notification", JSON.stringify(state.notifications))
+                const localStore = notifications();
+                var test = localStore.some(element => {
+                    if (element.date === payload.payload.date) {
+                        return true;
+                    }
+                })
+
+                if (test === false) {
+                    state.notifications.push(payload.payload);
+                }
             }
+
+
+
+            localStorage.setItem("notification", JSON.stringify(state.notifications))
+
+
         }
 
         , onPrivateMessageStore(state, payload) {

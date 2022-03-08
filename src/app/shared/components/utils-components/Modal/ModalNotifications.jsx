@@ -1,6 +1,7 @@
 import { TrashIcon } from "@heroicons/react/solid";
 import React from "react";
 import ReactDOM from "react-dom";
+import { deleteNotificationByDate } from "../../../../api/backend/user";
 import logo from "../../../../assets/images/icones/logo/warhammer-shop-logo.png";
 import war from '../../../../assets/images/war1.png'
   
@@ -38,19 +39,20 @@ const ModalNotifications = ({ isShowing, hide, notifications, deleteOne, pushHis
                         {notifications !== null ? notifications.slice(0).reverse().map((element, index) => <>  <li class="py-3 sm:py-4">
                           <div className="flex items-center space-x-8">
                             <div className="flex-1 min-w-0" >
-                              <p className="text-xs text-gray-900  w-24  lg:w-full" >
+                              <p className="text-xs text-gray-900  w-24  lg:w-full " >
                                 <button onClick={() => { pushHistory(element.message,element.idorder) 
-                                   deleteOne(index)}
+                                   deleteOne(index,element.date)
+                                  
+                                  }
 
-                                }> {element.message} </button>
+                                }> {element.message}  <div className="animate-bounce mt-3"> {element.idorder!==0?"   Order : "+element.idorder:null}</div></button>
                               </p>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                                 {element.date}                    </p>
                             </div>
                             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                               <button onClick={() => {
-                                deleteOne( index)
-
+                                deleteOne( index,element.date)
                               }}>  <TrashIcon className='w-8 h-8'    ></TrashIcon>     </button>        </div>
                           </div>
                         </li></>) : null}

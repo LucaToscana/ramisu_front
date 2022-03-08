@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon , HeartIcon} from '@heroicons/react/outline';
+import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon, HeartIcon } from '@heroicons/react/outline';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN , URL_CART ,URL_WISHLIST, URL_USER_PAY_METOD, URL_ORDERS} from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN, URL_CART, URL_WISHLIST, URL_USER_PAY_METOD, URL_ORDERS } from './../../shared/constants/urls/urlConstants';
 import { Link, useHistory } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,6 +18,7 @@ import { selectorFavState, fetchFav, clearFavData } from '../../shared/redux-sto
 import { deleteNotificationStore, isOpenNotification, isOpenNotificationStore, selectNotifications } from '../../shared/redux-store/webSocketSlice';
 import useModal from '../../shared/components/utils-components/Modal/useModal';
 import ModalNotifications from '../../shared/components/utils-components/Modal/ModalNotifications';
+import { deleteNotificationByDate } from '../../api/backend/user';
 /**
  * Website navbar made with Tailwind
  * 
@@ -29,23 +30,23 @@ const Navbar = () => {
     const location = useLocation()    //input filter
     const dispatch = useDispatch();
     const isLogged = useSelector(selectIsLogged);
- 
+
     const carts = useSelector(selectCart);
 
 
-    const qty  =carts.reduce((acc, elt)=>  acc + elt.quantite,0);
-   
+    const qty = carts.reduce((acc, elt) => acc + elt.quantite, 0);
+
     const [navigation, setNavigation] = useState(
         [
-            { name: 'Accueil',      to: '/',            current: true   },
-            { name: 'Boutique',     to: '/products',    current: false  },
-            { name: 'Figurines',    to: '/Figurine',    current: false  },
-            { name: 'Peinture',     to: '/Peinture',    current: false  },
-            { name: 'Librairie',    to: '/Librairie',   current: false  },
-            { name: 'Contact',      to: '/Contact',     current: false  }
+            { name: 'Accueil', to: '/', current: true },
+            { name: 'Boutique', to: '/products', current: false },
+            { name: 'Figurines', to: '/Figurine', current: false },
+            { name: 'Peinture', to: '/Peinture', current: false },
+            { name: 'Librairie', to: '/Librairie', current: false },
+            { name: 'Contact', to: '/Contact', current: false }
         ]
     );
-    
+
     const [show, setShow] = React.useState();
 
     function classNames(...classes) {
@@ -93,16 +94,16 @@ const Navbar = () => {
                                         */}
                                         <ConnectionStatusButtons />
                                         {isLogged && (
-                                        <div className='ml-3'>
-                                        <Link to={URL_WISHLIST} >
-                                            <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
-                                        </Link>
-                                        </div>
+                                            <div className='ml-3'>
+                                                <Link to={URL_WISHLIST} >
+                                                    <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
+                                                </Link>
+                                            </div>
                                         )}
                                         <div className="cart-wrapper">
-                                             <Link to={URL_CART} >
+                                            <Link to={URL_CART} >
                                                 <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
-                                                {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                                {qty >= 1 ? <span className='badge badge-warning' id='lblCartCount'> {qty}</span> : null}
                                             </Link>
                                         </div>
                                     </div>
@@ -155,15 +156,15 @@ const Navbar = () => {
                                             <ConnectionStatusButtons />
                                             {isLogged && (
                                                 <div className='ml-3'>
-                                                <Link to={URL_WISHLIST} >
-                                                    <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
-                                                </Link>
+                                                    <Link to={URL_WISHLIST} >
+                                                        <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
+                                                    </Link>
                                                 </div>
-                                                )}
+                                            )}
                                             <div className="cart-wrapper">
                                                 <Link to={URL_CART} >
                                                     <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
-                                                    {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                                    {qty >= 1 ? <span className='badge badge-warning' id='lblCartCount'> {qty}</span> : null}
                                                 </Link>
                                             </div>
                                         </div>
@@ -250,9 +251,9 @@ const ConnectionStatusButtons = () => {
     }
 
 
-    const deleteNotification = (value) => {
-
+    const deleteNotification = (value, date) => {
         dispatch(deleteNotificationStore(value))
+        deleteNotificationByDate(date).then(res => { console.log("deleteNotificationByDate" + res.status) })
 
     }
 
