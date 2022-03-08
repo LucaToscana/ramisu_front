@@ -87,9 +87,13 @@ const HomeView = ({ history }) => {
     return (
 
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default pb-8">
-        
+            <hr />
             <div id="carouselExampleIndicators" class="carousel slide relative" data-bs-ride="carousel">
+<<<<<<< HEAD
                 <div class="carousel-indicators absolute right-0 bottom-70 left-0 flex justify-center p-0 mb-4">
+=======
+                <div class="carousel-indicators absolute right-0 bottom-30 left-0 flex justify-center p-0 mb-4 ">
+>>>>>>> 5c8c02e (carousel plus proprement intégré à la page)
                 <button
                 type="button"
                 data-bs-target="#carouselExampleIndicators"
@@ -153,7 +157,12 @@ const HomeView = ({ history }) => {
                 <span class="visually-hidden">Next</span>
                 </button>
             </div>
+<<<<<<< HEAD
             
+=======
+            <hr />
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default pb-8">
+>>>>>>> 5c8c02e (carousel plus proprement intégré à la page)
             <div className='text-primary-500 font-extrabold'>
                 {loadingRandom ? < Loader /> :
                     <>
