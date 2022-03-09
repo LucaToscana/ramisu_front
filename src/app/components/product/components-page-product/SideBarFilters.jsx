@@ -2,21 +2,21 @@ import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios';
 import { getAllCategories, getAllUniverses, getAllTags } from '../../../api/backend/filter';
 import SelectFilter from '../../../shared/components/buttons/SelectFilter';
-import { categoryFilter, initFilter, setPriceRange, tagFilter, universeFilter } from '../../../shared/redux-store/filterProductSlice';
-import { useDispatch } from 'react-redux';
+import { categoryFilter, initFilter, selectProductFilter, setPriceRange, tagFilter, universeFilter } from '../../../shared/redux-store/filterProductSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import PriceInput from '../../../shared/components/form-and-error-components/PriceInput';
 import { URL_PRODUCT_FIGURINES, URL_PRODUCT_LIBRAIRIE, URL_PRODUCT_PEINTURES } from '../../../shared/constants/urls/urlConstants';
 
 
 const SideBarFilters = ({ filters, handleFilters }) => {
     const dispatch = useDispatch();
-
     const [categories, setCategories] = useState([]);
     const [universes, setUniverses] = useState([]);
     const [tags, setTags] = useState([]);
-
+    const filterStore = useSelector(selectProductFilter);
+   
     const handelPriceRande = (values) => {
-        
+
         if (+values.min <= +values.max) {
 
             dispatch(setPriceRange(values))
@@ -28,27 +28,54 @@ const SideBarFilters = ({ filters, handleFilters }) => {
     useEffect(() => {
         //   dispatch( initFilter())
         getAllCategories().then(responses => {
-            setCategories(responses.data)})
+            setCategories(responses.data)
+        })
 
-            getAllUniverses().then(responses => {
-                setUniverses(responses.data)})
+        getAllUniverses().then(responses => {
+            setUniverses(responses.data)
+        })
 
-                
-                getAllTags().then(responses => {
-                    setTags(responses.data)})
-        
+
+        getAllTags().then(responses => {
+            setTags(responses.data)
+        })
+
 
     }, []);
+
+    const isCheckedUniverse = () => {
+        try {
+            filterStore.universe.includes("")
+            return filterStore.universe
+        } catch { return [] }
+    }
+
+
+    const isCheckedTags = () => {
+        try {
+            filterStore.tag.includes("")
+            return filterStore.tag
+        } catch { return [] }
+    }
+    const isCheckedCategories = () => {
+        try {
+            filterStore.category.includes("")
+            return filterStore.category
+        } catch { return [] }
+    }
+
+
+
+
 
     const listCategories = categories.map(category => {
         return (
             <CheckFilter
                 typeFilter={"category"}
-
                 key={category.id}
                 label={category.label}
                 handleFilters={handleFilters}
-                checked={filters.includes(category.label)}
+                checked={isCheckedCategories().includes(category.label)}
             />
         )
     });
@@ -61,7 +88,7 @@ const SideBarFilters = ({ filters, handleFilters }) => {
                 key={universe.id}
                 label={universe.label}
                 handleFilters={handleFilters}
-                checked={filters.includes(universe.label)}
+                checked={isCheckedUniverse().includes(universe.label)}
             />
         )
     });
@@ -70,11 +97,10 @@ const SideBarFilters = ({ filters, handleFilters }) => {
         return (
             <CheckFilter
                 typeFilter={"tag"}
-
                 key={tag.id}
                 label={tag.label}
                 handleFilters={handleFilters}
-                checked={filters.includes(tag.label)}
+                checked={isCheckedTags().includes(tag.label)}
             />
         )
     });
@@ -104,7 +130,6 @@ export default SideBarFilters;
 
 
 const CheckFilter = ({ label, handleFilters, checked, typeFilter }) => {
-    // const [checked, setChecked] = useState(false);
     const dispatch = useDispatch();
 
     const handleChecked = (e) => {

@@ -18,16 +18,13 @@ const PaiementPayerView = () => {
 
 
     const { isShowing: isFormRegistredShowed, toggle: toggleRegistred } = useModal();
-
     const { isShowing: isFormShowed, toggle: toggle } = useModal();
     const { isShowing: isSuccessFormShowed, toggle: toggleSuccessForm } = useModal();
     const [cards, setCards] = useState([])
-    const [cardClient, setCardClient] = useState("")
-
     const [remember, setRemember] = useState(false)
     const [errorPay, setErrorPay] = useState("")
     const carts = useSelector(selectCart)
-    const idaddress = localStorage.getItem("idAddress",)
+    const idaddress = localStorage.getItem("idAddress")
     const dispatch = useDispatch();
     const history = useHistory()
 
@@ -64,11 +61,6 @@ const PaiementPayerView = () => {
 
             console.log("This page is reloaded");
         } else {
-
-
-
-
-
             console.log("This page is not reloaded");
         }
 
@@ -172,7 +164,7 @@ const PaiementPayerView = () => {
             if (isFormShowed) { toggle() }
             if (isFormRegistredShowed) { toggleRegistred() }
             setTimeout(function () { toggleSuccessForm() }, 2000);
-            closeSuccess()
+         //  closeSuccess()
         }
     }
 

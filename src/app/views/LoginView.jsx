@@ -26,7 +26,10 @@ const LoginView = ({ history }) => {
 
     const handleLogin = async (values) => {
         setMessage(null);
-
+        if (localStorage.getItem('notification') === null) {
+            const notification = [];
+            localStorage.setItem('notification', JSON.stringify(notification))
+        }
         await recaptchaRef.current.executeAsync().then(token => {
             authenticate(values).then(res => {
 
@@ -43,10 +46,7 @@ const LoginView = ({ history }) => {
 
                         }
                         else {
-                            if (localStorage.getItem('notification') === null) {
-                                const notification = [];
-                                localStorage.setItem('notification', JSON.stringify(notification))
-                            }
+                            
 
                             history.push(URL_HOME)
                                window.location.reload()

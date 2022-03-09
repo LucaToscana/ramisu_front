@@ -2,6 +2,7 @@ import { BadgeCheckIcon, CheckIcon } from "@heroicons/react/solid";
 import React from "react";
 import ReactDOM from "react-dom";
 import logo from "../../../../assets/images/icones/logo/warhammer-shop-logo.png";
+import war from '../../../../assets/images/war1.png'
 
 
 
@@ -11,7 +12,11 @@ const ModalSuccessPay = ({ isShowing, hide }) =>
   isShowing
     ? ReactDOM.createPortal(
       <>
-        <div className="modal-overlay">
+        <div className="modal-overlay"style={{
+                backgroundImage: `url(${war})`,
+                backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+                backgroundSize: 'cover',
+        }}>
           <div className="modal-wrapper">
             <div className="modal">
               <div className="modal-header"> <p className="font-extrabold text-2xl text-center	">Paiement effectué avec succès !</p>
