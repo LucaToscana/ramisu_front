@@ -67,7 +67,6 @@ const PaiementPayerView = () => {
         if (cards === null) { }
         console.log('stripe')
         allCustomerCards().then((res) => {
-            //setErrorPay()
             setCards(res.data.listCards)
         })
             .catch((error) => {
@@ -105,11 +104,14 @@ const PaiementPayerView = () => {
     const deleteAndRefresh = () => {
         dispatch(init())
         localStorage.removeItem('totPayer')
+        localStorage.removeItem('myAddress')
+        localStorage.removeItem('idAddress')
         history.push('/')
     }
 
     const handleSubmitRegistred = (values) => {
         if (values !== "") {
+
             payWithRegistredCard(values, totalToPay())
                 .then((res) => {
                     setErrorPay(res.data)
@@ -164,7 +166,7 @@ const PaiementPayerView = () => {
             if (isFormShowed) { toggle() }
             if (isFormRegistredShowed) { toggleRegistred() }
             setTimeout(function () { toggleSuccessForm() }, 2000);
-         //  closeSuccess()
+            closeSuccess()
         }
     }
 
@@ -184,7 +186,6 @@ const PaiementPayerView = () => {
                 country: addressLocalStorage.country,
 
             }
-
             addOrderWithAddress(carts.filter(c => !(c.quantite === "")), address, "domicile", isMain).then(res => {
                 if (res.data) {
                     localStorage.setItem("successPaiement", true)
@@ -244,13 +245,13 @@ const PaiementPayerView = () => {
                     <h1 className='flex font-bold text-2xl ml-4'>Paiement par paypal</h1>
                 </div>
                 <div className='flex  justify-around   border-b-2 border-gray-400 mt-5   cartCard '>
-                    <div className='self-center h-full'>  <img src={paypal} height={150} width={150}></img>  </div> 
-                    
-                    
+                    <div className='self-center h-full'>  <img src={paypal} height={150} width={150}></img>  </div>
+
+
                     <div> <p className="text-sm mt-10 pb-10 self-center w-24  lg:w-96  md:w-96">
                         Vous pouvez valider le paiement avec paypal
                     </p>
-                    </div>  
+                    </div>
                     <div className='grid grid-cols-1 text-sm	'>
 
                         <div className='flex justify-center m-3 w-full pr-5'>

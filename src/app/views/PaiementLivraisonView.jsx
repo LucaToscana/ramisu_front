@@ -14,15 +14,19 @@ const PaiementLivraisonView = () => {
     const liv = useSelector(selectLivraison);
     const carts = useSelector(selectCart)
     const dispatch = useDispatch();
-
+    const test = () => {
+        try {
+          if( JSON.parse(localStorage.getItem('myAddress')).number!==null) 
+           { return true}
+        } catch { return false }
+    }
     useEffect(() => {
-        localStorage.setItem("idAddress", 0)
-        localStorage.removeItem("myAddress")
-        if (localStorage.getItem("myAddress") === null) {
+        
+      
+        if (test()===false) {
+            localStorage.setItem("idAddress", 0)
+            localStorage.removeItem("myAddress")
             getProfile().then(res => {
-
-
-
                 localStorage.setItem("idAddress", res.data.idaddress)
                 dispatch(setLivraison({
                     number: res.data.number,
@@ -49,12 +53,7 @@ const PaiementLivraisonView = () => {
         toggleAddressForm()
     }
 
-    const test = () => {
-        try {
-          if( JSON.parse(localStorage.getItem('myAddress')).number!==null) 
-           { return true}
-        } catch { return false }
-    }
+   
 
 
     return (
@@ -116,7 +115,7 @@ const PaiementLivraisonView = () => {
                                     {JSON.parse(localStorage.getItem('myAddress')).number + "   "
                                         + JSON.parse(localStorage.getItem('myAddress')).street + "   "
                                         + JSON.parse(localStorage.getItem('myAddress')).city + "   " + JSON.parse(localStorage.getItem('myAddress')).postalCode + "  "
-                                        + JSON.parse(localStorage.getItem('myAddress')).country + JSON.parse(localStorage.getItem('myAddress')).additionalAddress}
+                                        + JSON.parse(localStorage.getItem('myAddress')).country }
 
                                 </p>
                             </> : null}  </div>

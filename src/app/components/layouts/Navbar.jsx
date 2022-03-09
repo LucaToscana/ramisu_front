@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon, HeartIcon } from '@heroicons/react/outline';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN, URL_CART, URL_WISHLIST, URL_USER_PAY_METOD, URL_ORDERS } from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN, URL_CART, URL_WISHLIST, URL_USER_PAY_METOD, URL_ORDERS, URL_PROFILE } from './../../shared/constants/urls/urlConstants';
 import { Link, useHistory } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,7 +19,7 @@ import { deleteNotificationStore, isOpenNotification, isOpenNotificationStore, s
 import useModal from '../../shared/components/utils-components/Modal/useModal';
 import ModalNotifications from '../../shared/components/utils-components/Modal/ModalNotifications';
 import { deleteNotificationByDate } from '../../api/backend/user';
-import { MESSAGE_NEW_ORDER, MESSAGE_SAVE_CARD, MESSAGE_STATUS_ORDER ,MESSAGE_DELETE_CARD} from '../../shared/constants/messageConstant';
+import { MESSAGE_NEW_ORDER, MESSAGE_SAVE_CARD, MESSAGE_STATUS_ORDER ,MESSAGE_DELETE_CARD, MESSAGE_NEW_ADDRESS} from '../../shared/constants/messageConstant';
 /**
  * Website navbar made with Tailwind
  * 
@@ -268,6 +268,9 @@ const ConnectionStatusButtons = () => {
         if (value === MESSAGE_NEW_ORDER) {
             history.push(URL_ORDERS)
         }
+        if (value === MESSAGE_NEW_ADDRESS) {
+            history.push(URL_PROFILE)
+        }
         if (value === MESSAGE_STATUS_ORDER) {
             if (location.pathname === `/order/detail/${id}`) { window.location.reload() }
 
@@ -345,6 +348,10 @@ const ConnectionStatusButtons = () => {
                                         to="#"
                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                         onClick={() => {
+                                            localStorage.removeItem("myAddress")
+                                            localStorage.removeItem("idAddress")
+                                            localStorage.removeItem("notification")
+
                                             dispatch(signOut());
                                             dispatch(clearUserInformations());
                                             dispatch(clearFavData());
