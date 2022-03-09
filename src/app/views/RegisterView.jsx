@@ -81,7 +81,7 @@ const RegisterView = ({ history }) => {
             <ReCAPTCHA sitekey={recaptcha} ref={recaptchaRef} size="invisible" />
 
             {loading ? < Loader /> : (
-                <>{ !success&& (<Register submit={handleInscription} errorMsg={errorMsg}  loading={loading} />)}
+                <>{ !success&& (<Register submit={handleInscription} errorMsg={errorMsg}  />)}
 
                  { success && (
                      <div className="mt-16 flex flex-col justify-center">
