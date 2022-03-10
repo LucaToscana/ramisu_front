@@ -112,21 +112,21 @@ const HomeView = ({ history }) => {
                             aria-label="Slide 3"/>
                     </div>
                     <div class="carousel-inner relative w-full overflow-hidden">
-                        <div class="carousel-item active float-left w-full">
+                        <div class="carousel-item active float-left w-full h-48 md:h-96">
                             <img
                                 src={imgCarousel_1}
                                 class="block w-full"
                                 alt="Warhammer001"
                             />
                         </div>
-                        <div class="carousel-item float-left w-full">
+                        <div class="carousel-item float-left w-full h-48 md:h-96">
                             <img
                                 src={imgCarousel_2}
                                 class="block w-full"
                                 alt="Warhammer002"
                             />
                         </div>
-                        <div class="carousel-item float-left w-full">
+                        <div class="carousel-item float-left w-full h-48 md:h-96 ">
                             <img
                                 src={imgCarousel_3}
                                 class="block w-full"
