@@ -16,7 +16,7 @@ import ModalPayRegistresCBWarahmmerMarket from '../shared/components/utils-compo
 
 const PaiementPayerView = () => {
 
-
+const[disabled, setDisabled]=useState(false)
     const { isShowing: isFormRegistredShowed, toggle: toggleRegistred } = useModal();
     const { isShowing: isFormShowed, toggle: toggle } = useModal();
     const { isShowing: isSuccessFormShowed, toggle: toggleSuccessForm } = useModal();
@@ -111,6 +111,7 @@ const PaiementPayerView = () => {
 
     const handleSubmitRegistred = (values) => {
         if (values !== "") {
+            setDisabled(true)
 
             payWithRegistredCard(values, totalToPay())
                 .then((res) => {
@@ -118,7 +119,7 @@ const PaiementPayerView = () => {
                     finishOrder(res.data)
 
                 })
-                .catch((error) => {
+                .catch((error) => {setDisabled(false)
                 });
 
 
@@ -131,17 +132,23 @@ const PaiementPayerView = () => {
 
 
     const handleSubmit = (values) => {
+        setDisabled(true)
+
         values.amount = totalToPay()
         if (!remember) {
+            setDisabled(true)
+
             payOneTimes(values)
                 .then((res) => {
                     setErrorPay(res.data)
                     finishOrder(res.data)
 
                 })
-                .catch((error) => {
+                .catch((error) => {        setDisabled(false)
+
                 });
         } else {
+            setDisabled(true)
 
             newCustomerAndPay(values)
                 .then((res) => {
@@ -149,7 +156,7 @@ const PaiementPayerView = () => {
 
                     finishOrder(res.data)
                 })
-                .catch((error) => {
+                .catch((error) => { setDisabled(false)
                 });
 
 
@@ -160,6 +167,7 @@ const PaiementPayerView = () => {
 
 
     function finishOrder(test) {
+        setDisabled(true)
         if (test === "succeeded") {
             localStorage.setItem('totPayer', totalToPay())
             validate(carts)
@@ -167,7 +175,7 @@ const PaiementPayerView = () => {
             if (isFormRegistredShowed) { toggleRegistred() }
             setTimeout(function () { toggleSuccessForm() }, 2000);
             closeSuccess()
-        }
+        }else{ setDisabled(false)}
     }
 
     const validate = (carts) => {
@@ -213,6 +221,7 @@ const PaiementPayerView = () => {
                 }}
                 isRemember={remember}
                 errorPay={errorPay}
+                disabled={disabled}
 
             >
             </ModalPayCBWarahmmerMarket>
@@ -226,6 +235,7 @@ const PaiementPayerView = () => {
                 submit={handleSubmitRegistred}
                 cards={cardsList()}
                 errorPay={errorPay}
+                disabled={disabled}
             >
             </ModalPayRegistresCBWarahmmerMarket>
 

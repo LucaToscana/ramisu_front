@@ -64,7 +64,7 @@ const CardCreditLinesOrder = (props) => {
                 </div>
                 <div className='h-24'>
 
-                    {selectCard !== "" ? <button className='validateCart animate-wiggle' onClick={() => props.submit(selectCard)}>Payer!</button>
+                    {selectCard !== "" ? <button className={!props.disabled?'validateCart animate-wiggle':'validateCart animate-pulse'}disabled ={props.disabled} onClick={() => props.submit(selectCard)}>PAYER!</button>
 
                         : null}</div>
 

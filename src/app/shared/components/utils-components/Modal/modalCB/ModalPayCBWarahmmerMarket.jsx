@@ -6,7 +6,7 @@ import logo from "../../../../../assets/images/icones/logo/warhammer-shop-logo.p
 import StripeInput from "../../../stripeInput/StripeInput";
 import war from '../../../../../assets/images/war1.png'
 
-const ModalPayCBWarahmmerMarket = ({ isShowing, hide, tot, submit, remember, isRemember, errorPay }) =>
+const ModalPayCBWarahmmerMarket = ({ isShowing, hide, tot, submit, remember, isRemember, errorPay,disabled }) =>
   isShowing
     ? ReactDOM.createPortal(
       <>
@@ -30,8 +30,7 @@ const ModalPayCBWarahmmerMarket = ({ isShowing, hide, tot, submit, remember, isR
               <div className="flex  items-center justify-center text-center">
 
                 {<div className="self-center ">
-
-                  <StripeInput tot={tot} submit={submit} tot={tot} remember={remember} isRemember={isRemember} errorPay={errorPay}></StripeInput>
+                  <StripeInput tot={tot} submit={submit} remember={remember} isRemember={isRemember} errorPay={errorPay}disabled={disabled}></StripeInput>
 
 
 

@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { onPrivateMessageStore, onPrivateNotificationStore } from '../redux-store/webSocketSlice';
 import useModal from '../components/utils-components/Modal/useModal';
 import { sendAllNotificationByUser } from '../../api/backend/user';
+import { ChatIcon } from '@heroicons/react/solid';
 
 var Sock = new WebSocket("ws://localhost:8080/ws");
 var stompClient = over(Sock);
@@ -36,14 +37,14 @@ const WebSocketConnection = (props) => {
 
 
   useEffect(() => {
-  
-    if (isAuthenticated() === true && userData.connected === false ) {
-      connect() 
-    }
-    
-    
 
-    
+    if (isAuthenticated() === true && userData.connected === false) {
+      connect()
+    }
+
+
+
+
     console.log(userData);
   }, [userData]);
 
@@ -55,12 +56,12 @@ const WebSocketConnection = (props) => {
     stompClient = over(Sock);
     stompClient.connect({ 'token': token() }, onConnected, onError);
     setTimeout(function () {
-      console.log("connect WS"+userData);
+      console.log("connect WS" + userData);
       sendAllNotificationByUser()
     }, 1000);
   }
 
-   const onConnected = () => {
+  const onConnected = () => {
     setUserData({ ...userData, "connected": true });
     // stompClient.subscribe('/chatroom/public', onMessageReceived);--- chat produit? 
     // stompClient.subscribe("/notifications/messages", onMessageReceived);   --- example: for new  article notify all client
@@ -153,7 +154,21 @@ const WebSocketConnection = (props) => {
 
   return <div>
     {props.children}
-  </div>;
+    <footer
+      className=" pointer-events-none	
+      flex flex-row-reverse bg-transparent
+             text-3xl text-yellow-400 text-center
+             fixed
+             inset-x-0
+             bottom-0
+             p-4 ">
+
+      {isAuthenticated() === true && userData.connected === true&& login() ? <button className='pointer-events-auto	' onClick={() => { alert("open chat") }}> 
+        <ChatIcon className='w-16 lg:w-24  '></ChatIcon></button>
+        : null}
+
+
+    </footer>  </div>;
 }
 
 
