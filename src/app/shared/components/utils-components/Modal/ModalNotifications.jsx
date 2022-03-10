@@ -45,7 +45,7 @@ const ModalNotifications = ({ isShowing, hide, notifications, deleteOne, pushHis
                                   
                                   }
 
-                                }> {element.message}  <div className="animate-bounce mt-3"> {element.idorder!==0?"   Order : "+element.idorder:null}</div></button>
+                                }> {element.message}  <div className="mt-3"> {element.idorder!==0?"   Order : "+element.idorder:null}</div></button>
                               </p>
                               <p className="text-sm text-gray-500 truncate dark:text-gray-400">
                                 {element.date}                    </p>
