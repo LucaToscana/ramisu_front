@@ -337,7 +337,7 @@ const ConnectionStatusButtons = () => {
                                     <Link to={URL_ACCOUNT}
                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                     >
-                                        Gérer votre compte
+                                      <p>  Gérer votre compte</p>
                                     </Link>
                                 )}
                             </Menu.Item>
@@ -358,7 +358,7 @@ const ConnectionStatusButtons = () => {
                                             dispatch(init());
                                         }}
                                     >
-                                        Se déconnecter
+                                      <p>  Se déconnecter</p>
                                     </Link>
                                 )}
                             </Menu.Item>
@@ -379,14 +379,14 @@ const ConnectionStatusButtons = () => {
                             to={URL_REGISTRATION}
                             className='text-gray-300 hover:bg-gray-700 hover:text-white
                             px-3 py-2 rounded-lg text-lg font-medium'>
-                            <span>S'inscrire</span>
+                           <p><span>S'inscrire</span></p> 
 
                         </Link>
                         <Link
                             to={URL_LOGIN}
                             className='text-gray-300 hover:bg-gray-700 hover:text-white
                             px-3 py-2 rounded-lg text-lg font-medium whitespace-nowrap'>
-                            Se connecter
+                           <p> Se connecter</p>
                         </Link>
                     </div>
                 </div>
@@ -402,14 +402,14 @@ const ConnectionStatusButtons = () => {
                                     <Link
                                         to={URL_REGISTRATION}
                                         className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
-                                        <span>S'inscrire</span>
+                                     <p>   <span>S'inscrire</span></p>
                                     </Link>
                                 </Menu.Item>
                                 <Menu.Item>
                                     <Link
                                         to={URL_LOGIN}
                                         className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
-                                        Se connecter
+                                     <p>   Se connecter</p>
                                     </Link>
                                 </Menu.Item>
                             </div>
