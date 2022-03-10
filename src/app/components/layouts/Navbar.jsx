@@ -183,7 +183,7 @@ const Navbar = () => {
                                                         )}
                                                         aria-current={item.to == location.pathname ? 'page' : undefined}
                                                     >
-                                                        {item.name}
+                                                     <p className='font-bold'>  {item.name}</p> 
                                                     </Link>
                                                 ))}
                                             </div>
@@ -356,7 +356,6 @@ const ConnectionStatusButtons = () => {
                                             dispatch(clearUserInformations());
                                             dispatch(clearFavData());
                                             dispatch(init());
-                                            // history.push(URL_HOME)
                                         }}
                                     >
                                         Se déconnecter

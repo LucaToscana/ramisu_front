@@ -1,6 +1,6 @@
 module.exports = {
   mode: 'jit',
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html', './node_modules/tw-elements/dist/js/**/*.js'],
   darkMode: false, // or 'media' or 'class'
   theme: {   screens: {
     'mobile': '200px',
@@ -83,5 +83,6 @@ module.exports = {
   ],
   plugins: [
     require('@tailwindcss/forms'),
+    require('tw-elements/dist/plugin'),
   ],
 }

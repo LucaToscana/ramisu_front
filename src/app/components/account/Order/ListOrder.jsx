@@ -42,11 +42,11 @@ function ListOrder() {
         <>
             <div className='text-center bodyTable m-8'>
                 <div className='md:grid md:grid-cols-5 headerTable p-8'>
-                    <div>Numéro de commande</div>
-                    <div>Date</div>
-                    <div>Status</div>
-                    <div>Prix</div>
-                    <div>Détails</div>
+                    <div><p>Numéro de commande</p></div>
+                    <div><p>Date</p></div>
+                    <div><p>Status</p></div>
+                    <div><p>Prix</p></div>
+                    <div><p>Détails</p></div>
                 </div>
                 {isLoad ?
                     <>
