@@ -30,7 +30,7 @@ const LoginView = ({ history }) => {
             const notification = [];
             localStorage.setItem('notification', JSON.stringify(notification))
         }
-        await recaptchaRef.current.executeAsync().then(token => {
+        recaptchaRef.current.executeAsync().then(token => {
             authenticate(values).then(res => {
 
                 if (res.status === 200 && res.data.token) {
@@ -67,8 +67,7 @@ const LoginView = ({ history }) => {
                 setErrorLog(true);
                 // debugger
             })
-        })
-        recaptchaRef.current.reset();
+        }).catch( setErrorLog(true)).finally(()=>   recaptchaRef.current.reset())
     }
 
 
