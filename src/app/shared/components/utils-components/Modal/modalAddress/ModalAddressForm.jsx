@@ -105,8 +105,8 @@ const FormModalAddress = ({ submit, errorLog }) => (
 
 
             <div className="flex mt-2 mb-2">
-                <p>     <Field name='isMain' component={CustomCheckbox} name='isMain' />
-                    <label htmlFor="rememberMe" className="m-0 text-gray-400 text-sm">Mémorisez pour mes futurs achats</label>
+                <p className='flex'>     <Field name='isMain' component={CustomCheckbox} name='isMain' checked />
+                    <label htmlFor="rememberMe" className="m-0 text-gray-600 text-sm">Mémorisez pour mes futurs achats</label>
                 </p>         </div>
 
 
