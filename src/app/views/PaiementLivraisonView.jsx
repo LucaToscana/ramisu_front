@@ -73,10 +73,7 @@ const PaiementLivraisonView = () => {
                     <h1 className='flex items-end font-bold text-4xl ml-4'>Livraison</h1>
 
                 </div>
-                <div className='w-full'>   {localStorage.getItem('myAddress') !== undefined ? <div className='flex justify-end	 w-full p-5	'><ButtonToPayer></ButtonToPayer></div>
-                    : null}
-
-                </div>
+              
 
 
                 <div className='flex border-b-2 border-gray-400 pb-4'>
@@ -156,7 +153,10 @@ const PaiementLivraisonView = () => {
                     </div>
                 </div>
 
+                <div className='w-full'>   {localStorage.getItem('myAddress') !== undefined ? <div className='flex justify-end	 w-full p-5	'><ButtonToPayer></ButtonToPayer></div>
+                    : null}
 
+                </div>
                 <div className='flex border-b-2 border-gray-400 pb-4 mt-5 '>
                     <h1 className='flex items-end font-bold text-2xl ml-4'>
                         Total</h1>

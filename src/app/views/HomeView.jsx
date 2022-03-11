@@ -91,7 +91,13 @@ const HomeView = ({ history }) => {
 
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default pb-8">
 
-            <div className="max-w-4xl w-full">
+       
+      
+            <div className='text-primary-500 font-extrabold'>
+             
+                {loadingRandom ? < Loader /> :
+                    <>
+                         <div className="max-w-4xl w-full">
                 <div id="carouselExampleIndicators" class="carousel slide relative" data-bs-ride="carousel">
                     <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4 ">
                     <button type="button"
@@ -153,11 +159,6 @@ const HomeView = ({ history }) => {
         
                 </div>
             </div>
-      
-            <div className='text-primary-500 font-extrabold'>
-             
-                {loadingRandom ? < Loader /> :
-                    <>
                         <div className="text-center pb-2">
                             <h2 className="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
                                 Notre boutique

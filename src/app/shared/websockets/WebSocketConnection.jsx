@@ -24,7 +24,7 @@ const WebSocketConnection = (props) => {
   const { isShowing: isShowed, toggle: toggle } = useModal();
   const dispatch = useDispatch()
   const [privateChats, setPrivateChats] = useState(new Map());
-  const [publicChats, setPublicChats] = useState([]); 
+  const [publicChats, setPublicChats] = useState([]);
 
   const [tab, setTab] = useState("CHATROOM");
 
@@ -66,8 +66,8 @@ const WebSocketConnection = (props) => {
 
   const onConnected = () => {
     setUserData({ ...userData, "connected": true });
-     stompClient.subscribe('/chatroom/public', onMessageReceived);//--- chat produit? 
-     stompClient.subscribe("/notifications/messages", onMessageReceived);   //--- example: for new  article notify all client
+    stompClient.subscribe('/chatroom/public', onMessageReceived);//--- chat produit? 
+    stompClient.subscribe("/notifications/messages", onMessageReceived);   //--- example: for new  article notify all client
     stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessage);
     stompClient.subscribe('/user/' + userData.username + '/notifications/private-messages', onPrivateNotification);
     userJoin();
@@ -114,79 +114,79 @@ const WebSocketConnection = (props) => {
     setUserData({ ...userData, "message": value });
   }
 
-  
-  const sendValue=()=>{
-          if (stompClient) {
-            var chatMessage = {
-              senderName: userData.username,
-              message: userData.message,
-              status:"MESSAGE"
-            };
-            console.log(chatMessage);
-            stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
-            setUserData({...userData,"message": ""});
-          }
+
+  const sendValue = () => {
+    if (stompClient) {
+      var chatMessage = {
+        senderName: userData.username,
+        message: userData.message,
+        status: "MESSAGE"
+      };
+      console.log(chatMessage);
+      stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+      setUserData({ ...userData, "message": "" });
+    }
   }
 
 
 
-  const onMessageReceived = (payload)=>{
+  const onMessageReceived = (payload) => {
     var payloadData = JSON.parse(payload.body);
-    switch(payloadData.status){
-        case "JOIN":
-            if(!privateChats.get(payloadData.senderName)){
-                privateChats.set(payloadData.senderName,[]);
-                setPrivateChats(new Map(privateChats));
-            }
-            break;
-        case "MESSAGE":
-            publicChats.push(payloadData);
-            setPublicChats([...publicChats]);
-            break;
+    switch (payloadData.status) {
+      case "JOIN":
+        if (!privateChats.get(payloadData.senderName)) {
+          privateChats.set(payloadData.senderName, []);
+          setPrivateChats(new Map(privateChats));
+        }
+        break;
+      case "MESSAGE":
+        publicChats.push(payloadData);
+        setPublicChats([...publicChats]);
+        break;
     }
-}
- /*
+  }
+  /*
+   const sendPrivateValue = () => {
+     if (stompClient) {
+       var chatMessage = {
+         senderName: userData.username,
+         receiverName: "WARHAMMERMARKET",
+         message: userData.message,
+         status: "MESSAGE"
+       };
+ 
+       if (userData.username !== tab) {
+         // privateChats.get(tab).push(chatMessage);
+         //  setPrivateChats(new Map(privateChats));
+         //  localStorage.setItem("notification",JSON.stringify(privateChats))
+ 
+       }
+       stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
+       setUserData({ ...userData, "message": "" });
+       // localStorage.setItem("notification", JSON.stringify(privateChats))
+ 
+     }
+   }
+ 
+ */
+
   const sendPrivateValue = () => {
     if (stompClient) {
       var chatMessage = {
         senderName: userData.username,
-        receiverName: "WARHAMMERMARKET",
+        receiverName: tab,
         message: userData.message,
         status: "MESSAGE"
       };
 
       if (userData.username !== tab) {
-        // privateChats.get(tab).push(chatMessage);
-        //  setPrivateChats(new Map(privateChats));
-        //  localStorage.setItem("notification",JSON.stringify(privateChats))
-
+        privateChats.get(tab).push(chatMessage);
+        setPrivateChats(new Map(privateChats));
       }
       stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
       setUserData({ ...userData, "message": "" });
-      // localStorage.setItem("notification", JSON.stringify(privateChats))
-
     }
   }
-
-*/
-
-const sendPrivateValue=()=>{
-  if (stompClient) {
-    var chatMessage = {
-      senderName: userData.username,
-      receiverName:tab,
-      message: userData.message,
-      status:"MESSAGE"
-    };
-    
-    if(userData.username !== tab){
-      privateChats.get(tab).push(chatMessage);
-      setPrivateChats(new Map(privateChats));
-    }
-    stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-    setUserData({...userData,"message": ""});
-  }
-}
 
   return <div>
 
@@ -203,28 +203,29 @@ const sendPrivateValue=()=>{
              bottom-0
              p-4 ">
 
-      {isAuthenticated() === true && userData.connected === true && login() ?
+      {isAuthenticated() === true && (isAuthenticated() === true && userData.connected === true && login() )?
         <button className={isShowed ? 'hidden' : 'pointer-events-auto lg:mb-16 z-50'}
           onClick={() => {
             toggle()
           }}>
-          <ChatIcon className='w-16 lg:w-24  '></ChatIcon></button>
+          <ChatIcon className='w-20 lg:w-24 md:w-24 '></ChatIcon></button>
         : null}
 
 
-    </footer> 
-  <div className='bottom-0'> <ModalChat
+    </footer>
+    <div className='bottom-0'>
+       <ModalChat
       userData={userData}
       isShowing={isShowed}
       privateChats={privateChats}
       publicChats={publicChats}
       hide={toggle}
-      message={userData.message} 
+      message={userData.message}
       handleMessage={handleMessage}
       sendPrivateValue={sendPrivateValue}
       tab={tab}
       sendValue={sendValue}
-      >
+    >
     </ModalChat></div>  </div>;
 }
 

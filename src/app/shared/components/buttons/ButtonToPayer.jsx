@@ -27,8 +27,10 @@ export function ButtonToPayer() {
   return (
 
     <div className="flex justify-end" onClick={() => { if (test()) { history.push(URL_PAIEMENT_2) } }} >
-      <div className="flex items-center"><p className={test() === true ? "text-center font-bold text-green-600 text-2xl uppercase" : "text-center text-2xl"}>{test() ? "Continuer l'achat" : "Entrer une adresse de livraison"}</p></div>
-      <div className="ml-8"> <button> <FastForwardIcon className={test() ? 'h-16 w-16 iconTrue animate-bounce  ' : 'h-16 w-16'}
+      <div className="flex items-center">
+      <button  onClick={() => { if (test()) { history.push(URL_PAIEMENT_2) } }}> <p  className={test() === true ? "text-center font-bold text-green-600 text-3xl uppercase" : "text-center text-2xl"}>
+          {test() ? "Continuer l'achat" : "Entrer une adresse de livraison"}</p></button> </div>
+      <div className="ml-8"> <button> <FastForwardIcon className={test() ? 'h-24 w-24 iconTrue  ' : 'h-16 w-16'}
         /></button></div>
     </div>
   );
