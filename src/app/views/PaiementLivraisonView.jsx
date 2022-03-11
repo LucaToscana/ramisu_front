@@ -13,9 +13,19 @@ const PaiementLivraisonView = () => {
     const { isShowing: isAddressFormShowed, toggle: toggleAddressForm } = useModal();
     const liv = useSelector(selectLivraison);
     const carts = useSelector(selectCart)
-
+    const dispatch = useDispatch();
+    const test = () => {
+        try {
+          if( JSON.parse(localStorage.getItem('myAddress')).number!==null) 
+           { return true}
+        } catch { return false }
+    }
     useEffect(() => {
-        if (localStorage.getItem("myAddress") === null) {
+        
+      
+        if (test()===false) {
+            localStorage.setItem("idAddress", 0)
+            localStorage.removeItem("myAddress")
             getProfile().then(res => {
                 localStorage.setItem("idAddress", res.data.idaddress)
                 dispatch(setLivraison({
@@ -33,7 +43,6 @@ const PaiementLivraisonView = () => {
         }
     }, [])
 
-    const dispatch = useDispatch();
 
     let subTotal = 0;
     for (let i = 0; i < carts.length; i++) {
@@ -43,6 +52,9 @@ const PaiementLivraisonView = () => {
         dispatch(setLivraison(value))
         toggleAddressForm()
     }
+
+   
+
 
     return (
         <div className='min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default m-5 p-5 flex justify-around m-5'>
@@ -57,9 +69,12 @@ const PaiementLivraisonView = () => {
             </ModalAddress>
 
             <div className='lg:w-2/3'>
-                <div className='flex border-b-2 border-gray-400 pb-4 mb-5'>
+                <div className='flex border-b-2 border-gray-400 pb-4 mb-5 col-span-2'>
                     <h1 className='flex items-end font-bold text-4xl ml-4'>Livraison</h1>
+
                 </div>
+              
+
 
                 <div className='flex border-b-2 border-gray-400 pb-4'>
                     <h1 className='flex items-end font-bold text-2xl ml-4'>En magasin ( gratuit )</h1>
@@ -92,12 +107,12 @@ const PaiementLivraisonView = () => {
 
                         </p>
                         <div className="lg:w-1/8  flex justify-end self-end p-1 ">
-                            {localStorage.getItem('myAddress') !== null && liv !== undefined ? <> <CheckIcon className='md:w-12 h-12 iconTrue' />
+                            {test()&& liv !== null ? <> <CheckIcon className='md:w-12 h-12 iconTrue' />
                                 <p className='text-xs p-5'>
                                     {JSON.parse(localStorage.getItem('myAddress')).number + "   "
                                         + JSON.parse(localStorage.getItem('myAddress')).street + "   "
                                         + JSON.parse(localStorage.getItem('myAddress')).city + "   " + JSON.parse(localStorage.getItem('myAddress')).postalCode + "  "
-                                        + JSON.parse(localStorage.getItem('myAddress')).country + JSON.parse(localStorage.getItem('myAddress')).additionalAddress}
+                                        + JSON.parse(localStorage.getItem('myAddress')).country }
 
                                 </p>
                             </> : null}  </div>
@@ -108,7 +123,7 @@ const PaiementLivraisonView = () => {
 
                     <div className='flex justify-end self-end m-2 text-sm	'>
 
-                        <button className="paiementCart h-12 w-24" onClick={toggleAddressForm}>Indiquer mon adresse</button>
+                        <button className="paiementCart h-24 lg:h-12  lg:w-48" onClick={toggleAddressForm}><p className='uppercase'>Indiquer mon adresse</p></button>
 
                     </div>
 
@@ -131,14 +146,17 @@ const PaiementLivraisonView = () => {
 
                         {carts.map(cart => <>
                             <div className='w-full'><p className='text-sm '> {cart.label}</p></div>
-                            <div className='w-full text-center'><p className='text-sm '> {(cart.price*1).toFixed(2)}</p></div>
+                            <div className='w-full text-center'><p className='text-sm '> {(cart.price * 1).toFixed(2)}</p></div>
                             <div className='w-full text-center'><p className='text-sm '> {(cart.price * 1 * 1.2).toFixed(2)}</p></div>
 
                             <div className='w-full text-center'><p className='text-sm '> {cart.quantite}</p></div></>)}
                     </div>
                 </div>
 
+                <div className='w-full'>   {localStorage.getItem('myAddress') !== undefined ? <div className='flex justify-end	 w-full p-5	'><ButtonToPayer></ButtonToPayer></div>
+                    : null}
 
+                </div>
                 <div className='flex border-b-2 border-gray-400 pb-4 mt-5 '>
                     <h1 className='flex items-end font-bold text-2xl ml-4'>
                         Total</h1>
@@ -172,11 +190,6 @@ const PaiementLivraisonView = () => {
                         {(subTotal * 1.2) < 25 ? <div className='w-full text-center'><p className='text-sm font-bold '> {((subTotal * 1.2) + 10).toFixed(2)}€</p></div>
                             : <div className='w-full text-center'><p className='text-sm font-bold '> {(subTotal * 1.2).toFixed(2)}€</p></div>}                    </div>
 
-
-                    <div className=''>   {localStorage.getItem('myAddress') !== null ? <div className='flex justify-end	 w-full p-5	'><ButtonToPayer></ButtonToPayer></div>
-                        : null}
-
-                    </div>
                 </div>
 
 

@@ -33,11 +33,15 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "4.0.3",
 		"react-toastify": "^7.0.4",
+		"rollup-plugin-polyfill-node": "^0.8.0",
+		"sockjs-client": "^1.5.2",
+		"stompjs": "^2.3.3",
 		"stripe": "^8.199.0",
 		"styled-components": "^4.1.3",
 		"tw-elements": "^1.0.0-alpha11",
 		"web-vitals": "^1.0.1",
 		"yup": "^0.32.9"
+		
 	},
 	"scripts": {
 		"dev": "vite",

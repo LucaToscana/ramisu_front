@@ -76,7 +76,7 @@ const RegisterView = ({ history }) => {
 
     return (
 
-        <div className="md:flex md:justify-center pb-8">
+        <div style={{ minHeight: 700 }}  className="md:flex md:justify-center pb-8">
 
             <ReCAPTCHA sitekey={recaptcha} ref={recaptchaRef} size="invisible" />
 

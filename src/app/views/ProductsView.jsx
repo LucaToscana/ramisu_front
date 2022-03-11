@@ -20,10 +20,28 @@ const ProductsView = () => {
     const [displayGrid, setLayout] = useState(true);
 
     const filterStore = useSelector(selectProductFilter);
+
+
+
+    
     useEffect(() => {
 
+        if( localStorage.getItem("filters")===null ){
+            localStorage.setItem("filters",JSON.stringify({
+                label: "",
+                price: null,
+                universe: null,
+                category: null,
+                tag: null,
+                page: 0,
+                pageSize: 9,
+                total: 0,
+                totalpage: [],
+                minPrice: 0,
+                maxPrice: 10000
+            }))
+        }
         document.getElementById("searchNavBar").value = "";
-
             switch (location.pathname) 
             {
                 case URL_PRODUCT :
@@ -92,7 +110,7 @@ const ProductsView = () => {
                 }
                 
                 <div className="flex justify-center self-center m-2 ">
-                    <p>{"total products:  " + JSON.parse(localStorage.getItem("filters")).total}</p>
+                    <p>{"total products:  " + filterStore.total}</p>
                 </div>
 
                     <LayoutSwitcher callback={setLayout} />

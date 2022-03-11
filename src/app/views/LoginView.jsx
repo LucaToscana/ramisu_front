@@ -24,57 +24,64 @@ const LoginView = ({ history }) => {
 
 
 
-    const handleLogin = async(values) => {
+    const handleLogin = async (values) => {
         setMessage(null);
- 
-            await recaptchaRef.current.executeAsync().then(token=>{
-                authenticate(values).then(res => {
-                    
-                    if (res.status === 200 && res.data.token) {
-                        dispatch(signIn(res.data.token))
-                        
-        
-                        if (isAuthenticated) {
-        
-                            if (localStorage.getItem("testLoginPanier") !== null) {
-                                history.push(URL_PAIEMENT)
-                                localStorage.removeItem("testLoginPanier");
-                            }
-                            else {
-                                history.push(URL_HOME)
-                            }
-        
+        if (localStorage.getItem('notification') === null) {
+            const notification = [];
+            localStorage.setItem('notification', JSON.stringify(notification))
+        }
+        recaptchaRef.current.executeAsync().then(token => {
+            authenticate(values).then(res => {
+
+                if (res.status === 200 && res.data.token) {
+                    dispatch(signIn(res.data.token))
+
+
+                    if (isAuthenticated) {
+
+                        if (localStorage.getItem("testLoginPanier") !== null) {
+                            history.push(URL_PAIEMENT)
+                            localStorage.removeItem("testLoginPanier");
+                              window.location.reload()
+
                         }
-                    }else{
-                        setErrorLog(true)
-              
-                        if(res.data.errorMessage)
-                        {
-                            setErrorLog(false);
-                            setMessage(res.data.errorMessage)
+                        else {
+                            
+
+                            history.push(URL_HOME)
+                               window.location.reload()
+
                         }
-                    
+
                     }
-                }) .catch((error) =>{ 
-                    setErrorLog(true);
-                    // debugger
-                  })
+                } else {
+                    setErrorLog(true)
+
+                    if (res.data.errorMessage) {
+                        setErrorLog(false);
+                        setMessage(res.data.errorMessage)
+                    }
+
+                }
+            }).catch((error) => {
+                setErrorLog(true);
+                // debugger
             })
-            recaptchaRef.current.reset();
-            }
-        
+        }).catch( setErrorLog(true)).finally(()=>   recaptchaRef.current.reset())
+    }
+
 
     return (
         <div className=''>
             <div className="pb-10 md:flex md:justify-center">
                 <ReCAPTCHA
-                            sitekey={recaptcha}
-                            ref={recaptchaRef}
-                            size="invisible" />
-                <Login 
-                            submit={handleLogin} 
-                            errorLog={errorLog} 
-                            msg={message} />
+                    sitekey={recaptcha}
+                    ref={recaptchaRef}
+                    size="invisible" />
+                <Login
+                    submit={handleLogin}
+                    errorLog={errorLog}
+                    msg={message} />
             </div>
         </div>
 

@@ -1,20 +1,20 @@
-import {  TrashIcon, XIcon } from "@heroicons/react/solid";
+import { CheckCircleIcon } from "@heroicons/react/outline";
+import { TrashIcon, XIcon } from "@heroicons/react/solid";
 import React from "react";
 import ReactDOM from "react-dom";
-import visa from '../../../../../assets/images/visa.png'
-import mastercard from '../../../../../assets/images/mastercard.png'
 
 
 
 
-const ModalDeletCard = ({ isShowing, hide, submit, brand, expiryDate,last4,confirm }) =>
+
+const ModalStatusOrder = ({ isShowing, hide,status,newStatus, confirm}) =>
   isShowing
     ? ReactDOM.createPortal(
       <>
         <div className="modal-overlay ">
-          <div className="modal-wrapper">
+          <div className="modal-wrapper  p-5">
             <div className="modal p-5">
-              <div className="modal-header"> <p className="font-extrabold text-2xl text-center w-full	">Confirmez-vous la suppression du mode de paiement suivant ?</p>
+              <div className="modal-header"> <p className="font-extrabold text-2xl text-center w-full	">Confirmez-vous le changement de statut ?</p>
 
                 <button
                   type="button"
@@ -28,19 +28,22 @@ const ModalDeletCard = ({ isShowing, hide, submit, brand, expiryDate,last4,confi
 
                 <div className="flex items-center space-x-5 m-5 p-2  border-2 border-red-700 mb-10 mt-10 ">
                   <div className="flex-shrink-0">
-                    {brand === 'Visa' ? <img className=' w-12' src={visa} /> : <img className='w-12' src={mastercard} />}                           </div>
+                                     </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      ---- ---- ----  {last4}
+                    Nouvel état
                     </p>
-                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                    expiry date:  {expiryDate}                 </p>
+                    <p className="text-lg font-bold text-gray-500 truncate dark:text-gray-400">
+                   {newStatus}             </p>
                   </div>
                  
                 </div>
-                <div className="grid grid-cols-2  mt-5"> <div>  <button type="button"
-                  onClick={confirm} className="deletCards "> <div className="grid grid-cols-5"><p className="text-xl col-span-4 mt-1">RETIRER </p> <TrashIcon className="w-6 m-1"></TrashIcon></div></button>  </div>    <div> <button type="button"
-                    onClick={hide} className="validateCart  bg-red-500"><div className="grid grid-cols-5"><p className="text-xl col-span-4 mt-1">ANNULLER </p> <XIcon className="w-6 m-1"></XIcon></div></button></div> </div>
+                <div className="flex  justify-around  mt-5"> 
+                <div className="p-3">  <button type="button"
+                  onClick={confirm} className="validateCart "> <div className="grid grid-cols-5"><p className="text-xl col-span-4 mt-1">CONFIRM </p> <CheckCircleIcon className="w-6 m-1"></CheckCircleIcon></div></button>  </div>  
+                  
+                    <div className="p-3 w-1/3"> <button type="button"
+                    onClick={hide} className="deletCards  "><div ><XIcon className="w-6 m-1"></XIcon></div></button></div> </div>
 
 
               </div>
@@ -104,4 +107,4 @@ const ModalDeletCard = ({ isShowing, hide, submit, brand, expiryDate,last4,confi
     )
     : null;
 
-export default ModalDeletCard;
+export default ModalStatusOrder;

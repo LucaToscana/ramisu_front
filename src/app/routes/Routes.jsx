@@ -24,7 +24,8 @@ import {
             URL_ORDER_RETURN,
             URL_PSW_HANDLING,
             URL_USER_PAY_METOD,
-            URL_WISHLIST
+            URL_WISHLIST,
+            URL_ORDERS_COMMERCIAL
         } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_SALESMAN, ROLE_USER } from "../shared/constants/rolesConstant";
@@ -50,6 +51,7 @@ import RetourView from "../views/RetourView";
 import PasswordHandling from "../views/PasswordHandling";
 import PaiementMetodView from "../views/PaiementMetodView";
 import Wishlist from "../views/Wishlist";
+import OrdersCommercialView from "../views/OrdersCommercialView";
 /**
  * Routes of the application
  * with public and private route
@@ -68,6 +70,8 @@ const Routes = () => {
             <PrivateRoute path={URL_ADMIN_HOME} component={AdminHomeView} roles={[ROLE_ADMIN]} />
             <PrivateRoute path={URL_COMM_HOME} roles={[ROLE_SALESMAN]}  component={BackOffice}/>
             <PrivateRoute path={URL_ORDERS} component={OrdersView} roles={[ROLE_USER]} />
+            <PrivateRoute path={URL_ORDERS_COMMERCIAL} component={OrdersCommercialView} roles={[ROLE_SALESMAN]} />
+
             <PrivateRoute path={URL_ORDER_DETAILS} component={OrderDetailView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_ORDER_RETURN} component={RetourView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_PSW_HANDLING} component={PasswordHandling} roles={[ROLE_USER]} />
@@ -85,7 +89,6 @@ const Routes = () => {
             <Route path={URL_CONTACT_US} roles={[ROLE_USER]}  component={ContactView} />
             <PrivateRoute path={URL_PAIEMENT}  roles={[ROLE_USER]}    component={PaiementLivraisonView}/>
             <PrivateRoute path={URL_PAIEMENT_2}roles={[ROLE_USER]}  component={PaiementPayerView}/>
-
             <PrivateRoute path={URL_USER_PAY_METOD} roles ={[ROLE_USER]} component={PaiementMetodView}/>
             
             <Route path="*">

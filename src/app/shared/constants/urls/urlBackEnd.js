@@ -31,7 +31,10 @@ export const URL_FILTER_TAGS = '/public/tags'
 //order
 export const URL_BACK_ADD_ORDER = 'user/addorder'
 export const URL_BACK_GET_ORDERS = '/orders'
+export const URL_BACK_GET_ALL_ORDERS = '/all-orders'
+
 export const URL_BACK_GET_ORDER_DETAILS = '/orders/details/'
+export const URL_BACK_UPDATE_STATUS_ORDER ='/orders/update-status'
 
 export const URL_PAY_ORDER = '/payment/charge'
 
@@ -57,3 +60,7 @@ export const URL_NEW_CUSTOMER ='/user/payment/new-customer'
 export const URL_CUSTOMER_CARDS ='/user/payment/customer-cards'
 export const URL_DELETE_CARD ='/user/payment/delete-customer-card'
 export const URL_PAY_REGISTRED_CARD ='/user/payment/registred-card-pay'
+
+//notification
+export const URL_BACK_DELETE_NOTIFICATION_BY_DATE = '/user/delete-notification-user/'
+export const URL_BACK_SEND_USER_NOTIFICATION =  "/user/sendAllUserNotification"

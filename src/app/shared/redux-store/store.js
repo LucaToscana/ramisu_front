@@ -5,6 +5,7 @@ import livraisonReducer from './livraisonSlice'
 import filterProductReducer from './filterProductSlice';
 import userInfo from './userProfileSlice'
 import favoriteReducer  from './favoritesSlice';
+import webSocketReducer  from './webSocketSlice';
 
 /**
  * To configure the store redux. 
@@ -18,6 +19,7 @@ import favoriteReducer  from './favoritesSlice';
 		livraison	: livraisonReducer,
 		filterProducts:filterProductReducer,
 		userInfo	: userInfo,
-		fav 		: favoriteReducer
-	},
+		fav 		: favoriteReducer,
+		webSocket:webSocketReducer
+	}
 });

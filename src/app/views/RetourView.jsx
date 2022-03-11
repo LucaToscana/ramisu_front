@@ -34,7 +34,7 @@ const RetourView = (props) => {
         const recaptchaRef = useRef(null)
         const recaptcha = import.meta.env.VITE_REACT_RECAPTCHA
 
-        const pushToOrder = () => setTimeout(function () { history.push(`/order/detail/${id}`) }, 5000);
+        const pushToOrder = () => setTimeout(function () { history.push(`/order/detail/${id}`) }, 6000);
 
         const submitHandler = async (values) => {
 
@@ -42,15 +42,18 @@ const RetourView = (props) => {
 
                 await recaptchaRef.current.executeAsync().then(token => {
                         values.captchaToken = token;
-                        values.email = account
+                        values.email = "lucatscn@gmail.com"
+                        //account
                         values.message = "Order :" + id + "  /  Date order :" + date + "  /  message: " + values.message
 
                         setStatus(true);
                         setFeedback("Envoi de votre message");
+                        
                         contactUs(values).then(res => {
 
                                 if (res.status === 200) {
-                                        setFeedback("Merci pour vote message, nous vous reponderons très prochainement.")
+                                        setTimeout(function () {     setFeedback("Merci pour votre message, nous vous reponderons très prochainement.") }, 2000);
+                                    
                                         pushToOrder()
                                 }
                         }
@@ -61,7 +64,7 @@ const RetourView = (props) => {
 
 
 
-        return (<div className="fullscreen  pb-10 " style={{
+        return (<div   className="fullscreen  pb-10 " style={{
                 backgroundImage: `url(${war})`,
                 backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
                 backgroundSize: 'cover',
@@ -74,7 +77,7 @@ const RetourView = (props) => {
                 <h2 className='font-bold text-center mt-5 p-1 text-white text-3xl'>Voulez-vous faire un retour or  annuler une commande?   Contactez-nous!</h2>
                 <h2 className='font-bold text-center text-white text-1xl mb-3'> warhammer.market@gmail.com</h2>
 
-                {status ? (<div className='	 h-48'><p className="text-center text-white	font-bold">{feedback+""}</p></div>) : (
+                {status ? (<div className="fullscreen "><p  className="text-center text-white text-3xl	font-bold   mb-10">{feedback+""}</p></div>) : (
                       
                       
                       

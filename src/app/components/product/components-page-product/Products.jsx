@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { add, selectCart } from '../../../shared/redux-store/cartSlice';
 import { ShoppingCartIcon } from '@heroicons/react/outline';
 import { useHistory } from 'react-router-dom';
-import ModalAddToCart from '../../../shared/components/utils-components/Modal/modalAddToCart/ModalAddToCart';
+import ModalAddToCart from '../../../shared/components/utils-components/Modal/ModalAddToCart';
 import useModal from '../../../shared/components/utils-components/Modal/useModal';
 import { useSelector } from 'react-redux';
 
