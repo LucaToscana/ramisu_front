@@ -55,7 +55,7 @@ const Navbar = () => {
     }
 
     return (
-        <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
+        <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color ">
             {({ open }) => (
                 <>
                     <div className='lg:flex items-center pb-2'>
