@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getNumberOfProductsByField, productSearchCriteria } from "../api/backend/product";
 import ProductHomePageCard from '../components/product/ProductHomePageCard';
-// import { hasRole } from './../shared/services/accountServices';
-// import { ROLE_ADMIN } from './../shared/constants/rolesConstant';
-// import { URL_ADMIN_HOME } from './../shared/constants/urls/urlConstants';
+
 import Loader from './../shared/components/utils-components/Loader';
 import handleHttpError from './../shared/components/form-and-error-components/HandleHttpError';
-import apiBackEnd from '../api/backend/api.Backend';
+
 import 'tw-elements';
 import imgCarousel_1 from '../assets/images/carousel01.jpg';
 import imgCarousel_2 from '../assets/images/carousel02.jpg';
