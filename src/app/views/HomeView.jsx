@@ -6,7 +6,7 @@ import Loader from './../shared/components/utils-components/Loader';
 import handleHttpError from './../shared/components/form-and-error-components/HandleHttpError';
 
 import 'tw-elements';
-import imgCarousel_1 from '../assets/images/carousel01.jpg';
+import imgCarousel_1 from '../assets/images/carousel05.jpg';
 import imgCarousel_2 from '../assets/images/carousel02.jpg';
 import imgCarousel_3 from '../assets/images/carousel03.jpg';
 
@@ -87,75 +87,79 @@ const HomeView = ({ history }) => {
 
     return (
 
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default pb-8">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default pb-8 p-5">
 
        
       
-            <div className='text-primary-500 font-extrabold'>
+            <div className='text-primary-500 font-extrabold w-full '>
              
                 {loadingRandom ? < Loader /> :
                     <>
-                         <div className="max-w-4xl w-full">
-                <div id="carouselExampleIndicators" className="carousel slide relative" data-bs-ride="carousel">
-                    <div className="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4 ">
-                    <button type="button"
-                            data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to="0"
-                            className="active"
-                            aria-current="true"
-                            aria-label="Slide 1" />
-                    
-                    <button type="button"
-                            data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to="1"
-                            aria-label="Slide 2" />
-                    
-                    <button type="button"
-                            data-bs-target="#carouselExampleIndicators"
-                            data-bs-slide-to="2"
-                            aria-label="Slide 3"/>
+                <div className="relative">
+    
+                <div    id="carouselExampleIndicators" 
+                        className="carousel slide relative pb-5 mb-5  m-auto w-full" 
+                        data-bs-ride="carousel">
+                
+                    <div className="carousel-indicators m-0 absolute bottom-10 text-black flex justify-center p-0 w-full  " >
+                        <button type="button"
+                                data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide-to="0"
+                                className="active "
+                                aria-current="true"
+                                aria-label="Slide 1" />
+                        
+                        <button type="button"
+                                data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide-to="1"
+                                aria-label="Slide 2" />
+                        
+                        <button type="button"
+                                data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide-to="2"
+                                aria-label="Slide 3"/>
+                        </div>
+                        <div className="carousel-inner relative w-full overflow-hidden border-4 border-yellow-500 navbar-color">
+                            <div className="carousel-item active float-left w-full">
+                                <img
+                                    src={imgCarousel_1}
+                                    className="m-auto object-cover h-48 md:h-96" 
+                                    alt="Warhammer001"
+                                />
+                            </div>
+                            <div className="carousel-item float-left w-full">
+                                <img
+                                    src={imgCarousel_2}
+                                    className="m-auto object-cover h-48 md:h-96" 
+                                    alt="Warhammer002"
+                                />
+                            </div>
+                            <div className="carousel-item float-left w-full">
+                                <img
+                                    src={imgCarousel_3}
+                                    className="m-auto object-cover h-48 md:h-96" 
+                                    alt="Warhammer003"
+                                />
+                            </div>
+                        </div>
+                        <button
+                                className="carousel-control-prev absolute top-10 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+                                type="button"    data-bs-target="#carouselExampleIndicators"    data-bs-slide="prev">
+
+                            <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                            <span className="visually-hidden">Previous</span>
+
+                        </button>
+                        <button
+                                className="carousel-control-next absolute top-10 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+                                type="button"   data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+
+                            <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
+                            <span className="visually-hidden">Next</span>
+            
+                        </button>
+            
                     </div>
-                    <div className="carousel-inner relative w-full overflow-hidden">
-                        <div className="carousel-item active float-left w-full h-48 md:h-96">
-                            <img
-                                src={imgCarousel_1}
-                                className="block w-full"
-                                alt="Warhammer001"
-                            />
-                        </div>
-                        <div className="carousel-item float-left w-full h-48 md:h-96">
-                            <img
-                                src={imgCarousel_2}
-                                className="block w-full"
-                                alt="Warhammer002"
-                            />
-                        </div>
-                        <div className="carousel-item float-left w-full h-48 md:h-96 ">
-                            <img
-                                src={imgCarousel_3}
-                                className="block w-full"
-                                alt="Warhammer003"
-                            />
-                        </div>
-                    </div>
-                    <button
-                            className="carousel-control-prev absolute top-10 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
-                            type="button"    data-bs-target="#carouselExampleIndicators"    data-bs-slide="prev">
-
-                        <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                        <span className="visually-hidden">Previous</span>
-
-                    </button>
-                    <button
-                            className="carousel-control-next absolute top-10 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
-                            type="button"   data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-
-                        <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
-                        <span className="visually-hidden">Next</span>
-        
-                    </button>
-        
-                </div>
             </div>
                         <div className="text-center pb-2">
                             <h2 className="font-bold text-3xl md:text-4xl lg:text-2xl font-heading text-black">
@@ -164,7 +168,7 @@ const HomeView = ({ history }) => {
 
                         </div>
                         <div className="w-full bg-custom-lightbrown">
-                            <section className="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
+                            <section className="w-full mx-auto px-4 sm:px-2 lg:px-2 py-12">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                     {(productsRandom.map((product) =>
@@ -189,7 +193,7 @@ const HomeView = ({ history }) => {
                             </h2>
                         </div>
                         <div className="w-full bg-custom-orange">
-                            <section className="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
+                            <section className="w-full mx-auto px-4 sm:px-2 lg:px-2 py-12">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                     {(productsPromotion.map((product) =>
@@ -213,7 +217,7 @@ const HomeView = ({ history }) => {
                             </h2>
                         </div>
                         <div className="w-full bg-custom-green">
-                            <section className="max-w-4xl mx-auto px-4 sm:px-2 lg:px-2 py-12">
+                            <section className="w-full mx-auto px-4 sm:px-2 lg:px-2 py-12">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
                                     {(productsTopSale.map((product) =>
