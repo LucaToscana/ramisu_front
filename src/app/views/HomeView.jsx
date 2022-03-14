@@ -6,9 +6,6 @@ import Loader from './../shared/components/utils-components/Loader';
 import handleHttpError from './../shared/components/form-and-error-components/HandleHttpError';
 
 import 'tw-elements';
-import imgCarousel_1 from '../assets/images/carousel05.jpg';
-import imgCarousel_2 from '../assets/images/carousel02.jpg';
-import imgCarousel_3 from '../assets/images/carousel03.jpg';
 
 
 /**
@@ -118,30 +115,41 @@ const HomeView = ({ history }) => {
                                 data-bs-target="#carouselExampleIndicators"
                                 data-bs-slide-to="2"
                                 aria-label="Slide 3"/>
+
+                          <button type="button"
+                                data-bs-target="#carouselExampleIndicators"
+                                data-bs-slide-to="3"
+                                aria-label="Slide 4"/>
                         </div>
                         <div className="carousel-inner relative w-full overflow-hidden border-4 border-yellow-500 navbar-color">
                             <div className="carousel-item active float-left w-full">
-                                <img
-                                    src={imgCarousel_1}
-                                    className="m-auto object-cover h-48 md:h-96" 
+                                <div
+                                    
+                                    className="m-auto object-cover h-48 md:h-96 imgCarousel imgCarousel_1" 
+                                    alt="Warhammer001"
+                                 
+                                />
+                            </div>
+                            <div className="carousel-item float-left w-full">
+                            <div
+                                    className="m-auto object-cover h-48 md:h-96 imgCarousel imgCarousel_2" 
                                     alt="Warhammer001"
                                 />
                             </div>
                             <div className="carousel-item float-left w-full">
-                                <img
-                                    src={imgCarousel_2}
-                                    className="m-auto object-cover h-48 md:h-96" 
-                                    alt="Warhammer002"
+                            <div
+                                    className="m-auto object-cover h-48 md:h-96 imgCarousel imgCarousel_3" 
+                                    alt="Warhammer001"
                                 />
                             </div>
                             <div className="carousel-item float-left w-full">
-                                <img
-                                    src={imgCarousel_3}
-                                    className="m-auto object-cover h-48 md:h-96" 
-                                    alt="Warhammer003"
+                            <div
+                                    className="m-auto object-cover h-48 md:h-96 imgCarousel imgCarousel_4" 
+                                    alt="Warhammer001"
                                 />
                             </div>
                         </div>
+                        
                         <button
                                 className="carousel-control-prev absolute top-10 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
                                 type="button"    data-bs-target="#carouselExampleIndicators"    data-bs-slide="prev">
