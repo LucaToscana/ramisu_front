@@ -15,7 +15,7 @@ import { useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind';// Constants used for navigating with the navbar
 import { init, selectCart } from './../../shared/redux-store/cartSlice';
 import { selectorFavState, fetchFav, clearFavData } from '../../shared/redux-store/favoritesSlice';
-import { deleteNotificationStore, isOpenNotification, isOpenNotificationStore, selectNotifications } from '../../shared/redux-store/webSocketSlice';
+import { chatClientStore, deleteNotificationStore, isOpenChatStore, isOpenNotification, isOpenNotificationStore, selectNotifications } from '../../shared/redux-store/webSocketSlice';
 import useModal from '../../shared/components/utils-components/Modal/useModal';
 import ModalNotifications from '../../shared/components/utils-components/Modal/ModalNotifications';
 import { deleteNotificationByDate } from '../../api/backend/user';
@@ -259,25 +259,27 @@ const ConnectionStatusButtons = () => {
     }
 
 
-    const pushHistory = (value, id) => {
+    const pushHistory = (value, id,client) => {
         toggle
         dispatch(isOpenNotificationStore())
+     
         if (value === MESSAGE_SAVE_CARD || value === MESSAGE_DELETE_CARD) {
             history.push(URL_USER_PAY_METOD)
-        }
+        }else
         if (value === MESSAGE_NEW_ORDER) {
             history.push(URL_ORDERS)
-        }
+        }else
         if (value === MESSAGE_NEW_ADDRESS) {
             history.push(URL_PROFILE)
-        }
+        }else
         if (value === MESSAGE_STATUS_ORDER) {
             if (location.pathname === `/order/detail/${id}`) { window.location.reload() }
-
+        else 
             if (id !== 0 && id !== undefined) {
                 history.push(`/order/detail/${id}`)
             }
-        }
+        }s
+        
 
     }
 

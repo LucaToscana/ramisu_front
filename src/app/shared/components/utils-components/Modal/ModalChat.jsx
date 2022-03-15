@@ -108,9 +108,9 @@ const ModalChat = ({ isShowing, hide, userData, handleMessage, sendPrivateValue,
 
             </div>
             <div className="flex  justify-end mb-2 ">
-              <div className="mb-1 grid grid-cols-5 lg:w-full ">
+              <div className="mb-1 grid grid-cols-5 w-full ">
                 <div className="col-span-4">
-                  <p> <input type="text" className="input-message rounded lg:w-full" placeholder="enter the message"
+                  <p> <input type="text" className="input-message rounded w-full" placeholder="enter the message"
                     value={userData.message} onChange={handleMessage} /></p>
                 </div>
                 <div className="col-span-1 flex justify-center item-center">

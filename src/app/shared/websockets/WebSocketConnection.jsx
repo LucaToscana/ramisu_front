@@ -3,7 +3,7 @@ import { over } from 'stompjs';
 import { accountLogin, hasRole, isAuthenticated } from '../services/accountServices';
 import { getToken } from '../services/tokenServices';
 import { useDispatch, useSelector } from 'react-redux';
-import { onPrivateMessageStore, onPrivateNotificationStore, selectCustomers, selectPrivateChats } from '../redux-store/webSocketSlice';
+import { isOpenChat, isOpenChatStore, onPrivateMessageStore, onPrivateNotificationStore, selectChatClient, selectCustomers, selectPrivateChats } from '../redux-store/webSocketSlice';
 import useModal from '../components/utils-components/Modal/useModal';
 import { sendAllNotificationByUser } from '../../api/backend/user';
 import { ChatIcon } from '@heroicons/react/solid';
@@ -24,6 +24,9 @@ const login = () => { if (isAuthenticated() === true) { return accountLogin() } 
 const WebSocketConnection = (props) => {
   const customers = useSelector(selectCustomers)
   const chats = useSelector(selectPrivateChats)
+  const openChat =useSelector(isOpenChat)
+  const chatClient =useSelector(selectChatClient)
+
   const { isShowing: isShowed, toggle: toggle } = useModal();
   const dispatch = useDispatch()
   const [publicChats, setPublicChats] = useState([]);
@@ -40,7 +43,7 @@ const WebSocketConnection = (props) => {
     receivername: '',
     connected: false,
     message: '',
-    chat: ''
+    chat: chatClient
 
   });
 
@@ -60,7 +63,7 @@ const WebSocketConnection = (props) => {
     }
 
     console.log(userData);
-  }, [userData]);
+  }, [userData,openChat]);
 
 
 
@@ -109,9 +112,6 @@ const WebSocketConnection = (props) => {
 
 
   const onPrivateNotification = (payload) => {
-
-    if (payloadData.message.senderName!==login())
-
       var payloadData = JSON.parse(payload.body);
     dispatch(onPrivateNotificationStore(payloadData))
   }
@@ -163,7 +163,7 @@ const WebSocketConnection = (props) => {
   }
 
   const sendPrivateValue = () => {
-    if (userData.message !== "") {
+    if (userData.message !== ""&&  client !== "") {
       if (stompClient) {
         if (!hasRole(ROLE_SALESMAN)) {
           var chatMessage = {
@@ -220,9 +220,11 @@ const WebSocketConnection = (props) => {
              p-4 ">
 
       {(isAuthenticated() === true && userData.connected === true && login()) ?
-        <button className={isShowed || disabled === true ? 'pointer-events-none animate-pulse lg:mb-16 z-50' : 'pointer-events-auto lg:mb-16 z-50'}
+
+        <button className={ disabled === true ? 'pointer-events-none animate-pulse lg:mb-16 z-50' : 'pointer-events-auto lg:mb-16 z-50'}
           onClick={() => {
             setTimeout(function () {
+              dispatch(isOpenChatStore())
               toggle()
             }, 1000);
 
@@ -231,7 +233,7 @@ const WebSocketConnection = (props) => {
             }, 1000);
 
           }}>
-          <ChatIcon className='w-20 lg:w-36 md:w-24 '></ChatIcon></button>
+          <ChatIcon className='w-20 lg:w-24 md:w-24 '></ChatIcon></button>
         : null}
 
 
@@ -239,10 +241,10 @@ const WebSocketConnection = (props) => {
     <div className='bottom-0'>
       <ModalChat
         userData={userData}
-        isShowing={isShowed}
+        isShowing={openChat}
         privateChats={chats}
         publicChats={publicChats}
-        hide={toggle}
+        hide={()=> dispatch(isOpenChatStore())}
         message={userData.message}
         handleMessage={handleMessage}
         sendPrivateValue={sendPrivateValue}
