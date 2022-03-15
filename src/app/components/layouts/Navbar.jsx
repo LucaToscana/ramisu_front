@@ -71,7 +71,7 @@ const Navbar = () => {
                         </div>
 
                         <div className='text-center items-center justify-center w-full'>
-
+                            <h1 className=' block sm:hidden text-white font-bold mt-2'>WarMarket</h1>
                             <div className="max-w-7xl px-4 mt-1 lg:mt-5 mx-auto">
 
                                 {/* Search bar */}
