@@ -33,7 +33,6 @@ const LabelPannelView = () => {
         
     getAllTags().then(responses => {
         setTags(responses.data)})
-    
   }, []);
 
   // Send label values in back and labelType is categories, universes or tags
@@ -89,9 +88,9 @@ const LabelPannelView = () => {
     // Position of the elements below
     <div  className="flex flex-col justify-center items-center mx-6 md:mx-20 xl:mx-40 text-white">
       {/* The box container */}
-      <div className="box-border m-6 border-4 w-full min-h-[500px] bg-gray-700">
+      <div className="box-border m-6 border-4 w-full min-h-[500px] bg-gradient-to-tr from-gray-500 to-gray-900">
         <div className="text-center mt-5">
-          <h2 className="underline font-bold">Pannel de gestion :</h2>
+          <h2 className="underline font-bold">Gestion des labels :</h2>
         </div>
         {/* Button to hide each label type separately */}
         <div className="md:flex justify-center text-center md:space-x-5 xl:space-x-10 mt-5">
@@ -105,18 +104,17 @@ const LabelPannelView = () => {
           {({ values }) => (
             <Form>
               <div className="text-center mt-10">
-                <div className="border-2 border-gray-300 rounded-xl w-min sm:w-96 p-3 mx-auto">
-                  <label htmlFor="inputPannel">Label : </label>
-                  <input type="text" aria-label="inputPannel" className="rounded-md border-gray-300 bg-gray-500 placeholder-gray-400" placeholder="Label name" />
-                </div>
-                <div className="md:flex justify-center text-center md:space-x-5 xl:space-x-10">
-                  <button className={buttonPannelStyle+" p-1"}>Ajouter</button>
-                  <button className={buttonPannelStyle+" p-1"}>Modifier</button>
-                  <button className={buttonPannelStyle+" p-1"}>Supprimer</button>
+                <div className="flex">
+                  <div className="border-2 border-gray-300 rounded-xl w-min sm:w-96 p-3 mx-auto">
+                    <label htmlFor="inputPannel">Label : </label>
+                    <input type="text" aria-label="inputPannel" className="rounded-md border-gray-300 bg-gray-500 placeholder-gray-400" placeholder="Label name" />
+                    <button className={buttonPannelStyle+" p-1"}>Ajouter</button>
+                  </div>
                 </div>
                 <div className="justify-center mt-20">
                   <div>
                     <h3>Les labels existants :</h3>
+                    <button className={buttonPannelStyle+" p-1"}>Supprimer</button>
                   </div>
                   {/* recover all label type in the box with possibility to hide them */}
                   <div className="m-5 border-2 border-gray-300 rounded-xl justify-center">
