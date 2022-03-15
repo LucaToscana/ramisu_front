@@ -1,4 +1,6 @@
+import { LoginIcon } from "@heroicons/react/solid";
 import { createSlice } from "@reduxjs/toolkit";
+import { accountLogin } from "../services/accountServices";
 
 
 
@@ -25,6 +27,7 @@ const privateChats = () => {
 const initialState = {
     isOpenNotification: false,
     privateChats: [],
+    customers: [],
     notifications: notifications(),
     totalNotification: totNotifications(),
     totPrivateChats: totNotifications()
@@ -87,9 +90,15 @@ export const webSocketSlice = createSlice({
         }
 
         , onPrivateMessageStore(state, payload) {
-            if (payload.payload.status === "MESSAGE") {
+            if (payload.payload.status === "MESSAGE" && payload.payload.message.senderName !== accountLogin()) {
                 state.privateChats.push(payload.payload);
+                state.privateChats.push(payload.payload);
+                if (!(state.customers.indexOf(payload.payload.chat) > -1)
+               && payload.payload.chat!==accountLogin() ) {
+                    state.customers.push(payload.payload.chat)
+                }
                 localStorage.setItem("messages", JSON.stringify(state.privateChats))
+
             }
 
         }
@@ -103,5 +112,7 @@ export const { initFilter, setTotalNotification, onPrivateNotificationStore,
 export const selectTotalNotifications = (state) => state.webSocket.totalNotification
 export const selectNotifications = (state) => state.webSocket.notifications
 export const isOpenNotification = (state) => state.webSocket.isOpenNotification
+export const selectCustomers = (state) => state.webSocket.customers
+export const selectPrivateChats = (state) => state.webSocket.privateChats
 
 export default webSocketSlice.reducer

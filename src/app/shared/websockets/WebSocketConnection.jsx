@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { over } from 'stompjs';
-import { accountLogin, isAuthenticated } from '../services/accountServices';
+import { accountLogin, hasRole, isAuthenticated } from '../services/accountServices';
 import { getToken } from '../services/tokenServices';
-import { useDispatch } from 'react-redux';
-import { onPrivateMessageStore, onPrivateNotificationStore } from '../redux-store/webSocketSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { onPrivateMessageStore, onPrivateNotificationStore, selectCustomers, selectPrivateChats } from '../redux-store/webSocketSlice';
 import useModal from '../components/utils-components/Modal/useModal';
 import { sendAllNotificationByUser } from '../../api/backend/user';
 import { ChatIcon } from '@heroicons/react/solid';
 import ModalChat from '../components/utils-components/Modal/ModalChat.jsx'
+import { ROLE_SALESMAN } from '../constants/rolesConstant';
+
 var Sock = new WebSocket("ws://localhost:8080/ws");
 var stompClient = over(Sock);
 
-//var stompClient = null;
 
 const token = () => { if (isAuthenticated() === true) { return getToken() } else { return 'null' } }
 const login = () => { if (isAuthenticated() === true) { return accountLogin() } else { return 'null' } }
@@ -21,32 +22,42 @@ const login = () => { if (isAuthenticated() === true) { return accountLogin() } 
 
 
 const WebSocketConnection = (props) => {
+  const customers = useSelector(selectCustomers)
+  const chats = useSelector(selectPrivateChats)
   const { isShowing: isShowed, toggle: toggle } = useModal();
   const dispatch = useDispatch()
-  const [privateChats, setPrivateChats] = useState(new Map());
   const [publicChats, setPublicChats] = useState([]);
-
   const [tab, setTab] = useState("CHATROOM");
+  const [client, setClient] = useState("");
+  const [disabled, setDisabled] = useState(true)
+  const messagesEndRef = useRef(null)
 
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
   const [userData, setUserData] = useState({
     username: login(),
     receivername: '',
     connected: false,
-    message: ''
+    message: '',
+    chat: ''
+
   });
 
 
-
-
-
   useEffect(() => {
-
+    
     if (isAuthenticated() === true && userData.connected === false) {
+      if (hasRole(ROLE_SALESMAN) === false) {
+        setClient(login())
+      }
+      setTimeout(function () {
+        setDisabled(false)
+      }, 10000);
+
       connect()
+
     }
-
-
-
 
     console.log(userData);
   }, [userData]);
@@ -79,26 +90,30 @@ const WebSocketConnection = (props) => {
       status: "JOIN"
     };
     stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+
   }
 
 
 
   const onPrivateMessage = (payload) => {
-
     console.log("new onPrivateMessage")
     var payloadData = JSON.parse(payload.body);
+    console.log(payloadData.date)
+    publicChats.push(payloadData);
+    setPublicChats([...publicChats]);
     dispatch(onPrivateMessageStore(payloadData))
     console.log("dispatch onPrivateMessage end")
+    scrollToBottom()
   }
 
 
 
   const onPrivateNotification = (payload) => {
 
-    console.log("new onPrivateNotification")
-    var payloadData = JSON.parse(payload.body);
+    if (payloadData.message.senderName!==login())
+
+      var payloadData = JSON.parse(payload.body);
     dispatch(onPrivateNotificationStore(payloadData))
-    console.log("dispatch onPrivateNotification end")
   }
 
 
@@ -134,60 +149,61 @@ const WebSocketConnection = (props) => {
     var payloadData = JSON.parse(payload.body);
     switch (payloadData.status) {
       case "JOIN":
-        if (!privateChats.get(payloadData.senderName)) {
-          privateChats.set(payloadData.senderName, []);
-          setPrivateChats(new Map(privateChats));
-        }
+
         break;
       case "MESSAGE":
         publicChats.push(payloadData);
         setPublicChats([...publicChats]);
+        setTimeout(function () {
+          scrollToBottom()
+        }, 300);
         break;
+
     }
   }
-  /*
-   const sendPrivateValue = () => {
-     if (stompClient) {
-       var chatMessage = {
-         senderName: userData.username,
-         receiverName: "WARHAMMERMARKET",
-         message: userData.message,
-         status: "MESSAGE"
-       };
- 
-       if (userData.username !== tab) {
-         // privateChats.get(tab).push(chatMessage);
-         //  setPrivateChats(new Map(privateChats));
-         //  localStorage.setItem("notification",JSON.stringify(privateChats))
- 
-       }
-       stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-       setUserData({ ...userData, "message": "" });
-       // localStorage.setItem("notification", JSON.stringify(privateChats))
- 
-     }
-   }
- 
- */
 
   const sendPrivateValue = () => {
-    if (stompClient) {
-      var chatMessage = {
-        senderName: userData.username,
-        receiverName: tab,
-        message: userData.message,
-        status: "MESSAGE"
-      };
+    if (userData.message !== "") {
+      if (stompClient) {
+        if (!hasRole(ROLE_SALESMAN)) {
+          var chatMessage = {
+            senderName: userData.username,
+            receiverName: "WARHAMMERMARKET",
+            message: userData.message,
+            status: "MESSAGE",
+            chat: userData.username
+          }
+        } else {
+          var chatMessage = {
+            senderName: userData.username,
+            receiverName: client,
+            message: userData.message,
+            status: "MESSAGE",
+            chat: client
 
-      if (userData.username !== tab) {
-        privateChats.get(tab).push(chatMessage);
-        setPrivateChats(new Map(privateChats));
+          }
+        }
+        stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage))
+        setUserData({ ...userData, "message": "" });
+        publicChats.push(JSON.stringify(chatMessage));
+        setPublicChats([...publicChats]);
       }
-      stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-      setUserData({ ...userData, "message": "" });
     }
   }
 
+
+
+
+  const handleChat = (event) => {
+
+    const { value } = event.target;
+    setUserData({ ...userData, "chat": value });
+    setUserData({ ...userData, "receivername": value });
+    setClient(value)
+    setTimeout(function () {
+      scrollToBottom()
+    }, 300);
+  }
   return <div>
 
     {props.children}
@@ -203,30 +219,41 @@ const WebSocketConnection = (props) => {
              bottom-0
              p-4 ">
 
-      {isAuthenticated() === true && (isAuthenticated() === true && userData.connected === true && login() )?
-        <button className={isShowed ? 'hidden' : 'pointer-events-auto lg:mb-16 z-50'}
+      {(isAuthenticated() === true && userData.connected === true && login()) ?
+        <button className={isShowed || disabled === true ? 'pointer-events-none animate-pulse lg:mb-16 z-50' : 'pointer-events-auto lg:mb-16 z-50'}
           onClick={() => {
-            toggle()
+            setTimeout(function () {
+              toggle()
+            }, 1000);
+
+            setTimeout(function () {
+              scrollToBottom()
+            }, 1000);
+
           }}>
-          <ChatIcon className='w-20 lg:w-24 md:w-24 '></ChatIcon></button>
+          <ChatIcon className='w-20 lg:w-36 md:w-24 '></ChatIcon></button>
         : null}
 
 
     </footer>
     <div className='bottom-0'>
-       <ModalChat
-      userData={userData}
-      isShowing={isShowed}
-      privateChats={privateChats}
-      publicChats={publicChats}
-      hide={toggle}
-      message={userData.message}
-      handleMessage={handleMessage}
-      sendPrivateValue={sendPrivateValue}
-      tab={tab}
-      sendValue={sendValue}
-    >
-    </ModalChat></div>  </div>;
+      <ModalChat
+        userData={userData}
+        isShowing={isShowed}
+        privateChats={chats}
+        publicChats={publicChats}
+        hide={toggle}
+        message={userData.message}
+        handleMessage={handleMessage}
+        sendPrivateValue={sendPrivateValue}
+        tab={tab}
+        sendValue={sendValue}
+        customers={customers}
+        setChat={() => handleChat}
+        client={client}
+        messagesEndRef={messagesEndRef}
+      >
+      </ModalChat></div>  </div>;
 }
 
 

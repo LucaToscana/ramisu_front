@@ -31,16 +31,17 @@ const ModalNotifications = ({ isShowing, hide, notifications, deleteOne, pushHis
 
                 {<div className="self-center ">
 
-                  <div className="  p-4 w-full bg-white rounded-lg border shadow-md sm:p-2 mb-5">
+                  <div className="  p-4 w-full  h-96 overflow-x-auto  bg-white rounded-lg border shadow-md sm:p-2 mb-5">
 
-                    <div className=" ">
-                      <ul role="list" className="divide-y divide-gray-200 ">
+                    <div className="  overflow-x-auto  ">
+                      <ul role="list" className="divide-y divide-gray-200  ">
 
                         {notifications !== null ? notifications.slice(0).reverse().map((element, index) => <>  <li class="py-3 sm:py-4">
                           <div className="flex items-center space-x-8">
                             <div className="flex-1 min-w-0" >
                               <p className="text-xs text-gray-900  w-24  lg:w-full " >
-                                <button onClick={() => { pushHistory(element.message,element.idorder) 
+                                <button onClick={() => {
+                                   pushHistory(element.message,element.idorder) 
                                    deleteOne(index,element.date)
                                   
                                   }
