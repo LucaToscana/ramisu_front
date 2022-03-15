@@ -20,7 +20,7 @@ import { URL_PASSWORD_RESET_START } from '../../shared/constants/urls/urlConstan
 const FormLogin = ({ submit, errorLog }) => (
     <Formik initialValues={defaulValuesLogin} onSubmit={submit} validationSchema={schemaFormLogin}>
         <Form className='m-8'>
-            <p>     <div className='rounded-md shadow-sm -space-y-px'>
+            <div>     <div className='rounded-md shadow-sm -space-y-px'>
                 <label className="mb-2">Mail</label>
                 <Field type="text" name="mail"
                     component={CustomInput} className='rounded-none rounded-t-md mb-4 shadow-inner' noError />
@@ -50,7 +50,7 @@ const FormLogin = ({ submit, errorLog }) => (
                     </button>
                 </div>
                 {errorLog && <ErrorMessSmall middle message="Identifiants incorrect(s)" />}
-            </p>      </Form>
+            </div>      </Form>
     </Formik>
 )
 
