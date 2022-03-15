@@ -4,7 +4,11 @@ import ProductHomePageCard from '../components/product/ProductHomePageCard';
 
 import Loader from './../shared/components/utils-components/Loader';
 import handleHttpError from './../shared/components/form-and-error-components/HandleHttpError';
+ import img_carousel_1 from "../assets/images/carousel01.jpg"
+ import img_carousel_2 from "../assets/images/carousel02.jpg"
 
+ import img_carousel_4 from "../assets/images/carousel04.jpg"
+ import img_carousel_5 from "../assets/images/carousel05.jpg"
 import 'tw-elements';
 
 
@@ -82,11 +86,20 @@ const HomeView = ({ history }) => {
             })
     }, [])
 
-    return (
 
+    const getImgCarousel = (img)=>
+    {
+        return {
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundImage: `url('${img}')`,
+        }
+    }
+
+    return (
+      
         <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 cursor-default pb-8 p-5">
 
-       
       
             <div className='text-primary-500 font-extrabold w-full '>
              
@@ -124,27 +137,30 @@ const HomeView = ({ history }) => {
                         <div className="carousel-inner relative w-full overflow-hidden border-4 border-yellow-500 navbar-color">
                             <div className="carousel-item active float-left w-full">
                                 <div
-                                    
-                                    className="m-auto object-cover h-48 md:h-96 imgCarousel imgCarousel_1" 
+                                    className="m-auto object-cover h-48 md:h-96 imgCarousel " 
+                                    style={getImgCarousel(img_carousel_1)} 
                                     alt="Warhammer001"
                                  
                                 />
                             </div>
                             <div className="carousel-item float-left w-full">
                             <div
-                                    className="m-auto object-cover h-48 md:h-96 imgCarousel imgCarousel_2" 
+                                    className="m-auto object-cover h-48 md:h-96 imgCarousel " 
+                                    style={getImgCarousel(img_carousel_2)} 
                                     alt="Warhammer001"
                                 />
                             </div>
                             <div className="carousel-item float-left w-full">
                             <div
-                                    className="m-auto object-cover h-48 md:h-96 imgCarousel imgCarousel_3" 
+                                    className="m-auto object-cover h-48 md:h-96 imgCarousel " 
+                                    style={getImgCarousel(img_carousel_4)} 
                                     alt="Warhammer001"
                                 />
                             </div>
                             <div className="carousel-item float-left w-full">
                             <div
-                                    className="m-auto object-cover h-48 md:h-96 imgCarousel imgCarousel_4" 
+                                    className="m-auto object-cover h-48 md:h-96 imgCarousel " 
+                                    style={getImgCarousel(img_carousel_5)} 
                                     alt="Warhammer001"
                                 />
                             </div>
