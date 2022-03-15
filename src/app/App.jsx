@@ -2,20 +2,19 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import RoutesWithNavigation from './routes/RoutesWithNavigation';
 import { store } from './shared/redux-store/store';
+import WebSocketConnection from './shared/websockets/WebSocketConnection';
 
 
-/**
- * Component APP
- * with: 
- * 	- creation of redux store
- * 
- * @author Peter Mollet
- */
+
 const App = () => {
+
     return (
-        <Provider store={ store }>
-			<RoutesWithNavigation/>
-		</Provider>
+
+        <Provider store={store}>
+            <WebSocketConnection>
+                <RoutesWithNavigation />
+                </WebSocketConnection>
+        </Provider>
     );
 };
 

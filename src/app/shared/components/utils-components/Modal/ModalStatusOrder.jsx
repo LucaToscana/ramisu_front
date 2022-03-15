@@ -1,21 +1,20 @@
-import { BadgeCheckIcon, CheckIcon } from "@heroicons/react/solid";
+import { CheckCircleIcon } from "@heroicons/react/outline";
+import { TrashIcon, XIcon } from "@heroicons/react/solid";
 import React from "react";
 import ReactDOM from "react-dom";
-import logo from "../../../../assets/images/icones/logo/warhammer-shop-logo.png";
 
 
 
 
 
-const ModalSuccessRegister = ({ isShowing, hide }) =>
+const ModalStatusOrder = ({ isShowing, hide,status,newStatus, confirm}) =>
   isShowing
     ? ReactDOM.createPortal(
       <>
-        <div className="modal-overlay">
-          <div className="modal-wrapper">
-            <div className="modal">
-              <div className="modal-header"> <p className="font-extrabold text-2xl text-center	">Inscription effectué avec succès !
-              Vous serez redirigé vers la page de connexion</p>
+        <div className="modal-overlay ">
+          <div className="modal-wrapper  p-5">
+            <div className="modal p-5">
+              <div className="modal-header"> <p className="font-extrabold text-2xl text-center w-full	">Confirmez-vous le changement de statut ?</p>
 
                 <button
                   type="button"
@@ -25,13 +24,27 @@ const ModalSuccessRegister = ({ isShowing, hide }) =>
                   <span>&times;</span>
                 </button>
               </div>
-              <div className="modal-body items-center justify-center text-center">
-              { <div className="self-center p-3">
-                 <img src={logo}></img>
+              <div className="modal-body items-center justify-center text-center mt-5">
+
+                <div className="flex items-center space-x-5 m-5 p-2  border-2 border-red-700 mb-10 mt-10 ">
+                  <div className="flex-shrink-0">
+                                     </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                    Nouvel état
+                    </p>
+                    <p className="text-lg font-bold text-gray-500 truncate dark:text-gray-400">
+                   {newStatus}             </p>
+                  </div>
+                 
+                </div>
+                <div className="flex  justify-around  mt-5"> 
+                <div className="p-3">  <button type="button"
+                  onClick={confirm} className="validateCart "> <div className="grid grid-cols-5"><p className="text-xl col-span-4 mt-1">CONFIRM </p> <CheckCircleIcon className="w-6 m-1"></CheckCircleIcon></div></button>  </div>  
                   
-                  
-                   </div>}
-               
+                    <div className="p-3 w-1/3"> <button type="button"
+                    onClick={hide} className="deletCards  "><div ><XIcon className="w-6 m-1"></XIcon></div></button></div> </div>
+
 
               </div>
             </div>
@@ -70,7 +83,7 @@ const ModalSuccessRegister = ({ isShowing, hide }) =>
               margin: auto;
               border-radius: 5px;
               max-width: 500px;
-              width: 80%;
+              width: 1500%;
               padding: 1rem;
             }
 
@@ -94,4 +107,4 @@ const ModalSuccessRegister = ({ isShowing, hide }) =>
     )
     : null;
 
-export default ModalSuccessRegister;
+export default ModalStatusOrder;

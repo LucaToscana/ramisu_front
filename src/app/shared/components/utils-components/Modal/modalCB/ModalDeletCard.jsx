@@ -1,7 +1,6 @@
-import { BadgeCheckIcon, CheckIcon, TrashIcon, XIcon } from "@heroicons/react/solid";
+import {  TrashIcon, XIcon } from "@heroicons/react/solid";
 import React from "react";
 import ReactDOM from "react-dom";
-import logo from "../../../../../assets/images/icones/logo/warhammer-shop-logo.png";
 import visa from '../../../../../assets/images/visa.png'
 import mastercard from '../../../../../assets/images/mastercard.png'
 

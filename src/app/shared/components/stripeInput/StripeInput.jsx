@@ -39,7 +39,7 @@ const ccValidator = value => {
   return /(^\d{5}$)|(^\d{5}-\d{4}$)/.test(value);
 };
 
-export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay, cards }) => {
+export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay, cards ,disabled}) => {
   const {
     getCardImageProps,
     getCardNumberProps,
@@ -224,8 +224,8 @@ export const StripeInput = ({ isUS, submit, tot, remember, isRemember, errorPay,
 
                 
                   ? <div className="mb-10 ">
-                    <button className="validateCart animate-wiggle " type="submit">
-                      {!locationMetod() ? <p>Payer
+                    <button  type="submit"className={!disabled?'validateCart animate-wiggle':'validateCart animate-pulse'} disabled={disabled}>
+                      {!locationMetod() ? <p>PAYER
                       </p> : <div className="grid grid-cols-5"><p className="text-xl col-span-4 mt-1">ENREGISTRER </p> <CreditCardIcon className="w-7 m-1"></CreditCardIcon></div>}
                     </button>
                   </div> : null} </div></Form>

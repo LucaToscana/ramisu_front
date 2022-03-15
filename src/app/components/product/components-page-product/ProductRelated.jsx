@@ -15,7 +15,7 @@ export const ProductRelated = ({ product }) => {
 
     return (
         <div className=" mt-5 mb-5 w-1/3 p-1 min-w-1/2 min-w-[100%]">
-            <img src={product.picture} alt="" className=" hover:cursor-pointer    w-full md: h-2/3  " onClick={() => {
+            <img src={product.picture} alt="" className=" hover:cursor-pointer    w-full md: h-2/3  "  onClick={() => {
                 let text = window.location.pathname;
                 let result = text.substring(0, 17);
                 if (result === "/produits/detail/") {
@@ -25,7 +25,7 @@ export const ProductRelated = ({ product }) => {
                 else { history.push(`/produits/detail/${product.id}`) }
 
             }} />
-            <div className="mt-4 p-2 flex flex-col justify-center w-full clip-path productCard">
+           <div className="mt-4 p-2 flex flex-col justify-center w-full clip-path productCard">
                 <div>
                     <h2 className="m-2 text-center text-xs font-bold truncate">{product.label}</h2>
                 </div>

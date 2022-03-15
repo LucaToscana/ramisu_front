@@ -25,7 +25,8 @@ import {
             URL_PSW_HANDLING,
             URL_USER_PAY_METOD,
             URL_LABEL_PANNEL,
-            URL_WISHLIST
+            URL_WISHLIST,
+            URL_ORDERS_COMMERCIAL
         } from "../shared/constants/urls/urlConstants";
 import { customHistory } from "../shared/services/historyServices";
 import { ROLE_ADMIN, ROLE_SALESMAN, ROLE_USER } from "../shared/constants/rolesConstant";
@@ -36,7 +37,7 @@ import PasswordResetStartView from "../views/PasswordResetStartView";
 import PasswordResetEndView from "../views/PasswordResetEndView";
 import AccountView from "../views/AccountView";
 import AdminHomeView from "../views/AdminHomeView";
-import ProductView from "../views/ProductView";
+import ProductsView from "../views/ProductsView";
 import ProductDetailView from "../views/ProductDetailView";
 import CartsView from "../views/CartsView";
 import ProfileView from "../views/ProfileView";
@@ -44,9 +45,6 @@ import OrdersView from "../views/OrdersView";
 import RegisterView from "../views/RegisterView";
 import PaiementLivraisonView from "../views/PaiementLivraisonView";
 import PaiementPayerView from "../views/PaiementPayerView";
-import ProductFigurinesView from "../views/ProductFigurinesView";
-import ProductPeinturesView from "../views/ProductPeinturesView";
-import ProductLibrairieView from "../views/ProductLibrairieView";
 import ContactView from "../views/ContactView";
 import OrderDetailView from "../views/OrderDetailView";
 import BackOffice from "../views/BackOffice"
@@ -55,6 +53,7 @@ import PasswordHandling from "../views/PasswordHandling";
 import PaiementMetodView from "../views/PaiementMetodView";
 import LabelPannelView from "../views/LabelPannelView";
 import Wishlist from "../views/Wishlist";
+import OrdersCommercialView from "../views/OrdersCommercialView";
 /**
  * Routes of the application
  * with public and private route
@@ -73,6 +72,8 @@ const Routes = () => {
             <PrivateRoute path={URL_ADMIN_HOME} component={AdminHomeView} roles={[ROLE_ADMIN]} />
             <PrivateRoute path={URL_COMM_HOME} roles={[ROLE_SALESMAN]}  component={BackOffice}/>
             <PrivateRoute path={URL_ORDERS} component={OrdersView} roles={[ROLE_USER]} />
+            <PrivateRoute path={URL_ORDERS_COMMERCIAL} component={OrdersCommercialView} roles={[ROLE_SALESMAN]} />
+
             <PrivateRoute path={URL_ORDER_DETAILS} component={OrderDetailView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_ORDER_RETURN} component={RetourView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_PSW_HANDLING} component={PasswordHandling} roles={[ROLE_USER]} />
@@ -80,10 +81,10 @@ const Routes = () => {
             <PrivateRoute path={URL_WISHLIST} component={Wishlist} roles={[ROLE_USER]} />
             
             
-            <Route exact path={URL_PRODUCT} component={ProductView} />
-            <Route exact path={URL_PRODUCT_FIGURINES} component={ProductFigurinesView} />
-            <Route exact path={URL_PRODUCT_PEINTURES} component={ProductPeinturesView} />
-            <Route exact path={URL_PRODUCT_LIBRAIRIE} component={ProductLibrairieView} />
+            <Route exact path={URL_PRODUCT} component={ProductsView} />
+            <Route exact path={URL_PRODUCT_FIGURINES} component={ProductsView} />
+            <Route exact path={URL_PRODUCT_PEINTURES} component={ProductsView} />
+            <Route exact path={URL_PRODUCT_LIBRAIRIE} component={ProductsView} />
 
             <Route path={URL_PRODUCTS_DETAILS} component={ProductDetailView} />
             <Route path={URL_CART} component={CartsView} />
@@ -91,7 +92,6 @@ const Routes = () => {
             <Route path={URL_CONTACT_US} roles={[ROLE_USER]}  component={ContactView} />
             <PrivateRoute path={URL_PAIEMENT}  roles={[ROLE_USER]}    component={PaiementLivraisonView}/>
             <PrivateRoute path={URL_PAIEMENT_2}roles={[ROLE_USER]}  component={PaiementPayerView}/>
-
             <PrivateRoute path={URL_USER_PAY_METOD} roles ={[ROLE_USER]} component={PaiementMetodView}/>
             
             <Route path="*">

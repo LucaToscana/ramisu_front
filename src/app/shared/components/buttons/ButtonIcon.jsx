@@ -24,7 +24,7 @@ const ButtonIcon = ({ item, color }) => {
         px-2 rounded-md object-center ${clr}`}
     >
       <img className="h-9 sm:h-12 mr-10" src={item.image} alt="" />
-      <div className="">{item.name}</div>
+      <div className=""><p className="font-bold">{item.name}</p></div>
     </div>
   );
 };

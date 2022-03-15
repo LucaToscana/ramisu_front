@@ -1,19 +1,25 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon , HeartIcon} from '@heroicons/react/outline';
-import { Link } from 'react-router-dom';
+import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon, HeartIcon } from '@heroicons/react/outline';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN , URL_CART ,URL_WISHLIST} from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN, URL_CART, URL_WISHLIST, URL_USER_PAY_METOD, URL_ORDERS, URL_PROFILE } from './../../shared/constants/urls/urlConstants';
+import { Link, useHistory } from 'react-router-dom';
+// import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import logo from "./../../assets/images/icones/logo/warhammer-shop-logo.png";
 import { labelFilter } from '../../shared/redux-store/filterProductSlice';
 import { selectIsLogged, signOut } from './../../shared/redux-store/authenticationSlice';
-import { selectProfileInfo, getuserPicture, fetchProfile, clearUserInformations, selectProfileStatus} from './../../shared/redux-store/userProfileSlice';
+import { selectProfileInfo, getuserPicture, fetchProfile, clearUserInformations, selectProfileStatus } from './../../shared/redux-store/userProfileSlice';
 import { useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind';// Constants used for navigating with the navbar
 import { init, selectCart } from './../../shared/redux-store/cartSlice';
-import {selectorFavState, fetchFav, clearFavData} from '../../shared/redux-store/favoritesSlice';
+import { selectorFavState, fetchFav, clearFavData } from '../../shared/redux-store/favoritesSlice';
+import { deleteNotificationStore, isOpenNotification, isOpenNotificationStore, selectNotifications } from '../../shared/redux-store/webSocketSlice';
+import useModal from '../../shared/components/utils-components/Modal/useModal';
+import ModalNotifications from '../../shared/components/utils-components/Modal/ModalNotifications';
+import { deleteNotificationByDate } from '../../api/backend/user';
+import { MESSAGE_NEW_ORDER, MESSAGE_SAVE_CARD, MESSAGE_STATUS_ORDER ,MESSAGE_DELETE_CARD, MESSAGE_NEW_ADDRESS} from '../../shared/constants/messageConstant';
 /**
  * Website navbar made with Tailwind
  * 
@@ -25,23 +31,23 @@ const Navbar = () => {
     const location = useLocation()    //input filter
     const dispatch = useDispatch();
     const isLogged = useSelector(selectIsLogged);
- 
+
     const carts = useSelector(selectCart);
 
 
-    const qty  =carts.reduce((acc, elt)=>  acc + elt.quantite,0);
-   
+    const qty = carts.reduce((acc, elt) => acc + elt.quantite, 0);
+
     const [navigation, setNavigation] = useState(
         [
-            { name: 'Accueil',      to: '/',            current: true   },
-            { name: 'Boutique',     to: '/products',    current: false  },
-            { name: 'Figurines',    to: '/Figurine',    current: false  },
-            { name: 'Peinture',     to: '/Peinture',    current: false  },
-            { name: 'Librairie',    to: '/Librairie',   current: false  },
-            { name: 'Contact',      to: '/Contact',     current: false  }
+            { name: 'Accueil', to: '/', current: true },
+            { name: 'Boutique', to: '/products', current: false },
+            { name: 'Figurines', to: '/Figurine', current: false },
+            { name: 'Peinture', to: '/Peinture', current: false },
+            { name: 'Librairie', to: '/Librairie', current: false },
+            { name: 'Contact', to: '/Contact', current: false }
         ]
     );
-    
+
     const [show, setShow] = React.useState();
 
     function classNames(...classes) {
@@ -49,7 +55,7 @@ const Navbar = () => {
     }
 
     return (
-        <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color">
+        <Disclosure as="nav" className="top-0 sticky z-50 w-full navbar-color ">
             {({ open }) => (
                 <>
                     <div className='lg:flex items-center pb-2'>
@@ -74,7 +80,7 @@ const Navbar = () => {
                                     <div className='lg:block hidden w-full'>
                                         <div className={'flex border border-gray-300 shadow-searchBar rounded-sm items-center w-full mx-10 md:mx-48 lg:mx-10'}>
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-6 mx-2" fill="none" viewBox="0 0 24 24" stroke="#C3A758" >
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                             </svg>
                                             <input type="text"/* name="query"*/ id="searchNavBar" placeholder="Rechercher" required="required" onChange={(e) => dispatch(labelFilter(e.target.value))}
                                                 className={'w-full h-full text-lg text-white bg-transparent'}
@@ -89,16 +95,16 @@ const Navbar = () => {
                                         */}
                                         <ConnectionStatusButtons />
                                         {isLogged && (
-                                        <div className='ml-3'>
-                                        <Link to={URL_WISHLIST} >
-                                            <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
-                                        </Link>
-                                        </div>
+                                            <div className='ml-3'>
+                                                <Link to={URL_WISHLIST} >
+                                                    <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
+                                                </Link>
+                                            </div>
                                         )}
                                         <div className="cart-wrapper">
-                                             <Link to={URL_CART} >
+                                            <Link to={URL_CART} >
                                                 <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
-                                                {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                                {qty >= 1 ? <span className='badge badge-warning' id='lblCartCount'> {qty}</span> : null}
                                             </Link>
                                         </div>
                                     </div>
@@ -151,15 +157,15 @@ const Navbar = () => {
                                             <ConnectionStatusButtons />
                                             {isLogged && (
                                                 <div className='ml-3'>
-                                                <Link to={URL_WISHLIST} >
-                                                    <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
-                                                </Link>
+                                                    <Link to={URL_WISHLIST} >
+                                                        <HeartIcon className={"text-[#C3A758] hover:text-white hover:cursor-pointer w-8 h-8 m-2 p-1"} />
+                                                    </Link>
                                                 </div>
-                                                )}
+                                            )}
                                             <div className="cart-wrapper">
                                                 <Link to={URL_CART} >
                                                     <ShoppingCartIcon className='bg-gray-800 p-1 rounded-full text-custom-orange hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white w-8 h-8 m-2' />
-                                                    {qty>=1?   <span className='badge badge-warning' id='lblCartCount'> {qty}</span>:null}
+                                                    {qty >= 1 ? <span className='badge badge-warning' id='lblCartCount'> {qty}</span> : null}
                                                 </Link>
                                             </div>
                                         </div>
@@ -177,7 +183,7 @@ const Navbar = () => {
                                                         )}
                                                         aria-current={item.to == location.pathname ? 'page' : undefined}
                                                     >
-                                                        {item.name}
+                                                     <p className='font-bold'>  {item.name}</p> 
                                                     </Link>
                                                 ))}
                                             </div>
@@ -227,35 +233,83 @@ export default Navbar
  * @author Cecile
  */
 const ConnectionStatusButtons = () => {
-
+    const history = useHistory()
     const dispatch = useDispatch();
     const isLogged = useSelector(selectIsLogged);
     const profileData = useSelector(selectProfileInfo);
     const profileStatus = useSelector(selectProfileStatus);
-    
-    const favState = useSelector(selectorFavState); 
-    
-  
+    const notifications = useSelector(selectNotifications)
+
+    const favState = useSelector(selectorFavState);
+    const { isShowing: isModalShowed, toggle: toggle } = useModal();
+    const isOpenModalNotification = useSelector(isOpenNotification)
+
+    let notificationLength = () => { try { return notifications.length } catch { return 0 } }
+
+    const hideNotfication = () => {
+        toggle
+        dispatch(isOpenNotificationStore())
+    }
+
+
+    const deleteNotification = (value, date) => {
+        dispatch(deleteNotificationStore(value))
+        deleteNotificationByDate(date).then(res => { console.log("deleteNotificationByDate" + res.status) })
+
+    }
+
+
+    const pushHistory = (value, id) => {
+        toggle
+        dispatch(isOpenNotificationStore())
+        if (value === MESSAGE_SAVE_CARD || value === MESSAGE_DELETE_CARD) {
+            history.push(URL_USER_PAY_METOD)
+        }
+        if (value === MESSAGE_NEW_ORDER) {
+            history.push(URL_ORDERS)
+        }
+        if (value === MESSAGE_NEW_ADDRESS) {
+            history.push(URL_PROFILE)
+        }
+        if (value === MESSAGE_STATUS_ORDER) {
+            if (location.pathname === `/order/detail/${id}`) { window.location.reload() }
+
+            if (id !== 0 && id !== undefined) {
+                history.push(`/order/detail/${id}`)
+            }
+        }
+
+    }
 
     if (isLogged) {
 
-       
-        if(favState=='idle')dispatch(fetchFav())
-        if(profileStatus=='idle')dispatch(fetchProfile())
-      
+
+        if (favState == 'idle') dispatch(fetchFav())
+        if (profileStatus == 'idle') dispatch(fetchProfile())
+
 
         /* Connected user buttons and menu */
         return (
             <>
+                <ModalNotifications
+                    isShowing={isOpenModalNotification}
+                    hide={hideNotfication}
+                    title="Notifications"
+                    notifications={notifications}
+                    deleteOne={deleteNotification}
+                    pushHistory={pushHistory}
+                ></ModalNotifications>
                 {/* Notification bell icon */}
-             <div  className='animate-wiggle'>   <button
-                    type="button"
-                    className="bg-transparent	p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white sm:ml-7"
-                >
-                    <span className="sr-only bg-transparent	">Voir les notifications</span>
-                    <BellIcon className="h-6 w-6 bg-transparent" aria-hidden="true" />
-                </button>
-                </div>
+                <div className="cart-wrapper" onClick={() => { { notifications.length !== 0 && dispatch(isOpenNotificationStore()) } }}>
+                    <div className={notificationLength() > 0 ? 'animate-wiggle' : ''}>   <button
+                        type="button"
+                        className="bg-transparent	p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-transparent focus:ring-transparent sm:ml-7"
+                    >
+                        <span className="sr-only bg-transparent	">Voir les notifications</span>
+                        <BellIcon className="h-8 w-8 bg-transparent" aria-hidden="true" />
+                        {notificationLength() !== 0 ? <span className='badge badge-warning animate-wiggle' id='lblCartCount'>{notificationLength()}</span> : null}
+                    </button>
+                    </div></div>
                 {/* User burger menu */}
                 <Menu as="div" className="ml-3">
                     <div>
@@ -283,7 +337,7 @@ const ConnectionStatusButtons = () => {
                                     <Link to={URL_ACCOUNT}
                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                     >
-                                        Gérer votre compte
+                                      <p>  Gérer votre compte</p>
                                     </Link>
                                 )}
                             </Menu.Item>
@@ -294,14 +348,17 @@ const ConnectionStatusButtons = () => {
                                         to="#"
                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                         onClick={() => {
+                                            localStorage.removeItem("myAddress")
+                                            localStorage.removeItem("idAddress")
+                                            localStorage.removeItem("notification")
+
                                             dispatch(signOut());
                                             dispatch(clearUserInformations());
                                             dispatch(clearFavData());
                                             dispatch(init());
-                                            // history.push(URL_HOME)
                                         }}
                                     >
-                                        Se déconnecter
+                                      <p>  Se déconnecter</p>
                                     </Link>
                                 )}
                             </Menu.Item>
@@ -322,14 +379,14 @@ const ConnectionStatusButtons = () => {
                             to={URL_REGISTRATION}
                             className='text-gray-300 hover:bg-gray-700 hover:text-white
                             px-3 py-2 rounded-lg text-lg font-medium'>
-                            <span>S'inscrire</span>
+                           <p><span>S'inscrire</span></p> 
 
                         </Link>
                         <Link
                             to={URL_LOGIN}
                             className='text-gray-300 hover:bg-gray-700 hover:text-white
                             px-3 py-2 rounded-lg text-lg font-medium whitespace-nowrap'>
-                            Se connecter
+                           <p> Se connecter</p>
                         </Link>
                     </div>
                 </div>
@@ -345,14 +402,14 @@ const ConnectionStatusButtons = () => {
                                     <Link
                                         to={URL_REGISTRATION}
                                         className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
-                                        <span>S'inscrire</span>
+                                     <p>   <span>S'inscrire</span></p>
                                     </Link>
                                 </Menu.Item>
                                 <Menu.Item>
                                     <Link
                                         to={URL_LOGIN}
                                         className='text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
-                                        Se connecter
+                                     <p>   Se connecter</p>
                                     </Link>
                                 </Menu.Item>
                             </div>

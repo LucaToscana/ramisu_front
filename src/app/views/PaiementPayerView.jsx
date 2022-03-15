@@ -16,18 +16,15 @@ import ModalPayRegistresCBWarahmmerMarket from '../shared/components/utils-compo
 
 const PaiementPayerView = () => {
 
-
+const[disabled, setDisabled]=useState(false)
     const { isShowing: isFormRegistredShowed, toggle: toggleRegistred } = useModal();
-
     const { isShowing: isFormShowed, toggle: toggle } = useModal();
     const { isShowing: isSuccessFormShowed, toggle: toggleSuccessForm } = useModal();
     const [cards, setCards] = useState([])
-    const [cardClient, setCardClient] = useState("")
-
     const [remember, setRemember] = useState(false)
     const [errorPay, setErrorPay] = useState("")
     const carts = useSelector(selectCart)
-    const idaddress = localStorage.getItem("idAddress",)
+    const idaddress = localStorage.getItem("idAddress")
     const dispatch = useDispatch();
     const history = useHistory()
 
@@ -64,18 +61,12 @@ const PaiementPayerView = () => {
 
             console.log("This page is reloaded");
         } else {
-
-
-
-
-
             console.log("This page is not reloaded");
         }
 
         if (cards === null) { }
         console.log('stripe')
         allCustomerCards().then((res) => {
-            //setErrorPay()
             setCards(res.data.listCards)
         })
             .catch((error) => {
@@ -113,18 +104,22 @@ const PaiementPayerView = () => {
     const deleteAndRefresh = () => {
         dispatch(init())
         localStorage.removeItem('totPayer')
+        localStorage.removeItem('myAddress')
+        localStorage.removeItem('idAddress')
         history.push('/')
     }
 
     const handleSubmitRegistred = (values) => {
         if (values !== "") {
+            setDisabled(true)
+
             payWithRegistredCard(values, totalToPay())
                 .then((res) => {
                     setErrorPay(res.data)
                     finishOrder(res.data)
 
                 })
-                .catch((error) => {
+                .catch((error) => {setDisabled(false)
                 });
 
 
@@ -137,17 +132,23 @@ const PaiementPayerView = () => {
 
 
     const handleSubmit = (values) => {
+        setDisabled(true)
+
         values.amount = totalToPay()
         if (!remember) {
+            setDisabled(true)
+
             payOneTimes(values)
                 .then((res) => {
                     setErrorPay(res.data)
                     finishOrder(res.data)
 
                 })
-                .catch((error) => {
+                .catch((error) => {        setDisabled(false)
+
                 });
         } else {
+            setDisabled(true)
 
             newCustomerAndPay(values)
                 .then((res) => {
@@ -155,7 +156,7 @@ const PaiementPayerView = () => {
 
                     finishOrder(res.data)
                 })
-                .catch((error) => {
+                .catch((error) => { setDisabled(false)
                 });
 
 
@@ -166,6 +167,7 @@ const PaiementPayerView = () => {
 
 
     function finishOrder(test) {
+        setDisabled(true)
         if (test === "succeeded") {
             localStorage.setItem('totPayer', totalToPay())
             validate(carts)
@@ -173,7 +175,7 @@ const PaiementPayerView = () => {
             if (isFormRegistredShowed) { toggleRegistred() }
             setTimeout(function () { toggleSuccessForm() }, 2000);
             closeSuccess()
-        }
+        }else{ setDisabled(false)}
     }
 
     const validate = (carts) => {
@@ -192,7 +194,6 @@ const PaiementPayerView = () => {
                 country: addressLocalStorage.country,
 
             }
-
             addOrderWithAddress(carts.filter(c => !(c.quantite === "")), address, "domicile", isMain).then(res => {
                 if (res.data) {
                     localStorage.setItem("successPaiement", true)
@@ -220,6 +221,7 @@ const PaiementPayerView = () => {
                 }}
                 isRemember={remember}
                 errorPay={errorPay}
+                disabled={disabled}
 
             >
             </ModalPayCBWarahmmerMarket>
@@ -233,9 +235,7 @@ const PaiementPayerView = () => {
                 submit={handleSubmitRegistred}
                 cards={cardsList()}
                 errorPay={errorPay}
-                submit={handleSubmitRegistred}
-
-
+                disabled={disabled}
             >
             </ModalPayRegistresCBWarahmmerMarket>
 
@@ -255,10 +255,13 @@ const PaiementPayerView = () => {
                     <h1 className='flex font-bold text-2xl ml-4'>Paiement par paypal</h1>
                 </div>
                 <div className='flex  justify-around   border-b-2 border-gray-400 mt-5   cartCard '>
-                    <div className='self-center h-full'>  <img src={paypal} height={150} width={150}></img>  </div>    <p className="text-sm mt-10 pb-10 self-center w-24  lg:w-96">
+                    <div className='self-center h-full'>  <img src={paypal} height={150} width={150}></img>  </div>
+
+
+                    <div> <p className="text-sm mt-10 pb-10 self-center w-24  lg:w-96  md:w-96">
                         Vous pouvez valider le paiement avec paypal
                     </p>
-
+                    </div>
                     <div className='grid grid-cols-1 text-sm	'>
 
                         <div className='flex justify-center m-3 w-full pr-5'>
@@ -278,7 +281,7 @@ const PaiementPayerView = () => {
 
 
 
-                    <p className="text-sm  self-center w-16  lg:w-96">
+                    <p className="lg:text-lg text-sm  self-center hidden  md:block md:w-36 lg:w-80">
                         Vous pouvez valider le paiement avec                   Visa or Mastercard
 
                     </p>
@@ -287,11 +290,11 @@ const PaiementPayerView = () => {
 
 
 
-                    <div className='grid grid-cols-1 text-s'>
+                    <div className='grid grid-cols-1 mobile:w-56 lg:w-96 '>
 
                         <div className='flex justify-center m-3 w-full pr-5'>
                             <div className='flex  justify-end self-end m-2 text-xs w-full		'>
-                                <button className="paiementCart  lg:w-36 md:w-36" onClick={toggle}>   <div className=" grid grid-cols-3 "><p className=" text-xs col-span-1 mt-1 pl-2">NOUVELLE CART</p><div className='w-1'></div>
+                                <button className="paiementCart  lg:w-64 md:w-32" onClick={toggle}>   <div className=" grid grid-cols-4 "><p className="lg:text-lg  lg:text:md col-span-2 lg:col-span-3  mt-1 pl-2  mobile:text-xs">NOUVELLE  CART</p><div className='w-1 lg:hidden'></div>
                                     <CreditCardIcon className="lg:w-7 w-6 m-1 ml-2 "></CreditCardIcon></div> </button>
 
                             </div>
@@ -301,10 +304,10 @@ const PaiementPayerView = () => {
 
 
 
-                        {cardsList().length > 0 ? <div className='flex justify-center m-3 w-full pr-5'>
-                            <div className='flex  justify-end self-end m-2 text-xs w-full	'>
-                                <button className="paiementCart  lg:w-36 md:w-36" onClick={toggleRegistred}> <div className=" grid grid-cols-3"><p className=" text-xs col-span-1 mt-1 pl-2">MES CARTES</p>
-                                    <div className='w-1'></div>
+                        {cardsList().length > 0 ? <div className='flex justify-center m-3 w-full  pr-5'>
+                            <div className='flex  justify-end  self-end m-2 text-xs w-full	'>
+                                <button className="paiementCart  lg:w-64 md:w-32" onClick={toggleRegistred}> <div className=" grid grid-cols-4  "><p className="lg:text-lg text-xs lg:text:md col-span-2 lg:col-span-3  mt-1 pl-2  mobile:text-xs">MES CARTES</p>
+                                    <div className='w-1 lg:hidden'></div>
                                     <CollectionIcon className="lg:w-7 w-6 m-1 ml-2 "></CollectionIcon></div> </button>
                             </div>
 

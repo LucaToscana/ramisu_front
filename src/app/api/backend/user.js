@@ -9,7 +9,9 @@ import {
         URL_BACK_USER_PWS_TOKEN_VALIDITY,
         URL_BACK_ADD_FAV,
         URL_BACK_GET_FAV,
-        URL_BACK_RM_FAV
+        URL_BACK_RM_FAV,
+        URL_BACK_DELETE_NOTIFICATION_BY_DATE,
+        URL_BACK_SEND_USER_NOTIFICATION
     } from "../../shared/constants/urls/urlBackEnd";
 
 export function getProfile() {
@@ -103,6 +105,12 @@ export function changeUserRoles(params)
     return  apiBackEnd.put(URL_BACK_UPGRADE_USER, params)
 }
 
-    
+export function deleteNotificationByDate(date)
+{
+    return  apiBackEnd.delete(URL_BACK_DELETE_NOTIFICATION_BY_DATE+ date)
+}  
 
-    
+export function sendAllNotificationByUser()
+{
+    return  apiBackEnd.get(URL_BACK_SEND_USER_NOTIFICATION)
+}  

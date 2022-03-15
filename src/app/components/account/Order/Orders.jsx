@@ -8,10 +8,10 @@ function Orders({ order, showModal }) {
 
     return (
         <div className='md:grid md:grid-cols-5 p-6 border-b-2'>
-            <div className='p-2'>{order.id}</div>
-            <div className='p-2'>{order.date}</div>
-            <div className='p-2'>{order.status.label}</div>
-            <div className='p-2'>{(order.total*1).toFixed(2)} € TTC</div>
+            <div className='p-2'><p>{order.id}</p></div>
+            <div className='p-2'><p>{order.date}</p></div>
+            <div className='p-2'><p>{order.status.label}</p></div>
+            <div className='p-2'><p>{(order.total*1).toFixed(2)} € TTC</p></div>
            
            
             <div className='grid grid-cols-2  '>
@@ -23,7 +23,7 @@ function Orders({ order, showModal }) {
 
          <button  className='  h-8 w-full '><div className='detailOrder ' onClick={() => {
                     history.push(`/order/detail/${order.id}`)
-                }} > Détails</div></button> 
+                }} > <p className='uppercase'>Détails</p></div></button> 
             </div>
         </div>
     )

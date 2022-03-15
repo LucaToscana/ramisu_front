@@ -1,12 +1,16 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { register } from '../api/backend/account';
 import { URL_LOGIN } from '../shared/constants/urls/urlConstants';
 import Register from '../components/account/Register';
 import ReCAPTCHA from 'react-google-recaptcha'
-import axios from 'axios';
-import ModalSuccessRegister from '../shared/components/utils-components/Modal/ModalSuccessRegister';
-import useModal from '../shared/components/utils-components/Modal/useModal';
+import { Formik, Form, Field } from 'formik';
+import DatePickerField from '../shared/components/form-and-error-components/DatePickerField';
+import "react-datepicker/dist/react-datepicker.css";
+import Loader from './../shared/components/utils-components/Loader';
+import { CustomInput } from '../shared/components/form-and-error-components/InputCustom';
+import AddressInput from '../shared/components/form-and-error-components/AddressInput';
 
+import logo from "../assets/images/icones/logo/warhammer-shop-logo.png";
 
 
 /**
@@ -17,70 +21,82 @@ import useModal from '../shared/components/utils-components/Modal/useModal';
  */
 const RegisterView = ({ history }) => {
 
-    const [errorLog, setErrorLog] = useState(false)
     const recaptchaRef = useRef(null)
     const recaptcha = import.meta.env.VITE_REACT_RECAPTCHA
-    const { isShowing: isFormShowed, toggle: toggleForm } = useModal();
-    const exit = () => {
-        toggleForm()
-         history.push(URL_LOGIN)
-    }
-    const handleInscription = async (values) => {
+   
+    const [success, setSuccess] = useState(false);
+    const [errorMsg , setErrorMessage] = useState();
+    const [loading , setloading] = useState(false);
+    const [delay , setDelay] = useState(-1);
+    
+    
+    
+    let time = null;
+    useEffect(()=>{
+       if(delay>=0) time = setTimeout(()=>
+       {
+           setDelay(delay-1);
+           if(delay==0)
+           {
+               clearInterval(time);
+               history.push(URL_LOGIN);
+           }
+       } , 1000);
+    },[delay]);
 
 
-        const captchaToken = await recaptchaRef.current.executeAsync();
-        recaptchaRef.current.reset();
+    const handleInscription = (values) => {
 
-
-        const stringCapatcha = captchaToken + ""
-
-
-        const registration = {
-            firstName: values.firstName,
-            lastName: values.lastName,
-            birthdate: values.birthdate,
-            mail: values.mail,
-            adresse: values.adresse,
-            number: values.number,
-            street: values.street,
-            additionalAddress: values.additionalAddress,
-            postalCode: values.postalCode,
-            city: values.city,
-            country: values.country,
-            phone: values.phone,
-            password: values.password,
-            passwordTest: values.passwordTest,
-            captchaToken: stringCapatcha
-        }
-
-
-
-        await register(registration).then(res => {
-            if (res.status === 200 && res.data !== 0) {
-                toggleForm()
-               
+        setloading(true);
+        recaptchaRef.current.executeAsync().then(token=>{
+            const registration = Object.assign({}, values, { captchaToken: token});
+            register(registration).then(res => {
                 recaptchaRef.current.reset();
-
-            }else{ recaptchaRef.current.reset();}
-        }).catch(() => setErrorLog(true))
+                if (res.status === 200 && res.data !== 0) {
+                    if(res.data>0){
+                        setSuccess(true);  
+                        setDelay(3);
+                    }
+                }else setErrorMessage("L'Email existe deja dans la base de données");
+                 
+            }).catch((error) => {
+                console.log(error);
+               
+            }).finally(()=> { 
+                recaptchaRef.current.reset();
+                setloading(false);
+            });;
+        }).catch(error=>{
+            console.log(error)
+            recaptchaRef.current.reset(); 
+            setloading(false);
+        });
+      
     }
 
     return (
 
-        <div className="md:flex md:justify-center pb-8">
-            <ReCAPTCHA
-                sitekey={recaptcha}
-                ref={recaptchaRef}
-                size="invisible"
+        <div style={{ minHeight: 700 }}  className="md:flex md:justify-center pb-8">
 
+            <ReCAPTCHA sitekey={recaptcha} ref={recaptchaRef} size="invisible" />
 
-            />
+            {loading ? < Loader /> : (
+                <>{ !success&& (<Register submit={handleInscription} errorMsg={errorMsg}  />)}
 
-            <Register submit={handleInscription} errorLog={errorLog} />
-            <ModalSuccessRegister
-                isShowing={isFormShowed}
-                hide={exit}
-            ></ModalSuccessRegister>
+                 { success && (
+                     <div className="mt-16 flex flex-col justify-center">
+                         <p className="font-extrabold text-2xl text-center	">
+                             Inscription effectué avec succès !<br/>
+                             Vous serez redirigé vers la page de connexion
+                         </p>
+                         <p className="mt-3 text-xl text-center italic">
+                             {delay} seconde{delay>1?'s' : ''}
+                         </p>
+                     </div>)
+                }</> 
+
+            ) }
+            
 
         </div>
 

@@ -7,7 +7,7 @@ import StripeInput from "../../../stripeInput/StripeInput";
 import war from '../../../../../assets/images/war1.png'
 import CardCreditLinesOrder from "../../../stripeInput/CardCreditLinesOrder";
 
-const ModalPayRegistresCBWarahmmerMarket = ({ isShowing, hide, toggle, cards, tot ,submit}) =>
+const ModalPayRegistresCBWarahmmerMarket = ({ isShowing, hide, toggle, cards, tot ,submit,disabled}) =>
   isShowing
     ? ReactDOM.createPortal(
       <>
@@ -31,8 +31,7 @@ const ModalPayRegistresCBWarahmmerMarket = ({ isShowing, hide, toggle, cards, to
               <div className="flex  items-center justify-center text-center">
 
                 {<div className="self-center ">
-
-                  <CardCreditLinesOrder cards={cards} size={cards.length} isFormShowed={isShowing} toggle={toggle}  tot={tot} submit={submit} ></CardCreditLinesOrder>
+                  <CardCreditLinesOrder cards={cards} size={cards.length} isFormShowed={isShowing} toggle={toggle}  tot={tot} submit={submit} disabled={disabled} ></CardCreditLinesOrder>
 
 
 

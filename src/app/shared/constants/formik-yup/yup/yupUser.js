@@ -36,31 +36,21 @@ export const schemaFormProfile = Yup.object().shape({
 })
 
 export const schemaFormRegistration = Yup.object().shape({
-    firstName: Yup.string().required("Required input"),
-    lastName: Yup.string().required("Required input"),
-    birthdate: Yup.string().required("Required input"),
+    lastName: Yup.string().required("Saisissez votre nom"),
+    firstName: Yup.string().required("Saisissez votre prénom"),
     mail: Yup.string()
         .email("L'email n'est pas valide")
-        .required("Champ requis"),
-    number: Yup.string().required("Required input"),
-    street: Yup.string().required("Required input"),
-    postalCode: Yup.string().required("Required input"),
-    city: Yup.string().required("Required input"),
-    country: Yup.string().required("Required input"),
-    phone: Yup.string()
-        .required("Champ requis")
-        .matches(/^[0-9]+$/, "Nombres uniquement")
-        .min(10, "Doit contenir au moins 10 chiffres")
-        .max(16, "Doit contenir moins de 16 chiffres"),
+        .required("Saisissez votre adresse Email"),
     password: Yup.string()
-        .required("Le mot de passe est requis")
+        .required("Choisissez un mot de passe")
         .matches(
             /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]))(?=.*\d)((?=.*[a-z]))((?=.*[A-Z])).*$/,
             "Le mot de passe doit contenir au moins 8 caractères, une majuscule, un nombre et un caractère spécial"
         ),
     passwordTest: Yup.string()
-        .oneOf([Yup.ref("password"), null], "pas de correspondance")
-        .required("Champ requis"),
+        .oneOf([Yup.ref("password"), null], "Les mots de passe ne correspondent pas")
+        .required("Confirmé le mot de passe que vous avez saisie"),
+
 
 })
 

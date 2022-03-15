@@ -121,7 +121,7 @@ const PaiementMetodView = () => {
                     </div>
                 </div>
                 <div className='w-0 lg:w-24  '>     </div>
-                <div className='p-5  '> <StripeInput tot={0} submit={handleSubmit} tot={0} errorPay={cardsLimit()} ></StripeInput></div>
+                <div className='p-5  '> <StripeInput tot={0} submit={handleSubmit}  errorPay={cardsLimit()} ></StripeInput></div>
             </div>
 
         </div>)

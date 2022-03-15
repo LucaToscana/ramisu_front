@@ -10,5 +10,5 @@ export const defaulValuesAdress = {
     postalCode:'',
     city: '',
     country: '',
-    isMain:false
+    isMain:true
 }
