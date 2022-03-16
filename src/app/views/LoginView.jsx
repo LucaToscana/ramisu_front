@@ -55,7 +55,7 @@ const LoginView = ({ history }) => {
 
                     }
                 } else {
-                    setErrorLog(true)
+                  
 
                     if (res.data.errorMessage) {
                         setErrorLog(false);

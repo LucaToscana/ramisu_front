@@ -29,7 +29,7 @@ const RegistrationFrom = ({ submit, errorMsg  }) => (
     >
         <Form className='m-8'>
             <div className='rounded-md shadow-sm -space-y-px'>
-           <div>     <label className="mb-2">Votre nom</label>
+           <div>  <p>   <label className="mb-2">Votre nom</label>
                 <Field type="text" name="lastName"
                     component={CustomInput} className='rounded-none rounded-t-md mb-4 shadow-inner'  />
 
@@ -52,7 +52,10 @@ const RegistrationFrom = ({ submit, errorMsg  }) => (
                 <label className="mb-2">Entrez le mot de passe à nouveau</label>
                 <Field type='password' name='passwordTest'
                         component={CustomInput} 
-                        className='rounded-none rounded-b-md mb-4 shadow-inner'  /></div>
+                        className='rounded-none rounded-b-md mb-4 shadow-inner'  />
+                        
+                        
+                        </p></div>
             </div>
 
 
@@ -62,7 +65,7 @@ const RegistrationFrom = ({ submit, errorMsg  }) => (
 
             <div className="flex justify-center">
                 <button type="submit" className="rounded-xl login font-bold">
-                 <div> S'inscrire</div>  
+                 <div> <p>S'inscrire</p></div>  
                 </button>
             </div>
          

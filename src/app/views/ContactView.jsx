@@ -55,14 +55,14 @@ const ContactView = ()=>
                                 
                           
                                 <div className='w-full mt-5'>
-                                <label className='italic'>Votre message</label>
+                               <label className='italic'> <p>Votre message</p></label>
                                 {errors.message!=undefined &&
                                     <div className="text-red-900">
                                             {errors.message}
                                     </div>
                                     }
                             </div>
-                                <textarea   value={values.message} 
+                          <textarea   value={values.message} 
                                             name="message" 
                                             placeholder="Saisir ici votre message.." 
                                             className='h-[200px] mt-1 rounded w-full' 
@@ -72,26 +72,26 @@ const ContactView = ()=>
                                                 }
                                             }></textarea>
                                 {msgLen>5 && (<span className='text-sm text-gray-600 text-center'>{msgLen}  / 1024<br/>caractères maximum</span>)}
-                                <div className='w-full'>
-                                <label className='italic'>Votre Adress Email</label>
+                                  <div className='w-full'>
+                              <p>  <label className='italic'>Votre Adress Email</label>
                                         <input type="email" name="email" placeholder='Votre Email' className='w-full' required   onChange={e=>{
                                                     handleChange(e)}}
                                                     onKeyDown={(event)=>{
                                                         if (event.key =="Enter"){
                                                             event.preventDefault();
                                                             submitHandler(values)}
-                                                    }} />
+                                                    }} /></p>
                                         {errors.email!=undefined &&
                                     <div className="text-red-900 w-full">
-                                            {errors.email}
+                                          <p>  {errors.email}</p>
                                     </div>
                                     }
                                  </div>  
                                 <div className='w-full flex justify-end'>
-                                <input  type="button" 
+                           <p>     <input  type="button" 
                                         onClick={handleSubmit} 
                                         value="Envoyer"  
-                                        className="rounded-xl login font-bold mt-5 hover:cursor-pointer"  />
+                                        className="rounded-xl login font-bold mt-5 hover:cursor-pointer"  /></p>
                                 </div>
                         </form>
                           )}

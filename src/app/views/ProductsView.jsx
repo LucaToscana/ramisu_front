@@ -90,7 +90,7 @@ const ProductsView = () => {
                 <div className="flex justify-between lg:justify-end m-4">
                     
                     <div className="pl-2 pr-2 filterButton w-2/5 flex justify-between items-center lg:hidden" onClick={() => setOpenModal(!openModal)}>
-                        <button className="font-bold">Filtre</button>
+                        <button className="font-bold"><p>Filtre</p></button>
                         <AdjustmentsIcon className="transform rotate-90" width={32} height={32}  />
                     </div>
                 
@@ -103,7 +103,7 @@ const ProductsView = () => {
                             <div className="lg:hidden flex justify-center ">
                                 <button className="filterButton p-2 mt-10" 
                                         onClick={() => setOpenModal(!openModal)} >
-                                    Fermer
+                                   <p> Fermer</p>
                                 </button>
                             </div>
                         </div>
