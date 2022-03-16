@@ -1,23 +1,23 @@
 import * as Yup from 'yup'
 
 export const schemaFormLogin = Yup.object().shape({
-    mail: Yup.string().required("Required input"),
-    password: Yup.string().required("Required input")
+    mail: Yup.string().required("Champ requis"),
+    password: Yup.string().required("Champ requis")
 });
 
 
 export const schemaFormProfile = Yup.object().shape({
-    nom: Yup.string().required("Required input"),
-    prenom: Yup.string().required("Required input"),
-    anniversaire: Yup.string().required("Required input"),
+    nom: Yup.string().required("Champ requis"),
+    prenom: Yup.string().required("Champ requis"),
+    anniversaire: Yup.string().required("Champ requis"),
     email: Yup.string()
         .email("L'email n'est pas valide")
         .required("Champ requis"),
-    numeroA: Yup.string().required("Required input"),
-    rue: Yup.string().required("Required input"),
-    codepostal: Yup.string().required("Required input"),
-    ville: Yup.string().required("Required input"),
-    pays: Yup.string().required("Required input"),
+    numeroA: Yup.string().required("Champ requis"),
+    rue: Yup.string().required("Champ requis"),
+    codepostal: Yup.string().required("Champ requis"),
+    ville: Yup.string().required("Champ requis"),
+    pays: Yup.string().required("Champ requis"),
     telephone: Yup.string()
         .required("Champ requis")
         .matches(/^[0-9]+$/, "Nombres uniquement")
