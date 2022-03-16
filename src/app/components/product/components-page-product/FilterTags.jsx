@@ -53,7 +53,7 @@ function FilterTags({ getFilters, handleFilters }) {
 
                     return filtersArray.map((label, j)=>{
                         return (<div key={i+j} className="flex  showFilter shadow-inner mb-4 mr-8">
-                                    <span  className="font-bold p-2">{label}</span>
+                                    <span  className="font-bold p-2"><p>{label}</p></span>
                                     { isRemovable(label) &&(<span className="font-bold p-2 deleteFilter hover:cursor-pointer " onClick={() => removeFilterX(label)} >X</span>)}
                                 </div>)
                     });

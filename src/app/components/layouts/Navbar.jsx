@@ -207,7 +207,7 @@ const Navbar = () => {
                                                 key={item.name}
                                                 to={item.to}
                                             >
-                                                {item.name}
+                                            <p>    {item.name}</p>
                                             </Link>
 
                                         </Disclosure.Button>

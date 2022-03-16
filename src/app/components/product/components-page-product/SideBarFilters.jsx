@@ -153,7 +153,7 @@ const CheckFilter = ({ label, handleFilters, checked, typeFilter }) => {
     return (
         <div className="ml-8 flex items-center p-2">
             <input type="checkbox" name={label} id={label} checked={checked} onChange={handleChecked} />
-            <label htmlFor={label} className="ml-4 mb-0">{label}</label>
+            <label htmlFor={label} className="ml-4 mb-0"><p>{label}</p></label>
         </div>
     )
 }

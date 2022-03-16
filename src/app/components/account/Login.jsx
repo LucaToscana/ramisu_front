@@ -21,24 +21,24 @@ const FormLogin = ({ submit, errorLog }) => (
     <Formik initialValues={defaulValuesLogin} onSubmit={submit} validationSchema={schemaFormLogin}>
         <Form className='m-8'>
             <div>     <div className='rounded-md shadow-sm -space-y-px'>
-                <label className="mb-2">Mail</label>
+                <p><label className="mb-2">Mail</label>
                 <Field type="text" name="mail"
                     component={CustomInput} className='rounded-none rounded-t-md mb-4 shadow-inner' noError />
                 <label className="mb-2">Mot de passe</label>
                 <Field type='password' name='password'
-                    component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner' noError />
+                    component={CustomInput} className='rounded-none rounded-b-md mb-4 shadow-inner' noError /></p>
             </div>
 
                 <div className="flex flex-col justify-between">
                     <div className="flex">
-                        <Field name='rememberMe' component={CustomCheckbox} value={true} />
-                        <label htmlFor="rememberMe" className="m-0 text-gray-400">Se souvenir de moi</label>
+                       <p> <Field name='rememberMe' component={CustomCheckbox} value={true} />
+                        <label htmlFor="rememberMe" className="m-0 text-gray-400">Se souvenir de moi</label></p>
                     </div>
 
                     <div className="text-center mb-8 mt-4">
                         <Link to={URL_PASSWORD_RESET_START} >
                             <span className=' font-medium underline' >
-                                Mot de passe oublié ?
+                            <p>    Mot de passe oublié ?</p>
                             </span>
                         </Link>
                     </div>
@@ -46,7 +46,7 @@ const FormLogin = ({ submit, errorLog }) => (
 
                 <div className="flex justify-center">
                     <button type="submit" className="rounded-xl login font-bold">
-                        Se connecter
+                        <p>Se connecter</p>
                     </button>
                 </div>
                 {errorLog && <ErrorMessSmall middle message="Identifiants incorrect(s)" />}
