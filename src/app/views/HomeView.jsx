@@ -87,14 +87,6 @@ const HomeView = ({ history }) => {
     }, [])
 
 
-    const getImgCarousel = (img)=>
-    {
-        return {
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            backgroundImage: `url('${img}')`,
-        }
-    }
 
     return (
       
@@ -137,32 +129,37 @@ const HomeView = ({ history }) => {
                         <div className="carousel-inner relative w-full overflow-hidden border-4 border-yellow-500 navbar-color">
                             <div className="carousel-item active float-left w-full">
                                 <div
-                                    className="m-auto object-cover h-48 md:h-96 imgCarousel " 
-                                    style={getImgCarousel(img_carousel_1)} 
+                                    className="m-auto object-cover" 
+                              
                                     alt="Warhammer001"
-                                 
-                                />
+                                 > 
+                                     <img src={img_carousel_1} /> 
+                                </div>
                             </div>
                             <div className="carousel-item float-left w-full">
                             <div
-                                    className="m-auto object-cover h-48 md:h-96 imgCarousel " 
-                                    style={getImgCarousel(img_carousel_2)} 
+                                    className="m-auto object-cover  " 
+                                
                                     alt="Warhammer001"
-                                />
+                                    > 
+                                    <img src={img_carousel_2} /> 
+                               </div>
                             </div>
                             <div className="carousel-item float-left w-full">
                             <div
-                                    className="m-auto object-cover h-48 md:h-96 imgCarousel " 
-                                    style={getImgCarousel(img_carousel_4)} 
+                                    className="m-auto object-cover   " 
                                     alt="Warhammer001"
-                                />
+                                    > 
+                                    <img src={img_carousel_4} /> 
+                               </div>
                             </div>
                             <div className="carousel-item float-left w-full">
                             <div
-                                    className="m-auto object-cover h-48 md:h-96 imgCarousel " 
-                                    style={getImgCarousel(img_carousel_5)} 
+                                    className="m-auto object-cover  " 
                                     alt="Warhammer001"
-                                />
+                                >
+                                <img src={img_carousel_5} />   
+                                </div>
                             </div>
                         </div>
                         
