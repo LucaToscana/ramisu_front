@@ -1,23 +1,23 @@
 import * as Yup from 'yup'
 
 export const schemaFormLogin = Yup.object().shape({
-    mail: Yup.string().required("Required input"),
-    password: Yup.string().required("Required input")
+    mail: Yup.string().required("Champ requis"),
+    password: Yup.string().required("Champ requis")
 });
 
 
 export const schemaFormProfile = Yup.object().shape({
-    nom: Yup.string().required("Required input"),
-    prenom: Yup.string().required("Required input"),
-    anniversaire: Yup.string().required("Required input"),
+    nom: Yup.string().required("Champ requis"),
+    prenom: Yup.string().required("Champ requis"),
+    anniversaire: Yup.string().required("Champ requis"),
     email: Yup.string()
         .email("L'email n'est pas valide")
         .required("Champ requis"),
-    numeroA: Yup.string().required("Required input"),
-    rue: Yup.string().required("Required input"),
-    codepostal: Yup.string().required("Required input"),
-    ville: Yup.string().required("Required input"),
-    pays: Yup.string().required("Required input"),
+    numeroA: Yup.string().required("Champ requis"),
+    rue: Yup.string().required("Champ requis"),
+    codepostal: Yup.string().required("Champ requis"),
+    ville: Yup.string().required("Champ requis"),
+    pays: Yup.string().required("Champ requis"),
     telephone: Yup.string()
         .required("Champ requis")
         .matches(/^[0-9]+$/, "Nombres uniquement")
@@ -72,22 +72,23 @@ export const schemaFormValidateNewPassword = Yup.object().shape({
 
 
 export const schemaFormProfileUpdate =  Yup.object().shape({
-    firstName: Yup.string().required("Required input").max(50, "50 caractères Maximum"),
-    lastName: Yup.string().required("Required input").max(50, "50 caractères Maximum"),
-    birthdate: Yup.string().required("Required input"),
+    firstName: Yup.string().required("Champ requis").max(50, "50 caractères Maximum"),
+    lastName: Yup.string().required("Champ requis").max(50, "50 caractères Maximum"),
+    birthdate: Yup.string().required("Champ requis").nullable(true),
     mail: Yup.string()
         .email("L'email n'est pas valide")
         .required("Champ requis"),
-    number: Yup.string().required("Required input").max(10, "10 caractères Maximum"),
-    street: Yup.string().required("Required input"),
-    postalCode: Yup.string().required("Required input"),
-    city: Yup.string().required("Required input"),
-    country: Yup.string().required("Required input"),
+    number: Yup.string().required("Champ requis").max(10, "10 caractères Maximum").nullable(true),
+    street: Yup.string().required("Champ requis").nullable(true),
+    postalCode: Yup.string().required("Champ requis").nullable(true),
+    city: Yup.string().required("Champ requis").nullable(true),
+    country: Yup.string().required("Champ requis").nullable(true),
     phone: Yup.string()
         .required("Champ requis")
         .matches(/^[0-9]+$/, "Nombres uniquement")
         .min(10, "Doit contenir au moins 10 chiffres")
-        .max(16, "Doit contenir moins de 16 chiffres"),
+        .max(16, "Doit contenir moins de 16 chiffres")
+        .nullable(true),
   
 
 })
