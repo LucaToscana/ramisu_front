@@ -32,7 +32,7 @@ const ModalChat = ({ isShowing, hide, userData, handleMessage, sendPrivateValue,
               <div class="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg overflow-hidden md:max-w-lg  m-3 lg:mr-2 lg:h-96">
                 <div >
                   {hasRole(ROLE_SALESMAN) ?
-                    <div className={"w-full p-4 overflow-x-auto h-full"}>
+                    <div className={"w-full p-4 overflow-x-auto h-48 lg:h-96"}>
                       <p>CLIENTS</p>
                       {customers.map((element) =>
                         <div className={element === client ? "flex items-center justify-start bg-white p-2 rounded bg-yellow-300" : "flex items-center justify-start bg-white p-2 rounded "}>
