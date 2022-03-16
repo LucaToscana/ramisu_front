@@ -53,7 +53,7 @@ const ModalChat = ({ isShowing, hide, userData, handleMessage, sendPrivateValue,
 
                 <div className=" bg-white rounded-lg border shadow-md sm:p-2 mb-5 overflow-x-auto  mt-5 h-96">
 
-                  <div className="h-48 w-96 lg:w-96 lg:h-full">
+                  <div className="h-48 w-full md:w-96 lg:w-96 lg:h-full">
                     <div className="w-full">
                       {userData.connected ?
                         <div className=" lg:h-48">
@@ -68,8 +68,8 @@ const ModalChat = ({ isShowing, hide, userData, handleMessage, sendPrivateValue,
                                     <li className={chat.senderName === userData.username ? 'flex justify-end m-1  rounded-lg   ' : 'flex justify-start m-1  rounded-lg  '} key={index}>
                                  
                                     
-                                      <div className={chat.senderName === userData.username ? ' bg-blue-100  rounded-lg w-2/3 flex justify-end  text-ellipsis overflow-hidden' 
-                                      : ' bg-yellow-100 rounded-lg w-2/3 flex justify-start  text-ellipsis overflow-hidden'} >
+                                      <div className={chat.senderName === userData.username ? ' bg-blue-100  rounded-lg lg:w-2/3 flex justify-end  text-ellipsis overflow-hidden' 
+                                      : ' bg-yellow-100 rounded-lg lg:w-2/3 flex justify-start  text-ellipsis overflow-hidden'} >
                                         <div>
                                           {chat.senderName !== userData.username && <div className={chat.senderName === userData.username ? 'flex justify-end  m-1' : 'flex justify-start m-1 '}>
                                             <p className="text-xs">{!hasRole(ROLE_SALESMAN)
