@@ -18,6 +18,7 @@ const AdminHomeView = () => {
 
     const loadUser = (indexPage) => {
         getUsers(indexPage, pageable.size, sort).then(res => {
+           console.log( '--' , res.data.content[0].dateDDMMYYYY)
             setusers(res.data.content);
             setPageable({
                 current: res.data.number,               size: res.data.size,        totalPages: res.data.totalPages,
@@ -96,7 +97,7 @@ const AdminHomeView = () => {
                                 <div  className='pl-3 md:text-left text-center'>{elt.mail}</div>
                                 <div className={elt.active ? 'text-center' : 'text-center text-red-900 bold'}>{elt.active ? "Actif" : "Désactivé"}</div>
                                 <div className="text-center md:text-left">Role{elt.roles.length>1 && ('s') } : [{elt.roles}]</div>
-                                <div className='text-center'>Créé le {elt.formatedDate}</div>
+                                <div className='text-center'>Créé le {elt.dateDDMMYYYY}</div>
                                 <div className='text-center'>
                                     <button className='p-3 bg-gray-200 hover:bg-gray-400' onClick={(event => getAccount(elt))}>Détails</button>
                                 </div>
@@ -186,9 +187,9 @@ const ModalUser = (props) => {
                                 <span>{props.data.id}</span>
                                 <span className='block font-normal mr-5'>Nom d'utilisateur</span>
                                 <span>{props.data.mail}</span>
-                                {props.data.dateOfCreation && (<div className='text-sm'>   
+                                {props.data.birthdateDDMMYYYY && (<div className='text-sm'>   
                                     <span className='font-normal ml-5'>Créér le :</span>
-                                    <span  className='font-normal ml-5'>{props.data.formatedDate}</span>
+                                    <span  className='font-normal ml-5'>{props.data.dateDDMMYYYY}</span>
                                 </div>)}
                             </Dialog.Title>
                             <div className='block md:flex'>
@@ -208,7 +209,7 @@ const ModalUser = (props) => {
                                     </div>
                                     <div className={fieldSetClass}>
                                         <span className='italic w-1/3'>date de naissance :</span>
-                                        <span className='italic w-full'>{props.data.birthdate}</span>
+                                        <span className='italic w-full'>{props.data.birthdateDDMMYYYY}</span>
                                     </div>
                                     <div className={fieldSetClass}>
                                         <span className='italic w-1/3'>Adresse : </span>
