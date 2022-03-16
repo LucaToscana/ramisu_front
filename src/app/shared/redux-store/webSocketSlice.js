@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { accountLogin } from "../services/accountServices";
 
 
 
@@ -23,8 +24,12 @@ const privateChats = () => {
 }
 
 const initialState = {
+    online: false,
+    chatClient: "",
+    isOpenChat: false,
     isOpenNotification: false,
     privateChats: [],
+    customers: [],
     notifications: notifications(),
     totalNotification: totNotifications(),
     totPrivateChats: totNotifications()
@@ -38,9 +43,7 @@ export const webSocketSlice = createSlice({
 
 
         },
-        isOpenNotificationStore(state) {
-            state.isOpenNotification = !state.isOpenNotification
-        },
+
         deleteNotificationStore(state, { payload }) {
             var newState = []
             var id = +(state.notifications.length - (payload + 1))
@@ -73,35 +76,78 @@ export const webSocketSlice = createSlice({
                         return true;
                     }
                 })
-
                 if (test === false) {
                     state.notifications.push(payload.payload);
                 }
             }
-
-
-
             localStorage.setItem("notification", JSON.stringify(state.notifications))
 
 
         }
 
         , onPrivateMessageStore(state, payload) {
-            if (payload.payload.status === "MESSAGE") {
+            if (payload.payload.status === "MESSAGE" && payload.payload.message.senderName !== accountLogin()) {
                 state.privateChats.push(payload.payload);
+
+                if (!(state.customers.indexOf(payload.payload.chat) > -1)
+                    && payload.payload.chat !== accountLogin()) {
+                    state.customers.push(payload.payload.chat)
+                }
                 localStorage.setItem("messages", JSON.stringify(state.privateChats))
+
             }
 
-        }
+        },
 
+
+
+        onPrivateListMessageStore(state, { payload }) {
+            payload.forEach(element => {
+                if (element.status === "MESSAGE" && element.message.senderName !== accountLogin()) {
+
+                    state.privateChats.push(element);
+
+                    if (!(state.customers.indexOf(element.chat) > -1)
+                        && element.chat !== accountLogin()) {
+                        state.customers.push(element.chat)
+                    }
+                    localStorage.setItem("messages", JSON.stringify(state.privateChats))
+
+                }
+            });
+
+
+        },
+        isOpenChatStore(state, { payload }) {
+            state.isOpenChat = !state.isOpenChat
+        }, chatClientStore(state, { payload }) {
+            state.chatClient = payload
+        },
+        isOpenNotificationStore(state) {
+            state.isOpenNotification = !state.isOpenNotification
+        },
+
+        setOnlineTrue(state) {
+            state.online = true
+        },
+        setOnlineFalse(state) {
+            state.online = false
+        },
     }
 })
 
 export const { initFilter, setTotalNotification, onPrivateNotificationStore,
-    onPrivateMessageStore, isOpenNotificationStore, deleteNotificationStore } = webSocketSlice.actions
+    onPrivateMessageStore, isOpenNotificationStore, deleteNotificationStore,
+    isOpenChatStore, chatClientStore, onPrivateListMessageStore, 
+    setOnlineTrue, setOnlineFalse } = webSocketSlice.actions
 
 export const selectTotalNotifications = (state) => state.webSocket.totalNotification
 export const selectNotifications = (state) => state.webSocket.notifications
 export const isOpenNotification = (state) => state.webSocket.isOpenNotification
+export const isOpenChat = (state) => state.webSocket.isOpenChat
 
+export const selectCustomers = (state) => state.webSocket.customers
+export const selectPrivateChats = (state) => state.webSocket.privateChats
+export const selectChatClient = (state) => state.webSocket.selectChatClient
+export const isOnline = (state) => state.webSocket.online
 export default webSocketSlice.reducer

@@ -11,7 +11,8 @@ import {
         URL_BACK_GET_FAV,
         URL_BACK_RM_FAV,
         URL_BACK_DELETE_NOTIFICATION_BY_DATE,
-        URL_BACK_SEND_USER_NOTIFICATION
+        URL_BACK_SEND_USER_NOTIFICATION,
+        URL_BACK_ALL_CHATS
     } from "../../shared/constants/urls/urlBackEnd";
 
 export function getProfile() {
@@ -114,3 +115,7 @@ export function sendAllNotificationByUser()
 {
     return  apiBackEnd.get(URL_BACK_SEND_USER_NOTIFICATION)
 }  
+
+export function allChats(){
+    return apiBackEnd.get(URL_BACK_ALL_CHATS)
+}

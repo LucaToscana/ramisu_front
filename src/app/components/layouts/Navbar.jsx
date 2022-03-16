@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { BellIcon, MenuIcon, ShoppingCartIcon, XIcon, UserIcon, HeartIcon } from '@heroicons/react/outline';
 // import { Link, useHistory } from 'react-router-dom';
-import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN, URL_CART, URL_WISHLIST, URL_USER_PAY_METOD, URL_ORDERS, URL_PROFILE } from './../../shared/constants/urls/urlConstants';
+import { URL_ACCOUNT, URL_REGISTRATION, URL_LOGIN, URL_CART, URL_WISHLIST, URL_USER_PAY_METOD, URL_ORDERS, URL_PROFILE, URL_HOME } from './../../shared/constants/urls/urlConstants';
 import { Link, useHistory } from 'react-router-dom';
 // import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,7 +15,7 @@ import { useLocation } from 'react-router-dom'
 import classNames from 'classnames/bind';// Constants used for navigating with the navbar
 import { init, selectCart } from './../../shared/redux-store/cartSlice';
 import { selectorFavState, fetchFav, clearFavData } from '../../shared/redux-store/favoritesSlice';
-import { deleteNotificationStore, isOpenNotification, isOpenNotificationStore, selectNotifications } from '../../shared/redux-store/webSocketSlice';
+import {setOnlineFalse, chatClientStore, deleteNotificationStore, isOpenChatStore, isOpenNotification, isOpenNotificationStore, selectNotifications } from '../../shared/redux-store/webSocketSlice';
 import useModal from '../../shared/components/utils-components/Modal/useModal';
 import ModalNotifications from '../../shared/components/utils-components/Modal/ModalNotifications';
 import { deleteNotificationByDate } from '../../api/backend/user';
@@ -260,24 +260,27 @@ const ConnectionStatusButtons = () => {
 
 
     const pushHistory = (value, id) => {
-        toggle
-        dispatch(isOpenNotificationStore())
+        
+        hideNotfication
+        
+     
         if (value === MESSAGE_SAVE_CARD || value === MESSAGE_DELETE_CARD) {
             history.push(URL_USER_PAY_METOD)
-        }
+        }else
         if (value === MESSAGE_NEW_ORDER) {
             history.push(URL_ORDERS)
-        }
+        }else
         if (value === MESSAGE_NEW_ADDRESS) {
             history.push(URL_PROFILE)
-        }
+        }else
         if (value === MESSAGE_STATUS_ORDER) {
             if (location.pathname === `/order/detail/${id}`) { window.location.reload() }
-
+        else 
             if (id !== 0 && id !== undefined) {
                 history.push(`/order/detail/${id}`)
             }
         }
+        
 
     }
 
@@ -348,15 +351,15 @@ const ConnectionStatusButtons = () => {
                                         to="#"
                                         className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-lg text-gray-700')}
                                         onClick={() => {
+                                            dispatch(setOnlineFalse())
                                             localStorage.removeItem("myAddress")
                                             localStorage.removeItem("idAddress")
                                             localStorage.removeItem("notification")
-
                                             dispatch(signOut());
                                             dispatch(clearUserInformations());
                                             dispatch(clearFavData());
                                             dispatch(init());
-                                        }}
+                                                                               }}
                                     >
                                       <p>  Se déconnecter</p>
                                     </Link>
