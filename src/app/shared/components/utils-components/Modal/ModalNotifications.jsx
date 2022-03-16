@@ -40,9 +40,9 @@ const ModalNotifications = ({ isShowing, hide, notifications, deleteOne, pushHis
                           <div className="flex items-center space-x-8">
                             <div className="flex-1 min-w-0" >
                               <p className="text-xs text-gray-900  w-24  lg:w-full " >
-                                <button onClick={() => {
-                                   pushHistory(element.message,element.idorder,element.chat) 
-                                   deleteOne(index,element.date)
+                                <button onClick={() => {                                   deleteOne(index,element.date)
+
+                                   pushHistory(element.message,element.idorder) 
                                   
                                   }
 

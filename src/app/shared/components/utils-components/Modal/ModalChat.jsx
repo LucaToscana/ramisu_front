@@ -7,7 +7,7 @@ import { ROLE_SALESMAN } from "../../../constants/rolesConstant";
 import { hasRole } from "../../../services/accountServices";
 
 const ModalChat = ({ isShowing, hide, userData, handleMessage, sendPrivateValue,
-  publicChats, customers, setChat, client, messagesEndRef }) =>
+  publicChats, customers, setChat, client, messagesEndRef,privateChats }) =>
   isShowing
 
     ? ReactDOM.createPortal(
@@ -28,7 +28,6 @@ const ModalChat = ({ isShowing, hide, userData, handleMessage, sendPrivateValue,
                 <span className=" text-8xl text-white">&times;</span>
 
               </button></div>
-
             <div className={"lg:flex  items-center justify-center text-center md:grid grid-cols-1 "}>
               <div class="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg overflow-hidden md:max-w-lg  m-3 lg:mr-2 lg:h-96">
                 <div >
@@ -61,7 +60,7 @@ const ModalChat = ({ isShowing, hide, userData, handleMessage, sendPrivateValue,
                           <div className="lg:h-48">
                             <div className="">
                               <ul className="">
-                                {publicChats.map((chat, index) => (
+                                {privateChats.map((chat, index) => (
                                   <>{chat.chat === client ?
                                     <div>{//<p>{chat.date.slice(0, 10)}</p> 
                                     

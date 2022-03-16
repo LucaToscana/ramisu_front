@@ -3,9 +3,9 @@ import { over } from 'stompjs';
 import { accountLogin, hasRole, isAuthenticated } from '../services/accountServices';
 import { getToken } from '../services/tokenServices';
 import { useDispatch, useSelector } from 'react-redux';
-import { isOpenChat, isOpenChatStore, onPrivateMessageStore, onPrivateNotificationStore, selectChatClient, selectCustomers, selectPrivateChats } from '../redux-store/webSocketSlice';
+import { isOnline, isOpenChat, isOpenChatStore, onPrivateListMessageStore, onPrivateMessageStore, onPrivateNotificationStore, selectChatClient, selectCustomers, selectPrivateChats, setOnlineFalse, setOnlineTrue } from '../redux-store/webSocketSlice';
 import useModal from '../components/utils-components/Modal/useModal';
-import { sendAllNotificationByUser } from '../../api/backend/user';
+import { allChats, sendAllNotificationByUser } from '../../api/backend/user';
 import { ChatIcon } from '@heroicons/react/solid';
 import ModalChat from '../components/utils-components/Modal/ModalChat.jsx'
 import { ROLE_SALESMAN } from '../constants/rolesConstant';
@@ -24,9 +24,9 @@ const login = () => { if (isAuthenticated() === true) { return accountLogin() } 
 const WebSocketConnection = (props) => {
   const customers = useSelector(selectCustomers)
   const chats = useSelector(selectPrivateChats)
-  const openChat =useSelector(isOpenChat)
-  const chatClient =useSelector(selectChatClient)
-
+  const openChat = useSelector(isOpenChat)
+  const chatClient = useSelector(selectChatClient)
+  const online =useSelector(isOnline)
   const { isShowing: isShowed, toggle: toggle } = useModal();
   const dispatch = useDispatch()
   const [publicChats, setPublicChats] = useState([]);
@@ -49,33 +49,40 @@ const WebSocketConnection = (props) => {
 
 
   useEffect(() => {
-    
+
     if (isAuthenticated() === true && userData.connected === false) {
       if (hasRole(ROLE_SALESMAN) === false) {
         setClient(login())
       }
-      setTimeout(function () {
-        setDisabled(false)
-      }, 10000);
 
       connect()
 
     }
 
     console.log(userData);
-  }, [userData,openChat]);
+  }, [userData, openChat]);
 
 
 
 
   const connect = () => {
+    setDisabled(true)
+
     var Sock = new WebSocket("ws://localhost:8080/ws");
     stompClient = over(Sock);
     stompClient.connect({ 'token': token() }, onConnected, onError);
-    setTimeout(function () {
+
+
+    
       console.log("connect WS" + userData);
-      sendAllNotificationByUser()
-    }, 1000);
+      allChats().then(res => { 
+        dispatch(onPrivateListMessageStore(res.data)) 
+        sendAllNotificationByUser()
+        setDisabled(false)
+        dispatch(setOnlineTrue())
+
+      })
+        
   }
 
   const onConnected = () => {
@@ -112,7 +119,7 @@ const WebSocketConnection = (props) => {
 
 
   const onPrivateNotification = (payload) => {
-      var payloadData = JSON.parse(payload.body);
+    var payloadData = JSON.parse(payload.body);
     dispatch(onPrivateNotificationStore(payloadData))
   }
 
@@ -163,7 +170,7 @@ const WebSocketConnection = (props) => {
   }
 
   const sendPrivateValue = () => {
-    if (userData.message !== ""&&  client !== "") {
+    if (userData.message !== "" && client !== "") {
       if (stompClient) {
         if (!hasRole(ROLE_SALESMAN)) {
           var chatMessage = {
@@ -219,10 +226,10 @@ const WebSocketConnection = (props) => {
              bottom-0
              p-4 ">
 
-      {(isAuthenticated() === true && userData.connected === true && login()) ?
+      {(isAuthenticated() === true && userData.connected === true && login() && online ===true) ?
 
-        <button className={ disabled === true ? 'pointer-events-none animate-pulse lg:mb-16 z-50' : 'pointer-events-auto lg:mb-16 z-50'}
-          onClick={() => {
+        <button className={disabled === true ? 'pointer-events-none animate-pulse lg:mb-16 z-50' : 'pointer-events-auto lg:mb-16 z-50'}
+          onClick={() => {if(isAuthenticated()===true){
             setTimeout(function () {
               dispatch(isOpenChatStore())
               toggle()
@@ -232,7 +239,7 @@ const WebSocketConnection = (props) => {
               scrollToBottom()
             }, 1000);
 
-          }}>
+          }else{dispatch(setOnlineFalse())}}}>
           <ChatIcon className='w-20 lg:w-24 md:w-24 '></ChatIcon></button>
         : null}
 
@@ -244,7 +251,7 @@ const WebSocketConnection = (props) => {
         isShowing={openChat}
         privateChats={chats}
         publicChats={publicChats}
-        hide={()=> dispatch(isOpenChatStore())}
+        hide={() => dispatch(isOpenChatStore())}
         message={userData.message}
         handleMessage={handleMessage}
         sendPrivateValue={sendPrivateValue}
