@@ -24,7 +24,7 @@ const privateChats = () => {
 }
 
 const initialState = {
-    online:false,
+    online: false,
     chatClient: "",
     isOpenChat: false,
     isOpenNotification: false,
@@ -88,7 +88,7 @@ export const webSocketSlice = createSlice({
         , onPrivateMessageStore(state, payload) {
             if (payload.payload.status === "MESSAGE" && payload.payload.message.senderName !== accountLogin()) {
                 state.privateChats.push(payload.payload);
-               
+
                 if (!(state.customers.indexOf(payload.payload.chat) > -1)
                     && payload.payload.chat !== accountLogin()) {
                     state.customers.push(payload.payload.chat)
@@ -101,21 +101,21 @@ export const webSocketSlice = createSlice({
 
 
 
-         onPrivateListMessageStore(state,{ payload}) {
-            payload.forEach(element =>{
-                 if (element.status === "MESSAGE" && element.message.senderName !== accountLogin()) {
-                     
-                state.privateChats.push(element);
+        onPrivateListMessageStore(state, { payload }) {
+            payload.forEach(element => {
+                if (element.status === "MESSAGE" && element.message.senderName !== accountLogin()) {
 
-                console.log( state.privateChats.length)
-                if (!(state.customers.indexOf(element.chat) > -1)
-                    && element.chat !== accountLogin()) {
-                    state.customers.push(element.chat)
+                    state.privateChats.push(element);
+
+                    if (!(state.customers.indexOf(element.chat) > -1)
+                        && element.chat !== accountLogin()) {
+                        state.customers.push(element.chat)
+                    }
+                    localStorage.setItem("messages", JSON.stringify(state.privateChats))
+
                 }
-                localStorage.setItem("messages", JSON.stringify(state.privateChats))
+            });
 
-            } });
-           
 
         },
         isOpenChatStore(state, { payload }) {
@@ -137,8 +137,9 @@ export const webSocketSlice = createSlice({
 })
 
 export const { initFilter, setTotalNotification, onPrivateNotificationStore,
-    onPrivateMessageStore, isOpenNotificationStore, deleteNotificationStore, 
-    isOpenChatStore, chatClientStore,onPrivateListMessageStore,setOnlineTrue,setOnlineFalse } = webSocketSlice.actions
+    onPrivateMessageStore, isOpenNotificationStore, deleteNotificationStore,
+    isOpenChatStore, chatClientStore, onPrivateListMessageStore, 
+    setOnlineTrue, setOnlineFalse } = webSocketSlice.actions
 
 export const selectTotalNotifications = (state) => state.webSocket.totalNotification
 export const selectNotifications = (state) => state.webSocket.notifications
@@ -148,5 +149,5 @@ export const isOpenChat = (state) => state.webSocket.isOpenChat
 export const selectCustomers = (state) => state.webSocket.customers
 export const selectPrivateChats = (state) => state.webSocket.privateChats
 export const selectChatClient = (state) => state.webSocket.selectChatClient
-export const isOnline=(state)=> state.webSocket.online
+export const isOnline = (state) => state.webSocket.online
 export default webSocketSlice.reducer
