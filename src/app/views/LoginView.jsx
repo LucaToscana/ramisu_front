@@ -67,7 +67,7 @@ const LoginView = ({ history }) => {
                 setErrorLog(true);
                 // debugger
             })
-        }).catch( setErrorLog(true)).finally(()=>   recaptchaRef.current.reset())
+        }).catch( (error)=> setErrorLog(true)).finally(()=>   recaptchaRef.current.reset())
     }
 
 
