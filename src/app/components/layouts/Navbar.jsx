@@ -246,7 +246,7 @@ const ConnectionStatusButtons = () => {
 
     let notificationLength = () => { try { return notifications.length } catch { return 0 } }
 
-    const hideNotfication = () => {
+    const hideNotification = () => {
         toggle
         dispatch(isOpenNotificationStore())
     }
@@ -260,14 +260,13 @@ const ConnectionStatusButtons = () => {
 
 
     const pushHistory = (value, id) => {
+        hideNotification
         
-        hideNotfication
-        
-     
         if (value === MESSAGE_SAVE_CARD || value === MESSAGE_DELETE_CARD) {
             history.push(URL_USER_PAY_METOD)
         }else
         if (value === MESSAGE_NEW_ORDER) {
+
             history.push(URL_ORDERS)
         }else
         if (value === MESSAGE_NEW_ADDRESS) {
@@ -277,6 +276,7 @@ const ConnectionStatusButtons = () => {
             if (location.pathname === `/order/detail/${id}`) { window.location.reload() }
         else 
             if (id !== 0 && id !== undefined) {
+                
                 history.push(`/order/detail/${id}`)
             }
         }
@@ -296,7 +296,7 @@ const ConnectionStatusButtons = () => {
             <>
                 <ModalNotifications
                     isShowing={isOpenModalNotification}
-                    hide={hideNotfication}
+                    hide={hideNotification}
                     title="Notifications"
                     notifications={notifications}
                     deleteOne={deleteNotification}

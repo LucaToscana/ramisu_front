@@ -72,22 +72,22 @@ export const schemaFormValidateNewPassword = Yup.object().shape({
 
 
 export const schemaFormProfileUpdate =  Yup.object().shape({
-    firstName: Yup.string().required("Required input").max(50, "50 caractères Maximum"),
-    lastName: Yup.string().required("Required input").max(50, "50 caractères Maximum"),
-    birthdate: Yup.string().required("Required input"),
-    mail: Yup.string()
+    firstName: Yup.string()/*.required("Required input").*/.max(50, "50 caractères Maximum").nullable(true),
+    lastName: Yup.string()/*.required("Required input")*/.max(50, "50 caractères Maximum").nullable(true),
+    birthdate: Yup.string(),//.required("Required input"),
+   /* mail: Yup.string()
         .email("L'email n'est pas valide")
-        .required("Champ requis"),
-    number: Yup.string().required("Required input").max(10, "10 caractères Maximum"),
-    street: Yup.string().required("Required input"),
-    postalCode: Yup.string().required("Required input"),
-    city: Yup.string().required("Required input"),
-    country: Yup.string().required("Required input"),
+        .required("Champ requis"),*/
+    number: Yup.string()/*.required("Required input")*/.max(10, "10 caractères Maximum").nullable(true),
+    street: Yup.string()/*.required("Required input")*/.nullable(true),
+    postalCode: Yup.string()/*.required("Required input")*/.nullable(true),
+    city: Yup.string()/*.required("Required input")*/.nullable(true),
+    country: Yup.string()/*.required("Required input")*/.nullable(true),
     phone: Yup.string()
-        .required("Champ requis")
+       /* .required("Champ requis")*/
         .matches(/^[0-9]+$/, "Nombres uniquement")
         .min(10, "Doit contenir au moins 10 chiffres")
-        .max(16, "Doit contenir moins de 16 chiffres"),
+        .max(16, "Doit contenir moins de 16 chiffres").nullable(true),
   
 
 })
