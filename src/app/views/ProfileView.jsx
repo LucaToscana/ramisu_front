@@ -1,7 +1,7 @@
-import React, { useEffect, useState }   from 'react';
-import { useHistory }                   from "react-router-dom";
-import { getProfile, updateProfile }    from "../api/backend/user";
-import {uploadPicture , removePicture}  from '../api/backend/user';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from "react-router-dom";
+import { getProfile, updateProfile } from "../api/backend/user";
+import { uploadPicture, removePicture } from '../api/backend/user';
 
 
 
@@ -21,20 +21,20 @@ const ProfileView = () => {
     const dispatch = useDispatch();
     const userInfo = useSelector(selectProfileInfo);
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(fetchProfile());
-    },[]);
-   
-    const submitHandler = (values)=>{
-      
+    }, []);
+
+    const submitHandler = (values) => {
+
         // debugger
-       
-        updateProfile(values).then(res=>{
-                    getProfile().then(res => {
-                        dispatch(setProfileInfo(res.data));  
-                    });
-                
-        }).catch(e=>{
+
+        updateProfile(values).then(res => {
+            getProfile().then(res => {
+                dispatch(setProfileInfo(res.data));
+            });
+
+        }).catch(e => {
             console.error("error edite profile", e)
         });
     }
@@ -42,7 +42,7 @@ const ProfileView = () => {
 
     return (
         <div className=''>
-            
+
             <h1 className="font-semibold text-center text-2xl flex justify-center items-center mb-5">
                 <UserIcon className="h-6 w-6 inline mr-3" />
                 <span>Données du compte</span>
@@ -54,79 +54,79 @@ const ProfileView = () => {
                     onSubmit={submitHandler}
                     validationSchema={schemaFormProfileUpdate}>
 
-                    {({ handleSubmit , setFieldValue, errors }) => (
+                    {({ handleSubmit, setFieldValue, errors }) => (
 
                         <Form className='w-full md:w-3/4 lg:w-1/2'>
 
                             <fieldset className=''>
 
-                                <FormRow    label="Nom&nbsp;:&nbsp;"
-                                            formName="lastName"
-                                            value={userInfo.first}
-                                            onSubmit={handleSubmit}
-                                            setFieldValue={setFieldValue}
-                                            error={errors['lastName']}/>
+                                <FormRow label="Nom&nbsp;:&nbsp;"
+                                    formName="lastName"
+                                    value={userInfo.first}
+                                    onSubmit={handleSubmit}
+                                    setFieldValue={setFieldValue}
+                                    error={errors['lastName']} />
 
                                 <FormRow label="Prénom&nbsp;:&nbsp;"
-                                            formName="firstName"
-                                            value={userInfo.lastName}
-                                            onSubmit={handleSubmit}
-                                            setFieldValue={setFieldValue}
-                                            error={errors['firstName']}/>
+                                    formName="firstName"
+                                    value={userInfo.lastName}
+                                    onSubmit={handleSubmit}
+                                    setFieldValue={setFieldValue}
+                                    error={errors['firstName']} />
 
                                 <FormRow label="Tél&nbsp;:&nbsp;"
-                                        formName="phone"
-                                        value={userInfo.phone}
-                                        onSubmit={handleSubmit}
-                                        setFieldValue={setFieldValue}
-                                        error={errors['phone']}/>
+                                    formName="phone"
+                                    value={userInfo.phone}
+                                    onSubmit={handleSubmit}
+                                    setFieldValue={setFieldValue}
+                                    error={errors['phone']} />
 
                                 <FromRowDate
-                                        label="Date de naissance&nbsp;:&nbsp;"
-                                        name="birthdate"
-                                        value={userInfo.birthdate}
-                                        setFieldValue={setFieldValue}
-                                        onSubmit={handleSubmit}
-                                        error={errors['birthdate']}/>
+                                    label="Date de naissance&nbsp;:&nbsp;"
+                                    name="birthdate"
+                                    value={userInfo.birthdate}
+                                    setFieldValue={setFieldValue}
+                                    onSubmit={handleSubmit}
+                                    error={errors['birthdate']} />
 
                                 <FormRow
-                                        label="N°&nbsp;:&nbsp;"
-                                        formName="number"
-                                        value={userInfo.number}
-                                        onSubmit={handleSubmit}
-                                        error={errors['number']}
-                                        setFieldValue={setFieldValue}/>
+                                    label="N°&nbsp;:&nbsp;"
+                                    formName="number"
+                                    value={userInfo.number}
+                                    onSubmit={handleSubmit}
+                                    error={errors['number']}
+                                    setFieldValue={setFieldValue} />
 
                                 <FormRow
-                                        label="Rue°&nbsp;:&nbsp;"
-                                        formName="street"
-                                        value={userInfo.street}
-                                        onSubmit={handleSubmit}
-                                        error={errors['street']}
-                                        setFieldValue={setFieldValue}/>
+                                    label="Rue°&nbsp;:&nbsp;"
+                                    formName="street"
+                                    value={userInfo.street}
+                                    onSubmit={handleSubmit}
+                                    error={errors['street']}
+                                    setFieldValue={setFieldValue} />
 
                                 <FormRow label="Ville&nbsp;:&nbsp;"
-                                        formName="city"
-                                        value={userInfo.city}
-                                        error={errors['city']}
-                                        onSubmit={handleSubmit}
-                                        setFieldValue={setFieldValue}/>
+                                    formName="city"
+                                    value={userInfo.city}
+                                    error={errors['city']}
+                                    onSubmit={handleSubmit}
+                                    setFieldValue={setFieldValue} />
 
 
                                 <FormRow label="Code postal&nbsp;:&nbsp;"
-                                        formName="postalCode"
-                                        value={userInfo.postalCode}
-                                        onSubmit={handleSubmit}
-                                        error={errors['postalCode']}
-                                        setFieldValue={setFieldValue}/>
+                                    formName="postalCode"
+                                    value={userInfo.postalCode}
+                                    onSubmit={handleSubmit}
+                                    error={errors['postalCode']}
+                                    setFieldValue={setFieldValue} />
 
                                 <FormRow label="Pays&nbsp;:&nbsp;"
-                                        formName="country"
-                                        value={userInfo.country}
-                                        onSubmit={handleSubmit}
-                                        error={errors['country']}
-                                        setFieldValue={setFieldValue}/>
-                    
+                                    formName="country"
+                                    value={userInfo.country}
+                                    onSubmit={handleSubmit}
+                                    error={errors['country']}
+                                    setFieldValue={setFieldValue} />
+
                             </fieldset>
 
                         </Form>
@@ -136,7 +136,7 @@ const ProfileView = () => {
             </div>
         </div>
     )
-        
+
 }
 
 
@@ -157,7 +157,7 @@ const FormRow = (props) => {
     const styleHideBtn = ' hidden';
 
     const userInfo = useSelector(selectProfileInfo);
-   
+
 
 
     useEffect(() => {
@@ -167,9 +167,9 @@ const FormRow = (props) => {
     }, [isEnable])
 
 
-    const cancelHandler = (event)=>{
+    const cancelHandler = (event) => {
 
-        props.setFieldValue(props.formName , userInfo[props.formName]);
+        props.setFieldValue(props.formName, userInfo[props.formName]);
         toggle(event.currentTarget)
 
     }
@@ -204,17 +204,17 @@ const FormRow = (props) => {
 
 
 
-        <label className="md:w-1/4 w-1/2 text-right " >{props.label}  </label>
-
-        <Field
-            type="text"
-            disabled={!isEnable}
-            name={props.formName}
-            onKeyDown={keyHandler}
-            component={CustomInput}
-            className={isEnable ? inputEnable : inputDisable}
-        />
-
+        <label className="md:w-1/4 w-1/2 text-right " ><p>{props.label}  </p></label>
+        <p>
+            <Field
+                type="text"
+                disabled={!isEnable}
+                name={props.formName}
+                onKeyDown={keyHandler}
+                component={CustomInput}
+                className={isEnable ? inputEnable : inputDisable}
+            />
+        </p>
 
         <div>
 
@@ -236,7 +236,7 @@ const FormRow = (props) => {
                     toggle(event.currentTarget);
                     props.onSubmit();
                 }}
-                className={isEnable && props.error == undefined  ? styleShowBtn : styleHideBtn}  >
+                className={isEnable && props.error == undefined ? styleShowBtn : styleHideBtn}  >
                 <CheckCircleIcon className="h-6 w-6" />
             </button>
 
@@ -268,7 +268,7 @@ const FromRowDate = (props) => {
 
 
     const userInfo = useSelector(selectProfileInfo);
-   
+
 
     const onFocusChange = (event) => {
         setIsOpen(true);
@@ -281,8 +281,8 @@ const FromRowDate = (props) => {
 
 
     const resetState = (parent) => {
-        console.log("reset state " , props.formName , userInfo[props.formName]);
-        props.setFieldValue(props.formName , userInfo[props.formName]);
+        console.log("reset state ", props.formName, userInfo[props.formName]);
+        props.setFieldValue(props.formName, userInfo[props.formName]);
         setIsOpen(false);
     }
 
@@ -293,15 +293,14 @@ const FromRowDate = (props) => {
 
     return (
         <div className="m-2 p-2 flex justify-between items-center border-b-2">
-            <label className="md:w-1/4 w-1/2 text-left md:text-right flex-none" >{props.label}  </label>
-            <DatePickerField
+            <label className="md:w-1/4 w-1/2 text-left md:text-right flex-none" ><p>{props.label}</p>  </label>
+         <p className='w-96'>   <DatePickerField
                 defaultValue={props.value}
                 name={props.name}
                 className={isOpen ? styleOpen : styleClose}
-
                 onFocus={onFocusChange}
                 onBlur={blurHandler}
-                onClickOutside={blurHandler} />
+                onClickOutside={blurHandler} /></p>
 
             <div className="btn-form flex-none">
 
@@ -334,24 +333,22 @@ const FromRowDate = (props) => {
 
 import addImg from '../assets/images/icones/add-image.svg';
 
-const PictureForm = (props)=>
-{
+const PictureForm = (props) => {
 
     const userInfo = useSelector(selectProfileInfo);
     const dispatch = useDispatch();
 
-  
-    const fileSelector=(event)=>{
+
+    const fileSelector = (event) => {
         const uploadField = event.currentTarget.parentNode.querySelector('#uploadField');
 
-        uploadField.addEventListener('change' , (event)=>{
+        uploadField.addEventListener('change', (event) => {
             // debugger
-            const file =  event.currentTarget.files[0];
-            if(file!=undefined)
-            {
+            const file = event.currentTarget.files[0];
+            if (file != undefined) {
                 const formData = new FormData();
-                    formData.append("image", file);
-                   uploadHandler(formData);
+                formData.append("image", file);
+                uploadHandler(formData);
             }
         });
         uploadField.click();
@@ -359,56 +356,56 @@ const PictureForm = (props)=>
     }
 
 
-    const uploadHandler = (formData)=>{
-    
-        uploadPicture(formData).then((res)=>{
-           
+    const uploadHandler = (formData) => {
+
+        uploadPicture(formData).then((res) => {
+
             getProfile().then(res => {
                 dispatch(setProfileInfo(res.data));
             });
         });
     }
- 
-   const clickHandler = (event)=>{
+
+    const clickHandler = (event) => {
         // debugger
         const uploadField = event.currentTarget.parentNode.querySelector('#uploadField')
         uploadField.value = '';// !important reset the input 
-        removePicture().then((res)=>{
-            
-        console.log(uploadField);
-        getProfile().then(res => {
-            dispatch(setProfileInfo(res.data));
+        removePicture().then((res) => {
+
+            console.log(uploadField);
+            getProfile().then(res => {
+                dispatch(setProfileInfo(res.data));
+            });
         });
-    });
 
-   }
+    }
 
- 
+
     return (<div className='ml-20 flex flex-col justify-center items-center p-3'>
-                 
-                    <button
-                        type="submit" 
-                        onClick={fileSelector}
-                        className='border-2 border-black rounded-full w-15 h-15 p-2  bg-white translate-y-2/3 translate-x-full ' >
-                            <img src={addImg} 
-                            width="30px" 
-                            height="30px" />
-                    </button>
-                    <div className='border-2 border-black rounded-full overflow-hidden'>
-                         <img    src={getuserPicture(userInfo.avatar)} 
-                              
-                              className="h-80 w-80 rounded-full object-contain" />
-                    </div>
-                    <div>
-                        <input  type="file" 
-                                name="image" 
-                                accept="image/png, image/gif, image/jpeg" 
-                                className='hidden' 
-                                id="uploadField"/>
-                        
-                    </div>
-                          <button onClick={clickHandler} className={userInfo.avatar==null ? 'hidden' : ''}>remove</button>       
-            </div>);
+
+        <button
+            type="submit"
+            onClick={fileSelector}
+            className='border-2 border-black rounded-full w-15 h-15 p-2  bg-white translate-y-2/3 translate-x-full ' >
+            <img src={addImg}
+                width="30px"
+                height="30px" />
+        </button>
+        <div className='border-2 border-black rounded-full overflow-hidden'>
+            <img src={getuserPicture(userInfo.avatar)}
+
+                className="h-80 w-80 rounded-full object-contain" />
+        </div>
+        <div>
+            <input type="file"
+                name="image"
+                accept="image/png, image/gif, image/jpeg"
+                className='hidden'
+                id="uploadField" />
+
+        </div>
+        <button onClick={clickHandler} className={userInfo.avatar == null ? 'hidden' : ''}>remove</button>
+    </div>);
 
 }
 
