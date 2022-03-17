@@ -103,7 +103,7 @@ const HomeView = ({ history }) => {
                         className="carousel slide relative pb-5 mb-5  m-auto w-full" 
                         data-bs-ride="carousel">
                 
-                    <div className="carousel-indicators m-0 absolute bottom-10 text-black flex justify-center p-0 w-full  " >
+                    <div className="carousel-indicators m-0 absolute bottom-5 md:bottom-10 text-black flex justify-center p-0 w-full  " >
                         <button type="button"
                                 data-bs-target="#carouselExampleIndicators"
                                 data-bs-slide-to="0"
@@ -133,7 +133,7 @@ const HomeView = ({ history }) => {
                               
                                     alt="Warhammer001"
                                  > 
-                                     <img src={img_carousel_1} /> 
+                                     <img src={img_carousel_1} className="w-full"/> 
                                 </div>
                             </div>
                             <div className="carousel-item float-left w-full">
@@ -142,7 +142,7 @@ const HomeView = ({ history }) => {
                                 
                                     alt="Warhammer001"
                                     > 
-                                    <img src={img_carousel_2} /> 
+                                    <img src={img_carousel_2}  className="w-full"/> 
                                </div>
                             </div>
                             <div className="carousel-item float-left w-full">
@@ -150,7 +150,7 @@ const HomeView = ({ history }) => {
                                     className="m-auto object-cover   " 
                                     alt="Warhammer001"
                                     > 
-                                    <img src={img_carousel_4} /> 
+                                    <img src={img_carousel_4}  className="w-full"/> 
                                </div>
                             </div>
                             <div className="carousel-item float-left w-full">
@@ -158,13 +158,13 @@ const HomeView = ({ history }) => {
                                     className="m-auto object-cover  " 
                                     alt="Warhammer001"
                                 >
-                                <img src={img_carousel_5} />   
+                                <img src={img_carousel_5}  className="w-full"/> 
                                 </div>
                             </div>
                         </div>
                         
                         <button
-                                className="carousel-control-prev absolute top-10 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
+                                className="carousel-control-prev absolute top-0 bottom-5 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
                                 type="button"    data-bs-target="#carouselExampleIndicators"    data-bs-slide="prev">
 
                             <span className="carousel-control-prev-icon inline-block bg-no-repeat" aria-hidden="true"></span>
@@ -172,7 +172,7 @@ const HomeView = ({ history }) => {
 
                         </button>
                         <button
-                                className="carousel-control-next absolute top-10 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
+                                className="carousel-control-next absolute top-0 bottom-5 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline right-0"
                                 type="button"   data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
 
                             <span className="carousel-control-next-icon inline-block bg-no-repeat" aria-hidden="true"></span>
