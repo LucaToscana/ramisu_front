@@ -51,7 +51,6 @@ import BackOffice from "../views/BackOffice"
 import RetourView from "../views/RetourView";
 import PasswordHandling from "../views/PasswordHandling";
 import PaiementMetodView from "../views/PaiementMetodView";
-import LabelPannelView from "../views/LabelPannelView";
 import Wishlist from "../views/Wishlist";
 import OrdersCommercialView from "../views/OrdersCommercialView";
 /**
@@ -77,7 +76,6 @@ const Routes = () => {
             <PrivateRoute path={URL_ORDER_DETAILS} component={OrderDetailView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_ORDER_RETURN} component={RetourView} roles={[ROLE_USER]} />
             <PrivateRoute path={URL_PSW_HANDLING} component={PasswordHandling} roles={[ROLE_USER]} />
-            <PrivateRoute path={URL_LABEL_PANNEL} component={LabelPannelView} roles={[ROLE_ADMIN]} />
             <PrivateRoute path={URL_WISHLIST} component={Wishlist} roles={[ROLE_USER]} />
             
             

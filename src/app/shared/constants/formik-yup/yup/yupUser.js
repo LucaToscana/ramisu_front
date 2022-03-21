@@ -91,3 +91,7 @@ export const schemaFormProfileUpdate =  Yup.object().shape({
   
 
 })
+
+export const schemaFormCategory = Yup.object().shape({
+    label: Yup.string().required("Label requis"),
+})
