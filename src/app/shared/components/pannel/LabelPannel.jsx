@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import BackendWithToken from "../../../api/backend/api.BackendWithToken";
 import { getAllCategories, getAllUniverses, getAllTags } from '../../../api/backend/filter';
-import { schemaFormCategory } from "../../constants/formik-yup/yup/yupUser";
+import { schemaFormLabel } from "../../constants/formik-yup/yup/yupUser";
 
 /**
  * The LabelPannel page
@@ -64,28 +64,43 @@ const LabelPannel = ({showPannelLabel}) => {
   // stock the style to DRY x3
   const styleListPannel = "w-40 p-1 my-2 md:space-x-5 xl:space-x-10 bg-custom-orange border-2 border-gray-300 focus:bg-yellow-400 rounded-xl whitespace-nowrap overflow-hidden overflow-ellipsis";
   
-  // return a stylised button of each label type
-  var listCategories = categories.map(categorie => { //TODO categories.map is not a function ||||| Et il faut me mettre les listes dans un usestate pour commencer
-    return (
-      <button className={styleListPannel} alt={categorie.label} title={categorie.label} key={"categorie"+categorie.id}>
-      <span> {categorie.label} </span>
-      </button>
-    )
-  });
-  var listUniverses = universes.map(universe => {
-    return (
-      <button className={styleListPannel} alt={universe.label} title={universe.label} key={"universe"+universe.id}>
-      <span> {universe.label} </span>
-      </button>
-    )
-  });
-  var listTags = tags.map(tag => {
-    return (
-      <button className={styleListPannel} alt={tag.label} title={tag.label} key={"tag"+tag.id}>
-      <span> {tag.label} </span>
-      </button>
-    )
-  });
+  // return a stylised button of label categories
+  const setListCategories = () => {
+    categories.map(categorie => {
+      listCategories.push(
+        <button className={styleListPannel} alt={categorie.label} title={categorie.label} key={"categorie"+categorie.id}>
+        <span> {categorie.label} </span>
+        </button>
+      )
+      return listCategories;
+    })
+  };
+  // return a stylised button of label universes
+  const setListUniverses = () => {
+    universes.map(universe => {
+      return (
+        <button className={styleListPannel} alt={universe.label} title={universe.label} key={"universe"+universe.id}>
+        <span> {universe.label} </span>
+        </button>
+      )
+    })
+  };
+  // return a stylised button of label tags
+  const setListTags = () => {
+    tags.map(tag => {
+      return (
+        <button className={styleListPannel} alt={tag.label} title={tag.label} key={"tag"+tag.id}>
+        <span> {tag.label} </span>
+        </button>
+      )
+    })
+  };
+  // GNEU NGUEEEEEEEEEEEEEEEEE
+  const [listCategories] = useState(setListCategories);
+  const [listUniverses] = useState(setListUniverses);
+  const [listTags] = useState(setListTags);
+  console.log("listCategories : ")
+  console.table({listCategories});
 
   // stock the style to DRY x6
   const buttonPannelStyle = "w-40 mt-5 bg-custom-orange border-2 border-gray-300 focus:bg-yellow-400 rounded-xl";
@@ -100,7 +115,7 @@ const LabelPannel = ({showPannelLabel}) => {
         </div>
         {/* Button to hide each label type separately */}
         <div className="md:flex justify-center text-center md:space-x-5 xl:space-x-10 mt-5">
-          <button className={buttonPannelStyle+" p-5"}  onClick={() => setShowCategories(!showCategories)}>Catégories</button>
+          <button className={buttonPannelStyle+" p-5"}  onClick={() => {setShowCategories(!showCategories); listCategories()}}>Catégories</button>
           <button className={buttonPannelStyle+" p-5"} onClick={() => setShowUniverses(!showUniverses)}>Univers</button>
           <button className={buttonPannelStyle+" p-5"} onClick={() => setShowTags(!showTags)}>Tags</button>
         </div>
@@ -109,7 +124,7 @@ const LabelPannel = ({showPannelLabel}) => {
                 {/* Formular to send the added label */}
                 <Formik
                     initialValues={defaultValuesLabel}
-                    validationSchema={schemaFormCategory}
+                    validationSchema={schemaFormLabel}
                     enableReinitialize
                     onSubmit={categorySubmit}>
                   {({ values }) => (
@@ -118,7 +133,7 @@ const LabelPannel = ({showPannelLabel}) => {
                         <div className="border-2 border-gray-300 rounded-xl w-min sm:w-96 p-3 mx-auto">
                           <label htmlFor="inputPannel">Label : </label>
                           <Field key="label" id="label" type="text" name="label" aria-label="inputPannel" className="rounded-md border-gray-300 bg-gray-500 placeholder-gray-400" placeholder="Label name" />
-                          <button type="submit" className={buttonPannelStyle+" p-1"} onClick={() => categorySubmit(values)}>Ajouter</button>
+                          <button type="submit" className={buttonPannelStyle+" p-1"}>Ajouter</button>
                         </div>
                       </div>
                       </Form>
