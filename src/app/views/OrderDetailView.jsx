@@ -24,7 +24,9 @@ const [loading,setLoading]=useState(false)
 
 
     useEffect(async() => {
-        setLoading(false)
+        setLoading(false);
+
+
 
 
       await  getOrderDetailsWithListProduct(id).then(result => {
@@ -41,7 +43,7 @@ const [loading,setLoading]=useState(false)
             result.data.content.livraisonAddress.country+" "
             )}
             setStatus(result.data.content.status.label)
-            setDate(result.data.content.date)
+            setDate(result.data.content.dateDDMMYYYY)
             setProfile(
                 result.data.content.usersInformation.lastName+" "+
                 result.data.content.usersInformation.firstName+" , email: "+

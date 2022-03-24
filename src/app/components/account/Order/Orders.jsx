@@ -9,7 +9,7 @@ function Orders({ order, showModal }) {
     return (
         <div className='md:grid md:grid-cols-5 p-6 border-b-2'>
             <div className='p-2'><p>{order.id}</p></div>
-            <div className='p-2'><p>{order.date}</p></div>
+            <div className='p-2'><p>{order.dateDDMMYYYY}</p></div>
             <div className='p-2'><p>{order.status.label}</p></div>
             <div className='p-2'><p>{(order.total*1).toFixed(2)} € TTC</p></div>
            
