@@ -239,16 +239,16 @@ const ConnectionStatusButtons = () => {
     const profileData = useSelector(selectProfileInfo);
     const profileStatus = useSelector(selectProfileStatus);
     const notifications = useSelector(selectNotifications)
+    const [isOpen,setIsOpen] = useState(false);
 
     const favState = useSelector(selectorFavState);
-    const { isShowing: isModalShowed, toggle: toggle } = useModal();
-    const isOpenModalNotification = useSelector(isOpenNotification)
 
     let notificationLength = () => { try { return notifications.length } catch { return 0 } }
 
     const hideNotification = () => {
-        toggle
         dispatch(isOpenNotificationStore())
+
+        setIsOpen(false)
     }
 
 
@@ -260,7 +260,8 @@ const ConnectionStatusButtons = () => {
 
 
     const pushHistory = (value, id) => {
-        hideNotification
+        setIsOpen(false)
+
         
         if (value === MESSAGE_SAVE_CARD || value === MESSAGE_DELETE_CARD) {
             history.push(URL_USER_PAY_METOD)
@@ -280,7 +281,7 @@ const ConnectionStatusButtons = () => {
                 history.push(`/order/detail/${id}`)
             }
         }
-        
+        hideNotification
 
     }
 
@@ -295,7 +296,7 @@ const ConnectionStatusButtons = () => {
         return (
             <>
                 <ModalNotifications
-                    isShowing={isOpenModalNotification}
+                    isShowing={isOpen}
                     hide={hideNotification}
                     title="Notifications"
                     notifications={notifications}
@@ -303,7 +304,7 @@ const ConnectionStatusButtons = () => {
                     pushHistory={pushHistory}
                 ></ModalNotifications>
                 {/* Notification bell icon */}
-                <div className="cart-wrapper" onClick={() => { { notifications.length !== 0 && dispatch(isOpenNotificationStore()) } }}>
+                <div className="cart-wrapper" onClick={() => { { notifications.length !== 0 && setIsOpen(!isOpen)} }}>
                     <div className={notificationLength() > 0 ? 'animate-wiggle' : ''}>   <button
                         type="button"
                         className="bg-transparent	p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-transparent focus:ring-transparent sm:ml-7"
