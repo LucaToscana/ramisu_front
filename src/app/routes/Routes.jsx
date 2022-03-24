@@ -24,6 +24,7 @@ import {
             URL_ORDER_RETURN,
             URL_PSW_HANDLING,
             URL_USER_PAY_METOD,
+            URL_LABEL_PANNEL,
             URL_WISHLIST,
             URL_ORDERS_COMMERCIAL
         } from "../shared/constants/urls/urlConstants";

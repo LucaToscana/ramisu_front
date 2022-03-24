@@ -91,3 +91,8 @@ export const schemaFormProfileUpdate =  Yup.object().shape({
   
 
 })
+
+// Used to create label by labelPannel
+export const schemaFormLabel = Yup.object().shape({
+    label: Yup.string().required("Label requis"),
+})
