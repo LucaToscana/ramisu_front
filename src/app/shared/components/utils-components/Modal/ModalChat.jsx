@@ -7,7 +7,7 @@ import { ROLE_SALESMAN } from "../../../constants/rolesConstant";
 import { hasRole } from "../../../services/accountServices";
 
 const ModalChat = ({ isShowing, hide, userData, handleMessage, sendPrivateValue,
-  publicChats, customers, setChat, client, messagesEndRef,privateChats }) =>
+ customers, setChat, client, messagesEndRef,privateChats }) =>
   isShowing
 
     ? ReactDOM.createPortal(

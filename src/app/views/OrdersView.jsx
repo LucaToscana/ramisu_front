@@ -8,7 +8,7 @@ function OrdersView() {
 
 
     return (
-        <div>
+        <div style={{ minHeight: 500 }}>
             <ListOrder />
         </div>
     )

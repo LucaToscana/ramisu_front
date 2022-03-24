@@ -24,7 +24,7 @@ const Wishlist = (props) => {
   }
 
 
-  return (<div className='p-3 text-xl text-center mt-8 w-full md:w-1/2 md:m-auto'>
+  return (<div style={{ minHeight: 500 }} className='p-3 text-xl text-center mt-8 w-full md:w-1/2 md:m-auto'>
     <div className='flex border-b-2 border-gray-400 pb-4'>
       <HeartIcon className='w-10 h-10 text-[#c67605]' />
       <h1 className='flex items-end font-bold text-2xl ml-4 items-center'>Favoris</h1>

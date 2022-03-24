@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { selectCart } from '../shared/redux-store/cartSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { initFilter, selectProductFilter, setCurrentPageFilter, setTotal, universeFilter } from '../shared/redux-store/filterProductSlice';
+import { selectorFavState } from '../shared/redux-store/favoritesSlice';
 
 
 
@@ -16,11 +17,7 @@ const ProductDetailView = () => {
     const carts = useSelector(selectCart)
     const [cartQuantity, setCartQuantity] = useState()
     const [productRelated, setProductRelated] = useState([])
-
     useEffect(() => {
-
-
-
         productDetailWithListRelated(id).then(res => {
             setProduct(res.data.content)
             setProductRelated(res.data.relatedContent)
