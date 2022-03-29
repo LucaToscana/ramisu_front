@@ -3,6 +3,7 @@ import React from "react";
 import { toast } from "react-toastify";
 import BackendWithToken from "../../../api/backend/api.BackendWithToken";
 import { schemaFormLabel } from "../../constants/formik-yup/yup/yupUser";
+import ShowAndDelete from "../pannel/ShowAndDelete";
 
 /**
  * The LabelPannel page
@@ -104,6 +105,8 @@ const LabelPannel = ({showPannelLabel}) => {
               )}
             </Formik>
         </div>
+
+        <ShowAndDelete></ShowAndDelete>
 
       </div>
     </div>
