@@ -36,8 +36,8 @@ export const schemaFormProfile = Yup.object().shape({
 })
 
 export const schemaFormRegistration = Yup.object().shape({
-    lastName: Yup.string().required("Saisissez votre nom"),
-    firstName: Yup.string().required("Saisissez votre prénom"),
+    lastName: Yup.string().required("Saisissez votre nom").matches("^([a-zA-Z -]|[à-úÀ-Ú])+$" , "Votre nom ne peut contenir de caratères spéciaux ou des chiffres").max(32, "Doit contenir moins de 32 caractères"),
+    firstName: Yup.string().required("Saisissez votre prénom").matches("^([a-zA-Z -]|[à-úÀ-Ú])+$", "Votre prénom ne peut contenir de caratères spéciaux ou des chiffres").max(32, "Doit contenir moins de 32 caractères"),
     mail: Yup.string()
         .email("L'email n'est pas valide")
         .required("Saisissez votre adresse Email"),
