@@ -55,6 +55,25 @@ const LabelPannel = ({showPannelLabel}) => {
   //Valeur par defaut des champs pour la Catégorie
   const defaultValuesLabel = { label: "" };
 
+  // Delete label values in back for Universes 
+  const universeDelete = (value) => {
+    const labelId = {
+      id: value || -1,
+    }
+
+    // Send with Token to match route permission for Universes
+    BackendWithToken
+      .post("commercial/deleteUniverse/"+value, labelId)
+      .then(() => {
+        toast.success("Univers supprimer.");
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error("Univers non supprimer.")
+        return "error delete label";
+      });
+  }
+
   // stock the style to DRY x6
   const buttonPannelStyle = "w-40 mt-5 bg-custom-orange border-2 border-gray-300 focus:bg-yellow-400 rounded-xl";
 
@@ -106,7 +125,7 @@ const LabelPannel = ({showPannelLabel}) => {
             </Formik>
         </div>
 
-        <ShowAndDelete></ShowAndDelete>
+        <ShowAndDelete universeDelete={universeDelete}></ShowAndDelete>
 
       </div>
     </div>

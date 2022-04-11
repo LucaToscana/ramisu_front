@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { getAllCategories, getAllUniverses } from '../../../api/backend/filter';
+import { Field, Form, Formik } from "formik";
 
-const ShowAndDelete = () => {
+const ShowAndDelete = ({universeDelete}) => {
   // stock the items retrieved by the back in list
   const [universes, setUniverses] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -21,9 +22,19 @@ const ShowAndDelete = () => {
   // return a stylised button of each label type
   const listUniverses = universes.map(universe => {
     return (
-      <button className={styleListPannel} alt={universe.label} title={universe.label} key={"universe"+universe.id} onClick={() => console.log("universe"+universe.id)}>
-        <span> {universe.label} </span>
-      </button>
+      /*<Formik
+          initialValues={null}
+          validationSchema={null}
+          enableReinitialize
+          onSubmit={universeDelete}>
+        {({ value }) => (
+          <Form>*/
+            <button /*type="submit"*/ className={styleListPannel} alt={universe.label} title={universe.label} key={"universe"+universe.id} onClick={() => console.log("universe"+universe.id)}>
+              <span> {universe.label} </span>
+            </button>
+          /*</Form>
+        )}
+      </Formik>*/
     )
   });
   const listCategories = categories.map(categorie => {
