@@ -1,7 +1,8 @@
 import { Field, Form, Formik } from "formik";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import BackendWithToken from "../../../api/backend/api.BackendWithToken";
+import { getAllCategories, getAllUniverses } from "../../../api/backend/filter";
 import { schemaFormLabel } from "../../constants/formik-yup/yup/yupUser";
 import ShowAndDelete from "../pannel/ShowAndDelete";
 
@@ -14,6 +15,22 @@ import ShowAndDelete from "../pannel/ShowAndDelete";
  */
 
 const LabelPannel = ({showPannelLabel}) => {
+  // stock the items retrieved by the back in list
+  const [universes, setUniverses] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  // Recover data in back
+  const getAllLabels = () => {
+    getAllUniverses().then(responses => {
+        setUniverses(responses.data)})
+
+    getAllCategories().then(responses => {
+        setCategories(responses.data)})
+  };
+
+  useEffect(() => {
+    getAllLabels();
+  }, []);
 
   // Send label values in back for Categories
   const categorySubmit = (values) => {
@@ -26,6 +43,7 @@ const LabelPannel = ({showPannelLabel}) => {
       .post("commercial/addCategory", labelinfo)
       .then(() => {
         toast.success("Catégorie créer.");
+        getAllLabels();
       })
       .catch((e) => {
         console.log(e);
@@ -45,6 +63,7 @@ const LabelPannel = ({showPannelLabel}) => {
       .post("commercial/addUniverse", labelinfo)
       .then(() => {
         toast.success("Univers créer.");
+        getAllLabels();
       })
       .catch((e) => {
         console.log(e);
@@ -63,11 +82,28 @@ const LabelPannel = ({showPannelLabel}) => {
       .delete("commercial/deleteUniverse/"+value)
       .then(() => {
         toast.success("Univers supprimer.");
-        //useEffect();
+        getAllLabels();
       })
       .catch((e) => {
         console.log(e);
         toast.error("Univers non supprimer.")
+        return "error delete label";
+      });
+  }
+
+  // Delete label values in back for Universes 
+  const categorieDelete = (value) => {
+
+    // Send with Token to match route permission for Universes
+    BackendWithToken
+      .delete("commercial/deleteCategory/"+value)
+      .then(() => {
+        toast.success("Categorie supprimer.");
+        getAllLabels();
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.error("Categorie non supprimer.")
         return "error delete label";
       });
   }
@@ -123,7 +159,7 @@ const LabelPannel = ({showPannelLabel}) => {
             </Formik>
         </div>
 
-        <ShowAndDelete universeDelete={universeDelete}></ShowAndDelete>
+        <ShowAndDelete universeDelete={universeDelete} categorieDelete={categorieDelete} universes={universes} categories={categories} ></ShowAndDelete>
 
       </div>
     </div>

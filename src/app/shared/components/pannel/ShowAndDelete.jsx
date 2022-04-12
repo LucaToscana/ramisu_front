@@ -1,19 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { getAllCategories, getAllUniverses } from '../../../api/backend/filter';
+import React from "react";
 
-const ShowAndDelete = ({universeDelete}) => {
-  // stock the items retrieved by the back in list
-  const [universes, setUniverses] = useState([]);
-  const [categories, setCategories] = useState([]);
-
-  // Recover data in back
-  useEffect(() => {
-    getAllUniverses().then(responses => {
-        setUniverses(responses.data)})
-
-    getAllCategories().then(responses => {
-        setCategories(responses.data)})
-  }, []);
+const ShowAndDelete = ({universeDelete, categorieDelete, universes, categories}) => {
 
   // the style for all button
   const styleListPannel = "w-40 p-1 my-2 md:space-x-5 xl:space-x-10 bg-custom-orange border-2 border-gray-300 focus:bg-yellow-400 rounded-xl whitespace-nowrap overflow-hidden overflow-ellipsis";
@@ -21,14 +8,14 @@ const ShowAndDelete = ({universeDelete}) => {
   // return a stylised button of each label type
   const listUniverses = universes.map(universe => {
     return (
-      <button className={styleListPannel} alt={universe.label} title={universe.label} key={"universe"+universe.id} onClick={() => universeDelete(universe.id)}>
+      <button className={styleListPannel} alt={universe.label} title={universe.label} key={"universe"+universe.id} onClick={() => { universeDelete(universe.id); } }>
         <span> {universe.label} </span>
       </button>
     )
   });
   const listCategories = categories.map(categorie => {
     return (
-      <button className={styleListPannel} alt={categorie.label} title={categorie.label} key={"categorie"+categorie.id} onClick={() => console.log("categorie"+categorie.id)}>
+      <button className={styleListPannel} alt={categorie.label} title={categorie.label} key={"categorie"+categorie.id} onClick={() => categorieDelete(categorie.id)}>
         <span> {categorie.label} </span>
       </button>
     )
