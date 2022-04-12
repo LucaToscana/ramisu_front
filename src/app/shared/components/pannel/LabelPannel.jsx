@@ -1,5 +1,5 @@
 import { Field, Form, Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import { toast } from "react-toastify";
 import BackendWithToken from "../../../api/backend/api.BackendWithToken";
 import { schemaFormLabel } from "../../constants/formik-yup/yup/yupUser";
@@ -57,15 +57,13 @@ const LabelPannel = ({showPannelLabel}) => {
 
   // Delete label values in back for Universes 
   const universeDelete = (value) => {
-    const labelId = {
-      id: value || -1,
-    }
 
     // Send with Token to match route permission for Universes
     BackendWithToken
-      .post("commercial/deleteUniverse/"+value, labelId)
+      .delete("commercial/deleteUniverse/"+value)
       .then(() => {
         toast.success("Univers supprimer.");
+        //useEffect();
       })
       .catch((e) => {
         console.log(e);
