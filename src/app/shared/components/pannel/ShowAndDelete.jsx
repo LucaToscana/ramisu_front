@@ -8,14 +8,18 @@ const ShowAndDelete = ({universeDelete, categorieDelete, universes, categories})
   // return a stylised button of each label type
   const listUniverses = universes.map(universe => {
     return (
-      <button className={styleListPannel} alt={universe.label} title={universe.label} key={"universe"+universe.id} onClick={() => { universeDelete(universe.id); } }>
+      <button className={styleListPannel} alt={universe.label} title={universe.label} key={"universe"+universe.id} onClick={() => {
+        if (window.confirm("Vous êtes en train de supprimer un Univers : "+universe.label) === true) {universeDelete(universe.id)}
+      }}>
         <span> {universe.label} </span>
       </button>
     )
   });
   const listCategories = categories.map(categorie => {
     return (
-      <button className={styleListPannel} alt={categorie.label} title={categorie.label} key={"categorie"+categorie.id} onClick={() => categorieDelete(categorie.id)}>
+      <button className={styleListPannel} alt={categorie.label} title={categorie.label} key={"categorie"+categorie.id} onClick={() => {
+          if (window.confirm("Vous êtes en train de supprimer une Catégorie : "+categorie.label) === true) {categorieDelete(categorie.id)}
+        }}>
         <span> {categorie.label} </span>
       </button>
     )
