@@ -18,6 +18,7 @@ const LabelPannel = ({showPannelLabel}) => {
   // stock the items retrieved by the back in list
   const [universes, setUniverses] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [alreadyExist, setAlreadyExist] = useState(false);
 
   // Recover data in back
   const getAllLabels = () => {
@@ -34,42 +35,70 @@ const LabelPannel = ({showPannelLabel}) => {
 
   // Send label values in back for Categories
   const categorySubmit = (values) => {
+    setAlreadyExist(false);
+    values.label = (values.label).replaceAll(" ", "").toLowerCase();
     const labelinfo = {
       label: values.label || "defaultLabelName",
     }
 
-    // Send with Token to match route permission for Categories
-    BackendWithToken
-      .post("commercial/addCategory", labelinfo)
-      .then(() => {
-        toast.success("Catégorie créer.");
-        getAllLabels();
-      })
-      .catch((e) => {
-        console.log(e);
-        toast.error("Catégorie non créer.")
-        return "error post label";
-      });
+    // set alreadyExist true if find the same label in list of categories
+    categories.map(categorie => {
+      if (categorie.label == values.label) {
+        setAlreadyExist(true);
+      }
+    })
+
+    if (!alreadyExist) {
+      // Send with Token to match route permission for Categories
+      BackendWithToken
+        .post("commercial/addCategory", labelinfo)
+        .then(() => {
+          toast.success("Catégorie créer.");
+          getAllLabels();
+        })
+        .catch((e) => {
+          console.log(e);
+          toast.error("Catégorie non créer.")
+          return "error post label";
+        });
+      }
+      else {
+        toast.error("Catégorie déjà existante.")
+      }
   }
 
   // Send label values in back for Universes
   const universeSubmit = (values) => {
+    setAlreadyExist(false);
+    values.label = (values.label).replaceAll(" ", "").toLowerCase();
     const labelinfo = {
       label: values.label || "defaultLabelName",
     }
 
-    // Send with Token to match route permission for Universes
-    BackendWithToken
-      .post("commercial/addUniverse", labelinfo)
-      .then(() => {
-        toast.success("Univers créer.");
-        getAllLabels();
-      })
-      .catch((e) => {
-        console.log(e);
-        toast.error("Univers non créer.")
-        return "error post label";
-      });
+    // set alreadyExist true if find the same label in list of universes
+    universes.map(universe => {
+      if (universe.label == values.label) {
+        setAlreadyExist(true);
+      }
+    })
+
+    if (!alreadyExist) {
+      // Send with Token to match route permission for Universes
+      BackendWithToken
+        .post("commercial/addUniverse", labelinfo)
+        .then(() => {
+          toast.success("Univers créer.");
+          getAllLabels();
+        })
+        .catch((e) => {
+          console.log(e);
+          toast.error("Univers non créer.")
+          return "error post label";
+        });
+    }
+    else {
+      toast.error("Univers déjà existant.")
+    }
   }
   //Valeur par defaut des champs pour la Catégorie
   const defaultValuesLabel = { label: "" };
